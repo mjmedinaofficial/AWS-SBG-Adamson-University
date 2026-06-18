@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "aws-sbg-adamson-university",
+  "compatibility_date": "2026-06-18",
+  "observability": {
+    "enabled": true
+  },
+  "assets": {
+    "directory": "AWS SBG Adamson University"
+  },
+  "compatibility_flags": [
+    "nodejs_compat"
+  ]
+}
