@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <title>Join · AWS Student Builder Group · Adamson University</title>
+    <link rel="icon" type="image/png" href="img/awscatlogo.png" />
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/amazon-ember');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-gradient: linear-gradient(180deg, #2d1066 0%, #1a0a4a 28%, #0d0428 55%, #000000 85%);
+            --accent-gradient: linear-gradient(135deg, #ffffff 18%, #bbaffd 47%, #efdcf1 110%);
+            --glow-purple: rgba(187, 175, 253, 0.65);
+            --glow-deep: rgba(45, 16, 102, 0.5);
+            --glow-light: rgba(239, 220, 241, 0.45);
+            --page-padding: 10vw;
+            --apple-focus: rgba(10, 132, 255, 0.85);
+        }
+
+        body.custom-cursor-active, body.custom-cursor-active * { cursor: none !important; }
+        .custom-cursor-glow { position: fixed; top: 0; left: 0; width: 34px; height: 34px; pointer-events: none; z-index: 99998; border-radius: 50%; background: radial-gradient(circle, var(--glow-light) 0%, var(--glow-purple) 40%, var(--glow-deep) 62%, transparent 70%); filter: blur(6px); opacity: 0.8; transform: translate(-50%, -50%); will-change: left, top; }
+        .custom-cursor { position: fixed; top: 0; left: 0; width: 20px; height: 20px; pointer-events: none; z-index: 99999; background: url("img/cursor.png") center / contain no-repeat; transform: translate(-50%, -50%); will-change: left, top; }
+        @media (pointer: coarse), (max-width: 768px) { .custom-cursor, .custom-cursor-glow { display: none; } }
+
+        html { min-height: 100%; background: var(--bg-gradient); background-repeat: no-repeat; }
+        body { font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #ffffff; background: transparent; position: relative; min-height: 100vh; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        .sticker { position: fixed; bottom: 30px; right: 30px; width: 120px; height: auto; z-index: 999; animation: float 3s ease-in-out infinite; pointer-events: none; }
+
+        .top-bar { position: fixed; top: 20px; left: var(--page-padding); z-index: 9998; display: flex; align-items: center; gap: 10px; height: 44px; }
+        .top-bar-logo { width: 36px; height: 36px; border-radius: 8px; object-fit: contain; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3)); flex-shrink: 0; }
+        .top-bar-text { font-size: 15px; font-weight: 700; white-space: nowrap; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; letter-spacing: -0.2px; line-height: 1; }
+
+        .liquid-dock { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; display: flex; align-items: center; padding: 6px; background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.06) 100%); backdrop-filter: blur(35px) saturate(200%); -webkit-backdrop-filter: blur(35px) saturate(200%); border-radius: 100px; border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+        .dock-item { background: transparent; border: none; cursor: pointer; color: rgba(255,255,255,0.6); font-size: 15px; font-weight: 500; padding: 12px 22px; border-radius: 50px; display: inline-flex; justify-content: center; align-items: center; gap: 6px; white-space: nowrap; text-decoration: none; transition: color 0.3s ease, background 0.3s ease; position: relative; z-index: 20; }
+        .dock-item:hover { color: rgba(255,255,255,0.9); }
+        .dock-item.active { color: #ffffff; font-weight: 700; background: linear-gradient(135deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.05) 100%); box-shadow: inset 0 1px 1px rgba(255,255,255,0.2); }
+
+        .dock-item-wrap { position: relative; display: flex; align-items: center; }
+        .nav-caret { display: inline-flex; align-items: center; margin-left: 2px; opacity: 0.7; transition: transform 0.25s ease; }
+        .dock-item-wrap.open .nav-caret { transform: rotate(180deg); }
+        .nav-dropdown { position: absolute; top: calc(100% + 14px); left: 50%; transform: translateX(-50%) translateY(-8px) scale(0.96); transform-origin: top center; min-width: 240px; padding: 8px; background: linear-gradient(180deg, rgba(42,32,70,0.86) 0%, rgba(24,16,46,0.84) 100%); backdrop-filter: blur(34px) saturate(180%); -webkit-backdrop-filter: blur(34px) saturate(180%); border: 1px solid rgba(255,255,255,0.14); border-radius: 16px; box-shadow: 0 24px 50px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.12); opacity: 0; pointer-events: none; transition: opacity 0.22s ease, transform 0.22s cubic-bezier(0.25, 1, 0.5, 1); z-index: 40; }
+        .dock-item-wrap.open .nav-dropdown { opacity: 1; pointer-events: auto; transform: translateX(-50%) translateY(0) scale(1); }
+        .nav-dropdown::before { content: ''; position: absolute; top: -6px; left: 50%; transform: translateX(-50%) rotate(45deg); width: 12px; height: 12px; background: rgba(42,32,70,0.86); border-left: 1px solid rgba(255,255,255,0.14); border-top: 1px solid rgba(255,255,255,0.14); border-radius: 3px 0 0 0; }
+        .nav-dropdown-item { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 10px; color: rgba(255,255,255,0.85); font-size: 14px; font-weight: 500; text-decoration: none; cursor: pointer; white-space: nowrap; transition: background 0.18s ease, color 0.18s ease; }
+        .nav-dropdown-item:hover { background: rgba(187,175,253,0.18); color: #fff; }
+        .nav-dropdown-item.primary { background: rgba(187,175,253,0.16); color: #fff; font-weight: 700; }
+        .nav-dropdown-item.primary:hover { background: rgba(187,175,253,0.3); }
+        .nav-dropdown-divider { height: 1px; margin: 6px 8px; background: rgba(255,255,255,0.1); }
+
+        .join-page { position: relative; z-index: 1; padding: 130px var(--page-padding) 40px; }
+        .page-back { display: inline-flex; align-items: center; gap: 8px; color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; font-weight: 600; padding: 8px 18px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.06); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease; margin-bottom: 28px; }
+        .page-back:hover { background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.4); transform: translateY(-2px); }
+        .page-back .arrow { transition: transform 0.25s ease; }
+        .page-back:hover .arrow { transform: translateX(-4px); }
+
+        .join-hero { text-align: center; margin-bottom: 40px; animation: fadeInUp 0.8s ease-out both; }
+        .page-label { display: inline-block; font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 16px; padding: 6px 16px; background: rgba(255,255,255,0.06); border-radius: 100px; border: 1px solid rgba(255,255,255,0.1); }
+        .join-hero h1 { font-size: clamp(36px, 5.5vw, 58px); font-weight: 800; line-height: 1.04; margin-bottom: 16px; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .join-hero p { font-size: clamp(15px, 1.4vw, 17px); color: rgba(255,255,255,0.8); line-height: 1.7; max-width: 620px; margin: 0 auto; }
+
+        .jf-finder-wrap { max-width: 1160px; margin: 0 auto 48px; animation: fadeInUp 0.85s ease-out 0.15s both; }
+
+        @keyframes jfPulseGlow {
+            0%, 100% { box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05) inset, 0 0 20px rgba(187, 175, 253, 0.08); }
+            50% { box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05) inset, 0 0 40px rgba(187, 175, 253, 0.15); }
+        }
+
+        .jf-finder-window {
+            position: relative; width: 100%; border-radius: 12px;
+            background: rgba(28, 26, 42, 0.92);
+            backdrop-filter: blur(55px) saturate(180%);
+            -webkit-backdrop-filter: blur(55px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+            overflow: hidden;
+            animation: jfPulseGlow 4s ease-in-out infinite;
+            display: flex; flex-direction: column;
+        }
+
+        .jf-finder-titlebar { display: flex; align-items: center; padding: 10px 16px; background: rgba(40, 40, 45, 0.95); border-bottom: 1px solid rgba(255, 255, 255, 0.06); flex-shrink: 0; gap: 12px; min-height: 44px; }
+        .jf-finder-controls { display: flex; gap: 8px; flex-shrink: 0; }
+        .jf-finder-control { width: 13px; height: 13px; border-radius: 50%; border: 1px solid rgba(0, 0, 0, 0.15); }
+        .jf-finder-control.red { background: #ff5f57; border-color: #e04e47; }
+        .jf-finder-control.yellow { background: #ffbd2e; border-color: #e0a524; }
+        .jf-finder-control.green { background: #28c840; border-color: #1fa833; }
+        .jf-finder-title { flex: 1; text-align: center; font-size: 13px; font-weight: 600; color: rgba(255, 255, 255, 0.6); letter-spacing: 0.2px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+        .jf-finder-title-icon { display: inline-block; width: 16px; height: 16px; background: url("img/awscatlogo.png") center / contain no-repeat; vertical-align: middle; margin-right: 6px; filter: brightness(0.8); }
+
+        .jf-finder-body { display: flex; flex: 1; min-height: 0; background: rgba(20, 20, 25, 0.88); }
+
+        .jf-finder-sidebar { width: 180px; flex-shrink: 0; background: rgba(30, 30, 35, 0.9); border-right: 1px solid rgba(255, 255, 255, 0.05); padding: 12px 0; }
+        .jf-finder-sidebar-item { display: flex; align-items: center; gap: 10px; padding: 6px 12px; margin: 0 8px; border-radius: 6px; font-size: 13px; color: rgba(255, 255, 255, 0.6); font-weight: 500; white-space: nowrap; }
+        .jf-finder-sidebar-item.active { background: rgba(187, 175, 253, 0.15); color: #bbaffd; }
+        .jf-finder-sidebar-item .icon { width: 18px; height: 18px; background: url("img/folder.png") center / contain no-repeat; flex-shrink: 0; }
+        .jf-finder-sidebar-divider { height: 1px; background: rgba(255, 255, 255, 0.05); margin: 8px 16px; }
+        .jf-finder-sidebar-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: rgba(255, 255, 255, 0.25); padding: 8px 16px 4px; }
+
+        .jf-finder-main { flex: 1; padding: 28px 32px 32px; overflow-y: auto; min-width: 0; }
+        .jf-finder-main::-webkit-scrollbar { width: 3px; }
+        .jf-finder-main::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.12); border-radius: 2px; }
+
+        .jf-form-intro { font-size: 13px; line-height: 1.65; color: rgba(255, 255, 255, 0.55); margin-bottom: 22px; max-width: 520px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+
+        /* Apple-style grouped form */
+        .jf-form-section-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.38);
+            margin: 0 0 8px 4px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .jf-form-group {
+            background: rgba(255, 255, 255, 0.045);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 22px;
+        }
+
+        .jf-form-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            min-height: 44px;
+            padding: 0 14px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .jf-form-row:last-child { border-bottom: none; }
+
+        .jf-form-row label {
+            flex-shrink: 0;
+            width: 132px;
+            font-size: 13px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.88);
+            letter-spacing: -0.01em;
+        }
+
+        .jf-form-row input,
+        .jf-form-row select {
+            flex: 1;
+            min-width: 0;
+            height: 44px;
+            border: none;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.92);
+            font-size: 13px;
+            font-family: inherit;
+            outline: none;
+            text-align: right;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        .jf-form-row select {
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='rgba(255,255,255,0.45)' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right center;
+            padding-right: 18px;
+        }
+
+        .jf-form-row select option { background: #1c1c1e; color: #fff; }
+
+        .jf-form-row input::placeholder { color: rgba(255, 255, 255, 0.28); }
+
+        .jf-form-row:focus-within {
+            background: rgba(10, 132, 255, 0.06);
+            box-shadow: inset 0 0 0 1px rgba(10, 132, 255, 0.35);
+        }
+
+        .jf-form-row:focus-within label { color: #fff; }
+
+        .jf-form-row input:focus,
+        .jf-form-row select:focus {
+            box-shadow: none;
+        }
+
+        .jf-form-note {
+            font-size: 11px;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.35);
+            margin: -12px 0 22px 4px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .jf-form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            padding-top: 4px;
+        }
+
+        .jf-btn-secondary {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.75);
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 9px 18px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .jf-btn-secondary:hover { background: rgba(255, 255, 255, 0.1); }
+
+        .jf-btn-primary {
+            font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: #fff;
+            background: #f29b3c;
+            border: 1px solid rgba(242, 155, 60, 0.6);
+            border-radius: 8px;
+            padding: 9px 22px;
+            cursor: pointer;
+            box-shadow: 0 6px 16px rgba(242, 155, 60, 0.28);
+            transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .jf-btn-primary:hover {
+            background: #f7ad58;
+            transform: translateY(-1px);
+            box-shadow: 0 0 20px rgba(242, 155, 60, 0.45);
+        }
+
+        .jf-finder-footer {
+            position: relative; z-index: 3; padding: 8px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex; justify-content: space-between; align-items: center; flex-shrink: 0;
+            font-size: 11px; color: rgba(255, 255, 255, 0.45);
+            background: #000000; min-height: 32px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .jf-finder-footer > span { display: flex; align-items: center; gap: 6px; }
+        .jf-finder-footer-items { display: flex; gap: 20px; }
+        .jf-finder-footer-items span { display: flex; align-items: center; gap: 4px; }
+
+        .site-footer { width: 100%; padding: 0; display: flex; flex-direction: column; align-items: stretch; position: relative; z-index: 2; isolation: isolate; }
+        .site-footer-card { position: relative; width: 100%; background: #000000; border-top: 1px solid rgba(255, 255, 255, 0.1); box-shadow: none; }
+        .site-footer-card::before { display: none; }
+        .site-footer-main { position: relative; z-index: 1; width: 100%; max-width: 1200px; margin: 0 auto; padding: 48px 10vw 32px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 18px; }
+        .site-footer-logo-row { display: flex; align-items: center; gap: 16px; }
+        .site-footer-logo { width: 56px; height: 56px; border-radius: 12px; object-fit: contain; filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4)); flex-shrink: 0; }
+        .site-footer-titles { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.15; }
+        .site-footer-title { font-size: 22px; font-weight: 800; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .site-footer-subtitle { font-size: 14px; font-weight: 600; color: rgba(255, 255, 255, 0.65); letter-spacing: 0.5px; }
+        .site-footer-desc { max-width: 540px; margin: 0; font-size: 15px; line-height: 1.7; color: rgba(255, 255, 255, 0.8); }
+        .site-footer-socials { display: flex; gap: 14px; margin-top: 4px; }
+        .site-footer-social { width: 46px; height: 46px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: #fff; background: #f29b3c; border: 1px solid rgba(242, 155, 60, 0.6); box-shadow: 0 6px 18px rgba(242, 155, 60, 0.3); transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease; text-decoration: none; }
+        .site-footer-social:hover { transform: translateY(-3px); background: #f7ad58; box-shadow: 0 0 22px rgba(242, 155, 60, 0.55); }
+        .site-footer-social svg { width: 20px; height: 20px; display: block; }
+        .site-footer-bottom { position: relative; z-index: 1; padding: 16px 10vw 20px; text-align: center; font-size: 10px; letter-spacing: 0.2px; color: rgba(255, 255, 255, 0.55); background: #000000; }
+
+        @media (max-width: 768px) {
+            :root { --page-padding: 5vw; }
+            .top-bar { top: 12px; } .top-bar-text { display: none; }
+            .liquid-dock { top: 12px; padding: 4px; }
+            .dock-item { font-size: 13px; padding: 9px 14px; }
+            .join-page { padding: 100px 5vw 30px; }
+            .jf-finder-sidebar { display: none; }
+            .jf-finder-main { padding: 20px 16px 24px; }
+            .jf-form-row { flex-direction: column; align-items: stretch; gap: 4px; min-height: auto; padding: 12px 14px; }
+            .jf-form-row label { width: auto; font-size: 12px; color: rgba(255, 255, 255, 0.5); }
+            .jf-form-row input, .jf-form-row select { height: 36px; text-align: left; }
+            .jf-form-actions { flex-direction: column; }
+            .jf-btn-secondary, .jf-btn-primary { width: 100%; text-align: center; }
+            .jf-finder-footer { flex-direction: column; gap: 4px; padding: 8px 16px; font-size: 10px; }
+            .jf-finder-footer-items { flex-wrap: wrap; justify-content: center; gap: 12px; }
+            .sticker { width: 80px; bottom: 16px; right: 16px; }
+            .site-footer-main { padding: 36px 5vw 28px; }
+            .site-footer-logo-row { flex-direction: column; gap: 10px; }
+            .site-footer-titles { align-items: center; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="custom-cursor-glow" id="custom-cursor-glow" aria-hidden="true"></div>
+    <div class="custom-cursor" id="custom-cursor" aria-hidden="true"></div>
+
+    <div class="top-bar">
+        <img src="img/awscatlogo.png" alt="AWS Cat Logo" class="top-bar-logo" />
+        <span class="top-bar-text">AWS Student Builder Group · Adamson University</span>
+    </div>
+
+    <nav class="liquid-dock">
+        <div class="dock-item-wrap" id="about-wrap">
+            <button class="dock-item" type="button" aria-haspopup="true" aria-expanded="false" data-dropdown-trigger>
+                About Us
+                <span class="nav-caret" aria-hidden="true">
+                    <svg viewBox="0 0 10 6" width="10" height="6"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+            </button>
+            <div class="nav-dropdown" role="menu" aria-label="About menu">
+                <a class="nav-dropdown-item" href="index.html" role="menuitem">About Overview</a>
+                <div class="nav-dropdown-divider"></div>
+                <a class="nav-dropdown-item" href="org-history.html" role="menuitem">Org History</a>
+                <a class="nav-dropdown-item" href="officers.html" role="menuitem">Officers</a>
+                <a class="nav-dropdown-item" href="sbg.html" role="menuitem">SBG</a>
+            </div>
+        </div>
+        <div class="dock-item-wrap" id="workshops-wrap">
+            <button class="dock-item" type="button" aria-haspopup="true" aria-expanded="false" data-dropdown-trigger>
+                Workshops
+                <span class="nav-caret" aria-hidden="true">
+                    <svg viewBox="0 0 10 6" width="10" height="6"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+            </button>
+            <div class="nav-dropdown" role="menu" aria-label="Workshops menu">
+                <a class="nav-dropdown-item" href="index.html#workshops" role="menuitem">Workshops Overview</a>
+                <div class="nav-dropdown-divider"></div>
+                <a class="nav-dropdown-item" href="events.html" role="menuitem">View All Events</a>
+            </div>
+        </div>
+        <div class="dock-item-wrap" id="join-wrap">
+            <button class="dock-item active" type="button" aria-haspopup="true" aria-expanded="false" data-dropdown-trigger>
+                Join Us
+                <span class="nav-caret" aria-hidden="true">
+                    <svg viewBox="0 0 10 6" width="10" height="6"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+            </button>
+            <div class="nav-dropdown" role="menu" aria-label="Join menu">
+                <a class="nav-dropdown-item" href="index.html#join" role="menuitem">Join Overview</a>
+                <div class="nav-dropdown-divider"></div>
+                <a class="nav-dropdown-item primary" href="join.html" role="menuitem">Fill a Form</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="join-page">
+        <a class="page-back" href="index.html#join">
+            <span class="arrow">←</span>
+            Back to Home
+        </a>
+
+        <header class="join-hero">
+            <span class="page-label">Membership</span>
+            <h1>Join AWS SBG AdU</h1>
+            <p>Fill out the application below to become part of Adamson University's AWS Student Builder Group. We'll reach out via your Adamson email.</p>
+        </header>
+
+        <div class="jf-finder-wrap">
+            <div class="jf-finder-window">
+                <div class="jf-finder-titlebar">
+                    <div class="jf-finder-controls">
+                        <span class="jf-finder-control red" aria-hidden="true"></span>
+                        <span class="jf-finder-control yellow" aria-hidden="true"></span>
+                        <span class="jf-finder-control green" aria-hidden="true"></span>
+                    </div>
+                    <div class="jf-finder-title">
+                        <span class="jf-finder-title-icon" aria-hidden="true"></span>
+                        AWS SBG AdU · Membership Application
+                    </div>
+                    <div style="width:52px;" aria-hidden="true"></div>
+                </div>
+
+                <div class="jf-finder-body">
+                    <aside class="jf-finder-sidebar" aria-label="Form sections">
+                        <div class="jf-finder-sidebar-item active">
+                            <span class="icon" aria-hidden="true"></span> Application
+                        </div>
+                        <div class="jf-finder-sidebar-item">
+                            <span class="icon" aria-hidden="true"></span> Personal Info
+                        </div>
+                        <div class="jf-finder-sidebar-divider"></div>
+                        <div class="jf-finder-sidebar-label">Sections</div>
+                        <div class="jf-finder-sidebar-item">
+                            <span class="icon" aria-hidden="true"></span> Academic
+                        </div>
+                        <div class="jf-finder-sidebar-item">
+                            <span class="icon" aria-hidden="true"></span> Contact
+                        </div>
+                    </aside>
+
+                    <div class="jf-finder-main">
+                        <p class="jf-form-intro">Complete all fields to submit your membership application. Use your official Adamson University email address.</p>
+
+                        <form id="join-form" action="#" method="post" novalidate>
+                            <p class="jf-form-section-label">Personal Information</p>
+                            <div class="jf-form-group">
+                                <div class="jf-form-row">
+                                    <label for="first-name">First Name</label>
+                                    <input type="text" id="first-name" name="firstName" autocomplete="given-name" placeholder="Required" required />
+                                </div>
+                                <div class="jf-form-row">
+                                    <label for="middle-name">Middle Name</label>
+                                    <input type="text" id="middle-name" name="middleName" autocomplete="additional-name" placeholder="Optional" />
+                                </div>
+                                <div class="jf-form-row">
+                                    <label for="last-name">Last Name</label>
+                                    <input type="text" id="last-name" name="lastName" autocomplete="family-name" placeholder="Required" required />
+                                </div>
+                            </div>
+
+                            <p class="jf-form-section-label">Academic Details</p>
+                            <div class="jf-form-group">
+                                <div class="jf-form-row">
+                                    <label for="course">Course</label>
+                                    <input type="text" id="course" name="course" placeholder="e.g. BS Computer Science" required />
+                                </div>
+                                <div class="jf-form-row">
+                                    <label for="year">Year Level</label>
+                                    <select id="year" name="year" required>
+                                        <option value="" disabled selected>Select year</option>
+                                        <option value="1">1st Year</option>
+                                        <option value="2">2nd Year</option>
+                                        <option value="3">3rd Year</option>
+                                        <option value="4">4th Year</option>
+                                        <option value="5">5th Year</option>
+                                        <option value="grad">Graduate</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <p class="jf-form-section-label">Contact</p>
+                            <div class="jf-form-group">
+                                <div class="jf-form-row">
+                                    <label for="email">Adamson Email</label>
+                                    <input type="email" id="email" name="email" autocomplete="email" placeholder="name@adamson.edu.ph" required />
+                                </div>
+                            </div>
+                            <p class="jf-form-note">Your application will be reviewed by the AWS SBG AdU core team. You'll receive a confirmation at the email provided.</p>
+
+                            <div class="jf-form-actions">
+                                <button type="reset" class="jf-btn-secondary">Clear Form</button>
+                                <button type="submit" class="jf-btn-primary">Submit Application</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="jf-finder-footer">
+                    <span><span class="jf-finder-title-icon" aria-hidden="true"></span>Adamson University · AWS Student Builder Group</span>
+                    <div class="jf-finder-footer-items">
+                        <span>📝 Membership</span>
+                        <span>🔒 Secure form</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer" aria-label="Site footer">
+        <div class="site-footer-card">
+            <div class="site-footer-main">
+                <div class="site-footer-logo-row">
+                    <img src="img/awscatlogo.png" alt="AWS Cat Logo" class="site-footer-logo" />
+                    <div class="site-footer-titles">
+                        <span class="site-footer-title">AWS Student Builder Group</span>
+                        <span class="site-footer-subtitle">Adamson University</span>
+                    </div>
+                </div>
+                <p class="site-footer-desc">
+                    A student-led community dedicated to making cloud computing and AWS knowledge accessible.
+                    "By the students, for the students, and with the students."
+                </p>
+                <div class="site-footer-socials">
+                    <a class="site-footer-social" href="#" aria-label="Facebook" title="Facebook">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.9h2.54V9.85c0-2.51 1.49-3.9 3.78-3.9 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.9h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94z"/></svg>
+                    </a>
+                    <a class="site-footer-social" href="#" aria-label="Instagram" title="Instagram">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.2" fill="currentColor" stroke="none"/></svg>
+                    </a>
+                    <a class="site-footer-social" href="#" aria-label="LinkedIn" title="LinkedIn">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3zM9 9h3.8v1.64h.05c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.3c0-1.26-.02-2.9-1.77-2.9-1.77 0-2.04 1.38-2.04 2.8V21H9z"/></svg>
+                    </a>
+                    <a class="site-footer-social" href="mailto:awssbg@adamson.edu.ph" aria-label="Email" title="Email">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="M3 6l9 6.5L21 6"/></svg>
+                    </a>
+                </div>
+            </div>
+            <div class="site-footer-bottom">
+                © 2026 AWS Student Builder Group · Adamson University. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <img src="img/awscat1.png" alt="AWS Cat Sticker" class="sticker" />
+
+    <script>
+        (function () {
+            const customCursor = document.getElementById('custom-cursor');
+            const customCursorGlow = document.getElementById('custom-cursor-glow');
+            if (customCursor && customCursorGlow && window.matchMedia('(pointer: fine)').matches) {
+                document.body.classList.add('custom-cursor-active');
+                document.addEventListener('mousemove', (e) => {
+                    customCursor.style.left = `${e.clientX}px`;
+                    customCursor.style.top = `${e.clientY}px`;
+                    customCursorGlow.style.left = `${e.clientX}px`;
+                    customCursorGlow.style.top = `${e.clientY}px`;
+                });
+                document.addEventListener('mouseleave', () => { customCursor.style.opacity = '0'; customCursorGlow.style.opacity = '0'; });
+                document.addEventListener('mouseenter', () => { customCursor.style.opacity = '1'; customCursorGlow.style.opacity = '0.8'; });
+            }
+
+            function wireDropdown(wrap) {
+                if (!wrap) return;
+                const trigger = wrap.querySelector('[data-dropdown-trigger]');
+                let hoverTimer;
+                const openMenu = () => { clearTimeout(hoverTimer); wrap.classList.add('open'); if (trigger) trigger.setAttribute('aria-expanded', 'true'); };
+                const closeMenu = () => { wrap.classList.remove('open'); if (trigger) trigger.setAttribute('aria-expanded', 'false'); };
+                wrap.addEventListener('mouseenter', openMenu);
+                wrap.addEventListener('mouseleave', () => { hoverTimer = setTimeout(closeMenu, 130); });
+                if (trigger) {
+                    trigger.addEventListener('click', (e) => { e.stopPropagation(); wrap.classList.contains('open') ? closeMenu() : openMenu(); });
+                }
+                document.addEventListener('click', (e) => { if (!wrap.contains(e.target)) closeMenu(); });
+            }
+            wireDropdown(document.getElementById('about-wrap'));
+            wireDropdown(document.getElementById('workshops-wrap'));
+            wireDropdown(document.getElementById('join-wrap'));
+
+            const form = document.getElementById('join-form');
+            if (form) {
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    if (!form.checkValidity()) {
+                        form.reportValidity();
+                        return;
+                    }
+                    alert('Application submitted! We\'ll contact you at your Adamson email soon.');
+                    form.reset();
+                });
+            }
+        })();
+    </script>
+</body>
+</html>

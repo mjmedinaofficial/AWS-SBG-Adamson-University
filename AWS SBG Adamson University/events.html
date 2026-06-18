@@ -1,0 +1,1680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <title>All Events · AWS Student Builder Group · Adamson University</title>
+    <link rel="icon" type="image/png" href="img/awscatlogo.png" />
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/amazon-ember');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-gradient: linear-gradient(180deg, #2d1066 0%, #1a0a4a 28%, #0d0428 55%, #000000 85%);
+            --accent-gradient: linear-gradient(135deg, #ffffff 18%, #bbaffd 47%, #efdcf1 110%);
+            --glow-purple: rgba(187, 175, 253, 0.65);
+            --glow-deep: rgba(45, 16, 102, 0.5);
+            --glow-light: rgba(239, 220, 241, 0.45);
+            --page-padding: 10vw;
+        }
+
+        /* ---------- CUSTOM CURSOR ---------- */
+        body.custom-cursor-active,
+        body.custom-cursor-active * {
+            cursor: none !important;
+        }
+
+        .custom-cursor-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 34px;
+            height: 34px;
+            pointer-events: none;
+            z-index: 99998;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--glow-light) 0%, var(--glow-purple) 40%, var(--glow-deep) 62%, transparent 70%);
+            filter: blur(6px);
+            opacity: 0.8;
+            transform: translate(-50%, -50%);
+            will-change: left, top;
+        }
+
+        .custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            pointer-events: none;
+            z-index: 99999;
+            background: url("img/cursor.png") center / contain no-repeat;
+            transform: translate(-50%, -50%);
+            will-change: left, top;
+        }
+
+        @media (pointer: coarse), (max-width: 768px) {
+            .custom-cursor,
+            .custom-cursor-glow {
+                display: none;
+            }
+        }
+
+        /* ---------- BASE ---------- */
+        html {
+            min-height: 100%;
+            background: var(--bg-gradient);
+            background-repeat: no-repeat;
+        }
+
+        body {
+            font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: #ffffff;
+            background: transparent;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("img/awsrepetitive.png");
+            background-repeat: repeat;
+            background-size: 840px auto;
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 0;
+            animation: patternShift 28s linear infinite;
+        }
+
+        body::after {
+            display: none;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes patternShift {
+            0% { background-position: 0 0; }
+            100% { background-position: 840px 840px; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ---------- TOP BAR ---------- */
+        .top-bar {
+            position: fixed;
+            top: 20px;
+            left: var(--page-padding);
+            z-index: 9998;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            height: 44px;
+        }
+
+        .top-bar-logo {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+            flex-shrink: 0;
+        }
+
+        .top-bar-text {
+            font-size: 15px;
+            font-weight: 700;
+            white-space: nowrap;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.2px;
+            line-height: 1;
+        }
+
+        /* ---------- NAVIGATION DOCK ---------- */
+        .liquid-dock {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            padding: 6px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.06) 100%);
+            backdrop-filter: blur(35px) saturate(200%);
+            -webkit-backdrop-filter: blur(35px) saturate(200%);
+            border-radius: 100px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .dock-item {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 15px;
+            font-weight: 500;
+            padding: 12px 22px;
+            border-radius: 50px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+            text-decoration: none;
+            transition: color 0.3s ease, background 0.3s ease;
+            position: relative;
+            z-index: 20;
+        }
+
+        .dock-item:hover {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .dock-item.active {
+            color: #ffffff;
+            font-weight: 700;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.05) 100%);
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.2);
+        }
+
+        /* ---------- NAV DROPDOWN (macOS / iOS style) ---------- */
+        .dock-item-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-caret {
+            display: inline-flex;
+            align-items: center;
+            margin-left: 2px;
+            opacity: 0.7;
+            transition: transform 0.25s ease;
+        }
+
+        .dock-item-wrap.open .nav-caret {
+            transform: rotate(180deg);
+        }
+
+        .nav-dropdown {
+            position: absolute;
+            top: calc(100% + 14px);
+            left: 50%;
+            transform: translateX(-50%) translateY(-8px) scale(0.96);
+            transform-origin: top center;
+            min-width: 240px;
+            padding: 8px;
+            background: linear-gradient(180deg, rgba(42, 32, 70, 0.86) 0%, rgba(24, 16, 46, 0.84) 100%);
+            backdrop-filter: blur(34px) saturate(180%);
+            -webkit-backdrop-filter: blur(34px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 16px;
+            box-shadow: 0 24px 50px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.12);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.22s ease, transform 0.22s cubic-bezier(0.25, 1, 0.5, 1);
+            z-index: 40;
+        }
+
+        .dock-item-wrap.open .nav-dropdown {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateX(-50%) translateY(0) scale(1);
+        }
+
+        .nav-dropdown::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: 50%;
+            transform: translateX(-50%) rotate(45deg);
+            width: 12px;
+            height: 12px;
+            background: rgba(42, 32, 70, 0.86);
+            border-left: 1px solid rgba(255, 255, 255, 0.14);
+            border-top: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 3px 0 0 0;
+        }
+
+        .nav-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background 0.18s ease, color 0.18s ease;
+        }
+
+        .nav-dropdown-item:hover {
+            background: rgba(187, 175, 253, 0.18);
+            color: #ffffff;
+        }
+
+        .nav-dropdown-item.primary {
+            background: rgba(187, 175, 253, 0.16);
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .nav-dropdown-item.primary:hover {
+            background: rgba(187, 175, 253, 0.3);
+        }
+
+        .nav-dropdown-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            background: url("img/folder.png") center / contain no-repeat;
+        }
+
+        .nav-dropdown-divider {
+            height: 1px;
+            margin: 6px 8px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* ---------- PAGE CONTENT ---------- */
+        .events-page {
+            position: relative;
+            z-index: 1;
+            padding: 130px var(--page-padding) 90px;
+        }
+
+        .events-header {
+            text-align: center;
+            margin-bottom: 48px;
+            animation: fadeInUp 0.8s ease-out both;
+        }
+
+        .events-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 8px 18px;
+            border-radius: 100px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+            margin-bottom: 26px;
+        }
+
+        .events-back:hover {
+            background: rgba(255, 255, 255, 0.14);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .events-back .arrow {
+            transition: transform 0.25s ease;
+        }
+
+        .events-back:hover .arrow {
+            transform: translateX(-4px);
+        }
+
+        .events-label {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 14px;
+            padding: 6px 16px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 100px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .events-header h1 {
+            font-size: clamp(34px, 5vw, 56px);
+            font-weight: 800;
+            line-height: 1.05;
+            margin-bottom: 14px;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .events-header .events-subtitle {
+            font-size: clamp(14px, 1.4vw, 17px);
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            max-width: 620px;
+            margin: 0 auto;
+        }
+
+        /* ---------- EVENT STATS STRIP ---------- */
+        .ev-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin: 0 auto 48px;
+            max-width: 760px;
+            animation: fadeInUp 0.8s ease-out 0.15s both;
+        }
+
+        .ev-stat {
+            text-align: center;
+            padding: 24px 18px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #1a0a4a 0%, #0d0428 55%, #08031a 100%);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-top: 1px solid rgba(255, 255, 255, 0.22);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .ev-stat:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 28px 55px rgba(0, 0, 0, 0.52), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.28);
+            background: linear-gradient(135deg, #221060 0%, #0f0530 55%, #0a0420 100%);
+        }
+
+        .ev-stat-num {
+            font-size: clamp(28px, 4vw, 42px);
+            font-weight: 900;
+            line-height: 1;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .ev-stat-label {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.72);
+            margin-top: 8px;
+            letter-spacing: 0.4px;
+        }
+
+        /* ---------- FINDER WINDOW ---------- */
+        .ev-finder-wrap {
+            max-width: 1160px;
+            margin: 0 auto;
+            animation: fadeInUp 0.85s ease-out 0.25s both;
+        }
+
+        @keyframes evPulseGlow {
+            0%, 100% { box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05) inset, 0 0 20px rgba(187, 175, 253, 0.08); }
+            50% { box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05) inset, 0 0 40px rgba(242, 155, 60, 0.12); }
+        }
+
+        .ev-finder-window {
+            position: relative;
+            width: 100%;
+            border-radius: 12px;
+            background: rgba(28, 26, 42, 0.92);
+            backdrop-filter: blur(55px) saturate(180%);
+            -webkit-backdrop-filter: blur(55px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+            overflow: hidden;
+            animation: evPulseGlow 4s ease-in-out infinite;
+            display: flex;
+            flex-direction: column;
+            min-height: 520px;
+        }
+
+        .ev-finder-titlebar {
+            display: flex;
+            align-items: center;
+            padding: 10px 16px;
+            background: rgba(40, 40, 45, 0.95);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            flex-shrink: 0;
+            gap: 12px;
+            min-height: 44px;
+        }
+
+        .ev-finder-controls { display: flex; gap: 8px; flex-shrink: 0; }
+
+        .ev-finder-control {
+            width: 13px; height: 13px; border-radius: 50%;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+        }
+
+        .ev-finder-control.red { background: #ff5f57; border-color: #e04e47; }
+        .ev-finder-control.yellow { background: #ffbd2e; border-color: #e0a524; }
+        .ev-finder-control.green { background: #28c840; border-color: #1fa833; }
+
+        .ev-finder-title {
+            flex: 1;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.6);
+            letter-spacing: 0.2px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .ev-finder-title-icon {
+            display: inline-block;
+            width: 16px; height: 16px;
+            background: url("img/awscatlogo.png") center / contain no-repeat;
+            vertical-align: middle;
+            margin-right: 6px;
+            filter: brightness(0.8);
+        }
+
+        .ev-finder-body {
+            display: flex;
+            flex: 1;
+            min-height: 0;
+            background: rgba(20, 20, 25, 0.88);
+        }
+
+        .ev-finder-sidebar {
+            width: 180px;
+            flex-shrink: 0;
+            background: rgba(30, 30, 35, 0.9);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 12px 0;
+        }
+
+        .ev-finder-sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 12px;
+            margin: 0 8px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 500;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: background 0.15s ease, color 0.15s ease;
+            border: none;
+            background: transparent;
+            width: calc(100% - 16px);
+            text-align: left;
+            font-family: inherit;
+        }
+
+        .ev-finder-sidebar-item:hover {
+            background: rgba(255, 255, 255, 0.06);
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .ev-finder-sidebar-item.active {
+            background: rgba(187, 175, 253, 0.15);
+            color: #bbaffd;
+        }
+
+        .ev-finder-sidebar-item .icon {
+            width: 18px; height: 18px;
+            background: url("img/folder.png") center / contain no-repeat;
+            flex-shrink: 0;
+        }
+
+        .ev-finder-sidebar-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.05);
+            margin: 8px 16px;
+        }
+
+        .ev-finder-sidebar-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: rgba(255, 255, 255, 0.25);
+            padding: 8px 16px 4px;
+        }
+
+        .ev-finder-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            min-height: 0;
+        }
+
+        .ev-finder-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 10px 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(25, 25, 30, 0.88);
+            flex-shrink: 0;
+            flex-wrap: wrap;
+        }
+
+        .ev-finder-toolbar-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.35);
+        }
+
+        .ev-filter-chips {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .ev-filter-chip {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 100px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.04);
+            color: rgba(255, 255, 255, 0.55);
+            cursor: pointer;
+            transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+            font-family: inherit;
+        }
+
+        .ev-filter-chip:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .ev-filter-chip.active {
+            background: rgba(242, 155, 60, 0.15);
+            border-color: rgba(242, 155, 60, 0.4);
+            color: #f7ad58;
+        }
+
+        .ev-month-strip {
+            display: flex;
+            gap: 4px;
+            padding: 10px 16px 0;
+            overflow-x: auto;
+            flex-shrink: 0;
+        }
+
+        .ev-month-strip::-webkit-scrollbar { height: 0; }
+
+        .ev-month-tab {
+            flex-shrink: 0;
+            padding: 6px 14px 10px;
+            border: none;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.45);
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: color 0.2s ease, border-color 0.2s ease;
+            font-family: inherit;
+            position: relative;
+        }
+
+        .ev-month-tab.has-events::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: #f29b3c;
+        }
+
+        .ev-month-tab.active {
+            color: #fff;
+            border-bottom-color: #f29b3c;
+        }
+
+        .ev-month-tab:hover:not(.active) {
+            color: rgba(255, 255, 255, 0.75);
+        }
+
+        .ev-split {
+            display: grid;
+            grid-template-columns: minmax(220px, 280px) 1fr;
+            flex: 1;
+            min-height: 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .ev-list-panel {
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            overflow-y: auto;
+            background: rgba(18, 18, 22, 0.85);
+        }
+
+        .ev-list-panel::-webkit-scrollbar { width: 3px; }
+        .ev-list-panel::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 2px;
+        }
+
+        .ev-list-header {
+            padding: 8px 14px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.28);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            position: sticky;
+            top: 0;
+            background: rgba(18, 18, 22, 0.96);
+            backdrop-filter: blur(8px);
+            z-index: 2;
+        }
+
+        .ev-list-row {
+            display: grid;
+            grid-template-columns: 46px 1fr auto;
+            gap: 10px;
+            align-items: center;
+            width: 100%;
+            padding: 10px 12px;
+            border: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            background: transparent;
+            cursor: pointer;
+            text-align: left;
+            font-family: inherit;
+            transition: background 0.15s ease;
+        }
+
+        .ev-list-row:hover {
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .ev-list-row.selected {
+            background: rgba(187, 175, 253, 0.12);
+            box-shadow: inset 3px 0 0 #f29b3c;
+        }
+
+        .ev-list-date {
+            text-align: center;
+            padding: 4px 0;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .ev-list-date-month {
+            display: block;
+            font-size: 9px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .ev-list-date-day {
+            display: block;
+            font-size: 18px;
+            font-weight: 900;
+            color: #fff;
+            line-height: 1.1;
+        }
+
+        .ev-list-info h3 {
+            font-size: 12.5px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.3;
+            margin-bottom: 3px;
+        }
+
+        .ev-list-info span {
+            font-size: 10.5px;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .ev-list-badge {
+            font-size: 9px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 100px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            white-space: nowrap;
+        }
+
+        .ev-list-badge.upcoming {
+            background: rgba(40, 200, 64, 0.15);
+            color: #5de878;
+            border: 1px solid rgba(40, 200, 64, 0.3);
+        }
+
+        .ev-list-badge.featured {
+            background: rgba(242, 155, 60, 0.15);
+            color: #f7ad58;
+            border: 1px solid rgba(242, 155, 60, 0.35);
+        }
+
+        .ev-list-badge.past {
+            background: rgba(255, 255, 255, 0.06);
+            color: rgba(255, 255, 255, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .ev-list-empty {
+            padding: 32px 16px;
+            text-align: center;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.35);
+        }
+
+        .ev-preview-panel {
+            overflow-y: auto;
+            padding: 20px 22px 24px;
+            position: relative;
+        }
+
+        .ev-preview-panel::-webkit-scrollbar { width: 3px; }
+        .ev-preview-panel::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 2px;
+        }
+
+        .ev-preview-hero {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            min-height: 160px;
+            background-size: cover;
+            background-position: center;
+            margin-bottom: 18px;
+        }
+
+        .ev-preview-hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(13, 4, 40, 0.1) 0%, rgba(13, 4, 40, 0.75) 100%);
+        }
+
+        .ev-preview-hero-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            z-index: 2;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 100px;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .ev-preview-hero-date {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            z-index: 2;
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+        }
+
+        .ev-preview-hero-date .day {
+            font-size: 32px;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        .ev-preview-hero-date .month-year {
+            font-size: 13px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.75);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .ev-preview-title {
+            font-size: clamp(18px, 2vw, 24px);
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 10px;
+            color: rgba(255, 255, 255, 0.96);
+        }
+
+        .ev-preview-desc {
+            font-size: 14px;
+            line-height: 1.65;
+            color: rgba(255, 255, 255, 0.68);
+            margin-bottom: 16px;
+        }
+
+        .ev-preview-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.55);
+        }
+
+        .ev-preview-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #5a4494, #b897d4);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 800;
+            flex-shrink: 0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .ev-preview-meta strong {
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 700;
+        }
+
+        .ev-preview-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .ev-preview-tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .ev-tag {
+            font-size: 10px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.65);
+            padding: 4px 10px;
+            border-radius: 100px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .ev-register-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Amazon Ember', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 22px;
+            border-radius: 100px;
+            background: #f29b3c;
+            border: 1px solid rgba(242, 155, 60, 0.6);
+            box-shadow: 0 6px 16px rgba(242, 155, 60, 0.28);
+            cursor: pointer;
+            transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .ev-register-btn:hover {
+            background: #f7ad58;
+            transform: translateY(-2px);
+            box-shadow: 0 0 22px rgba(242, 155, 60, 0.5);
+        }
+
+        .ev-register-btn .arrow { transition: transform 0.25s ease; }
+        .ev-register-btn:hover .arrow { transform: translateX(4px); }
+
+        .ev-preview-highlights {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+
+        .ev-preview-highlight {
+            padding: 10px 12px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.035);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            text-align: center;
+        }
+
+        .ev-preview-highlight .val {
+            display: block;
+            font-size: 15px;
+            font-weight: 900;
+            color: #f29b3c;
+            margin-bottom: 2px;
+        }
+
+        .ev-preview-highlight .lbl {
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .ev-finder-footer {
+            position: relative;
+            z-index: 3;
+            padding: 8px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.45);
+            background: #000000;
+            min-height: 32px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .ev-finder-footer > span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .ev-finder-footer-items { display: flex; gap: 20px; }
+        .ev-finder-footer-items span { display: flex; align-items: center; gap: 4px; }
+
+        /* ---------- FLOATING CAT STICKER ---------- */
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        .sticker {
+            position: fixed; bottom: 30px; right: 30px; width: 120px; height: auto;
+            z-index: 999; animation: float 3s ease-in-out infinite; pointer-events: none;
+        }
+
+        /* ---------- SITE FOOTER ---------- */
+        .site-footer {
+            width: 100%;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            position: relative;
+            z-index: 2;
+            isolation: isolate;
+        }
+
+        .site-footer-card {
+            position: relative;
+            width: 100%;
+            background: #000000;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: none;
+        }
+
+        .site-footer-card::before {
+            display: none;
+        }
+
+        .site-footer-main {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 48px 10vw 32px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .site-footer-logo-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .site-footer-logo {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+            flex-shrink: 0;
+        }
+
+        .site-footer-titles {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            line-height: 1.15;
+        }
+
+        .site-footer-title {
+            font-size: 22px;
+            font-weight: 800;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .site-footer-subtitle {
+            font-size: 14px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.65);
+            letter-spacing: 0.5px;
+        }
+
+        .site-footer-desc {
+            max-width: 540px;
+            margin: 0;
+            font-size: 15px;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .site-footer-socials {
+            display: flex;
+            gap: 14px;
+            margin-top: 4px;
+        }
+
+        .site-footer-social {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            background: #f29b3c;
+            border: 1px solid rgba(242, 155, 60, 0.6);
+            box-shadow: 0 6px 18px rgba(242, 155, 60, 0.3);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .site-footer-social:hover {
+            transform: translateY(-3px);
+            background: #f7ad58;
+            border-color: rgba(230, 158, 69, 0.9);
+            box-shadow: 0 0 22px rgba(242, 155, 60, 0.55);
+        }
+
+        .site-footer-social svg {
+            width: 20px;
+            height: 20px;
+            display: block;
+        }
+
+        .site-footer-bottom {
+            position: relative;
+            z-index: 1;
+            padding: 16px 10vw 20px;
+            text-align: center;
+            font-size: 10px;
+            letter-spacing: 0.2px;
+            color: rgba(255, 255, 255, 0.55);
+            background: #000000;
+        }
+
+        /* ---------- RESPONSIVE ---------- */
+        @media (max-width: 1024px) {
+            :root {
+                --page-padding: 5vw;
+            }
+            .ev-finder-sidebar { display: none; }
+            .ev-split {
+                grid-template-columns: 1fr;
+            }
+            .ev-list-panel {
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                max-height: 220px;
+            }
+            .ev-preview-highlights {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --page-padding: 5vw;
+            }
+            .top-bar {
+                top: 12px;
+            }
+            .top-bar-text {
+                display: none;
+            }
+            .liquid-dock {
+                top: 12px;
+                padding: 4px;
+            }
+            .dock-item {
+                font-size: 13px;
+                padding: 9px 16px;
+            }
+            .events-page {
+                padding: 100px 5vw 70px;
+            }
+            .ev-stats {
+                grid-template-columns: 1fr;
+                max-width: 360px;
+                gap: 14px;
+            }
+            .ev-preview-highlights {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+            .sticker { width: 80px; bottom: 16px; right: 16px; }
+            .site-footer { padding: 0; }
+            .site-footer-main { padding: 36px 5vw 28px; }
+            .site-footer-logo-row { flex-direction: column; gap: 10px; }
+            .site-footer-titles { align-items: center; text-align: center; }
+            .site-footer-title { font-size: 19px; }
+            .site-footer-desc { font-size: 14px; }
+            .site-footer-bottom { padding: 14px 5vw 16px; font-size: 9px; }
+        }
+
+        @media (max-width: 480px) {
+            .ev-preview-footer {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .ev-register-btn {
+                justify-content: center;
+            }
+            .ev-preview-highlights {
+                grid-template-columns: 1fr;
+            }
+            .ev-finder-toolbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="custom-cursor-glow" id="custom-cursor-glow" aria-hidden="true"></div>
+    <div class="custom-cursor" id="custom-cursor" aria-hidden="true"></div>
+
+    <!-- TOP BAR WITH LOGO -->
+    <div class="top-bar">
+        <img src="img/awscatlogo.png" alt="AWS Cat Logo" class="top-bar-logo" />
+        <span class="top-bar-text">AWS Student Builder Group · Adamson University</span>
+    </div>
+
+    <!-- NAVIGATION DOCK -->
+    <nav class="liquid-dock">
+        <div class="dock-item-wrap" id="about-wrap">
+            <button class="dock-item" type="button" aria-haspopup="true" aria-expanded="false" data-dropdown-trigger>
+                About Us
+                <span class="nav-caret" aria-hidden="true">
+                    <svg viewBox="0 0 10 6" width="10" height="6"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+            </button>
+            <div class="nav-dropdown" role="menu" aria-label="About menu">
+                <a class="nav-dropdown-item primary" href="index.html" role="menuitem">About Overview</a>
+                <div class="nav-dropdown-divider"></div>
+                <a class="nav-dropdown-item" href="org-history.html" role="menuitem">Org History</a>
+                <a class="nav-dropdown-item" href="officers.html" role="menuitem">Officers</a>
+                <a class="nav-dropdown-item" href="sbg.html" role="menuitem">SBG</a>
+            </div>
+        </div>
+        <div class="dock-item-wrap" id="workshops-wrap">
+            <button class="dock-item active" type="button" aria-haspopup="true" aria-expanded="false" data-dropdown-trigger>
+                Workshops
+                <span class="nav-caret" aria-hidden="true">
+                    <svg viewBox="0 0 10 6" width="10" height="6"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+            </button>
+            <div class="nav-dropdown" role="menu" aria-label="Workshops menu">
+                <a class="nav-dropdown-item" href="index.html#workshops" role="menuitem">Workshops Overview</a>
+                <div class="nav-dropdown-divider"></div>
+                <a class="nav-dropdown-item primary" href="events.html" role="menuitem">View All Events</a>
+            </div>
+        </div>
+        <div class="dock-item-wrap" id="join-wrap">
+            <button class="dock-item" type="button" aria-haspopup="true" aria-expanded="false" data-dropdown-trigger>
+                Join Us
+                <span class="nav-caret" aria-hidden="true">
+                    <svg viewBox="0 0 10 6" width="10" height="6"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+            </button>
+            <div class="nav-dropdown" role="menu" aria-label="Join menu">
+                <a class="nav-dropdown-item" href="index.html#join" role="menuitem">Join Overview</a>
+                <div class="nav-dropdown-divider"></div>
+                <a class="nav-dropdown-item" href="join.html" role="menuitem">Fill a Form</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- PAGE CONTENT -->
+    <main class="events-page">
+        <a class="events-back" href="index.html">
+            <span class="arrow">←</span>
+            Back to Home
+        </a>
+        <header class="events-header">
+            <div>
+                <span class="events-label">What We Do</span>
+            </div>
+            <h1>Workshops &amp; Events</h1>
+            <p class="events-subtitle">Browse our curated lineup — hands-on labs, certification prep, and community hackathons. Select an event in the calendar to preview details.</p>
+        </header>
+
+        <div class="ev-stats">
+            <div class="ev-stat">
+                <div class="ev-stat-num">4</div>
+                <div class="ev-stat-label">Featured Sessions</div>
+            </div>
+            <div class="ev-stat">
+                <div class="ev-stat-num">3</div>
+                <div class="ev-stat-label">Upcoming</div>
+            </div>
+            <div class="ev-stat">
+                <div class="ev-stat-num">12+</div>
+                <div class="ev-stat-label">Workshops Yearly</div>
+            </div>
+        </div>
+
+        <div class="ev-finder-wrap">
+            <div class="ev-finder-window">
+                <div class="ev-finder-titlebar">
+                    <div class="ev-finder-controls">
+                        <span class="ev-finder-control red" aria-hidden="true"></span>
+                        <span class="ev-finder-control yellow" aria-hidden="true"></span>
+                        <span class="ev-finder-control green" aria-hidden="true"></span>
+                    </div>
+                    <div class="ev-finder-title">
+                        <span class="ev-finder-title-icon" aria-hidden="true"></span>
+                        AWS SBG AdU · Event Calendar
+                    </div>
+                    <div class="ev-finder-controls" aria-hidden="true" style="visibility:hidden">
+                        <span class="ev-finder-control red"></span>
+                        <span class="ev-finder-control yellow"></span>
+                        <span class="ev-finder-control green"></span>
+                    </div>
+                </div>
+
+                <div class="ev-finder-body">
+                    <aside class="ev-finder-sidebar" id="ev-sidebar" aria-label="Event folders">
+                        <button type="button" class="ev-finder-sidebar-item active" data-filter="all">
+                            <span class="icon" aria-hidden="true"></span>All Events
+                        </button>
+                        <button type="button" class="ev-finder-sidebar-item" data-filter="upcoming">
+                            <span class="icon" aria-hidden="true"></span>Upcoming
+                        </button>
+                        <div class="ev-finder-sidebar-divider"></div>
+                        <div class="ev-finder-sidebar-label">Categories</div>
+                        <button type="button" class="ev-finder-sidebar-item" data-filter="workshop">
+                            <span class="icon" aria-hidden="true"></span>Workshops
+                        </button>
+                        <button type="button" class="ev-finder-sidebar-item" data-filter="lab">
+                            <span class="icon" aria-hidden="true"></span>Hands-on Labs
+                        </button>
+                        <button type="button" class="ev-finder-sidebar-item" data-filter="hackathon">
+                            <span class="icon" aria-hidden="true"></span>Hackathons
+                        </button>
+                        <button type="button" class="ev-finder-sidebar-item" data-filter="community">
+                            <span class="icon" aria-hidden="true"></span>Community
+                        </button>
+                    </aside>
+
+                    <div class="ev-finder-main">
+                        <div class="ev-finder-toolbar">
+                            <span class="ev-finder-toolbar-label">Filter by type</span>
+                            <div class="ev-filter-chips" id="ev-filter-chips">
+                                <button type="button" class="ev-filter-chip active" data-filter="all">All</button>
+                                <button type="button" class="ev-filter-chip" data-filter="upcoming">Upcoming</button>
+                                <button type="button" class="ev-filter-chip" data-filter="workshop">Workshops</button>
+                                <button type="button" class="ev-filter-chip" data-filter="lab">Labs</button>
+                            </div>
+                        </div>
+
+                        <div class="ev-month-strip" id="ev-month-strip" role="tablist" aria-label="Months"></div>
+
+                        <div class="ev-split">
+                            <div class="ev-list-panel">
+                                <div class="ev-list-header">Events</div>
+                                <div id="ev-list"></div>
+                            </div>
+                            <div class="ev-preview-panel" id="ev-preview" aria-live="polite"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ev-finder-footer">
+                    <span><span class="ev-finder-title-icon" aria-hidden="true"></span>Adamson University · AWS Student Builder Group</span>
+                    <div class="ev-finder-footer-items">
+                        <span>📅 4 events</span>
+                        <span>🛠️ 12 workshops</span>
+                        <span>🏆 1 hackathon</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- SITE FOOTER -->
+    <footer class="site-footer" aria-label="Site footer">
+        <div class="site-footer-card">
+            <div class="site-footer-main">
+                <div class="site-footer-logo-row">
+                    <img src="img/awscatlogo.png" alt="AWS Cat Logo" class="site-footer-logo" />
+                    <div class="site-footer-titles">
+                        <span class="site-footer-title">AWS Student Builder Group</span>
+                        <span class="site-footer-subtitle">Adamson University</span>
+                    </div>
+                </div>
+                <p class="site-footer-desc">
+                    A student-led community dedicated to making cloud computing and AWS knowledge accessible.
+                    "By the students, for the students, and with the students."
+                </p>
+                <div class="site-footer-socials">
+                    <a class="site-footer-social" href="#" aria-label="Facebook" title="Facebook">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.9h2.54V9.85c0-2.51 1.49-3.9 3.78-3.9 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.9h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94z"/></svg>
+                    </a>
+                    <a class="site-footer-social" href="#" aria-label="Instagram" title="Instagram">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.2" fill="currentColor" stroke="none"/></svg>
+                    </a>
+                    <a class="site-footer-social" href="#" aria-label="LinkedIn" title="LinkedIn">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3zM9 9h3.8v1.64h.05c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.3c0-1.26-.02-2.9-1.77-2.9-1.77 0-2.04 1.38-2.04 2.8V21H9z"/></svg>
+                    </a>
+                    <a class="site-footer-social" href="mailto:awssbg@adamson.edu.ph" aria-label="Email" title="Email">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="M3 6l9 6.5L21 6"/></svg>
+                    </a>
+                </div>
+            </div>
+            <div class="site-footer-bottom">
+                © 2026 AWS Student Builder Group · Adamson University. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <img src="img/awscat1.png" alt="AWS Cat Sticker" class="sticker" />
+
+    <script>
+        (function () {
+            // ---- Events data (curated lineup) ----
+            const events = [
+                {
+                    id: 'cloud-foundations',
+                    title: 'AWS Workshop Series: Cloud Foundations',
+                    month: 'Mar', day: '15', year: '2026',
+                    badge: 'Upcoming', badgeClass: 'upcoming',
+                    category: 'lab', monthNum: 3,
+                    image: 'img/home1.jpg',
+                    desc: 'Dive into core AWS services with hands-on labs. Learn EC2, S3, and IAM fundamentals through guided exercises designed for beginners stepping into the cloud.',
+                    speaker: 'AWS Certified Mentors', avatar: 'AM',
+                    tags: ['Beginner', 'Hands-on Lab', 'Cloud Foundations'],
+                    duration: '3 hrs', seats: '40', level: 'Beginner'
+                },
+                {
+                    id: 'serverless-bootcamp',
+                    title: 'Cloud Bootcamp: Serverless & Beyond',
+                    month: 'Apr', day: '20', year: '2026',
+                    badge: 'Featured', badgeClass: 'featured',
+                    category: 'workshop', monthNum: 4,
+                    image: 'img/home2.jpg',
+                    desc: 'Master serverless architecture using AWS Lambda, API Gateway, and DynamoDB. Build and deploy a fully functional application in a single day.',
+                    speaker: 'Cloud Engineer, AWS', avatar: 'CE',
+                    tags: ['Intermediate', 'Serverless', 'Workshop'],
+                    duration: 'Full day', seats: '35', level: 'Intermediate'
+                },
+                {
+                    id: 'cert-prep',
+                    title: 'AWS Certification Prep: Cloud Practitioner',
+                    month: 'Jun', day: '22', year: '2026',
+                    badge: 'Featured', badgeClass: 'featured',
+                    category: 'workshop', monthNum: 6,
+                    image: 'img/home2.jpg',
+                    desc: 'A focused review session covering exam domains, practice questions, and study strategies to help you pass the AWS Certified Cloud Practitioner exam.',
+                    speaker: 'Maria Santos, AWS Community Builder', avatar: 'MS',
+                    tags: ['Beginner', 'Certification', 'Exam Prep'],
+                    duration: '4 hrs', seats: '50', level: 'All Levels'
+                },
+                {
+                    id: 'hackathon',
+                    title: 'Hackathon: Build on AWS 2026',
+                    month: 'Jul', day: '12', year: '2026',
+                    badge: 'Upcoming', badgeClass: 'upcoming',
+                    category: 'hackathon', monthNum: 7,
+                    image: 'img/home3.jpg',
+                    desc: 'A 24-hour cloud hackathon where teams design, build, and pitch real solutions on AWS. Prizes, mentorship, and bragging rights await.',
+                    speaker: 'Mentored by AWS SBG AdU Core Team', avatar: 'SB',
+                    tags: ['All Levels', 'Hackathon', 'Team Event'],
+                    duration: '24 hrs', seats: '80', level: 'Team Event'
+                }
+            ];
+
+            const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            const listEl = document.getElementById('ev-list');
+            const previewEl = document.getElementById('ev-preview');
+            const monthStripEl = document.getElementById('ev-month-strip');
+            const sidebarItems = document.querySelectorAll('.ev-finder-sidebar-item[data-filter]');
+            const filterChips = document.querySelectorAll('.ev-filter-chip');
+
+            let activeFilter = 'all';
+            let activeMonth = null;
+            let selectedId = events[0].id;
+
+            const escapeHtml = (str) => String(str).replace(/[&<>"']/g, (c) => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            })[c]);
+
+            function matchesFilter(ev) {
+                if (activeFilter === 'all') return true;
+                if (activeFilter === 'upcoming') return ev.badgeClass === 'upcoming' || ev.badgeClass === 'featured';
+                return ev.category === activeFilter;
+            }
+
+            function getFilteredEvents() {
+                return events.filter((ev) => {
+                    if (!matchesFilter(ev)) return false;
+                    if (activeMonth !== null && ev.monthNum !== activeMonth) return false;
+                    return true;
+                });
+            }
+
+            function badgeClass(ev) {
+                return ev.badgeClass || 'upcoming';
+            }
+
+            function renderPreview(ev) {
+                if (!ev) {
+                    previewEl.innerHTML = '<p class="ev-list-empty">Select an event to preview details.</p>';
+                    return;
+                }
+                previewEl.innerHTML = `
+                    <div class="ev-preview-hero" style="background-image:url('${escapeHtml(ev.image)}')">
+                        <span class="ev-preview-hero-badge">${escapeHtml(ev.badge)}</span>
+                        <div class="ev-preview-hero-date">
+                            <span class="day">${escapeHtml(ev.day)}</span>
+                            <span class="month-year">${escapeHtml(ev.month)} ${escapeHtml(ev.year)}</span>
+                        </div>
+                    </div>
+                    <div class="ev-preview-highlights">
+                        <div class="ev-preview-highlight"><span class="val">${escapeHtml(ev.duration)}</span><span class="lbl">Duration</span></div>
+                        <div class="ev-preview-highlight"><span class="val">${escapeHtml(ev.seats)}</span><span class="lbl">Seats</span></div>
+                        <div class="ev-preview-highlight"><span class="val">${escapeHtml(ev.level)}</span><span class="lbl">Level</span></div>
+                    </div>
+                    <h2 class="ev-preview-title">${escapeHtml(ev.title)}</h2>
+                    <p class="ev-preview-desc">${escapeHtml(ev.desc)}</p>
+                    <div class="ev-preview-meta">
+                        <span class="ev-preview-avatar">${escapeHtml(ev.avatar)}</span>
+                        <span>Speaker: <strong>${escapeHtml(ev.speaker)}</strong></span>
+                    </div>
+                    <div class="ev-preview-footer">
+                        <div class="ev-preview-tags">
+                            ${ev.tags.map((t) => `<span class="ev-tag">${escapeHtml(t)}</span>`).join('')}
+                        </div>
+                        <button type="button" class="ev-register-btn">
+                            Register <span class="arrow">→</span>
+                        </button>
+                    </div>
+                `;
+            }
+
+            function renderList() {
+                const filtered = getFilteredEvents();
+                if (!filtered.length) {
+                    listEl.innerHTML = '<p class="ev-list-empty">No events match this filter.</p>';
+                    renderPreview(null);
+                    return;
+                }
+                if (!filtered.find((e) => e.id === selectedId)) {
+                    selectedId = filtered[0].id;
+                }
+                listEl.innerHTML = filtered.map((ev) => `
+                    <button type="button" class="ev-list-row${ev.id === selectedId ? ' selected' : ''}" data-id="${escapeHtml(ev.id)}">
+                        <span class="ev-list-date">
+                            <span class="ev-list-date-month">${escapeHtml(ev.month)}</span>
+                            <span class="ev-list-date-day">${escapeHtml(ev.day)}</span>
+                        </span>
+                        <span class="ev-list-info">
+                            <h3>${escapeHtml(ev.title)}</h3>
+                            <span>${escapeHtml(ev.speaker)}</span>
+                        </span>
+                        <span class="ev-list-badge ${badgeClass(ev)}">${escapeHtml(ev.badge)}</span>
+                    </button>
+                `).join('');
+
+                listEl.querySelectorAll('.ev-list-row').forEach((row) => {
+                    row.addEventListener('click', () => {
+                        selectedId = row.dataset.id;
+                        renderList();
+                        renderPreview(events.find((e) => e.id === selectedId));
+                    });
+                });
+
+                renderPreview(events.find((e) => e.id === selectedId));
+            }
+
+            function renderMonthStrip() {
+                const eventMonths = new Set(events.map((e) => e.monthNum));
+                monthStripEl.innerHTML = MONTHS.map((name, i) => {
+                    const num = i + 1;
+                    const has = eventMonths.has(num);
+                    const active = activeMonth === num;
+                    return `<button type="button" class="ev-month-tab${has ? ' has-events' : ''}${active ? ' active' : ''}" data-month="${num}" role="tab" aria-selected="${active}">${name}</button>`;
+                }).join('');
+
+                monthStripEl.querySelectorAll('.ev-month-tab').forEach((tab) => {
+                    tab.addEventListener('click', () => {
+                        const m = parseInt(tab.dataset.month, 10);
+                        activeMonth = activeMonth === m ? null : m;
+                        renderMonthStrip();
+                        renderList();
+                    });
+                });
+            }
+
+            function setFilter(filter) {
+                activeFilter = filter;
+                sidebarItems.forEach((item) => {
+                    item.classList.toggle('active', item.dataset.filter === filter);
+                });
+                filterChips.forEach((chip) => {
+                    chip.classList.toggle('active', chip.dataset.filter === filter);
+                });
+                renderList();
+            }
+
+            sidebarItems.forEach((item) => {
+                item.addEventListener('click', () => setFilter(item.dataset.filter));
+            });
+
+            filterChips.forEach((chip) => {
+                chip.addEventListener('click', () => setFilter(chip.dataset.filter));
+            });
+
+            renderMonthStrip();
+            renderList();
+
+            // ---- Custom cursor ----
+            const customCursor = document.getElementById('custom-cursor');
+            const customCursorGlow = document.getElementById('custom-cursor-glow');
+            if (customCursor && customCursorGlow && window.matchMedia('(pointer: fine)').matches) {
+                document.body.classList.add('custom-cursor-active');
+                document.addEventListener('mousemove', (e) => {
+                    customCursor.style.left = `${e.clientX}px`;
+                    customCursor.style.top = `${e.clientY}px`;
+                    customCursorGlow.style.left = `${e.clientX}px`;
+                    customCursorGlow.style.top = `${e.clientY}px`;
+                });
+                document.addEventListener('mouseleave', () => {
+                    customCursor.style.opacity = '0';
+                    customCursorGlow.style.opacity = '0';
+                });
+                document.addEventListener('mouseenter', () => {
+                    customCursor.style.opacity = '1';
+                    customCursorGlow.style.opacity = '0.8';
+                });
+            }
+
+            // ---- Nav dropdowns (macOS / iOS style) ----
+            function wireDropdown(wrap) {
+                if (!wrap) return;
+                const trigger = wrap.querySelector('[data-dropdown-trigger]');
+                let hoverTimer;
+                const openMenu = () => {
+                    clearTimeout(hoverTimer);
+                    wrap.classList.add('open');
+                    if (trigger) trigger.setAttribute('aria-expanded', 'true');
+                };
+                const closeMenu = () => {
+                    wrap.classList.remove('open');
+                    if (trigger) trigger.setAttribute('aria-expanded', 'false');
+                };
+                wrap.addEventListener('mouseenter', openMenu);
+                wrap.addEventListener('mouseleave', () => {
+                    hoverTimer = setTimeout(closeMenu, 130);
+                });
+                if (trigger) {
+                    trigger.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        wrap.classList.contains('open') ? closeMenu() : openMenu();
+                    });
+                }
+                document.addEventListener('click', (e) => {
+                    if (!wrap.contains(e.target)) closeMenu();
+                });
+            }
+            wireDropdown(document.getElementById('about-wrap'));
+            wireDropdown(document.getElementById('workshops-wrap'));
+            wireDropdown(document.getElementById('join-wrap'));
+        })();
+    </script>
+</body>
+</html>
