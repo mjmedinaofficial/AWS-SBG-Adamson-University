@@ -2179,6 +2179,7 @@
     <div class="custom-cursor" id="custom-cursor" aria-hidden="true"></div>
 
     <!-- TOP BAR WITH LOGO -->
+    <header class="site-header" aria-label="Site header">
     <div class="top-bar">
         <img src="img/awscatlogo.png" alt="AWS Cat Logo" class="top-bar-logo" />
         <span class="top-bar-text">AWS Student Builder Group · Adamson University</span>
@@ -2228,6 +2229,7 @@
             </div>
         </div>
     </nav>
+    </header>
 
     <nav class="page-indicator" aria-label="Page sections">
         <button class="page-indicator-dot active" data-indicator-index="0" aria-label="Section 1: About Us" aria-current="true"></button>
@@ -2610,7 +2612,7 @@
             const siteFooter = document.querySelector('.site-footer');
 
             document.addEventListener('mousemove', (e) => {
-                if (!section1TiltCard) return;
+                if (!section1TiltCard || window.matchMedia('(max-width: 768px)').matches) return;
                 const rect = section1TiltCard.getBoundingClientRect();
                 if (rect.left > window.innerWidth || rect.right < 0) return;
                 const centerX = rect.left + rect.width / 2;
@@ -2823,5 +2825,6 @@
             if (section2El) section2RevealObserver.observe(section2El);
         })();
     </script>
+    <script src="mobile-nav.js"></script>
 </body>
 </html>
