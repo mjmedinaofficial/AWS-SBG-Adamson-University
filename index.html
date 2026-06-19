@@ -2427,8 +2427,43 @@
             const pageScrollContainer = document.querySelector('.horizontal-container');
             const siteFooter = document.querySelector('.site-footer');
 
+            // Desktop zoom: stack hero only above ~110% browser zoom.
+            // Baseline viewport height is captured on first load (assumed 100%
+            // zoom) so browser chrome on short laptops doesn't false-trigger.
+            const DESKTOP_MQ = window.matchMedia('(min-width: 769px) and (hover: hover)');
+            const ZOOM_STACK_THRESHOLD = 1.105;
+            const BASELINE_KEY = 'sbgViewportBaselineH';
+            let baselineInnerHeight = parseFloat(sessionStorage.getItem(BASELINE_KEY)) || 0;
+
+            function estimateBrowserZoom() {
+                const innerH = window.innerHeight;
+                if (!innerH) return 1;
+                if (!baselineInnerHeight || innerH > baselineInnerHeight) {
+                    baselineInnerHeight = innerH;
+                    sessionStorage.setItem(BASELINE_KEY, String(baselineInnerHeight));
+                }
+                return baselineInnerHeight / innerH;
+            }
+
+            function syncDesktopZoomStack() {
+                if (!DESKTOP_MQ.matches) {
+                    document.body.classList.remove('desktop-zoom-stack');
+                    return;
+                }
+                document.body.classList.toggle(
+                    'desktop-zoom-stack',
+                    estimateBrowserZoom() > ZOOM_STACK_THRESHOLD
+                );
+            }
+
+            syncDesktopZoomStack();
+            window.addEventListener('resize', syncDesktopZoomStack);
+            if (window.visualViewport) {
+                window.visualViewport.addEventListener('resize', syncDesktopZoomStack);
+            }
+
             document.addEventListener('mousemove', (e) => {
-                if (!section1TiltCard || window.matchMedia('(max-width: 768px)').matches) return;
+                if (!section1TiltCard || window.matchMedia('(max-width: 768px)').matches || document.body.classList.contains('desktop-zoom-stack')) return;
                 const rect = section1TiltCard.getBoundingClientRect();
                 if (rect.left > window.innerWidth || rect.right < 0) return;
                 const centerX = rect.left + rect.width / 2;
@@ -2439,7 +2474,7 @@
             });
 
             document.addEventListener('mouseleave', () => {
-                if (!section1TiltCard) return;
+                if (!section1TiltCard || document.body.classList.contains('desktop-zoom-stack')) return;
                 section1TiltCard.style.transition = 'transform 0.5s ease';
                 section1TiltCard.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg)';
                 setTimeout(() => { section1TiltCard.style.transition = 'transform 0.1s ease-out'; }, 500);

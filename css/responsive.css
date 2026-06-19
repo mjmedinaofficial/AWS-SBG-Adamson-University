@@ -236,3 +236,277 @@ body:not(.home-page) {
         max-width: clamp(280px, 42vw, 460px);
     }
 }
+
+/* ============================================================
+   Desktop browser zoom > ~110% — mobile-like section 1 stack.
+   Applied via body.desktop-zoom-stack (set by JS from estimated
+   browser zoom). At 110% and below the side-by-side hero with
+   the moving carousel card is kept exactly as designed.
+   ============================================================ */
+.home-page.desktop-zoom-stack .horizontal-container {
+    scroll-snap-type: y proximity;
+}
+
+.home-page.desktop-zoom-stack .page-section.section1 {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+    scroll-snap-stop: normal;
+    padding: clamp(96px, 14vh, 128px) clamp(24px, 5vw, 48px) clamp(32px, 6vh, 56px);
+    gap: 0;
+}
+
+.home-page.desktop-zoom-stack .section1-content {
+    flex: none;
+    width: 100%;
+    max-width: 640px;
+    text-align: center;
+    padding-top: 0;
+}
+
+.home-page.desktop-zoom-stack .section1-hero-logo {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 24px;
+}
+
+.home-page.desktop-zoom-stack .section1-content h1 {
+    margin-bottom: 16px;
+}
+
+.home-page.desktop-zoom-stack .section1-content h1 .section1-title {
+    align-items: center;
+    font-size: clamp(1.65rem, 4vw, 2rem);
+}
+
+.home-page.desktop-zoom-stack .section1-content h1 .section1-title .section1-title-line1,
+.home-page.desktop-zoom-stack .section1-content h1 .section1-title .section1-title-line2,
+.home-page.desktop-zoom-stack .section1-content h1 .section1-title .section1-title-line3 {
+    text-align: center;
+}
+
+.home-page.desktop-zoom-stack .section1-content p {
+    font-size: clamp(0.95rem, 2vw, 1.05rem);
+    margin-bottom: 24px;
+}
+
+.home-page.desktop-zoom-stack .section1-buttons {
+    justify-content: center;
+    margin-top: 0;
+}
+
+.home-page.desktop-zoom-stack .section1-card-wrapper {
+    flex: none;
+    width: 100%;
+    max-width: 640px;
+    margin-top: 32px;
+    padding-left: 0;
+    justify-content: center;
+}
+
+.home-page.desktop-zoom-stack .section1-glass-card {
+    max-width: 100%;
+    padding: 24px;
+    transform: none !important;
+    transition: none !important;
+}
+
+.home-page.desktop-zoom-stack .section1-card-topbar {
+    margin: -24px -24px 20px -24px;
+}
+
+.home-page.desktop-zoom-stack .section1-card-bottombar {
+    margin: 0 -24px -24px -24px;
+}
+
+.home-page.desktop-zoom-stack .section1-glass-card h2 {
+    font-size: 1.15rem;
+    margin-bottom: 12px;
+}
+
+.home-page.desktop-zoom-stack .section1-glass-card p {
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+}
+
+.home-page.desktop-zoom-stack .section1-card-media {
+    height: 200px;
+    margin-bottom: 16px;
+}
+
+.home-page.desktop-zoom-stack .section1-carousel-window {
+    padding: 0;
+}
+
+.home-page.desktop-zoom-stack .section1-carousel-track {
+    animation: none;
+    transform: none;
+    width: 100%;
+}
+
+.home-page.desktop-zoom-stack .section1-carousel-slide {
+    flex: 0 0 100%;
+    min-width: 0;
+    opacity: 1 !important;
+}
+
+.home-page.desktop-zoom-stack .section1-carousel-slide:not(:first-child) {
+    display: none;
+}
+
+.home-page.desktop-zoom-stack .page-section.section2 {
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+    scroll-snap-stop: normal;
+    padding-top: clamp(96px, 14vh, 124px);
+    padding-bottom: clamp(32px, 6vh, 52px);
+}
+
+.home-page.desktop-zoom-stack .section3-stage {
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+    scroll-snap-stop: normal;
+    padding-top: clamp(88px, 12vh, 112px);
+    padding-bottom: clamp(28px, 5vh, 48px);
+}
+
+/* Section 3 finder — compact typography & flexible grid when zoomed > ~110% */
+.home-page.desktop-zoom-stack .section3-window {
+    height: auto;
+    max-height: none;
+    min-height: 0;
+}
+
+.home-page.desktop-zoom-stack .section3-body {
+    overflow: visible;
+}
+
+.home-page.desktop-zoom-stack .section3-main {
+    overflow: visible;
+    padding: 12px 16px 16px 14px;
+}
+
+.home-page.desktop-zoom-stack .section3-narrative-tags {
+    gap: 6px;
+    margin-bottom: 8px;
+}
+
+.home-page.desktop-zoom-stack .section3-narrative-tag {
+    font-size: 8px;
+    padding: 4px 8px;
+    letter-spacing: 0.5px;
+}
+
+.home-page.desktop-zoom-stack .section3-narrative-content {
+    grid-template-rows: auto auto;
+    gap: 10px 12px;
+    align-items: start;
+}
+
+.home-page.desktop-zoom-stack .section3-main-block {
+    overflow: visible;
+    padding: 10px 12px;
+    min-height: 0;
+}
+
+.home-page.desktop-zoom-stack .section3-main-block:hover {
+    transform: none;
+}
+
+.home-page.desktop-zoom-stack .section3-block-title {
+    font-size: 9px;
+    letter-spacing: 0.7px;
+    margin-bottom: 8px;
+    min-height: 0;
+    flex-shrink: 0;
+}
+
+.home-page.desktop-zoom-stack .section3-main-block .section3-block-title[style] {
+    margin-top: 10px !important;
+}
+
+.home-page.desktop-zoom-stack .section3-main .section3-description {
+    font-size: 11px;
+    line-height: 1.45;
+}
+
+.home-page.desktop-zoom-stack .section3-narrative-quote {
+    font-size: 10px;
+    line-height: 1.4;
+    padding: 6px 10px;
+    margin-top: 6px;
+}
+
+.home-page.desktop-zoom-stack .section3-stat-grid {
+    gap: 8px;
+    grid-template-rows: auto auto;
+    flex: none;
+}
+
+.home-page.desktop-zoom-stack .section3-stat-item {
+    padding: 8px 6px;
+}
+
+.home-page.desktop-zoom-stack .section3-stat-number {
+    font-size: 22px;
+}
+
+.home-page.desktop-zoom-stack .section3-stat-label {
+    font-size: 9px;
+    margin-top: 2px;
+}
+
+.home-page.desktop-zoom-stack .section3-feature-grid {
+    gap: 6px;
+    margin-top: 0;
+}
+
+.home-page.desktop-zoom-stack .section3-feature-item {
+    font-size: 11px;
+    padding: 6px 8px;
+    gap: 6px;
+}
+
+.home-page.desktop-zoom-stack .section3-join-wrap {
+    margin-top: 8px;
+    padding: 4px 6px 2px 2px;
+}
+
+.home-page.desktop-zoom-stack .section3-join-wrap .section1-btn {
+    min-width: 120px;
+    height: 36px;
+    padding: 8px 18px;
+    font-size: 12px;
+}
+
+.home-page.desktop-zoom-stack .section3-sidebar {
+    width: 148px;
+}
+
+.home-page.desktop-zoom-stack .section3-sidebar-item {
+    font-size: 11px;
+    padding: 5px 10px;
+}
+
+.home-page.desktop-zoom-stack .section3-sidebar-label {
+    font-size: 9px;
+    padding: 6px 12px 3px;
+}
+
+.home-page.desktop-zoom-stack .section3-title {
+    font-size: 11px;
+}
+
+.home-page.desktop-zoom-stack .section3-footer {
+    font-size: 10px;
+    padding: 6px 14px;
+}
+
+.home-page.desktop-zoom-stack .section3-footer-items {
+    gap: 10px;
+}
