@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <title>Officers · AWS Student Builder Group · Adamson University</title>
     <link rel="icon" type="image/png" href="img/awscatlogo.png" />
+    <link rel="stylesheet" href="css/tokens.css" />
+    <link rel="stylesheet" href="css/shared.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
     <link rel="stylesheet" href="mobile.css" />
     <style>
         @import url('https://fonts.cdnfonts.com/css/amazon-ember');
@@ -35,7 +38,7 @@
             background: url("img/cursor.png") center / contain no-repeat;
             transform: translate(-50%, -50%); will-change: left, top;
         }
-        @media (pointer: coarse), (max-width: 768px) { .custom-cursor, .custom-cursor-glow { display: none; } }
+        @media (pointer: coarse) and (hover: none) { .custom-cursor, .custom-cursor-glow { display: none; } }
 
         /* ---------- BASE ---------- */
         html {
@@ -481,7 +484,7 @@
     <header class="site-header" aria-label="Site header">
     <div class="top-bar">
         <img src="img/awscatlogo.png" alt="AWS Cat Logo" class="top-bar-logo" />
-        <span class="top-bar-text">AWS Student Builder Group · Adamson University</span>
+        <span class="top-bar-text"><span class="brand-full">AWS Student Builder Group · Adamson University</span><span class="brand-short">AWS SBG · AdU</span></span>
     </div>
 
     <!-- NAVIGATION DOCK -->
@@ -538,6 +541,7 @@
         </a>
 
         <header class="of-hero">
+            <img src="img/awscat3.png" alt="" class="page-hero-logo" />
             <span class="page-label">Meet the Team</span>
             <h1>The Builders Behind AWS SBG</h1>
             <p>A passionate crew of student leaders driving the cloud community at Adamson University forward — organizing, mentoring, and building together.</p>
@@ -739,7 +743,7 @@
         (function () {
             const customCursor = document.getElementById('custom-cursor');
             const customCursorGlow = document.getElementById('custom-cursor-glow');
-            if (customCursor && customCursorGlow && window.matchMedia('(pointer: fine)').matches) {
+            if (customCursor && customCursorGlow && window.matchMedia('(pointer: fine) and (hover: hover)').matches) {
                 document.body.classList.add('custom-cursor-active');
                 document.addEventListener('mousemove', (e) => {
                     customCursor.style.left = `${e.clientX}px`; customCursor.style.top = `${e.clientY}px`;

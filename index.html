@@ -5,74 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <title>AWS Student Builder Group · Adamson University</title>
     <link rel="icon" type="image/png" href="img/awscatlogo.png" />
+    <link rel="stylesheet" href="css/tokens.css" />
+    <link rel="stylesheet" href="css/shared.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
     <link rel="stylesheet" href="mobile.css" />
     <style>
-        @import url('https://fonts.cdnfonts.com/css/amazon-ember');
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --bg-gradient: linear-gradient(180deg, #2d1066 0%, #1a0a4a 28%, #0d0428 55%, #000000 85%);
-            --accent-gradient: linear-gradient(135deg, #ffffff 18%, #bbaffd 47%, #efdcf1 110%);
-            --glow-purple: rgba(187, 175, 253, 0.65);
-            --glow-deep: rgba(45, 16, 102, 0.5);
-            --glow-light: rgba(239, 220, 241, 0.45);
-        }
-
+        /* Index-specific layout overrides (shared chrome in css/shared.css) */
         html {
             min-height: 100%;
             height: 100%;
         }
 
-        body.custom-cursor-active,
-        body.custom-cursor-active * {
-            cursor: none !important;
-        }
-
-        .custom-cursor-glow {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 34px;
-            height: 34px;
-            pointer-events: none;
-            z-index: 99998;
-            border-radius: 50%;
-            background: radial-gradient(circle, var(--glow-light) 0%, var(--glow-purple) 40%, var(--glow-deep) 62%, transparent 70%);
-            filter: blur(6px);
-            opacity: 0.8;
-            transform: translate(-50%, -50%);
-            will-change: left, top;
-        }
-
-        .custom-cursor {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 20px;
-            height: 20px;
-            pointer-events: none;
-            z-index: 99999;
-            background: url("img/cursor.png") center / contain no-repeat;
-            transform: translate(-50%, -50%);
-            will-change: left, top;
-        }
-
-        @media (pointer: coarse), (max-width: 768px) {
-            .custom-cursor,
-            .custom-cursor-glow {
-                display: none;
-            }
-        }
-
         body {
-            font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: transparent;
-            color: #ffffff;
             overflow: hidden;
             height: 100%;
         }
@@ -101,20 +45,14 @@
             100% { background-position: 1400px 1400px; }
         }
 
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
         /* ---------- SECTION 2: Workshops & Events ---------- */
         .section2 {
             background: transparent;
             position: relative;
             flex-direction: column;
-            justify-content: center;
+            justify-content: safe center;
             align-items: center;
-            padding: 80px 10vw 30px;
+            padding: clamp(88px, 12vh, 120px) 10vw 30px;
             height: 100vh;
             gap: 24px;
         }
@@ -161,7 +99,6 @@
             scroll-snap-align: none;
         }
 
-        /* Stage holds the Mac Finder window and fills the first screen */
         .section3-stage {
             width: 100%;
             min-height: 100vh;
@@ -173,35 +110,14 @@
             scroll-snap-stop: always;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-        }
-
         @keyframes slideCarousel {
             0% { transform: translateX(0); }
             100% { transform: translateX(calc(-50% - 28px)); }
         }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         @keyframes pulseGlow {
             0%, 100% { box-shadow: 0 0 20px rgba(187, 175, 253, 0.08); }
             50% { box-shadow: 0 0 40px rgba(187, 175, 253, 0.15); }
-        }
-
-        @keyframes glowPulse {
-            0%, 100% { 
-                box-shadow: 0 0 20px rgba(187, 175, 253, 0.3), 0 0 40px rgba(187, 175, 253, 0.1);
-                border-color: rgba(187, 175, 253, 0.4);
-            }
-            50% { 
-                box-shadow: 0 0 40px rgba(187, 175, 253, 0.5), 0 0 80px rgba(187, 175, 253, 0.2);
-                border-color: rgba(187, 175, 253, 0.7);
-            }
         }
 
         .horizontal-container {
@@ -465,13 +381,6 @@
             background: rgba(187, 175, 253, 0.3);
         }
 
-        .nav-dropdown-icon {
-            width: 20px;
-            height: 20px;
-            flex-shrink: 0;
-            background: url("img/folder.png") center / contain no-repeat;
-        }
-
         .nav-dropdown-divider {
             height: 1px;
             margin: 6px 8px;
@@ -505,7 +414,7 @@
             flex-direction: column;
             align-items: flex-start;
             gap: 0.06em;
-            font-size: clamp(2rem, 4.2vw, 3rem);
+            font-size: var(--text-hero);
             line-height: 1.08;
             letter-spacing: -0.02em;
         }
@@ -520,15 +429,8 @@
             background-clip: text;
         }
 
-        .section1-content h1 .section1-title .section1-title-line1 .section1-title-line2 .section1-title-line3 {
-            font-size: 0.96em;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-        }
-
-
         .section1-content p {
-            font-size: 18px;
+            font-size: var(--text-lg);
             line-height: 1.6;
             color: rgba(255, 255, 255, 0.9);
             margin-bottom: 32px;
@@ -728,8 +630,8 @@
         /* Section 2: event cards */
         @media (max-height: 800px) {
             .section2 {
-                padding: 60px 10vw 20px;
-                gap: 16px;
+                padding: 88px 10vw 18px;
+                gap: 12px;
             }
             .section2-header h2 {
                 font-size: clamp(28px, 3.5vw, 38px);
@@ -742,10 +644,10 @@
                 max-width: 300px;
             }
             .section2-event-card-image {
-                height: 150px;
+                height: 124px;
             }
             .section2-event-card-content {
-                padding: 16px;
+                padding: 14px;
             }
             .section2-event-card-title {
                 font-size: 16px;
@@ -766,8 +668,8 @@
 
         @media (max-height: 700px) {
             .section2 {
-                padding: 40px 10vw 15px;
-                gap: 12px;
+                padding: 84px 10vw 14px;
+                gap: 10px;
             }
             .section2-header {
                 margin-bottom: -8px;
@@ -1399,15 +1301,13 @@
             min-height: 16px;
         }
 
-        .section3-left-column,
-        .section3-right-column {
-            display: contents;
-        }
-
         .section3-stat-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
             gap: 14px;
+            flex: 1;
+            min-height: 0;
         }
 
         .section3-stat-item {
@@ -1417,6 +1317,10 @@
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.06);
             transition: transform 0.28s ease, border-color 0.28s ease, background 0.28s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         .section3-stat-item:hover {
@@ -1426,7 +1330,7 @@
         }
 
         .section3-stat-number {
-            font-size: 36px;
+            font-size: calc(36px * var(--ui-scale));
             font-weight: 900;
             background: linear-gradient(135deg, #ffffff 18%, #bbaffd 47%, #efdcf1 110%);
             -webkit-background-clip: text;
@@ -1436,119 +1340,10 @@
         }
 
         .section3-stat-label {
-            font-size: 13px;
+            font-size: var(--text-sm);
             font-weight: 600;
             color: rgba(255, 255, 255, 0.45);
             margin-top: 4px;
-        }
-
-        /* ---------- TIMELINE GRAPH ---------- */
-        .section3-timeline-graph {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-            position: relative;
-            padding-left: 40px;
-        }
-
-        .section3-timeline-graph::before {
-            content: '';
-            position: absolute;
-            left: 14px;
-            top: 8px;
-            bottom: 8px;
-            width: 2px;
-            background: linear-gradient(to bottom, 
-                rgba(187, 175, 253, 0.5), 
-                rgba(187, 175, 253, 0.2), 
-                rgba(187, 175, 253, 0.05));
-            border-radius: 2px;
-        }
-
-        .section3-timeline-node {
-            display: flex;
-            align-items: flex-start;
-            gap: 20px;
-            padding: 12px 0;
-            position: relative;
-        }
-
-        .section3-timeline-node .node-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #5a4494, #b897d4);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            flex-shrink: 0;
-            margin-top: 2px;
-            position: relative;
-            z-index: 2;
-            transition: all 0.3s ease;
-        }
-
-        .section3-timeline-node:hover .node-dot {
-            transform: scale(1.3);
-            border-color: rgba(187, 175, 253, 0.6);
-        }
-
-        .section3-timeline-node.active .node-dot {
-            background: linear-gradient(135deg, #bbaffd, #efdcf1);
-            border-color: rgba(255, 255, 255, 0.4);
-            box-shadow: 0 0 20px rgba(187, 175, 253, 0.3);
-            animation: timelinePulse 2s ease-in-out infinite;
-        }
-
-        @keyframes timelinePulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(187, 175, 253, 0.3); }
-            50% { box-shadow: 0 0 0 8px rgba(187, 175, 253, 0); }
-        }
-
-        .section3-timeline-node.completed .node-dot {
-            background: linear-gradient(135deg, #34c759, #30d158);
-            border-color: rgba(52, 199, 89, 0.4);
-        }
-
-        .section3-timeline-node .node-content {
-            flex: 1;
-            padding-bottom: 4px;
-        }
-
-        .section3-timeline-node .node-year {
-            font-size: 13px;
-            font-weight: 800;
-            color: rgba(255, 255, 255, 0.6);
-            letter-spacing: 0.5px;
-        }
-
-        .section3-timeline-node.active .node-year {
-            color: #bbaffd;
-        }
-
-        .section3-timeline-node .node-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        .section3-timeline-node .node-desc {
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.45);
-        }
-
-        .section3-timeline-node .node-status {
-            font-size: 9px;
-            font-weight: 700;
-            padding: 2px 10px;
-            border-radius: 100px;
-            background: rgba(187, 175, 253, 0.12);
-            color: #bbaffd;
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-
-        .section3-timeline-node.completed .node-status {
-            background: rgba(52, 199, 89, 0.12);
-            color: #34c759;
         }
 
         .section3-description {
@@ -1814,16 +1609,6 @@
             pointer-events: none;
         }
 
-        .fade-in-up {
-            opacity: 0;
-            animation: fadeInUp 0.8s ease-out forwards;
-        }
-
-        .fade-in-up-delay-1 { animation-delay: 0.15s; }
-        .fade-in-up-delay-2 { animation-delay: 0.3s; }
-        .fade-in-up-delay-3 { animation-delay: 0.45s; }
-        .fade-in-up-delay-4 { animation-delay: 0.6s; }
-
         /* Responsive */
         @media (max-width: 1024px) {
             .page-section {
@@ -2072,9 +1857,6 @@
                 justify-content: center;
                 gap: 12px;
             }
-            .section3-timeline-graph {
-                padding-left: 30px;
-            }
         }
 
         @media (max-width: 480px) {
@@ -2159,22 +1941,64 @@
             .section3-join-wrap {
                 padding: 6px 12px 10px 6px;
             }
-            .section3-timeline-graph {
-                padding-left: 24px;
+        }
+
+        /* Shorter desktop/laptop heights (e.g. fullscreen on a Dell 7420):
+           compact the finder so the Community Stats never crop. */
+        @media (min-width: 769px) and (max-height: 880px) {
+            .section3-main {
+                padding: 16px 22px 20px 20px;
             }
-            .section3-timeline-node .node-year {
+            .section3-narrative-content {
+                gap: 10px 18px;
+            }
+            .section3-narrative-tags {
+                margin-bottom: 10px;
+            }
+            .section3-main-block {
+                padding: 11px 14px;
+            }
+            .section3-block-title {
+                margin-bottom: 6px;
+                min-height: 0;
+            }
+            .section3-stat-grid {
+                gap: 10px;
+            }
+            .section3-stat-item {
+                padding: 9px 10px;
+            }
+            .section3-stat-number {
+                font-size: calc(28px * var(--ui-scale));
+            }
+            .section3-stat-label {
                 font-size: 11px;
+                margin-top: 2px;
             }
-            .section3-timeline-node .node-title {
+            .section3-main .section3-description {
+                font-size: 13px;
+                line-height: 1.5;
+            }
+        }
+
+        @media (min-width: 769px) and (max-height: 740px) {
+            .section3-stat-item {
+                padding: 7px 9px;
+            }
+            .section3-stat-number {
+                font-size: calc(24px * var(--ui-scale));
+            }
+            .section3-stat-grid {
+                gap: 8px;
+            }
+            .section3-main .section3-description {
                 font-size: 12px;
-            }
-            .section3-timeline-node .node-desc {
-                font-size: 10px;
+                line-height: 1.45;
             }
         }
     </style>
 </head>
-<body>
+<body class="home-page">
     <div class="custom-cursor-glow" id="custom-cursor-glow" aria-hidden="true"></div>
     <div class="custom-cursor" id="custom-cursor" aria-hidden="true"></div>
 
@@ -2182,7 +2006,7 @@
     <header class="site-header" aria-label="Site header">
     <div class="top-bar">
         <img src="img/awscatlogo.png" alt="AWS Cat Logo" class="top-bar-logo" />
-        <span class="top-bar-text">AWS Student Builder Group · Adamson University</span>
+        <span class="top-bar-text"><span class="brand-full">AWS Student Builder Group · Adamson University</span><span class="brand-short">AWS SBG · AdU</span></span>
     </div>
 
     <nav class="liquid-dock">
@@ -2501,14 +2325,6 @@
                                         <span class="section3-feature-icon"></span>
                                         Cloud Projects
                                     </div>
-                                    <div class="section3-feature-item section3-reveal">
-                                        <span class="section3-feature-icon"></span>
-                                        Industry Talks
-                                    </div>
-                                    <div class="section3-feature-item section3-reveal">
-                                        <span class="section3-feature-icon"></span>
-                                        Hackathons
-                                    </div>
                                 </div>
                                 <div class="section3-join-wrap section3-reveal">
                                     <button class="section1-btn section1-btn-glow" type="button">Join Us</button>
@@ -2575,7 +2391,7 @@
         (function() {
             const customCursor = document.getElementById('custom-cursor');
             const customCursorGlow = document.getElementById('custom-cursor-glow');
-            const useCustomCursor = customCursor && customCursorGlow && window.matchMedia('(pointer: fine)').matches;
+            const useCustomCursor = customCursor && customCursorGlow && window.matchMedia('(pointer: fine) and (hover: hover)').matches;
 
             if (useCustomCursor) {
                 document.body.classList.add('custom-cursor-active');

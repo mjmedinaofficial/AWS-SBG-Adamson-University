@@ -5,70 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <title>Join · AWS Student Builder Group · Adamson University</title>
     <link rel="icon" type="image/png" href="img/awscatlogo.png" />
+    <link rel="stylesheet" href="css/tokens.css" />
+    <link rel="stylesheet" href="css/shared.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
     <link rel="stylesheet" href="mobile.css" />
     <style>
-        @import url('https://fonts.cdnfonts.com/css/amazon-ember');
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        :root {
-            --bg-gradient: linear-gradient(180deg, #2d1066 0%, #1a0a4a 28%, #0d0428 55%, #000000 85%);
-            --accent-gradient: linear-gradient(135deg, #ffffff 18%, #bbaffd 47%, #efdcf1 110%);
-            --glow-purple: rgba(187, 175, 253, 0.65);
-            --glow-deep: rgba(45, 16, 102, 0.5);
-            --glow-light: rgba(239, 220, 241, 0.45);
-            --page-padding: 10vw;
-            --apple-focus: rgba(10, 132, 255, 0.85);
-        }
-
-        body.custom-cursor-active, body.custom-cursor-active * { cursor: none !important; }
-        .custom-cursor-glow { position: fixed; top: 0; left: 0; width: 34px; height: 34px; pointer-events: none; z-index: 99998; border-radius: 50%; background: radial-gradient(circle, var(--glow-light) 0%, var(--glow-purple) 40%, var(--glow-deep) 62%, transparent 70%); filter: blur(6px); opacity: 0.8; transform: translate(-50%, -50%); will-change: left, top; }
-        .custom-cursor { position: fixed; top: 0; left: 0; width: 20px; height: 20px; pointer-events: none; z-index: 99999; background: url("img/cursor.png") center / contain no-repeat; transform: translate(-50%, -50%); will-change: left, top; }
-        @media (pointer: coarse), (max-width: 768px) { .custom-cursor, .custom-cursor-glow { display: none; } }
-
-        html { min-height: 100%; background: var(--bg-gradient); background-repeat: no-repeat; }
-        body { font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #ffffff; background: transparent; position: relative; min-height: 100vh; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
-        .sticker { position: fixed; bottom: 30px; right: 30px; width: 120px; height: auto; z-index: 999; animation: float 3s ease-in-out infinite; pointer-events: none; }
-
-        .top-bar { position: fixed; top: 20px; left: var(--page-padding); z-index: 9998; display: flex; align-items: center; gap: 10px; height: 44px; }
-        .top-bar-logo { width: 36px; height: 36px; border-radius: 8px; object-fit: contain; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3)); flex-shrink: 0; }
-        .top-bar-text { font-size: 15px; font-weight: 700; white-space: nowrap; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; letter-spacing: -0.2px; line-height: 1; }
-
-        .liquid-dock { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; display: flex; align-items: center; padding: 6px; background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.06) 100%); backdrop-filter: blur(35px) saturate(200%); -webkit-backdrop-filter: blur(35px) saturate(200%); border-radius: 100px; border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
-        .dock-item { background: transparent; border: none; cursor: pointer; color: rgba(255,255,255,0.6); font-size: 15px; font-weight: 500; padding: 12px 22px; border-radius: 50px; display: inline-flex; justify-content: center; align-items: center; gap: 6px; white-space: nowrap; text-decoration: none; transition: color 0.3s ease, background 0.3s ease; position: relative; z-index: 20; }
-        .dock-item:hover { color: rgba(255,255,255,0.9); }
-        .dock-item.active { color: #ffffff; font-weight: 700; background: linear-gradient(135deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.05) 100%); box-shadow: inset 0 1px 1px rgba(255,255,255,0.2); }
-
-        .dock-item-wrap { position: relative; display: flex; align-items: center; }
-        .nav-caret { display: inline-flex; align-items: center; margin-left: 2px; opacity: 0.7; transition: transform 0.25s ease; }
-        .dock-item-wrap.open .nav-caret { transform: rotate(180deg); }
-        .nav-dropdown { position: absolute; top: calc(100% + 14px); left: 50%; transform: translateX(-50%) translateY(-8px) scale(0.96); transform-origin: top center; min-width: 240px; padding: 8px; background: linear-gradient(180deg, rgba(42,32,70,0.86) 0%, rgba(24,16,46,0.84) 100%); backdrop-filter: blur(34px) saturate(180%); -webkit-backdrop-filter: blur(34px) saturate(180%); border: 1px solid rgba(255,255,255,0.14); border-radius: 16px; box-shadow: 0 24px 50px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.12); opacity: 0; pointer-events: none; transition: opacity 0.22s ease, transform 0.22s cubic-bezier(0.25, 1, 0.5, 1); z-index: 40; }
-        .dock-item-wrap.open .nav-dropdown { opacity: 1; pointer-events: auto; transform: translateX(-50%) translateY(0) scale(1); }
-        .nav-dropdown::before { content: ''; position: absolute; top: -6px; left: 50%; transform: translateX(-50%) rotate(45deg); width: 12px; height: 12px; background: rgba(42,32,70,0.86); border-left: 1px solid rgba(255,255,255,0.14); border-top: 1px solid rgba(255,255,255,0.14); border-radius: 3px 0 0 0; }
-        .nav-dropdown-item { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 10px; color: rgba(255,255,255,0.85); font-size: 14px; font-weight: 500; text-decoration: none; cursor: pointer; white-space: nowrap; transition: background 0.18s ease, color 0.18s ease; }
-        .nav-dropdown-item:hover { background: rgba(187,175,253,0.18); color: #fff; }
-        .nav-dropdown-item.primary { background: rgba(187,175,253,0.16); color: #fff; font-weight: 700; }
-        .nav-dropdown-item.primary:hover { background: rgba(187,175,253,0.3); }
-        .nav-dropdown-divider { height: 1px; margin: 6px 8px; background: rgba(255,255,255,0.1); }
-
-        .join-page { position: relative; z-index: 1; padding: 130px var(--page-padding) 40px; }
-        .page-back { display: inline-flex; align-items: center; gap: 8px; color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; font-weight: 600; padding: 8px 18px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.06); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease; margin-bottom: 28px; }
-        .page-back:hover { background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.4); transform: translateY(-2px); }
-        .page-back .arrow { transition: transform 0.25s ease; }
-        .page-back:hover .arrow { transform: translateX(-4px); }
-
-        .join-hero { text-align: center; margin-bottom: 40px; animation: fadeInUp 0.8s ease-out both; }
-        .page-label { display: inline-block; font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 16px; padding: 6px 16px; background: rgba(255,255,255,0.06); border-radius: 100px; border: 1px solid rgba(255,255,255,0.1); }
-        .join-hero h1 { font-size: clamp(36px, 5.5vw, 58px); font-weight: 800; line-height: 1.04; margin-bottom: 16px; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .join-hero p { font-size: clamp(15px, 1.4vw, 17px); color: rgba(255,255,255,0.8); line-height: 1.7; max-width: 620px; margin: 0 auto; }
-
-        .jf-finder-wrap { max-width: 1160px; margin: 0 auto 48px; animation: fadeInUp 0.85s ease-out 0.15s both; }
-
         @keyframes jfPulseGlow {
             0%, 100% { box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05) inset, 0 0 20px rgba(187, 175, 253, 0.08); }
             50% { box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05) inset, 0 0 40px rgba(187, 175, 253, 0.15); }
+        }
+
+        .jf-finder-wrap {
+            max-width: min(1160px, 100%);
+            margin: 0 auto calc(48px * var(--ui-scale));
+            animation: fadeInUp 0.85s ease-out 0.15s both;
         }
 
         .jf-finder-window {
@@ -295,7 +245,7 @@
     <header class="site-header" aria-label="Site header">
     <div class="top-bar">
         <img src="img/awscatlogo.png" alt="AWS Cat Logo" class="top-bar-logo" />
-        <span class="top-bar-text">AWS Student Builder Group · Adamson University</span>
+        <span class="top-bar-text"><span class="brand-full">AWS Student Builder Group · Adamson University</span><span class="brand-short">AWS SBG · AdU</span></span>
     </div>
 
     <nav class="liquid-dock">
@@ -497,7 +447,7 @@
         (function () {
             const customCursor = document.getElementById('custom-cursor');
             const customCursorGlow = document.getElementById('custom-cursor-glow');
-            if (customCursor && customCursorGlow && window.matchMedia('(pointer: fine)').matches) {
+            if (customCursor && customCursorGlow && window.matchMedia('(pointer: fine) and (hover: hover)').matches) {
                 document.body.classList.add('custom-cursor-active');
                 document.addEventListener('mousemove', (e) => {
                     customCursor.style.left = `${e.clientX}px`;

@@ -1,10 +1,11 @@
 /* ============================================================
    AWS SBG AdU — Mobile stylesheet (≤768px primary, ≤480px tight)
-   Top nav · centered content · iOS Files finders
+   Requires: css/tokens.css, css/shared.css, css/responsive.css
    ============================================================ */
 
 @media (max-width: 768px) {
     :root {
+        --ui-scale: 1;
         --mobile-gutter: 16px;
         --mobile-content-max: min(100%, 420px);
         --mobile-brand-block-h: 44px;
@@ -13,7 +14,7 @@
         --mobile-header-pill-py: 6px;
         --mobile-header-pill-px: 16px;
         --mobile-nav-font: 11px;
-        --mobile-header-h: calc(var(--mobile-brand-block-h) + var(--mobile-nav-h) + var(--mobile-header-gap));
+        --mobile-header-h: 48px;
         --mobile-header-glass: linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.08) 100%);
         --mobile-header-border: 1px solid rgba(255, 255, 255, 0.18);
         --mobile-header-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
@@ -64,7 +65,7 @@
         min-height: 100% !important;
     }
 
-    /* ---------- Mobile header: logo/text + nav as two separate pills ---------- */
+    /* ---------- Mobile header: brand pill (left) + three-dot button (right) ---------- */
     .site-header {
         position: fixed !important;
         top: max(8px, env(safe-area-inset-top)) !important;
@@ -72,14 +73,14 @@
         right: var(--mobile-gutter) !important;
         transform: none !important;
         width: auto !important;
-        max-width: var(--mobile-content-max) !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
+        max-width: none !important;
+        margin: 0 !important;
         z-index: 10000 !important;
         display: flex !important;
-        flex-direction: column !important;
-        align-items: stretch !important;
-        gap: var(--mobile-header-gap) !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 10px !important;
         padding: 0 !important;
         background: transparent !important;
         border: none !important;
@@ -90,28 +91,30 @@
         overflow: visible !important;
     }
 
+    /* Brand pill only consumes what it needs (not the full width) */
     .site-header .top-bar {
         position: static !important;
         left: auto !important;
         top: auto !important;
         transform: none !important;
+        flex: 0 1 auto !important;
+        width: auto !important;
+        max-width: calc(100% - var(--mobile-header-h) - 10px) !important;
+        min-width: 0 !important;
         flex-direction: row !important;
         align-items: center !important;
-        justify-content: center !important;
-        text-align: center !important;
+        justify-content: flex-start !important;
+        text-align: left !important;
         gap: 8px !important;
-        padding: var(--mobile-header-pill-py) var(--mobile-header-pill-px) !important;
-        width: 100% !important;
-        max-width: none !important;
-        height: auto !important;
-        min-height: var(--mobile-brand-block-h) !important;
+        padding: 6px 14px 6px 7px !important;
+        height: var(--mobile-header-h) !important;
         background: var(--mobile-header-glass) !important;
         backdrop-filter: blur(45px) saturate(200%) !important;
         -webkit-backdrop-filter: blur(45px) saturate(200%) !important;
         border: var(--mobile-header-border) !important;
-        border-radius: 28px !important;
+        border-radius: 26px !important;
         box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35) !important;
-        overflow: visible !important;
+        overflow: hidden !important;
     }
 
     .site-header .top-bar::after {
@@ -119,151 +122,195 @@
     }
 
     .top-bar-logo {
-        width: 28px !important;
-        height: 28px !important;
+        width: 30px !important;
+        height: 30px !important;
         flex-shrink: 0 !important;
     }
 
     .top-bar-text {
         display: block !important;
-        white-space: normal !important;
-        font-size: 10.5px !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        font-size: 13px !important;
         font-weight: 700 !important;
-        line-height: 1.3 !important;
+        line-height: 1.15 !important;
         letter-spacing: -0.15px !important;
         flex: 0 1 auto !important;
         min-width: 0 !important;
-        max-width: calc(100% - 40px) !important;
-        text-align: center !important;
+        text-align: left !important;
         background: linear-gradient(135deg, #ffffff 18%, #bbaffd 47%, #efdcf1 110%) !important;
         -webkit-background-clip: text !important;
         -webkit-text-fill-color: transparent !important;
         background-clip: text !important;
     }
 
-    .site-header .liquid-dock {
-        position: static !important;
-        top: auto !important;
-        bottom: auto !important;
-        left: auto !important;
-        right: auto !important;
-        transform: none !important;
-        width: 100% !important;
-        max-width: none !important;
-        border-radius: 28px !important;
-        padding: var(--mobile-header-pill-py) var(--mobile-header-pill-px) !important;
-        justify-content: space-between !important;
-        gap: 6px !important;
-        background: var(--mobile-header-glass) !important;
-        backdrop-filter: blur(45px) saturate(200%) !important;
-        -webkit-backdrop-filter: blur(45px) saturate(200%) !important;
-        border: var(--mobile-header-border) !important;
-        box-shadow: var(--mobile-header-shadow) !important;
-        z-index: auto !important;
-        overflow: visible !important;
+    /* Compact brand label on mobile: show the short form, hide the long one */
+    .top-bar-text .brand-full {
+        display: none !important;
     }
 
-    .liquid-dock::-webkit-scrollbar {
+    .top-bar-text .brand-short {
+        display: inline !important;
+    }
+
+    /* Hide the desktop dock entirely on mobile */
+    .site-header .liquid-dock {
+        display: none !important;
+    }
+
+    /* Three-dot toggle button (liquid glass) */
+    .mnav-toggle {
+        flex: 0 0 auto;
+        width: var(--mobile-header-h);
+        height: var(--mobile-header-h);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        padding: 0;
+        border-radius: 50%;
+        cursor: pointer;
+        background: var(--mobile-header-glass);
+        backdrop-filter: blur(45px) saturate(200%);
+        -webkit-backdrop-filter: blur(45px) saturate(200%);
+        border: var(--mobile-header-border);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+        -webkit-tap-highlight-color: transparent;
+        transition: transform 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .mnav-toggle:active {
+        transform: scale(0.94);
+    }
+
+    .mnav-toggle.is-active {
+        background: linear-gradient(180deg, rgba(187, 175, 253, 0.4) 0%, rgba(187, 175, 253, 0.18) 100%);
+        box-shadow: 0 0 0 1px rgba(187, 175, 253, 0.4), 0 12px 32px rgba(0, 0, 0, 0.4);
+    }
+
+    .mnav-dot {
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.9);
+    }
+
+    /* Backdrop behind the menu sheet */
+    .mnav-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 10001;
+        background: rgba(0, 0, 0, 0.45);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.26s ease;
+        -webkit-backdrop-filter: blur(2px);
+        backdrop-filter: blur(2px);
+    }
+
+    .mnav-backdrop.is-visible {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    /* iOS-style context menu sheet */
+    .mnav-sheet {
+        position: fixed;
+        top: calc(var(--mobile-header-top) + var(--mobile-header-h) + 12px);
+        right: var(--mobile-gutter);
+        z-index: 10002;
+        width: min(280px, calc(100vw - var(--mobile-gutter) * 2));
+        max-height: calc(100dvh - var(--mobile-header-top) - var(--mobile-header-h) - 28px);
+        overflow-y: auto;
+        padding: 6px;
+        border-radius: 16px;
+        background: linear-gradient(180deg, rgba(38, 32, 58, 0.82) 0%, rgba(22, 16, 38, 0.82) 100%);
+        backdrop-filter: blur(40px) saturate(180%);
+        -webkit-backdrop-filter: blur(40px) saturate(180%);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.55), inset 0 1px 1px rgba(255, 255, 255, 0.12);
+        opacity: 0;
+        transform: translateY(-10px) scale(0.96);
+        transform-origin: top right;
+        pointer-events: none;
+        transition: opacity 0.24s ease, transform 0.24s cubic-bezier(0.25, 1, 0.5, 1);
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .mnav-sheet::-webkit-scrollbar {
         display: none;
     }
 
-    .dock-item-wrap {
-        flex: 1 1 0;
-        min-width: 0;
-        justify-content: center;
-        position: relative !important;
-        overflow: visible !important;
+    .mnav-sheet.is-visible {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        pointer-events: auto;
     }
 
-    .dock-item {
-        font-size: var(--mobile-nav-font) !important;
-        padding: 6px 5px !important;
-        flex: 1 1 auto;
-        min-width: 0;
-        max-width: 100%;
-        justify-content: center;
-        line-height: 1.15 !important;
-        white-space: nowrap;
-        border-radius: 50px !important;
-        overflow: visible !important;
+    .mnav-group {
+        padding: 4px 0;
+    }
+
+    .mnav-group + .mnav-group {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .mnav-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 11px 14px;
+        border-radius: 11px;
+        text-decoration: none;
+        color: #ffffff;
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: -0.2px;
         -webkit-tap-highlight-color: transparent;
-        box-sizing: border-box !important;
+        transition: background 0.18s ease;
     }
 
-    .nav-caret {
-        margin-left: 1px !important;
+    .mnav-title:active {
+        background: rgba(187, 175, 253, 0.22);
     }
 
-    .nav-caret svg {
-        width: 8px !important;
-        height: 5px !important;
+    .mnav-title.is-current {
+        color: #cdbcff;
     }
 
-    .nav-dropdown {
-        position: absolute !important;
-        top: calc(100% + 6px) !important;
-        left: 50% !important;
-        right: auto !important;
-        bottom: auto !important;
-        transform: translateX(-50%) !important;
-        transform-origin: top center !important;
-        width: max-content !important;
-        min-width: min(152px, calc(100vw - 32px)) !important;
-        max-width: calc(100vw - max(24px, env(safe-area-inset-left) + env(safe-area-inset-right) + 16px)) !important;
-        padding: 4px !important;
-        border-radius: 12px !important;
-        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.1) !important;
-        box-sizing: border-box !important;
-        z-index: 10002 !important;
-        margin: 0 !important;
+    .mnav-chevron {
+        display: inline-flex;
+        align-items: center;
+        opacity: 0.45;
     }
 
-    .dock-item-wrap.open .nav-dropdown.mobile-positioned {
-        opacity: 1 !important;
-        pointer-events: auto !important;
-        visibility: visible !important;
+    .mnav-item {
+        display: block;
+        padding: 9px 14px 9px 18px;
+        border-radius: 10px;
+        text-decoration: none;
+        color: rgba(255, 255, 255, 0.74);
+        font-size: 14px;
+        font-weight: 500;
+        -webkit-tap-highlight-color: transparent;
+        transition: background 0.18s ease, color 0.18s ease;
     }
 
-    .dock-item-wrap:not(.open) .nav-dropdown,
-    .dock-item-wrap.open .nav-dropdown:not(.mobile-positioned) {
-        opacity: 0 !important;
-        pointer-events: none !important;
-        visibility: hidden !important;
+    .mnav-item:active {
+        background: rgba(187, 175, 253, 0.18);
+        color: #ffffff;
     }
 
-    .nav-dropdown.mobile-positioned {
-        transition: opacity 0.22s ease !important;
+    .mnav-item.is-current {
+        color: #cdbcff;
+        font-weight: 600;
     }
 
-    .nav-dropdown::before {
-        top: -5px !important;
-        bottom: auto !important;
-        width: 9px !important;
-        height: 9px !important;
-        transform: translateX(-50%) rotate(45deg) !important;
-    }
-
-    .nav-dropdown-item {
-        font-size: 12px !important;
-        font-weight: 500 !important;
-        padding: 6px 8px !important;
-        border-radius: 8px !important;
-        gap: 8px !important;
-    }
-
-    .nav-dropdown-item.primary {
-        font-size: 12px !important;
-        font-weight: 600 !important;
-        padding: 6px 8px !important;
-    }
-
-    .nav-dropdown-divider {
-        margin: 3px 6px !important;
-    }
-
-    .nav-dropdown-icon {
-        width: 14px !important;
-        height: 14px !important;
+    body.mnav-open {
+        overflow: hidden !important;
     }
 
     /* No scroll snapping on mobile */
@@ -377,6 +424,17 @@
         margin-top: 0 !important;
         margin-bottom: 0 !important;
         text-align: center !important;
+    }
+
+    .page-hero-logo {
+        width: clamp(96px, 28vw, 128px) !important;
+        height: clamp(96px, 28vw, 128px) !important;
+        margin: 0 auto var(--space-lg) !important;
+        border-radius: 22px !important;
+    }
+
+    .page-hero-logo--flat {
+        border-radius: 0 !important;
     }
 
     .join-hero h1,

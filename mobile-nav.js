@@ -1,141 +1,161 @@
+/* ============================================================
+   AWS SBG AdU — Mobile navigation
+   Replaces the dock with a liquid-glass three-dot button that
+   opens an iOS-style context menu (clickable section titles +
+   their dropdown choices). Desktop nav is untouched.
+   ============================================================ */
 (function () {
     const MOBILE_MQ = window.matchMedia('(max-width: 768px)');
-    let ignoreOutsideCloseUntil = 0;
+    let built = false;
+    let isOpen = false;
+    let toggleBtn = null;
+    let sheet = null;
+    let backdrop = null;
 
-    function isMobileNav() {
+    function isMobile() {
         return MOBILE_MQ.matches;
     }
 
-    function getViewportPad() {
-        return 12;
+    function cleanTitle(btn) {
+        if (!btn) return '';
+        // Strip the caret text; use only the label
+        const clone = btn.cloneNode(true);
+        clone.querySelectorAll('.nav-caret, svg').forEach((n) => n.remove());
+        return clone.textContent.replace(/\s+/g, ' ').trim();
     }
 
-    function resetDropdownPosition(menu) {
-        if (!menu) return;
-        menu.classList.remove('mobile-positioned');
-        menu.style.left = '';
-        menu.style.transform = '';
-        menu.style.maxWidth = '';
-        menu.style.width = '';
-    }
-
-    function positionDropdown(wrap) {
-        const menu = wrap.querySelector('.nav-dropdown');
-        if (!menu || !isMobileNav()) return;
-
-        const pad = getViewportPad();
-        menu.classList.add('mobile-positioned');
-        menu.style.left = '50%';
-        menu.style.transform = 'translateX(-50%)';
-        menu.style.maxWidth = `${Math.max(140, window.innerWidth - pad * 2)}px`;
-        menu.style.width = 'max-content';
-
-        requestAnimationFrame(() => {
-            const menuRect = menu.getBoundingClientRect();
-            let shift = 0;
-
-            if (menuRect.left < pad) {
-                shift = pad - menuRect.left;
-            } else if (menuRect.right > window.innerWidth - pad) {
-                shift = (window.innerWidth - pad) - menuRect.right;
-            }
-
-            menu.style.transform = shift
-                ? `translateX(calc(-50% + ${Math.round(shift)}px))`
-                : 'translateX(-50%)';
-        });
-    }
-
-    function closeAllDropdowns(except) {
-        document.querySelectorAll('.dock-item-wrap.open').forEach((wrap) => {
-            if (wrap === except) return;
-            wrap.classList.remove('open');
-            const trigger = wrap.querySelector('[data-dropdown-trigger]');
-            if (trigger) trigger.setAttribute('aria-expanded', 'false');
-            resetDropdownPosition(wrap.querySelector('.nav-dropdown'));
-        });
-    }
-
-    function toggleDropdown(wrap) {
-        const trigger = wrap.querySelector('[data-dropdown-trigger]');
-        const menu = wrap.querySelector('.nav-dropdown');
-        const willOpen = !wrap.classList.contains('open');
-
-        closeAllDropdowns(willOpen ? wrap : null);
-        wrap.classList.toggle('open', willOpen);
-
-        if (trigger) trigger.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
-
-        if (willOpen) {
-            positionDropdown(wrap);
+    function triggerSource(source) {
+        // Reuse all existing wiring (scroll-to-section on home, real
+        // navigation on subpages) by replaying the click on the origin.
+        if (!source) return;
+        const href = source.getAttribute('href');
+        const isScroll = source.hasAttribute('data-scroll-section');
+        if (href && href !== '#' && !isScroll) {
+            window.location.href = href;
         } else {
-            resetDropdownPosition(menu);
+            source.click();
         }
     }
 
-    function repositionOpenDropdowns() {
-        if (!isMobileNav()) return;
-        document.querySelectorAll('.dock-item-wrap.open').forEach((wrap) => positionDropdown(wrap));
-    }
+    function buildMenu() {
+        if (built) return;
+        const dock = document.querySelector('.liquid-dock');
+        const header = document.querySelector('.site-header');
+        if (!dock || !header) return;
+        built = true;
 
-    function blockHoverHandlers(wrap) {
-        ['mouseenter', 'mouseleave'].forEach((type) => {
-            wrap.addEventListener(type, (e) => {
-                if (!isMobileNav()) return;
-                e.stopImmediatePropagation();
-            }, true);
-        });
-    }
+        toggleBtn = document.createElement('button');
+        toggleBtn.type = 'button';
+        toggleBtn.className = 'mnav-toggle';
+        toggleBtn.setAttribute('aria-label', 'Open navigation menu');
+        toggleBtn.setAttribute('aria-haspopup', 'true');
+        toggleBtn.setAttribute('aria-expanded', 'false');
+        toggleBtn.innerHTML =
+            '<span class="mnav-dot"></span><span class="mnav-dot"></span><span class="mnav-dot"></span>';
 
-    function bindMobileDropdowns() {
-        document.querySelectorAll('.dock-item-wrap').forEach((wrap) => {
-            const trigger = wrap.querySelector('[data-dropdown-trigger]');
-            if (!trigger) return;
+        backdrop = document.createElement('div');
+        backdrop.className = 'mnav-backdrop';
+        backdrop.setAttribute('aria-hidden', 'true');
 
-            if (wrap.dataset.mobileNavBound !== '1') {
-                wrap.dataset.mobileNavBound = '1';
-                blockHoverHandlers(wrap);
+        sheet = document.createElement('div');
+        sheet.className = 'mnav-sheet';
+        sheet.setAttribute('role', 'menu');
+        sheet.setAttribute('aria-label', 'Site navigation');
 
-                trigger.addEventListener('click', (e) => {
-                    if (!isMobileNav()) return;
+        dock.querySelectorAll('.dock-item-wrap').forEach((wrap) => {
+            const btn = wrap.querySelector('.dock-item');
+            const items = Array.from(wrap.querySelectorAll('.nav-dropdown-item'));
+            if (!items.length) return;
+
+            const overview = items[0];
+            const rest = items.slice(1);
+
+            const group = document.createElement('div');
+            group.className = 'mnav-group';
+
+            const titleEl = document.createElement('a');
+            titleEl.className = 'mnav-title';
+            titleEl.href = overview.getAttribute('href') || '#';
+            titleEl.innerHTML =
+                '<span class="mnav-title-text">' + cleanTitle(btn) + '</span>' +
+                '<span class="mnav-chevron" aria-hidden="true">' +
+                '<svg viewBox="0 0 8 14" width="8" height="14"><path d="M1 1l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+                '</span>';
+            if (btn && btn.classList.contains('active')) titleEl.classList.add('is-current');
+            titleEl.addEventListener('click', (e) => {
+                e.preventDefault();
+                closeMenu();
+                window.setTimeout(() => triggerSource(overview), 80);
+            });
+            group.appendChild(titleEl);
+
+            rest.forEach((item) => {
+                const link = document.createElement('a');
+                link.className = 'mnav-item';
+                link.href = item.getAttribute('href') || '#';
+                link.textContent = item.textContent.replace(/\s+/g, ' ').trim();
+                if (item.classList.contains('primary')) link.classList.add('is-current');
+                link.addEventListener('click', (e) => {
                     e.preventDefault();
-                    e.stopImmediatePropagation();
-                    ignoreOutsideCloseUntil = Date.now() + 350;
-                    toggleDropdown(wrap);
-                }, true);
-
-                wrap.querySelectorAll('.nav-dropdown a[href], .nav-dropdown button').forEach((el) => {
-                    el.addEventListener('click', () => {
-                        if (!isMobileNav()) return;
-                        closeAllDropdowns();
-                    });
+                    closeMenu();
+                    window.setTimeout(() => triggerSource(item), 80);
                 });
-            }
+                group.appendChild(link);
+            });
+
+            sheet.appendChild(group);
+        });
+
+        header.appendChild(toggleBtn);
+        document.body.appendChild(backdrop);
+        document.body.appendChild(sheet);
+
+        toggleBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            isOpen ? closeMenu() : openMenu();
+        });
+        backdrop.addEventListener('click', closeMenu);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && isOpen) closeMenu();
         });
     }
 
-    function handleOutsideClose(e) {
-        if (!isMobileNav()) return;
-        if (Date.now() < ignoreOutsideCloseUntil) return;
-        if (e.target.closest('.dock-item-wrap')) return;
-        closeAllDropdowns();
+    function openMenu() {
+        if (!sheet) return;
+        isOpen = true;
+        document.body.classList.add('mnav-open');
+        toggleBtn.classList.add('is-active');
+        toggleBtn.setAttribute('aria-expanded', 'true');
+        backdrop.classList.add('is-visible');
+        sheet.classList.add('is-visible');
     }
 
-    if (!document.documentElement.dataset.mobileNavOutsideBound) {
-        document.documentElement.dataset.mobileNavOutsideBound = '1';
-        document.addEventListener('click', handleOutsideClose, true);
-        document.addEventListener('touchstart', handleOutsideClose, { capture: true, passive: true });
-        window.addEventListener('resize', repositionOpenDropdowns, { passive: true });
+    function closeMenu() {
+        if (!sheet) return;
+        isOpen = false;
+        document.body.classList.remove('mnav-open');
+        toggleBtn.classList.remove('is-active');
+        toggleBtn.setAttribute('aria-expanded', 'false');
+        backdrop.classList.remove('is-visible');
+        sheet.classList.remove('is-visible');
+    }
+
+    function init() {
+        if (isMobile()) buildMenu();
     }
 
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', bindMobileDropdowns);
+        document.addEventListener('DOMContentLoaded', init);
     } else {
-        bindMobileDropdowns();
+        init();
     }
 
     MOBILE_MQ.addEventListener('change', () => {
-        if (!isMobileNav()) closeAllDropdowns();
-        bindMobileDropdowns();
+        if (isMobile()) {
+            buildMenu();
+        } else {
+            closeMenu();
+        }
     });
 })();

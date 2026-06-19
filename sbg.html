@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <title>Student Builder Groups · AWS · Adamson University</title>
     <link rel="icon" type="image/png" href="img/awscatlogo.png" />
+    <link rel="stylesheet" href="css/tokens.css" />
+    <link rel="stylesheet" href="css/shared.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
     <link rel="stylesheet" href="mobile.css" />
     <style>
         @import url('https://fonts.cdnfonts.com/css/amazon-ember');
@@ -25,7 +28,7 @@
         body.custom-cursor-active, body.custom-cursor-active * { cursor: none !important; }
         .custom-cursor-glow { position: fixed; top: 0; left: 0; width: 34px; height: 34px; pointer-events: none; z-index: 99998; border-radius: 50%; background: radial-gradient(circle, var(--glow-light) 0%, var(--glow-purple) 40%, var(--glow-deep) 62%, transparent 70%); filter: blur(6px); opacity: 0.8; transform: translate(-50%, -50%); will-change: left, top; }
         .custom-cursor { position: fixed; top: 0; left: 0; width: 20px; height: 20px; pointer-events: none; z-index: 99999; background: url("img/cursor.png") center / contain no-repeat; transform: translate(-50%, -50%); will-change: left, top; }
-        @media (pointer: coarse), (max-width: 768px) { .custom-cursor, .custom-cursor-glow { display: none; } }
+        @media (pointer: coarse) and (hover: none) { .custom-cursor, .custom-cursor-glow { display: none; } }
 
         /* ---------- BASE ---------- */
         html {
@@ -652,7 +655,7 @@
     <header class="site-header" aria-label="Site header">
     <div class="top-bar">
         <img src="img/awscatlogo.png" alt="AWS Cat Logo" class="top-bar-logo" />
-        <span class="top-bar-text">AWS Student Builder Group · Adamson University</span>
+        <span class="top-bar-text"><span class="brand-full">AWS Student Builder Group · Adamson University</span><span class="brand-short">AWS SBG · AdU</span></span>
     </div>
 
     <!-- NAVIGATION DOCK -->
@@ -709,6 +712,7 @@
         </a>
 
         <header class="sbg-hero">
+            <img src="img/awssbglogo.png" alt="" class="page-hero-logo page-hero-logo--flat" />
             <span class="page-label">AWS Builder Center</span>
             <h1>Student Builder Groups</h1>
             <p>Student Builder Groups (SBGs) are student-led communities, supported by AWS, where learners come together to grow their cloud skills, build real projects, and connect with a global network of builders.</p>
@@ -897,7 +901,7 @@
         (function () {
             const customCursor = document.getElementById('custom-cursor');
             const customCursorGlow = document.getElementById('custom-cursor-glow');
-            if (customCursor && customCursorGlow && window.matchMedia('(pointer: fine)').matches) {
+            if (customCursor && customCursorGlow && window.matchMedia('(pointer: fine) and (hover: hover)').matches) {
                 document.body.classList.add('custom-cursor-active');
                 document.addEventListener('mousemove', (e) => {
                     customCursor.style.left = `${e.clientX}px`; customCursor.style.top = `${e.clientY}px`;

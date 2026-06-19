@@ -1,0 +1,76 @@
+/* ============================================================
+   AWS SBG AdU — Design tokens & fluid scale
+   ============================================================ */
+
+:root {
+    /* Brand */
+    --bg-gradient: linear-gradient(180deg, #2d1066 0%, #1a0a4a 28%, #0d0428 55%, #000000 85%);
+    --accent-gradient: linear-gradient(135deg, #ffffff 18%, #bbaffd 47%, #efdcf1 110%);
+    --glow-purple: rgba(187, 175, 253, 0.65);
+    --glow-deep: rgba(45, 16, 102, 0.5);
+    --glow-light: rgba(239, 220, 241, 0.45);
+    --apple-focus: rgba(10, 132, 255, 0.85);
+    --aws-orange: #f29b3c;
+    --aws-orange-hover: #f7ad58;
+
+    /* Layout */
+    --page-padding: clamp(16px, 5vw, 10vw);
+    --content-max: 1200px;
+    --ui-scale: 1;
+
+    /* Fluid typography */
+    --text-xs: clamp(0.625rem, 0.58rem + 0.18vw, 0.75rem);
+    --text-sm: clamp(0.8125rem, 0.76rem + 0.22vw, 0.875rem);
+    --text-base: clamp(0.875rem, 0.82rem + 0.26vw, 1rem);
+    --text-md: clamp(0.9375rem, 0.86rem + 0.32vw, 1.0625rem);
+    --text-lg: clamp(1.0625rem, 0.95rem + 0.5vw, 1.25rem);
+    --text-xl: clamp(1.25rem, 1.05rem + 0.9vw, 1.625rem);
+    --text-2xl: clamp(1.5rem, 1.2rem + 1.4vw, 2rem);
+    --text-hero: clamp(1.75rem, 1.15rem + 2.8vw, 3.625rem);
+    --text-subtitle: clamp(0.9375rem, 0.88rem + 0.32vw, 1.0625rem);
+    --text-nav: clamp(0.8125rem, 0.76rem + 0.28vw, 0.9375rem);
+
+    /* Fluid spacing */
+    --space-xs: clamp(4px, 0.25rem, 6px);
+    --space-sm: clamp(8px, 0.5rem, 10px);
+    --space-md: clamp(12px, 0.75rem, 16px);
+    --space-lg: clamp(16px, 1rem, 20px);
+    --space-xl: clamp(20px, 1.25rem, 28px);
+    --space-2xl: clamp(24px, 1.5rem, 32px);
+    --space-3xl: clamp(32px, 2rem, 48px);
+
+    /* Breakpoint references (for JS sync) */
+    --bp-sm: 360px;
+    --bp-md: 480px;
+    --bp-lg: 768px;
+    --bp-xl: 1024px;
+    --bp-2xl: 1440px;
+}
+
+/* Small desktop: shrink UI proportionally so layout matches large displays.
+   NB: divide by 1440px (a length) so the ratio is unitless — dividing by a
+   bare number yields a length and makes the whole clamp() invalid. */
+@media (min-width: 769px) and (max-width: 1439px) {
+    :root {
+        --ui-scale: clamp(0.78, 0.55 + 0.45 * (100vw / 1440px), 0.98);
+    }
+}
+
+@media (min-width: 1440px) {
+    :root {
+        --ui-scale: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --ui-scale: 1;
+        --page-padding: clamp(14px, 5vw, 20px);
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --page-padding: clamp(12px, 4.5vw, 18px);
+    }
+}
