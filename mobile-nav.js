@@ -5,7 +5,7 @@
    their dropdown choices). Desktop nav is untouched.
    ============================================================ */
 (function () {
-    const MOBILE_MQ = window.matchMedia('(max-width: 768px)');
+    const MOBILE_MQ = window.matchMedia('(max-width: 768px), ((hover: none) and (pointer: coarse))');
     let built = false;
     let isOpen = false;
     let toggleBtn = null;

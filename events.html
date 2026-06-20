@@ -746,7 +746,7 @@
         /* ---------- FLOATING CAT STICKER ---------- */
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
         /* ---------- RESPONSIVE ---------- */
-        @media (max-width: 1024px) {
+        @media (max-width: 1024px) and (hover: hover) and (pointer: fine) {
             .ev-finder-sidebar { display: none; }
             .ev-split {
                 grid-template-columns: 1fr;
@@ -761,7 +761,7 @@
             }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 768px), ((hover: none) and (pointer: coarse)) {
             .ev-stats {
                 grid-template-columns: 1fr;
                 max-width: 360px;
@@ -1194,7 +1194,7 @@
                 filterChips.forEach((chip) => {
                     chip.classList.toggle('active', chip.dataset.filter === filter);
                 });
-                if (activeSidebarItem && window.matchMedia('(max-width: 768px)').matches) {
+                if (activeSidebarItem && window.matchMedia('(max-width: 768px), ((hover: none) and (pointer: coarse))').matches) {
                     activeSidebarItem.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
                 }
                 renderList();

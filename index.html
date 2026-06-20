@@ -1571,7 +1571,7 @@
             color: rgba(255, 255, 255, 0.5);
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 768px), ((hover: none) and (pointer: coarse)) {
             .site-footer {
                 padding: 0;
             }
@@ -1610,7 +1610,7 @@
         }
 
         /* Responsive */
-        @media (max-width: 1024px) {
+        @media (max-width: 1024px) and (hover: hover) and (pointer: fine) {
             .page-section {
                 padding: 0 5vw;
             }
@@ -1656,7 +1656,7 @@
             }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 768px), ((hover: none) and (pointer: coarse)) {
             .page-section {
                 flex-direction: column;
                 justify-content: center;
@@ -1945,7 +1945,7 @@
 
         /* Shorter desktop/laptop heights (e.g. fullscreen on a Dell 7420):
            compact the finder so the Community Stats never crop. */
-        @media (min-width: 769px) and (max-height: 880px) {
+        @media (min-width: 769px) and (max-height: 880px) and (hover: hover) and (pointer: fine) {
             .section3-main {
                 padding: 16px 22px 20px 20px;
             }
@@ -1981,7 +1981,7 @@
             }
         }
 
-        @media (min-width: 769px) and (max-height: 740px) {
+        @media (min-width: 769px) and (max-height: 740px) and (hover: hover) and (pointer: fine) {
             .section3-stat-item {
                 padding: 7px 9px;
             }
@@ -2430,7 +2430,8 @@
             // Desktop zoom: stack hero only above ~110% browser zoom.
             // Baseline viewport height is captured on first load (assumed 100%
             // zoom) so browser chrome on short laptops doesn't false-trigger.
-            const DESKTOP_MQ = window.matchMedia('(min-width: 769px) and (hover: hover)');
+            const DESKTOP_MQ = window.matchMedia('(min-width: 769px) and (hover: hover) and (pointer: fine)');
+            const MOBILE_LAYOUT_MQ = window.matchMedia('(max-width: 768px), ((hover: none) and (pointer: coarse))');
             const ZOOM_STACK_THRESHOLD = 1.105;
             const BASELINE_KEY = 'sbgViewportBaselineH';
             let baselineInnerHeight = parseFloat(sessionStorage.getItem(BASELINE_KEY)) || 0;
@@ -2463,7 +2464,7 @@
             }
 
             document.addEventListener('mousemove', (e) => {
-                if (!section1TiltCard || window.matchMedia('(max-width: 768px)').matches || document.body.classList.contains('desktop-zoom-stack')) return;
+                if (!section1TiltCard || MOBILE_LAYOUT_MQ.matches || document.body.classList.contains('desktop-zoom-stack')) return;
                 const rect = section1TiltCard.getBoundingClientRect();
                 if (rect.left > window.innerWidth || rect.right < 0) return;
                 const centerX = rect.left + rect.width / 2;

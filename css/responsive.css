@@ -3,7 +3,7 @@
    ============================================================ */
 
 /* Tablet */
-@media (max-width: 1024px) {
+@media (max-width: 1024px) and (hover: hover) and (pointer: fine) {
     .join-page,
     .sbg-page,
     .events-page,
@@ -14,7 +14,7 @@
 }
 
 /* Home — index horizontal sections */
-@media (max-width: 1024px) {
+@media (max-width: 1024px) and (hover: hover) and (pointer: fine) {
     .page-section {
         padding-left: var(--page-padding);
         padding-right: var(--page-padding);
@@ -33,7 +33,7 @@
     }
 }
 
-@media (min-width: 769px) {
+@media (min-width: 769px) and (hover: hover) and (pointer: fine) {
     /* Scale index hero typography */
     .section1-content h1 {
         font-size: calc(var(--text-hero) * var(--ui-scale));
@@ -73,7 +73,7 @@
 }
 
 /* Short viewports — keep home sections visible */
-@media (max-height: 800px) and (min-width: 769px) {
+@media (max-height: 800px) and (min-width: 769px) and (hover: hover) and (pointer: fine) {
     .section2 {
         padding-top: calc(48px * var(--ui-scale));
         padding-bottom: calc(16px * var(--ui-scale));
@@ -85,7 +85,7 @@
     }
 }
 
-@media (max-height: 700px) and (min-width: 769px) {
+@media (max-height: 700px) and (min-width: 769px) and (hover: hover) and (pointer: fine) {
     .section1-content h1 {
         font-size: calc(clamp(1.5rem, 3vw, 2rem) * var(--ui-scale));
         margin-bottom: calc(12px * var(--ui-scale));
@@ -140,7 +140,7 @@ body:not(.home-page) {
 }
 
 /* Mobile menu elements never show on desktop/tablet */
-@media (min-width: 769px) {
+@media (min-width: 769px) and (hover: hover) and (pointer: fine) {
     .mnav-toggle,
     .mnav-sheet,
     .mnav-backdrop {
@@ -153,7 +153,7 @@ body:not(.home-page) {
    viewport height so it never clashes on smaller laptops
    (e.g. Dell 7420 at 100%/125%).
    ============================================================ */
-@media (min-width: 769px) {
+@media (min-width: 769px) and (hover: hover) and (pointer: fine) {
     .home-page .page-section.section1 {
         align-items: center;
         padding-top: clamp(96px, 12vh, 132px);
@@ -181,7 +181,7 @@ body:not(.home-page) {
 
 /* Shorter laptop screens (e.g. Dell 7420 at 100%/125%): shrink the hero so
    it never tucks under the fixed nav. */
-@media (min-width: 769px) and (max-height: 880px) {
+@media (min-width: 769px) and (max-height: 880px) and (hover: hover) and (pointer: fine) {
     .home-page .page-section.section1 {
         padding-top: clamp(84px, 11vh, 104px);
         padding-bottom: clamp(20px, 4vh, 40px);
@@ -209,7 +209,7 @@ body:not(.home-page) {
     }
 }
 
-@media (min-width: 769px) and (max-height: 730px) {
+@media (min-width: 769px) and (max-height: 730px) and (hover: hover) and (pointer: fine) {
     .home-page .page-section.section1 {
         padding-top: 80px;
     }
@@ -231,7 +231,7 @@ body:not(.home-page) {
 }
 
 /* Narrow desktop widths: prevent the hero text from crowding the card */
-@media (min-width: 769px) and (max-width: 1100px) {
+@media (min-width: 769px) and (max-width: 1100px) and (hover: hover) and (pointer: fine) {
     .home-page .section1-content {
         max-width: clamp(280px, 42vw, 460px);
     }

@@ -1,9 +1,10 @@
 /* ============================================================
-   AWS SBG AdU — Mobile stylesheet (≤768px primary, ≤480px tight)
+   AWS SBG AdU — Mobile stylesheet (phones + iPad touch)
+   Applies to: max-width 768px OR touch-primary devices (all iPad sizes/orientations)
    Requires: css/tokens.css, css/shared.css, css/responsive.css
    ============================================================ */
 
-@media (max-width: 768px) {
+@media (max-width: 768px), ((hover: none) and (pointer: coarse)) {
     :root {
         --ui-scale: 1;
         --mobile-gutter: 16px;
@@ -1865,8 +1866,16 @@
     }
 }
 
-/* Desktop & tablet spacing — all pages */
-@media (min-width: 769px) {
+/* iPad / touch tablet landscape — use mobile layout but allow a wider content column */
+@media (hover: none) and (pointer: coarse) and (min-width: 769px) {
+    :root {
+        --mobile-content-max: min(100%, 720px);
+        --mobile-gutter: clamp(20px, 4vw, 32px);
+    }
+}
+
+/* Desktop & tablet spacing — pointer desktop only (not iPad touch) */
+@media (min-width: 769px) and (hover: hover) and (pointer: fine) {
     .join-page > * + *,
     .sbg-page > * + *,
     .events-page > * + *,
