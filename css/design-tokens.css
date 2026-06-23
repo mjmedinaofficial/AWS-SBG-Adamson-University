@@ -39,10 +39,12 @@
     --space-2xl: clamp(24px, 1.5rem, 32px);
     --space-3xl: clamp(32px, 2rem, 48px);
 
-    /* Breakpoint references (for JS sync)
-       Mobile layout: (max-width: 768px), ((hover: none) and (pointer: coarse))
-       Desktop layout: (min-width: 769px) and (hover: hover) and (pointer: fine)
-       The touch query covers all iPad sizes in portrait and landscape. */
+    /* Breakpoint references (keep in sync with css/mobile-layout.css + js/mobile-nav.js)
+       Mobile (phone):           max-width: 768px
+       Tablet / compact tablet:  769px – 1024px
+       Laptop:                   1025px – 1279px
+       Desktop:                  1280px+
+       Pointer/hover queries are only for cursor + hover effects — not layout tier. */
     --bp-sm: 360px;
     --bp-md: 480px;
     --bp-lg: 768px;
@@ -53,7 +55,7 @@
 /* Small desktop: shrink UI proportionally so layout matches large displays.
    NB: divide by 1440px (a length) so the ratio is unitless — dividing by a
    bare number yields a length and makes the whole clamp() invalid. */
-@media (min-width: 769px) and (max-width: 1439px) and (hover: hover) and (pointer: fine) {
+@media (min-width: 769px) and (max-width: 1439px) {
     :root {
         --ui-scale: clamp(0.78, 0.55 + 0.45 * (100vw / 1440px), 0.98);
     }
@@ -65,7 +67,7 @@
     }
 }
 
-@media (max-width: 768px), ((hover: none) and (pointer: coarse)) {
+@media (max-width: 768px) {
     :root {
         --ui-scale: 1;
         --page-padding: clamp(14px, 5vw, 20px);

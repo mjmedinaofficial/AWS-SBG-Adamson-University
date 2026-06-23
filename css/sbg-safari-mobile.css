@@ -1,0 +1,107 @@
+/* SBG Safari — iOS mobile chrome (max-width matches mobile-layout.css) */
+@media (max-width: 768px) {
+    .sbg-safari {
+        --safari-content: #000000;
+        --ios-chrome: rgba(28, 28, 30, 0.98);
+        --ios-urlbar: rgba(44, 44, 46, 0.98);
+        --ios-bar: rgba(22, 22, 24, 0.98);
+        border-radius: 14px !important;
+    }
+
+    .sbg-safari-desktop-chrome {
+        display: none !important;
+    }
+
+    .sbg-safari-mobile-url {
+        display: block;
+        flex-shrink: 0;
+        padding: 8px 12px 10px;
+        background: var(--ios-chrome);
+        border-bottom: 0.5px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .sbg-safari-mobile-urlbar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        height: 36px;
+        padding: 0 14px;
+        border-radius: 10px;
+        background: var(--ios-urlbar);
+        border: 0.5px solid rgba(255, 255, 255, 0.1);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    }
+
+    .sbg-safari-mobile-urlbar .sbg-safari-urlbar-lock {
+        flex-shrink: 0;
+        color: rgba(255, 255, 255, 0.42);
+    }
+
+    .sbg-safari-mobile-url-text {
+        font-size: 14px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.88);
+        letter-spacing: -0.02em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .sbg-safari-mobile-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        flex-shrink: 0;
+        padding: 6px 8px calc(6px + env(safe-area-inset-bottom, 0px));
+        background: var(--ios-bar);
+        border-top: 0.5px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 0.5px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .sbg-safari-mobile-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 36px;
+        border: none;
+        background: transparent;
+        color: rgba(255, 255, 255, 0.72);
+        padding: 0;
+        border-radius: 8px;
+        position: relative;
+    }
+
+    .sbg-safari-mobile-btn:disabled {
+        opacity: 0.28;
+    }
+
+    .sbg-safari-mobile-tabs {
+        color: rgba(10, 132, 255, 0.95);
+    }
+
+    .sbg-safari-mobile-tab-count {
+        position: absolute;
+        top: 4px;
+        right: 6px;
+        min-width: 14px;
+        height: 14px;
+        padding: 0 3px;
+        border-radius: 7px;
+        background: rgba(10, 132, 255, 0.95);
+        color: #fff;
+        font-size: 9px;
+        font-weight: 700;
+        line-height: 14px;
+        text-align: center;
+    }
+
+    .sbg-safari .sbg-finder-body.sbg-safari-body {
+        background: var(--safari-content) !important;
+    }
+
+    .sbg-safari .sbg-finder-body.sbg-safari-body::before {
+        opacity: 0.35;
+    }
+}

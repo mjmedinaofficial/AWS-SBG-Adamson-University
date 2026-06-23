@@ -1,9 +1,9 @@
 /* ============================================================
-   AWS SBG AdU — Responsive layout (all viewports)
+   AWS SBG AdU — Desktop & tablet adaptive layout
    ============================================================ */
 
 /* Tablet */
-@media (max-width: 1024px) and (hover: hover) and (pointer: fine) {
+@media (max-width: 1024px) {
     .join-page,
     .sbg-page,
     .events-page,
@@ -14,7 +14,7 @@
 }
 
 /* Home — index horizontal sections */
-@media (max-width: 1024px) and (hover: hover) and (pointer: fine) {
+@media (max-width: 1024px) {
     .page-section {
         padding-left: var(--page-padding);
         padding-right: var(--page-padding);
@@ -25,7 +25,7 @@
     }
 
     .section2 {
-        padding: calc(60px * var(--ui-scale)) var(--page-padding) calc(20px * var(--ui-scale));
+        padding: calc(56px * var(--ui-scale)) var(--page-padding) calc(16px * var(--ui-scale));
     }
 
     .section3-stage {
@@ -33,7 +33,7 @@
     }
 }
 
-@media (min-width: 769px) and (hover: hover) and (pointer: fine) {
+@media (min-width: 769px) {
     /* Scale index hero typography */
     .section1-content h1 {
         font-size: calc(var(--text-hero) * var(--ui-scale));
@@ -73,19 +73,16 @@
 }
 
 /* Short viewports — keep home sections visible */
-@media (max-height: 800px) and (min-width: 769px) and (hover: hover) and (pointer: fine) {
+@media (max-height: 800px) and (min-width: 769px) {
     .section2 {
-        padding-top: calc(48px * var(--ui-scale));
-        padding-bottom: calc(16px * var(--ui-scale));
-        gap: calc(16px * var(--ui-scale));
-    }
-
-    .section2-event-card {
-        padding: calc(14px * var(--ui-scale));
+        justify-content: flex-start;
+        padding-top: calc(84px * var(--ui-scale));
+        padding-bottom: calc(12px * var(--ui-scale));
+        gap: calc(14px * var(--ui-scale));
     }
 }
 
-@media (max-height: 700px) and (min-width: 769px) and (hover: hover) and (pointer: fine) {
+@media (max-height: 700px) and (min-width: 769px) {
     .section1-content h1 {
         font-size: calc(clamp(1.5rem, 3vw, 2rem) * var(--ui-scale));
         margin-bottom: calc(12px * var(--ui-scale));
@@ -122,9 +119,17 @@
 
 @container (max-width: 320px) {
     .section2-event-card-footer {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .section2-event-card-speaker {
+        font-size: 10px;
+    }
+
+    .section2-event-card-link {
+        font-size: 11px;
     }
 }
 
@@ -148,12 +153,38 @@ body:not(.home-page) {
     }
 }
 
+/* Laptops & desktops: always run the Section 1 moving carousel */
+@media (min-width: 769px) {
+    .home-page .section1-carousel-track {
+        display: flex !important;
+        animation: slideCarousel 6.5s linear infinite !important;
+        transform: none;
+        width: auto;
+    }
+
+    .home-page .section1-carousel-window {
+        overflow: hidden;
+        padding: 0 38px;
+    }
+
+    .home-page .section1-carousel-slide {
+        display: block !important;
+        flex: 0 0 65%;
+        min-width: min(380px, 42vw);
+    }
+
+    .home-page .section1-carousel-slide:first-child,
+    .home-page .section1-carousel-slide:nth-child(4) {
+        opacity: 0.5;
+    }
+}
+
 /* ============================================================
    Section 1 hero — keep clear of the fixed nav and scale with
    viewport height so it never clashes on smaller laptops
    (e.g. Dell 7420 at 100%/125%).
    ============================================================ */
-@media (min-width: 769px) and (hover: hover) and (pointer: fine) {
+@media (min-width: 769px) {
     .home-page .page-section.section1 {
         align-items: center;
         padding-top: clamp(96px, 12vh, 132px);
@@ -181,7 +212,7 @@ body:not(.home-page) {
 
 /* Shorter laptop screens (e.g. Dell 7420 at 100%/125%): shrink the hero so
    it never tucks under the fixed nav. */
-@media (min-width: 769px) and (max-height: 880px) and (hover: hover) and (pointer: fine) {
+@media (min-width: 769px) and (max-height: 880px) {
     .home-page .page-section.section1 {
         padding-top: clamp(84px, 11vh, 104px);
         padding-bottom: clamp(20px, 4vh, 40px);
@@ -209,7 +240,7 @@ body:not(.home-page) {
     }
 }
 
-@media (min-width: 769px) and (max-height: 730px) and (hover: hover) and (pointer: fine) {
+@media (min-width: 769px) and (max-height: 730px) {
     .home-page .page-section.section1 {
         padding-top: 80px;
     }
@@ -231,9 +262,50 @@ body:not(.home-page) {
 }
 
 /* Narrow desktop widths: prevent the hero text from crowding the card */
-@media (min-width: 769px) and (max-width: 1100px) and (hover: hover) and (pointer: fine) {
+@media (min-width: 769px) and (max-width: 1100px) {
     .home-page .section1-content {
         max-width: clamp(280px, 42vw, 460px);
+    }
+}
+
+/* ============================================================
+   Tablet & compact tablet (769px – 1024px)
+   iPad, small laptops at high zoom, portrait tablets
+   ============================================================ */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .home-page .page-section.section1 {
+        padding-top: clamp(84px, 10vh, 104px);
+        padding-left: var(--page-padding);
+        padding-right: var(--page-padding);
+        gap: clamp(12px, 2.5vw, 24px);
+    }
+
+    .home-page .section1-content {
+        max-width: clamp(240px, 38vw, 380px);
+    }
+
+    .home-page .section1-card-wrapper {
+        flex: 1 1 auto;
+        max-width: clamp(260px, 42vw, 420px);
+        padding-left: clamp(8px, 2vw, 20px);
+    }
+
+    .home-page .section1-hero-logo {
+        width: clamp(88px, 10vw, 112px);
+        height: clamp(88px, 10vw, 112px);
+    }
+
+    .section2-events-grid {
+        gap: clamp(14px, 2vw, 20px);
+    }
+}
+
+/* ============================================================
+   Laptop (1025px – 1279px)
+   ============================================================ */
+@media (min-width: 1025px) and (max-width: 1279px) {
+    .home-page .section1-content {
+        max-width: clamp(320px, 36vw, 480px);
     }
 }
 
@@ -309,52 +381,34 @@ body:not(.home-page) {
 
 .home-page.desktop-zoom-stack .section1-glass-card {
     max-width: 100%;
-    padding: 24px;
+    padding: 0;
     transform: none !important;
     transition: none !important;
 }
 
 .home-page.desktop-zoom-stack .section1-card-topbar {
-    margin: -24px -24px 20px -24px;
+    margin: 0;
 }
 
 .home-page.desktop-zoom-stack .section1-card-bottombar {
-    margin: 0 -24px -24px -24px;
+    margin: 0;
+    margin-top: auto;
 }
 
 .home-page.desktop-zoom-stack .section1-glass-card h2 {
     font-size: 1.15rem;
-    margin-bottom: 12px;
+    padding: 16px 16px 0;
 }
 
 .home-page.desktop-zoom-stack .section1-glass-card p {
     font-size: 0.9rem;
-    margin-bottom: 16px;
+    padding: 10px 16px 16px;
 }
 
 .home-page.desktop-zoom-stack .section1-card-media {
+    width: calc(100% - 32px);
+    margin: 16px 16px 0;
     height: 200px;
-    margin-bottom: 16px;
-}
-
-.home-page.desktop-zoom-stack .section1-carousel-window {
-    padding: 0;
-}
-
-.home-page.desktop-zoom-stack .section1-carousel-track {
-    animation: none;
-    transform: none;
-    width: 100%;
-}
-
-.home-page.desktop-zoom-stack .section1-carousel-slide {
-    flex: 0 0 100%;
-    min-width: 0;
-    opacity: 1 !important;
-}
-
-.home-page.desktop-zoom-stack .section1-carousel-slide:not(:first-child) {
-    display: none;
 }
 
 .home-page.desktop-zoom-stack .page-section.section2 {
@@ -387,59 +441,48 @@ body:not(.home-page) {
 }
 
 .home-page.desktop-zoom-stack .section3-main {
-    overflow: visible;
-    padding: 12px 16px 16px 14px;
+    overflow: hidden;
+    padding: 0;
 }
 
-.home-page.desktop-zoom-stack .section3-narrative-tags {
-    gap: 6px;
-    margin-bottom: 8px;
+.home-page.desktop-zoom-stack .section3-notes-toolbar {
+    padding: 8px 10px;
+    min-height: 44px;
 }
 
-.home-page.desktop-zoom-stack .section3-narrative-tag {
-    font-size: 8px;
-    padding: 4px 8px;
-    letter-spacing: 0.5px;
+.home-page.desktop-zoom-stack .section3-notes-toolbar-actions {
+    display: none;
 }
 
-.home-page.desktop-zoom-stack .section3-narrative-content {
-    grid-template-rows: auto auto;
-    gap: 10px 12px;
-    align-items: start;
+.home-page.desktop-zoom-stack .section3-notes-list {
+    width: 36%;
+    min-width: 160px;
 }
 
-.home-page.desktop-zoom-stack .section3-main-block {
-    overflow: visible;
-    padding: 10px 12px;
-    min-height: 0;
+.home-page.desktop-zoom-stack .section3-notes-list-item-title {
+    font-size: 12px;
 }
 
-.home-page.desktop-zoom-stack .section3-main-block:hover {
-    transform: none;
-}
-
-.home-page.desktop-zoom-stack .section3-block-title {
-    font-size: 9px;
-    letter-spacing: 0.7px;
-    margin-bottom: 8px;
-    min-height: 0;
-    flex-shrink: 0;
-}
-
-.home-page.desktop-zoom-stack .section3-main-block .section3-block-title[style] {
-    margin-top: 10px !important;
-}
-
-.home-page.desktop-zoom-stack .section3-main .section3-description {
-    font-size: 11px;
-    line-height: 1.45;
-}
-
-.home-page.desktop-zoom-stack .section3-narrative-quote {
+.home-page.desktop-zoom-stack .section3-notes-list-item-snippet,
+.home-page.desktop-zoom-stack .section3-notes-list-item-meta {
     font-size: 10px;
-    line-height: 1.4;
-    padding: 6px 10px;
-    margin-top: 6px;
+}
+
+.home-page.desktop-zoom-stack .section3-notes-detail {
+    padding: 16px 18px 20px;
+}
+
+.home-page.desktop-zoom-stack .section3-notes-pane-title {
+    font-size: 20px;
+}
+
+.home-page.desktop-zoom-stack .section3-notes-pane-body {
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.home-page.desktop-zoom-stack .section3-notes-pane-tags span {
+    font-size: 12px;
 }
 
 .home-page.desktop-zoom-stack .section3-stat-grid {

@@ -1,5 +1,5 @@
 /* ============================================================
-   AWS SBG AdU — Shared chrome (all pages)
+   AWS SBG AdU — Base styles & shared chrome (all pages)
    ============================================================ */
 
 @import url('https://fonts.cdnfonts.com/css/amazon-ember');
@@ -198,6 +198,24 @@ body.custom-cursor-active * {
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
 }
 
+.site-header .liquid-dock .dock-slider {
+    position: absolute;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.04) 100%);
+    backdrop-filter: blur(10px) saturate(130%);
+    -webkit-backdrop-filter: blur(10px) saturate(130%);
+    border-radius: 50px;
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    z-index: 10;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1),
+                inset 0 1px 1px rgba(255, 255, 255, 0.2);
+    height: calc(100% - 12px);
+    top: 6px;
+    left: 0;
+    width: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
 .site-header .liquid-dock .dock-item {
     background: transparent;
     border: none;
@@ -214,7 +232,7 @@ body.custom-cursor-active * {
     white-space: nowrap;
     line-height: 1;
     text-decoration: none;
-    transition: color 0.3s ease, background 0.3s ease;
+    transition: color 0.3s ease;
     position: relative;
     z-index: 20;
 }
@@ -574,4 +592,51 @@ body.custom-cursor-active * {
     letter-spacing: 0.2px;
     color: rgba(255, 255, 255, 0.55);
     background: #000000;
+}
+
+/* Finder window footer — branding + community stats (one line) */
+[class$="-finder-footer"],
+.section3-footer {
+    padding: 8px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-shrink: 0;
+    flex-wrap: nowrap;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.25);
+    background: rgba(30, 30, 35, 0.9);
+    min-height: 32px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+[class$="-finder-footer"] > span,
+.section3-footer > span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 1;
+    min-width: 0;
+}
+
+[class$="-finder-footer-items"],
+.section3-footer-items {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 20px;
+    flex-shrink: 0;
+}
+
+[class$="-finder-footer-items"] span,
+.section3-footer-items span {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    color: rgba(255, 255, 255, 0.35);
+    font-variant-numeric: tabular-nums;
 }

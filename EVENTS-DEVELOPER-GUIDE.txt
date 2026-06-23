@@ -1,0 +1,133 @@
+AWS SBG AdU — Events Developer Guide
+====================================
+
+This site loads all workshop/event content from one file:
+
+  js/events-data.js
+
+The homepage (Section 2) and the All Events page (events.html) both read from
+that file automatically. You usually do NOT need to edit index.html or
+events.html when adding or updating events.
+
+
+IMAGE FOLDER STRUCTURE
+----------------------
+
+Each event has its own folder under img/, named after the event number:
+
+  img/event11/
+  img/event10/
+  img/event9/
+  ...
+
+Inside each folder, name photos using this pattern:
+
+  event{N}-1.jpg
+  event{N}-2.jpg
+  event{N}-3.jpg
+  event{N}-4.jpg
+
+Example for event 11:
+
+  img/event11/event11-1.jpg
+  img/event11/event11-2.jpg
+  img/event11/event11-3.jpg
+  img/event11/event11-4.jpg
+
+By default, each event expects 4 images. To use a different count for one
+event, add imageCount to that event in js/events-data.js (see below).
+
+To use a fully custom list of image paths, add an images array instead:
+
+  images: [
+    "img/event5/event5-1.jpg",
+    "img/event5/event5-2.jpg",
+    "img/event5/bonus-shot.jpg"
+  ]
+
+
+HOMEPAGE SECTION 2 (FEATURED EVENTS)
+------------------------------------
+
+Section 2 on the homepage automatically shows the newest events from the
+All Events page — no manual pick list needed.
+
+Events are sorted by number (highest = newest) on events.html. The homepage
+displays the first 3 from that list: left to right, newest first.
+
+When you add event 12 to rawEvents, it appears at the top of All Events and
+replaces the oldest featured card on the homepage automatically.
+
+To show more or fewer cards on the homepage, change this in js/events-data.js:
+
+  window.SBG_FEATURED_EVENT_COUNT = 3;
+
+Example — show the 4 newest events:
+
+  window.SBG_FEATURED_EVENT_COUNT = 4;
+
+
+HOW TO ADD A NEW EVENT (ALL EVENTS PAGE)
+----------------------------------------
+
+1. Open js/events-data.js.
+
+2. Add a new object to the rawEvents array. Example:
+
+   {
+     number: 12,
+     title: "Your Event Title",
+     desc: "Full description shown in the event modal and on the events page.",
+     category: "workshop",
+     tags: ["Tag One", "Tag Two"]
+   }
+
+   category must be one of:
+     community | workshop | lab | hackathon
+
+   These match the filters on events.html.
+
+3. Create the image folder and add photos:
+
+     img/event12/event12-1.jpg
+     img/event12/event12-2.jpg
+     img/event12/event12-3.jpg
+     img/event12/event12-4.jpg
+
+   Optional: set imageCount: 6 if you have six photos instead of four.
+
+4. Save and refresh events.html. New events appear at the top when their
+   number is higher than existing events (the list is sorted newest first).
+   The homepage Section 2 updates automatically to show the latest events.
+
+
+HOW TO UPDATE AN EXISTING EVENT
+-------------------------------
+
+In js/events-data.js, find the event by its number field inside rawEvents
+and edit title, desc, category, tags, etc.
+
+To update dates or speakers for all events at once, change the .map() block
+at the bottom of the file (month, day, year, speaker fields).
+
+To set per-event dates or speakers later, add those fields to the raw event
+object and use them in the .map() block instead of hard-coded values.
+
+
+FILES THAT USE EVENT DATA
+-------------------------
+
+  js/events-data.js     — edit this (source of truth)
+  js/pages/index.js     — renders homepage cards + event modal
+  js/pages/events.js    — renders the All Events calendar/list
+  index.html            — empty grid; cards are built by JavaScript
+  events.html           — event list UI shell; data comes from JavaScript
+
+
+QUICK CHECKLIST FOR A NEW EVENT
+-------------------------------
+
+[ ] Add entry to rawEvents in js/events-data.js
+[ ] Create img/event{N}/ folder
+[ ] Add event{N}-1.jpg through event{N}-4.jpg (or set imageCount / images)
+[ ] Refresh browser and test homepage + events.html

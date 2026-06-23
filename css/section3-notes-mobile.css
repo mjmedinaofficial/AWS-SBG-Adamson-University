@@ -1,0 +1,484 @@
+/* Section 3 iPhone Notes — mobile only */
+@media (max-width: 768px) {
+    .section3-notes-app,
+    .section3-notes-app button,
+    .section3-notes-app .section3-notes-search,
+    .section3-notes-app .section3-notes-list,
+    .section3-notes-app .section3-notes-detail,
+    .section3-notes-app .section3-notes-mobile-dock {
+        font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+    }
+
+    .section3-titlebar {
+        display: grid !important;
+        flex-shrink: 0 !important;
+        border-top-left-radius: 14px !important;
+        border-top-right-radius: 14px !important;
+        font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+    }
+
+    .section3-footer {
+        display: flex !important;
+        flex-shrink: 0 !important;
+        border-bottom-left-radius: 14px !important;
+        border-bottom-right-radius: 14px !important;
+        font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+    }
+
+    .section3-window {
+        display: flex !important;
+        flex-direction: column !important;
+        border-radius: 14px !important;
+        background: transparent !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45) !important;
+        overflow: hidden !important;
+        min-height: min(72vh, 640px) !important;
+    }
+
+    .section3-body {
+        border-radius: 0 !important;
+        border-bottom-left-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        background: #1a1a1d !important;
+        overflow: hidden !important;
+    }
+
+    .section3-body .section3-main {
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        overflow: hidden !important;
+    }
+
+    .section3-notes-app {
+        min-height: 0 !important;
+        flex: 1 1 auto !important;
+        position: relative !important;
+        display: flex !important;
+        flex-direction: column !important;
+        background: #1a1a1d !important;
+        overflow: hidden !important;
+        --notes-bg-app: #1a1a1d;
+        --notes-bg-toolbar: #1a1a1d;
+        --notes-bg-list: #232326;
+        --notes-bg-detail: #141416;
+        --notes-bg-search: rgba(118, 118, 128, 0.24);
+        --notes-text-primary: rgba(255, 255, 255, 0.92);
+        --notes-text-secondary: rgba(255, 255, 255, 0.52);
+        --notes-border: rgba(255, 255, 255, 0.08);
+        --ios-notes-card: #232326;
+        --ios-notes-card-active: #2c2c2e;
+        --notes-nav-duration: 0.32s;
+        --notes-nav-ease: cubic-bezier(0.32, 0.72, 0, 1);
+    }
+
+    .section3-notes-toolbar {
+        display: block !important;
+        flex-wrap: nowrap !important;
+        padding: 14px 16px 0 !important;
+        min-height: auto !important;
+        background: #1a1a1d !important;
+        border-bottom: none !important;
+        flex-shrink: 0 !important;
+    }
+
+    .section3-notes-app.is-mobile-detail .section3-notes-toolbar {
+        padding-top: 12px !important;
+        padding-bottom: 6px !important;
+        border-bottom: 0.5px solid rgba(255, 255, 255, 0.08) !important;
+    }
+
+    .section3-notes-mobile-topnav {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        margin-bottom: 12px !important;
+    }
+
+    .section3-notes-mobile-header {
+        display: block !important;
+        padding-bottom: 4px !important;
+    }
+
+    .section3-notes-app.is-mobile-detail .section3-notes-mobile-header {
+        display: none !important;
+    }
+
+    .section3-notes-toolbar-left,
+    .section3-notes-toolbar-actions,
+    .section3-notes-search--toolbar {
+        display: none !important;
+    }
+
+    .section3-notes-mobile-nav-btn {
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 36px !important;
+        height: 36px !important;
+        padding: 0 !important;
+        border: none !important;
+        border-radius: 999px !important;
+        background: #2c2c2e !important;
+        color: rgba(255, 255, 255, 0.88) !important;
+        cursor: pointer !important;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .section3-notes-mobile-back {
+        display: none !important;
+    }
+
+    .section3-notes-app.is-mobile-detail .section3-notes-mobile-back {
+        display: inline-flex !important;
+    }
+
+    .section3-notes-app.is-mobile-detail .section3-notes-mobile-more {
+        display: none !important;
+    }
+
+    .section3-notes-toolbar-heading {
+        gap: 2px !important;
+    }
+
+    .section3-notes-app-title {
+        font-size: 28px !important;
+        font-weight: 700 !important;
+        letter-spacing: -0.04em !important;
+        line-height: 1.05 !important;
+        color: rgba(255, 255, 255, 0.92) !important;
+        font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+    }
+
+    .section3-notes-count {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+        font-size: 14px !important;
+        color: rgba(255, 255, 255, 0.52) !important;
+        font-weight: 400 !important;
+        margin-top: 0 !important;
+        font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+    }
+
+    .section3-notes-count-icon {
+        flex-shrink: 0 !important;
+        opacity: 0.7 !important;
+    }
+
+    .section3-notes-body {
+        position: relative !important;
+        flex: 1 1 0 !important;
+        min-height: 0 !important;
+        background: #1a1a1d !important;
+        overflow: hidden !important;
+        contain: layout style paint;
+    }
+
+    .section3-notes-list,
+    .section3-notes-detail {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        max-width: none !important;
+        min-width: 0 !important;
+        transform: translate3d(0, 0, 0) !important;
+        transition: transform var(--notes-nav-duration) var(--notes-nav-ease) !important;
+        backface-visibility: hidden !important;
+        -webkit-backface-visibility: hidden !important;
+    }
+
+    .section3-notes-list {
+        z-index: 1 !important;
+        pointer-events: auto !important;
+    }
+
+    .section3-notes-detail {
+        z-index: 2 !important;
+        transform: translate3d(100%, 0, 0) !important;
+        pointer-events: none !important;
+        box-shadow: -8px 0 20px rgba(0, 0, 0, 0.35) !important;
+    }
+
+    .section3-notes-app.is-mobile-detail .section3-notes-list {
+        transform: translate3d(-30%, 0, 0) !important;
+        pointer-events: none !important;
+    }
+
+    .section3-notes-app.is-mobile-detail .section3-notes-detail {
+        transform: translate3d(0, 0, 0) !important;
+        pointer-events: auto !important;
+        padding-top: 24px !important;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .section3-notes-list,
+        .section3-notes-detail {
+            transition: none !important;
+        }
+    }
+
+    .section3-notes-list {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        max-width: none !important;
+        min-width: 0 !important;
+        flex: none !important;
+        border: none !important;
+        background: #1a1a1d !important;
+        padding: 0 0 4px !important;
+        overflow: hidden !important;
+    }
+
+    .section3-notes-list-hint,
+    .section3-notes-detail-hint,
+    .section3-notes-mobile-bar {
+        display: none !important;
+    }
+
+    .section3-notes-list-group {
+        flex-shrink: 0 !important;
+        margin-bottom: 10px !important;
+    }
+
+    .section3-notes-list-group:last-child {
+        margin-bottom: 0 !important;
+    }
+
+    .section3-notes-list-label {
+        padding: 0 16px 4px !important;
+        font-size: 17px !important;
+        font-weight: 700 !important;
+        color: rgba(255, 255, 255, 0.92) !important;
+        letter-spacing: -0.02em !important;
+        font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+    }
+
+    .section3-notes-list-card {
+        margin: 0 12px !important;
+        background: #232326 !important;
+        border-radius: 12px !important;
+        overflow: hidden !important;
+        border: 0.5px solid rgba(255, 255, 255, 0.06) !important;
+    }
+
+    .section3-notes-list-item {
+        display: block !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 9px 14px !important;
+        border: none !important;
+        border-radius: 0 !important;
+        border-bottom: 0.5px solid rgba(255, 255, 255, 0.08) !important;
+        background: #232326 !important;
+        box-shadow: none !important;
+        text-align: left !important;
+        transform: none !important;
+        transition: background 0.15s ease !important;
+    }
+
+    .section3-notes-list-item:not(.active):hover,
+    .section3-notes-list-item:not(.active):focus-visible {
+        transform: none !important;
+        border-color: transparent !important;
+        box-shadow: none !important;
+    }
+
+    .section3-notes-list-card .section3-notes-list-item:last-child {
+        border-bottom: none !important;
+    }
+
+    .section3-notes-list-item::after {
+        display: none !important;
+    }
+
+    .section3-notes-list-item.active {
+        background: #2c2c2e !important;
+    }
+
+    .section3-notes-list-item-text {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 2px !important;
+        min-width: 0 !important;
+    }
+
+    .section3-notes-list-item-title {
+        font-size: 16px !important;
+        font-weight: 700 !important;
+        line-height: 1.2 !important;
+        color: rgba(255, 255, 255, 0.92) !important;
+        font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+
+    .section3-notes-list-item-preview {
+        font-size: 14px !important;
+        line-height: 1.3 !important;
+        color: rgba(255, 255, 255, 0.52) !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+        -webkit-line-clamp: unset !important;
+        -webkit-box-orient: unset !important;
+        display: block !important;
+    }
+
+    .section3-notes-list-item-time {
+        color: rgba(255, 255, 255, 0.52) !important;
+    }
+
+    .section3-notes-list-item-folder,
+    .section3-notes-list-item-thumb,
+    .section3-notes-list-item-meta,
+    .section3-notes-list-item-snippet,
+    .section3-notes-list-item-tags {
+        display: none !important;
+    }
+
+    .section3-notes-mobile-dock {
+        display: flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+        flex-shrink: 0 !important;
+        padding: 8px 16px 12px !important;
+        background: #1a1a1d !important;
+        border-top: none !important;
+    }
+
+    .section3-notes-app.is-mobile-detail .section3-notes-mobile-dock {
+        display: none !important;
+    }
+
+    .section3-notes-mobile-dock .section3-notes-search {
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        flex: 1 1 auto !important;
+        min-width: 0 !important;
+        margin: 0 !important;
+        padding: 10px 14px !important;
+        border-radius: 999px !important;
+        font-size: 16px !important;
+        color: rgba(255, 255, 255, 0.45) !important;
+        background: #2c2c2e !important;
+        font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+    }
+
+    .section3-notes-mobile-dock .section3-notes-search svg {
+        flex-shrink: 0 !important;
+        color: rgba(255, 255, 255, 0.45) !important;
+    }
+
+    .section3-notes-search-mic {
+        margin-left: auto !important;
+        flex-shrink: 0 !important;
+    }
+
+    .section3-notes-mobile-dock .section3-notes-mobile-compose {
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 44px !important;
+        height: 44px !important;
+        flex-shrink: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        border-radius: 14px !important;
+        background: #2c2c2e !important;
+        color: rgba(255, 255, 255, 0.88) !important;
+    }
+
+    .section3-notes-detail {
+        flex: none !important;
+        min-height: 0 !important;
+        padding: 8px 20px 32px !important;
+        background: #141416 !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .section3-notes-pane {
+        max-width: none !important;
+    }
+
+    .section3-notes-pane.active {
+        flex: none !important;
+        display: block !important;
+    }
+
+    .section3-notes-pane[data-note-panel="about"] .section3-notes-pane-body {
+        flex: none !important;
+        display: block !important;
+    }
+
+    .section3-notes-pane-title {
+        font-size: 28px !important;
+        font-weight: 700 !important;
+        letter-spacing: -0.03em !important;
+        line-height: 1.15 !important;
+        margin-top: 0 !important;
+        margin-bottom: 10px !important;
+        color: rgba(255, 255, 255, 0.92) !important;
+        font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+    }
+
+    .section3-notes-app.is-mobile-detail .section3-notes-pane-title {
+        margin-top: 6px !important;
+    }
+
+    .section3-notes-pane-tags span {
+        font-size: 15px !important;
+        color: #e8b84a !important;
+    }
+
+    .section3-notes-pane-body {
+        font-size: 17px !important;
+        line-height: 1.55 !important;
+        color: rgba(255, 255, 255, 0.82) !important;
+        font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+    }
+
+    .section3-notes-pane-body strong {
+        color: rgba(255, 255, 255, 0.92) !important;
+    }
+
+    .section3-notes-pane-body p.section3-notes-handwrite {
+        margin: 32px 0 24px !important;
+        padding-top: 0 !important;
+    }
+
+    .section3-notes-handwrite-text {
+        font-size: clamp(28px, 7vw, 34px) !important;
+        color: rgba(255, 246, 228, 0.92) !important;
+        transform: rotate(-2deg) translateX(-12px) !important;
+    }
+
+    .section3-notes-stat {
+        background: #232326 !important;
+        border-color: rgba(255, 255, 255, 0.08) !important;
+    }
+
+    .section3-notes-stats-grid--three {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+    }
+
+    .section3-stage {
+        min-height: min(78vh, 680px) !important;
+    }
+}

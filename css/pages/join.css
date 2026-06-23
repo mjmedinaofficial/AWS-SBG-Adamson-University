@@ -1,0 +1,350 @@
+@keyframes jfPulseGlow {
+    0%, 100% { box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05) inset, 0 0 20px rgba(187, 175, 253, 0.08); }
+    50% { box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05) inset, 0 0 40px rgba(187, 175, 253, 0.15); }
+}
+
+.jf-finder-wrap {
+    max-width: min(1160px, 100%);
+    margin: 0 auto calc(48px * var(--ui-scale));
+    animation: fadeInUp 0.85s ease-out 0.15s both;
+}
+
+.jf-finder-window {
+    position: relative; width: 100%; border-radius: 12px;
+    background: rgba(28, 26, 42, 0.92);
+    backdrop-filter: blur(55px) saturate(180%);
+    -webkit-backdrop-filter: blur(55px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+    overflow: hidden;
+    animation: jfPulseGlow 4s ease-in-out infinite;
+    display: flex; flex-direction: column;
+}
+
+.jf-finder-titlebar { display: flex; align-items: center; padding: 10px 16px; background: rgba(40, 40, 45, 0.95); border-bottom: 1px solid rgba(255, 255, 255, 0.06); flex-shrink: 0; gap: 12px; min-height: 44px; }
+.jf-finder-controls { display: flex; gap: 8px; flex-shrink: 0; }
+.jf-finder-control { width: 13px; height: 13px; border-radius: 50%; border: 1px solid rgba(0, 0, 0, 0.15); }
+.jf-finder-control.red { background: #ff5f57; border-color: #e04e47; }
+.jf-finder-control.yellow { background: #ffbd2e; border-color: #e0a524; }
+.jf-finder-control.green { background: #28c840; border-color: #1fa833; }
+.jf-finder-title { flex: 1; text-align: center; font-size: 13px; font-weight: 600; color: rgba(255, 255, 255, 0.6); letter-spacing: 0.2px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+.jf-finder-title-icon { display: inline-block; width: 16px; height: 16px; background: url("../../img/awscatlogo.png") center / contain no-repeat; vertical-align: middle; margin-right: 6px; filter: brightness(0.8); }
+
+.jf-finder-body { display: flex; flex: 1; min-height: 0; background: rgba(20, 20, 25, 0.88); }
+
+.jf-finder-sidebar { width: 180px; flex-shrink: 0; background: rgba(30, 30, 35, 0.9); border-right: 1px solid rgba(255, 255, 255, 0.05); padding: 12px 0; }
+.jf-finder-sidebar-item { display: flex; align-items: center; gap: 10px; padding: 6px 12px; margin: 0 8px; border-radius: 6px; font-size: 13px; color: rgba(255, 255, 255, 0.6); font-weight: 500; white-space: nowrap; cursor: default; transition: background 0.15s ease, color 0.15s ease; }
+.jf-finder-sidebar-item:hover { background: rgba(255, 255, 255, 0.06); color: rgba(255, 255, 255, 0.8); }
+.jf-finder-sidebar-item.active { background: rgba(187, 175, 253, 0.15); color: #bbaffd; }
+.jf-finder-sidebar-item.active:hover { background: rgba(187, 175, 253, 0.15); color: #bbaffd; }
+.jf-finder-sidebar-item .icon { width: 18px; height: 18px; background: url("../../img/folder.png") center / contain no-repeat; flex-shrink: 0; }
+.jf-finder-sidebar-divider { height: 1px; background: rgba(255, 255, 255, 0.05); margin: 8px 16px; }
+.jf-finder-sidebar-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: rgba(255, 255, 255, 0.25); padding: 8px 16px 4px; }
+
+.jf-finder-main {
+    flex: 1;
+    padding: 28px 32px 32px;
+    overflow-y: auto;
+    min-width: 0;
+    font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+.jf-finder-main::-webkit-scrollbar { width: 3px; }
+.jf-finder-main::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.12); border-radius: 2px; }
+
+.jf-form-intro {
+    font-size: 13px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.55);
+    margin-bottom: 22px;
+    max-width: 520px;
+}
+
+/* Apple-style grouped form */
+.jf-form-section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.38);
+    margin: 0 0 8px 4px;
+}
+
+.jf-form-group {
+    background: rgba(255, 255, 255, 0.045);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 22px;
+}
+
+.jf-form-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-height: 44px;
+    padding: 0 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.jf-form-row:last-child { border-bottom: none; }
+
+.jf-form-row label {
+    flex-shrink: 0;
+    width: 132px;
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.88);
+    letter-spacing: -0.01em;
+}
+
+.jf-form-row input,
+.jf-form-row select {
+    flex: 1;
+    min-width: 0;
+    height: 44px;
+    border: none;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 13px;
+    font-family: inherit;
+    outline: none;
+    text-align: right;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.jf-form-row select {
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='rgba(255,255,255,0.45)' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right center;
+    padding-right: 18px;
+}
+
+.jf-form-row select option {
+    background: #1c1c1e;
+    color: #fff;
+    font-family: inherit;
+}
+
+.jf-form-row input::placeholder { color: rgba(255, 255, 255, 0.28); }
+
+.jf-form-row:focus-within {
+    background: rgba(10, 132, 255, 0.06);
+    box-shadow: inset 0 0 0 1px rgba(10, 132, 255, 0.35);
+}
+
+.jf-form-row:focus-within label { color: #fff; }
+
+.jf-form-row input:focus,
+.jf-form-row select:focus {
+    box-shadow: none;
+}
+
+.jf-form-note {
+    font-size: 11px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.35);
+    margin: -12px 0 22px 4px;
+}
+
+.jf-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-top: 4px;
+}
+
+.jf-btn-secondary {
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.75);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 9px 18px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.jf-btn-secondary:hover { background: rgba(255, 255, 255, 0.1); }
+
+.jf-btn-primary {
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    background: #f29b3c;
+    border: 1px solid rgba(242, 155, 60, 0.6);
+    border-radius: 8px;
+    padding: 9px 22px;
+    cursor: pointer;
+    box-shadow: 0 6px 16px rgba(242, 155, 60, 0.28);
+    transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.jf-btn-primary:hover {
+    background: #f7ad58;
+    transform: translateY(-1px);
+    box-shadow: 0 0 20px rgba(242, 155, 60, 0.45);
+}
+
+.jf-finder-footer {
+    position: relative;
+    z-index: 3;
+    padding: 8px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-shrink: 0;
+    flex-wrap: nowrap;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.25);
+    background: rgba(30, 30, 35, 0.9);
+    min-height: 32px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.jf-finder-footer > span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 1;
+    min-width: 0;
+}
+
+.jf-finder-footer-items {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    gap: 20px;
+    flex-shrink: 0;
+}
+
+.jf-finder-footer-items span {
+    color: rgba(255, 255, 255, 0.35);
+}
+
+.site-footer { width: 100%; padding: 0; display: flex; flex-direction: column; align-items: stretch; position: relative; z-index: 2; isolation: isolate; }
+.site-footer-card { position: relative; width: 100%; background: #000000; border-top: 1px solid rgba(255, 255, 255, 0.1); box-shadow: none; }
+.site-footer-card::before { display: none; }
+.site-footer-main { position: relative; z-index: 1; width: 100%; max-width: 1200px; margin: 0 auto; padding: 48px 10vw 32px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 18px; }
+.site-footer-logo-row { display: flex; align-items: center; gap: 16px; }
+.site-footer-logo { width: 56px; height: 56px; border-radius: 12px; object-fit: contain; filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4)); flex-shrink: 0; }
+.site-footer-titles { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.15; }
+.site-footer-title { font-size: 22px; font-weight: 800; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.site-footer-subtitle { font-size: 14px; font-weight: 600; color: rgba(255, 255, 255, 0.65); letter-spacing: 0.5px; }
+.site-footer-desc { max-width: 540px; margin: 0; font-size: 15px; line-height: 1.7; color: rgba(255, 255, 255, 0.8); }
+.site-footer-socials { display: flex; gap: 14px; margin-top: 4px; }
+.site-footer-social { width: 46px; height: 46px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: #fff; background: #f29b3c; border: 1px solid rgba(242, 155, 60, 0.6); box-shadow: 0 6px 18px rgba(242, 155, 60, 0.3); transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease; text-decoration: none; }
+.site-footer-social:hover { transform: translateY(-3px); background: #f7ad58; box-shadow: 0 0 22px rgba(242, 155, 60, 0.55); }
+.site-footer-social svg { width: 20px; height: 20px; display: block; }
+.site-footer-bottom { position: relative; z-index: 1; padding: 16px 10vw 20px; text-align: center; font-size: 10px; letter-spacing: 0.2px; color: rgba(255, 255, 255, 0.55); background: #000000; }
+
+/* Registration closed — blur finder only */
+.jf-finder-wrap--closed {
+    position: relative;
+}
+
+.jf-finder-wrap--closed .jf-finder-window {
+    filter: blur(8px);
+    pointer-events: none;
+    user-select: none;
+}
+
+.jf-registration-closed {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    border-radius: 12px;
+    background: rgba(10, 10, 14, 0.4);
+}
+
+.jf-registration-closed-card {
+    max-width: 440px;
+    width: 100%;
+    padding: 28px 28px 24px;
+    border-radius: 14px;
+    background: rgba(28, 26, 42, 0.96);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+    text-align: center;
+    font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.jf-registration-closed-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(187, 175, 253, 0.85);
+    margin: 0 0 10px;
+}
+
+.jf-registration-closed-title {
+    font-size: 22px;
+    font-weight: 800;
+    margin: 0 0 12px;
+    color: #fff;
+    line-height: 1.25;
+}
+
+.jf-registration-closed-desc {
+    font-size: 14px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.62);
+    margin: 0 0 20px;
+}
+
+.jf-registration-closed-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    text-decoration: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.jf-registration-closed-link:hover {
+    opacity: 0.92;
+    transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+    :root { --page-padding: 5vw; }
+    .top-bar { top: 12px; } .top-bar-text { display: none; }
+    .liquid-dock { top: 12px; padding: 4px; }
+    .dock-item { font-size: 13px; padding: 9px 14px; }
+    .join-page { padding: 100px 5vw 30px; }
+    .jf-finder-sidebar { display: none; }
+    .jf-finder-main { padding: 20px 16px 24px; }
+    .jf-form-row { flex-direction: column; align-items: stretch; gap: 4px; min-height: auto; padding: 12px 14px; }
+    .jf-form-row label { width: auto; font-size: 12px; color: rgba(255, 255, 255, 0.5); }
+    .jf-form-row input, .jf-form-row select { height: 36px; text-align: left; }
+    .jf-form-actions { flex-direction: column; }
+    .jf-btn-secondary, .jf-btn-primary { width: 100%; text-align: center; }
+    .jf-finder-footer { flex-direction: row; justify-content: space-between; gap: 8px; padding: 8px 16px; font-size: 10px; }
+    .jf-finder-footer-items { flex-wrap: nowrap; justify-content: flex-end; gap: 10px; }
+    .jf-registration-closed { padding: 16px; }
+    .jf-registration-closed-card { padding: 22px 20px 20px; }
+    .jf-registration-closed-title { font-size: 19px; }
+    .jf-registration-closed-desc { font-size: 13px; }
+    .jf-registration-closed-link { font-size: 12px; padding: 9px 14px; word-break: break-all; }
+    .sticker { width: 80px; bottom: 16px; right: 16px; }
+    .site-footer-main { padding: 36px 5vw 28px; }
+    .site-footer-logo-row { flex-direction: column; gap: 10px; }
+    .site-footer-titles { align-items: center; text-align: center; }
+}

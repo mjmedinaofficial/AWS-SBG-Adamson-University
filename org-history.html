@@ -5,947 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <title>Org History · AWS Student Builder Group · Adamson University</title>
     <link rel="icon" type="image/png" href="img/awscatlogo.png" />
-    <link rel="stylesheet" href="css/tokens.css" />
-    <link rel="stylesheet" href="css/shared.css" />
-    <link rel="stylesheet" href="css/responsive.css" />
-    <link rel="stylesheet" href="mobile.css" />
-    <style>
-        @import url('https://fonts.cdnfonts.com/css/amazon-ember');
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        :root {
-            --bg-gradient: linear-gradient(180deg, #2d1066 0%, #1a0a4a 28%, #0d0428 55%, #000000 85%);
-            --accent-gradient: linear-gradient(135deg, #ffffff 18%, #bbaffd 47%, #efdcf1 110%);
-            --glow-purple: rgba(187, 175, 253, 0.65);
-            --glow-deep: rgba(45, 16, 102, 0.5);
-            --glow-light: rgba(239, 220, 241, 0.45);
-            --page-padding: 10vw;
-        }
-
-        /* ---------- CUSTOM CURSOR ---------- */
-        body.custom-cursor-active,
-        body.custom-cursor-active * { cursor: none !important; }
-
-        .custom-cursor-glow {
-            position: fixed; top: 0; left: 0; width: 34px; height: 34px;
-            pointer-events: none; z-index: 99998; border-radius: 50%;
-            background: radial-gradient(circle, var(--glow-light) 0%, var(--glow-purple) 40%, var(--glow-deep) 62%, transparent 70%);
-            filter: blur(6px); opacity: 0.8; transform: translate(-50%, -50%); will-change: left, top;
-        }
-        .custom-cursor {
-            position: fixed; top: 0; left: 0; width: 20px; height: 20px;
-            pointer-events: none; z-index: 99999;
-            background: url("img/cursor.png") center / contain no-repeat;
-            transform: translate(-50%, -50%); will-change: left, top;
-        }
-        @media (pointer: coarse) and (hover: none) {
-            .custom-cursor, .custom-cursor-glow { display: none; }
-        }
-
-        /* ---------- BASE ---------- */
-        html {
-            min-height: 100%;
-            background: var(--bg-gradient);
-            background-repeat: no-repeat;
-        }
-
-        body {
-            font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            color: #ffffff;
-            background: transparent;
-            position: relative;
-            min-height: 100vh;
-        }
-
-        @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        @keyframes patternShift { 0% { background-position: 0 0; } 100% { background-position: 840px 840px; } }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
-        .sticker { position: fixed; bottom: 30px; right: 30px; width: 120px; height: auto; z-index: 999; animation: float 3s ease-in-out infinite; pointer-events: none; }
-
-        /* ---------- TOP BAR ---------- */
-        .top-bar {
-            position: fixed; top: 20px; left: var(--page-padding); z-index: 9998;
-            display: flex; align-items: center; gap: 10px;
-            height: 44px;
-        }
-        .top-bar-logo { width: 36px; height: 36px; border-radius: 8px; object-fit: contain; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3)); flex-shrink: 0; }
-        .top-bar-text {
-            font-size: 15px; font-weight: 700; white-space: nowrap;
-            background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-            letter-spacing: -0.2px; line-height: 1;
-        }
-
-        /* ---------- NAVIGATION DOCK ---------- */
-        .liquid-dock {
-            position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 9999;
-            display: flex; align-items: center; padding: 6px;
-            background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.06) 100%);
-            backdrop-filter: blur(35px) saturate(200%); -webkit-backdrop-filter: blur(35px) saturate(200%);
-            border-radius: 100px; border: 1px solid rgba(255,255,255,0.15);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        }
-        .dock-item {
-            background: transparent; border: none; cursor: pointer; color: rgba(255,255,255,0.6);
-            font-size: 15px; font-weight: 500; padding: 12px 22px; border-radius: 50px;
-            display: inline-flex; justify-content: center; align-items: center; gap: 6px;
-            white-space: nowrap; text-decoration: none; transition: color 0.3s ease, background 0.3s ease;
-            position: relative; z-index: 20;
-        }
-        .dock-item:hover { color: rgba(255,255,255,0.9); }
-        .dock-item.active {
-            color: #ffffff; font-weight: 700;
-            background: linear-gradient(135deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.05) 100%);
-            box-shadow: inset 0 1px 1px rgba(255,255,255,0.2);
-        }
-
-        /* ---------- NAV DROPDOWN ---------- */
-        .dock-item-wrap { position: relative; display: flex; align-items: center; }
-        .nav-caret { display: inline-flex; align-items: center; margin-left: 2px; opacity: 0.7; transition: transform 0.25s ease; }
-        .dock-item-wrap.open .nav-caret { transform: rotate(180deg); }
-        .nav-dropdown {
-            position: absolute; top: calc(100% + 14px); left: 50%;
-            transform: translateX(-50%) translateY(-8px) scale(0.96); transform-origin: top center;
-            min-width: 240px; padding: 8px;
-            background: linear-gradient(180deg, rgba(42,32,70,0.86) 0%, rgba(24,16,46,0.84) 100%);
-            backdrop-filter: blur(34px) saturate(180%); -webkit-backdrop-filter: blur(34px) saturate(180%);
-            border: 1px solid rgba(255,255,255,0.14); border-radius: 16px;
-            box-shadow: 0 24px 50px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.12);
-            opacity: 0; pointer-events: none;
-            transition: opacity 0.22s ease, transform 0.22s cubic-bezier(0.25, 1, 0.5, 1); z-index: 40;
-        }
-        .dock-item-wrap.open .nav-dropdown { opacity: 1; pointer-events: auto; transform: translateX(-50%) translateY(0) scale(1); }
-        .nav-dropdown::before {
-            content: ''; position: absolute; top: -6px; left: 50%; transform: translateX(-50%) rotate(45deg);
-            width: 12px; height: 12px; background: rgba(42,32,70,0.86);
-            border-left: 1px solid rgba(255,255,255,0.14); border-top: 1px solid rgba(255,255,255,0.14); border-radius: 3px 0 0 0;
-        }
-        .nav-dropdown-item {
-            display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 10px;
-            color: rgba(255,255,255,0.85); font-size: 14px; font-weight: 500; text-decoration: none;
-            cursor: pointer; white-space: nowrap; transition: background 0.18s ease, color 0.18s ease;
-        }
-        .nav-dropdown-item:hover { background: rgba(187,175,253,0.18); color: #fff; }
-        .nav-dropdown-item.primary { background: rgba(187,175,253,0.16); color: #fff; font-weight: 700; }
-        .nav-dropdown-item.primary:hover { background: rgba(187,175,253,0.3); }
-        .nav-dropdown-icon { width: 20px; height: 20px; flex-shrink: 0; background: url("img/folder.png") center / contain no-repeat; }
-        .nav-dropdown-divider { height: 1px; margin: 6px 8px; background: rgba(255,255,255,0.1); }
-
-        /* ---------- PAGE: ORG HISTORY ---------- */
-        .oh-page { position: relative; z-index: 1; padding: 130px var(--page-padding) 40px; }
-
-        .page-back {
-            display: inline-flex; align-items: center; gap: 8px; color: rgba(255,255,255,0.7);
-            text-decoration: none; font-size: 14px; font-weight: 600; padding: 8px 18px; border-radius: 100px;
-            border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.06);
-            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-            transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease; margin-bottom: 28px;
-        }
-        .page-back:hover { background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.4); transform: translateY(-2px); }
-        .page-back .arrow { transition: transform 0.25s ease; }
-        .page-back:hover .arrow { transform: translateX(-4px); }
-
-        .oh-hero { text-align: center; margin-bottom: 60px; animation: fadeInUp 0.8s ease-out both; }
-        .oh-hero-logo {
-            width: 160px;
-            height: 160px;
-            border-radius: 28px;
-            object-fit: contain;
-            filter: drop-shadow(0 8px 28px rgba(0, 0, 0, 0.5));
-            margin: 0 auto 28px;
-            display: block;
-        }
-        .page-label {
-            display: inline-block; font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
-            color: rgba(255,255,255,0.6); margin-bottom: 16px; padding: 6px 16px;
-            background: rgba(255,255,255,0.06); border-radius: 100px; border: 1px solid rgba(255,255,255,0.1);
-        }
-        .oh-hero h1 {
-            font-size: clamp(36px, 5.5vw, 60px); font-weight: 800; line-height: 1.04; margin-bottom: 16px;
-            background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-        }
-        .oh-hero p { font-size: clamp(15px, 1.4vw, 17px); color: rgba(255,255,255,0.8); line-height: 1.7; max-width: 640px; margin: 0 auto; }
-
-        /* Stats strip */
-        .oh-stats {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin: 0 auto 70px; max-width: 760px;
-        }
-        .oh-stat {
-            text-align: center;
-            padding: 24px 18px;
-            border-radius: 16px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.055) 0%, rgba(255,255,255,0.015) 100%);
-            backdrop-filter: blur(40px) saturate(170%);
-            -webkit-backdrop-filter: blur(40px) saturate(170%);
-            border: 1px solid rgba(255,255,255,0.14);
-            border-top: 1px solid rgba(255,255,255,0.25);
-            box-shadow: 0 18px 40px rgba(0,0,0,0.32);
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-        }
-        .oh-stat:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 28px 55px rgba(0,0,0,0.42);
-            border-color: rgba(255,255,255,0.28);
-        }
-        .oh-stat-num {
-            font-size: clamp(28px, 4vw, 42px);
-            font-weight: 900;
-            line-height: 1;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .oh-stat-label {
-            font-size: 13px;
-            color: rgba(255,255,255,0.72);
-            margin-top: 8px;
-            letter-spacing: 0.4px;
-        }
-
-        /* Finder window — community growth */
-        .oh-finder-wrap {
-            max-width: 1160px;
-            margin: 0 auto;
-        }
-
-        @keyframes ohPulseGlow {
-            0%, 100% { box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05) inset, 0 0 20px rgba(187, 175, 253, 0.08); }
-            50% { box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05) inset, 0 0 40px rgba(187, 175, 253, 0.15); }
-        }
-
-        .oh-finder-window {
-            position: relative;
-            width: 100%;
-            min-height: 520px;
-            border-radius: 12px;
-            background: rgba(28, 26, 42, 0.92);
-            backdrop-filter: blur(55px) saturate(180%);
-            -webkit-backdrop-filter: blur(55px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
-            overflow: hidden;
-            animation: ohPulseGlow 4s ease-in-out infinite;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .oh-finder-titlebar {
-            display: flex;
-            align-items: center;
-            padding: 10px 16px;
-            background: rgba(40, 40, 45, 0.95);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-            flex-shrink: 0;
-            gap: 12px;
-            min-height: 44px;
-        }
-
-        .oh-finder-controls {
-            display: flex;
-            gap: 8px;
-            flex-shrink: 0;
-        }
-
-        .oh-finder-control {
-            width: 13px;
-            height: 13px;
-            border-radius: 50%;
-            border: 1px solid rgba(0, 0, 0, 0.15);
-            cursor: default;
-            position: relative;
-        }
-
-        .oh-finder-control.red { background: #ff5f57; border-color: #e04e47; }
-        .oh-finder-control.yellow { background: #ffbd2e; border-color: #e0a524; }
-        .oh-finder-control.green { background: #28c840; border-color: #1fa833; }
-
-        .oh-finder-title {
-            flex: 1;
-            text-align: center;
-            font-size: 13px;
-            font-weight: 600;
-            color: rgba(255, 255, 255, 0.6);
-            letter-spacing: 0.2px;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        }
-
-        .oh-finder-title-icon {
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            background: url("img/awscatlogo.png") center / contain no-repeat;
-            vertical-align: middle;
-            margin-right: 6px;
-            filter: brightness(0.8);
-        }
-
-        .oh-finder-body {
-            display: flex;
-            flex: 1;
-            min-height: 0;
-            background: rgba(20, 20, 25, 0.88);
-        }
-
-        .oh-finder-sidebar {
-            width: 180px;
-            flex-shrink: 0;
-            background: rgba(30, 30, 35, 0.9);
-            border-right: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 12px 0;
-        }
-
-        .oh-finder-sidebar-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 6px 12px;
-            margin: 0 8px;
-            border-radius: 6px;
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.6);
-            font-weight: 500;
-            cursor: default;
-            white-space: nowrap;
-            transition: background 0.15s ease, color 0.15s ease;
-        }
-
-        .oh-finder-sidebar-item:hover {
-            background: rgba(255, 255, 255, 0.06);
-            color: rgba(255, 255, 255, 0.8);
-        }
-
-        .oh-finder-sidebar-item.active {
-            background: rgba(187, 175, 253, 0.15);
-            color: #bbaffd;
-        }
-
-        .oh-finder-sidebar-item .icon {
-            width: 18px;
-            height: 18px;
-            background: url("img/folder.png") center / contain no-repeat;
-            flex-shrink: 0;
-        }
-
-        .oh-finder-sidebar-divider {
-            height: 1px;
-            background: rgba(255, 255, 255, 0.05);
-            margin: 8px 16px;
-        }
-
-        .oh-finder-sidebar-label {
-            font-size: 10px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            color: rgba(255, 255, 255, 0.25);
-            padding: 8px 16px 4px;
-        }
-
-        .oh-finder-main {
-            flex: 1;
-            display: grid;
-            grid-template-columns: 1.15fr 0.85fr;
-            gap: 0;
-            min-width: 0;
-            min-height: 420px;
-        }
-
-        .oh-finder-story {
-            padding: 24px 28px;
-            border-right: 1px solid rgba(255, 255, 255, 0.05);
-            overflow: hidden;
-        }
-
-        .oh-finder-story-text {
-            margin-bottom: 20px;
-            padding: 4px 0;
-        }
-
-        .oh-finder-cat-decor {
-            position: absolute;
-            bottom: 38px;
-            right: 20px;
-            width: min(200px, 22vw);
-            height: auto;
-            opacity: 0.22;
-            pointer-events: none;
-            z-index: 2;
-        }
-
-        .oh-finder-story-text h2 {
-            font-size: clamp(20px, 2.2vw, 26px);
-            font-weight: 800;
-            line-height: 1.25;
-            margin-bottom: 12px;
-            color: rgba(255, 255, 255, 0.95);
-        }
-
-        .oh-finder-story-text p {
-            font-size: 14px;
-            line-height: 1.7;
-            color: rgba(255, 255, 255, 0.68);
-            margin-bottom: 10px;
-        }
-
-        .oh-finder-story-text p:last-child { margin-bottom: 0; }
-
-        .oh-finder-photos {
-            position: relative;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            background: rgba(0, 0, 0, 0.25);
-        }
-
-        .oh-finder-gallery-view {
-            position: relative;
-            aspect-ratio: 16 / 9;
-            overflow: hidden;
-        }
-
-        .oh-finder-gallery-view img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: opacity 0.25s ease;
-        }
-
-        .oh-finder-gallery-view img.is-fading {
-            opacity: 0;
-        }
-
-        .oh-finder-gallery-bar {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 14px;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-            background: rgba(18, 18, 22, 0.72);
-            flex-shrink: 0;
-        }
-
-        .oh-gallery-btn {
-            width: 32px;
-            height: 32px;
-            flex-shrink: 0;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            background: rgba(255, 255, 255, 0.06);
-            color: rgba(255, 255, 255, 0.85);
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
-        }
-
-        .oh-gallery-btn:hover {
-            background: rgba(255, 255, 255, 0.12);
-            border-color: rgba(255, 255, 255, 0.22);
-        }
-
-        .oh-gallery-btn:active {
-            transform: scale(0.96);
-        }
-
-        .oh-gallery-btn svg {
-            width: 16px;
-            height: 16px;
-            display: block;
-        }
-
-        .oh-finder-gallery-thumbs {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            overflow-x: auto;
-            scrollbar-width: none;
-            min-width: 0;
-            padding: 2px 0;
-        }
-
-        .oh-finder-gallery-thumbs::-webkit-scrollbar {
-            display: none;
-        }
-
-        .oh-gallery-thumb {
-            flex-shrink: 0;
-            width: 64px;
-            height: 44px;
-            padding: 0;
-            border-radius: 6px;
-            overflow: hidden;
-            border: 2px solid transparent;
-            background: none;
-            cursor: pointer;
-            opacity: 0.72;
-            transition: opacity 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
-        }
-
-        .oh-gallery-thumb:hover {
-            opacity: 0.95;
-        }
-
-        .oh-gallery-thumb.active {
-            opacity: 1;
-            border-color: #f29b3c;
-            box-shadow: 0 0 0 1px rgba(242, 155, 60, 0.35);
-        }
-
-        .oh-gallery-thumb img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        .oh-finder-timeline-panel {
-            padding: 24px 24px 24px 20px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .oh-finder-block-title {
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1.2px;
-            color: rgba(255, 255, 255, 0.3);
-            margin-bottom: 14px;
-            flex-shrink: 0;
-        }
-
-        .oh-finder-timeline {
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            padding-left: 28px;
-            flex: 1;
-        }
-
-        .oh-finder-timeline::before {
-            content: '';
-            position: absolute;
-            left: 5px;
-            top: 6px;
-            bottom: 6px;
-            width: 2px;
-            background: linear-gradient(180deg, rgba(242, 155, 60, 0.55), rgba(242, 155, 60, 0.15), rgba(242, 155, 60, 0.05));
-            border-radius: 2px;
-        }
-
-        .oh-finder-node {
-            position: relative;
-            padding: 10px 0 18px;
-            opacity: 0;
-            transform: translateY(16px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .oh-finder-node:last-child { padding-bottom: 0; }
-
-        .oh-finder-node.in-view {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .oh-finder-node::before {
-            content: '';
-            position: absolute;
-            left: -28px;
-            top: 14px;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #f29b3c;
-            border: 2px solid rgba(26, 10, 62, 0.9);
-            box-shadow: 0 0 10px rgba(242, 155, 60, 0.45);
-            z-index: 2;
-        }
-
-        .oh-finder-node:last-child::before {
-            box-shadow: 0 0 14px rgba(242, 155, 60, 0.6);
-        }
-
-        .oh-finder-node-year {
-            display: inline-block;
-            font-size: 11px;
-            font-weight: 800;
-            letter-spacing: 0.6px;
-            color: #d9d0ff;
-            margin-bottom: 6px;
-            padding: 3px 10px;
-            border-radius: 100px;
-            background: rgba(187, 175, 253, 0.12);
-            border: 1px solid rgba(187, 175, 253, 0.28);
-        }
-
-        .oh-finder-node h3 {
-            font-size: 15px;
-            font-weight: 700;
-            color: rgba(255, 255, 255, 0.92);
-            margin-bottom: 5px;
-        }
-
-        .oh-finder-node p {
-            font-size: 12.5px;
-            line-height: 1.55;
-            color: rgba(255, 255, 255, 0.55);
-        }
-
-        .oh-finder-footer {
-            position: relative;
-            z-index: 3;
-            padding: 8px 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-shrink: 0;
-            font-size: 11px;
-            color: rgba(255, 255, 255, 0.25);
-            background: rgba(30, 30, 35, 0.9);
-            min-height: 32px;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        }
-
-        .oh-finder-footer-items {
-            display: flex;
-            gap: 20px;
-        }
-
-        .oh-finder-footer > span {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .oh-finder-footer-items span {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        /* Narrative — above finder */
-        @keyframes ohShimmer {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 200% 50%; }
-        }
-
-        @keyframes ohTagGlow {
-            0%, 100% { border-color: rgba(187, 175, 253, 0.22); box-shadow: none; }
-            50% { border-color: rgba(242, 155, 60, 0.42); box-shadow: 0 0 12px rgba(242, 155, 60, 0.12); }
-        }
-
-        @keyframes ohNarrativeReveal {
-            from { opacity: 0; transform: translateY(14px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .oh-finder-narrative {
-            position: relative;
-            z-index: 1;
-            margin-bottom: 28px;
-            padding: 28px 32px 30px;
-            border-radius: 16px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.055) 0%, rgba(255, 255, 255, 0.015) 100%);
-            backdrop-filter: blur(40px) saturate(170%);
-            -webkit-backdrop-filter: blur(40px) saturate(170%);
-            border: 1px solid rgba(255, 255, 255, 0.14);
-            border-top: 1px solid rgba(255, 255, 255, 0.25);
-            box-shadow: 0 24px 50px rgba(0, 0, 0, 0.34);
-            overflow: hidden;
-        }
-
-        .oh-finder-narrative::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(ellipse 70% 55% at 100% 100%, rgba(242, 155, 60, 0.09), transparent 58%),
-                radial-gradient(ellipse 45% 35% at 0% 0%, rgba(187, 175, 253, 0.12), transparent 52%);
-            pointer-events: none;
-        }
-
-        .oh-finder-narrative-inner {
-            position: relative;
-            z-index: 1;
-        }
-
-        .oh-narrative-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 14px;
-        }
-
-        .oh-narrative-tag {
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: 0.7px;
-            text-transform: uppercase;
-            padding: 5px 12px;
-            border-radius: 100px;
-            border: 1px solid rgba(187, 175, 253, 0.22);
-            background: rgba(187, 175, 253, 0.07);
-            color: rgba(255, 255, 255, 0.72);
-            animation: ohTagGlow 3.2s ease-in-out infinite;
-        }
-
-        .oh-narrative-tag:nth-child(2) { animation-delay: 0.5s; }
-        .oh-narrative-tag:nth-child(3) { animation-delay: 1s; }
-        .oh-narrative-tag:nth-child(4) { animation-delay: 1.5s; }
-
-        .oh-narrative-lead {
-            font-size: clamp(14px, 1.35vw, 16px);
-            line-height: 1.75;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 16px;
-            max-width: none;
-        }
-
-        .oh-narrative-shimmer {
-            background: linear-gradient(90deg, #ffffff 0%, #bbaffd 35%, #f29b3c 55%, #efdcf1 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: ohShimmer 5s linear infinite;
-            font-weight: 800;
-        }
-
-        .oh-narrative-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin-bottom: 16px;
-        }
-
-        .oh-narrative-card {
-            padding: 14px 16px;
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.035);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            transition: transform 0.28s ease, border-color 0.28s ease, background 0.28s ease;
-        }
-
-        .oh-narrative-card:hover {
-            transform: translateY(-3px);
-            border-color: rgba(242, 155, 60, 0.28);
-            background: rgba(255, 255, 255, 0.055);
-        }
-
-        .oh-narrative-card h4 {
-            font-size: 10px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: rgba(255, 255, 255, 0.35);
-            margin-bottom: 7px;
-        }
-
-        .oh-narrative-card p {
-            font-size: 13px;
-            line-height: 1.6;
-            color: rgba(255, 255, 255, 0.68);
-        }
-
-        .oh-narrative-quote {
-            margin: 0;
-            padding: 12px 16px;
-            border-left: 3px solid #f29b3c;
-            border-radius: 0 8px 8px 0;
-            background: rgba(242, 155, 60, 0.06);
-            font-size: 13.5px;
-            line-height: 1.65;
-            font-style: italic;
-            color: rgba(255, 255, 255, 0.72);
-        }
-
-        .oh-narrative-reveal {
-            opacity: 0;
-        }
-
-        .oh-finder-narrative.is-revealed .oh-narrative-reveal {
-            animation: ohNarrativeReveal 0.48s ease forwards;
-        }
-
-        /* ---------- SITE FOOTER ---------- */
-        .site-footer {
-            width: 100%;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: stretch;
-        }
-
-        .site-footer-card {
-            position: relative;
-            width: 100%;
-            background: transparent;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: none;
-        }
-
-        .site-footer-card::before {
-            display: none;
-        }
-
-        .site-footer-main {
-            position: relative;
-            z-index: 1;
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 48px 10vw 32px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 18px;
-        }
-
-        .site-footer-logo-row {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .site-footer-logo {
-            width: 56px;
-            height: 56px;
-            border-radius: 12px;
-            object-fit: contain;
-            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
-            flex-shrink: 0;
-        }
-
-        .site-footer-titles {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            line-height: 1.15;
-        }
-
-        .site-footer-title {
-            font-size: 22px;
-            font-weight: 800;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .site-footer-subtitle {
-            font-size: 14px;
-            font-weight: 600;
-            color: rgba(255, 255, 255, 0.65);
-            letter-spacing: 0.5px;
-        }
-
-        .site-footer-desc {
-            max-width: 540px;
-            margin: 0;
-            font-size: 15px;
-            line-height: 1.7;
-            color: rgba(255, 255, 255, 0.8);
-        }
-
-        .site-footer-socials {
-            display: flex;
-            gap: 14px;
-            margin-top: 4px;
-        }
-
-        .site-footer-social {
-            width: 46px;
-            height: 46px;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            background: #f29b3c;
-            border: 1px solid rgba(242, 155, 60, 0.6);
-            box-shadow: 0 6px 18px rgba(242, 155, 60, 0.3);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-        }
-
-        .site-footer-social:hover {
-            transform: translateY(-3px);
-            background: #f7ad58;
-            border-color: rgba(230, 158, 69, 0.9);
-            box-shadow: 0 0 22px rgba(242, 155, 60, 0.55);
-        }
-
-        .site-footer-social svg {
-            width: 20px;
-            height: 20px;
-            display: block;
-        }
-
-        .site-footer-bottom {
-            position: relative;
-            z-index: 1;
-            padding: 16px 10vw 20px;
-            text-align: center;
-            font-size: 10px;
-            letter-spacing: 0.2px;
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        /* ---------- RESPONSIVE ---------- */
-        @media (max-width: 1024px) and (hover: hover) and (pointer: fine) { :root { --page-padding: 5vw; } }
-        @media (max-width: 768px), ((hover: none) and (pointer: coarse)) {
-            :root { --page-padding: 5vw; }
-            .top-bar { top: 12px; }
-            .top-bar-text { display: none; }
-            .liquid-dock { top: 12px; padding: 4px; }
-            .dock-item { font-size: 13px; padding: 9px 14px; }
-            .sticker { width: 80px; bottom: 16px; right: 16px; }
-            .oh-page { padding: 100px 5vw 30px; }
-            .oh-stats { grid-template-columns: 1fr; max-width: 360px; gap: 14px; }
-            .oh-finder-main { grid-template-columns: 1fr; min-height: 0; }
-            .oh-finder-story { border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
-            .oh-finder-sidebar { display: none; }
-            .oh-finder-cat-decor {
-                width: min(140px, 38vw);
-                bottom: 34px;
-                right: 12px;
-                opacity: 0.18;
-            }
-            .oh-gallery-thumb {
-                width: 52px;
-                height: 36px;
-            }
-            .oh-finder-gallery-bar {
-                padding: 8px 10px;
-                gap: 8px;
-            }
-            .oh-finder-narrative {
-                margin-bottom: 22px;
-                padding: 22px 20px 24px;
-            }
-            .oh-narrative-grid {
-                grid-template-columns: 1fr;
-                gap: 10px;
-            }
-            .site-footer { padding: 0; }
-            .site-footer-main { padding: 36px 5vw 28px; }
-            .site-footer-logo-row { flex-direction: column; gap: 10px; }
-            .site-footer-titles { align-items: center; text-align: center; }
-            .site-footer-title { font-size: 19px; }
-            .site-footer-desc { font-size: 14px; }
-            .site-footer-bottom { padding: 14px 5vw 16px; font-size: 9px; }
-        }
-    </style>
+    <link rel="stylesheet" href="css/design-tokens.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/desktop-adaptive.css" />
+    <link rel="stylesheet" href="css/mobile-layout.css" />
+    <link rel="stylesheet" href="css/pages/org-history.css" />
 </head>
 <body>
     <div class="custom-cursor-glow" id="custom-cursor-glow" aria-hidden="true"></div>
@@ -960,6 +24,7 @@
 
     <!-- NAVIGATION DOCK -->
     <nav class="liquid-dock">
+        <div class="dock-slider"></div>
         <div class="dock-item-wrap" id="about-wrap">
             <button class="dock-item active" type="button" aria-haspopup="true" aria-expanded="false" data-dropdown-trigger>
                 About Us
@@ -1015,7 +80,7 @@
             <img src="img/awscatlogo.png" alt="AWS Cat Logo" class="oh-hero-logo" />
             <span class="page-label">Our Journey</span>
             <h1>The Story of AWS SBG AdU</h1>
-            <p>From a small circle of curious students to a thriving cloud community — here is how the AWS Student Builder Group at Adamson University grew, milestone by milestone.</p>
+            <p>From AWS Cloud Club to AWS Student Builder Group — founded October 2, 2024, and growing into a nationwide community of passionate learners building with cloud and AI.</p>
         </header>
 
         <div class="oh-stats">
@@ -1024,12 +89,12 @@
                 <div class="oh-stat-label">Year Founded</div>
             </div>
             <div class="oh-stat">
-                <div class="oh-stat-num">100+</div>
-                <div class="oh-stat-label">Active Members</div>
+                <div class="oh-stat-num">50+</div>
+                <div class="oh-stat-label">Members</div>
             </div>
             <div class="oh-stat">
-                <div class="oh-stat-num">12+</div>
-                <div class="oh-stat-label">Workshops Held</div>
+                <div class="oh-stat-num">11</div>
+                <div class="oh-stat-label">Events</div>
             </div>
         </div>
 
@@ -1038,31 +103,30 @@
                 <div class="oh-finder-narrative-inner">
                     <div class="oh-narrative-tags oh-narrative-reveal">
                         <span class="oh-narrative-tag">Student-Led</span>
-                        <span class="oh-narrative-tag">Cloud-First</span>
+                        <span class="oh-narrative-tag">Cloud &amp; AI</span>
                         <span class="oh-narrative-tag">Community-Driven</span>
-                        <span class="oh-narrative-tag">AWS Builder Center</span>
+                        <span class="oh-narrative-tag">Builders for All</span>
                     </div>
                     <p class="oh-narrative-lead oh-narrative-reveal">
-                        AWS SBG AdU is Adamson University's home for cloud builders — a student-led chapter of the
-                        <span class="oh-narrative-shimmer">AWS Student Builder Group</span>, connected to a global network
-                        of peers learning, certifying, and shipping real projects on AWS.
+                        Formerly known as AWS Cloud Club, we are now the
+                        <span class="oh-narrative-shimmer">AWS Student Builder Group – Adamson University</span> — a broader vision that extends beyond cloud computing to embrace today's dynamic tech landscape, where students build with cloud and AI alike.
                     </p>
                     <div class="oh-narrative-grid">
                         <article class="oh-narrative-card oh-narrative-reveal">
-                            <h4>Who We Are</h4>
-                            <p>Volunteers from across Adamson who believe cloud skills should be open to everyone — not locked behind expensive courses or intimidating jargon.</p>
+                            <h4>What is AWS SBG?</h4>
+                            <p>Our name reflects a vision that reaches beyond cloud alone. Our community, history, service, and commitment to empowering students remain the same — now welcoming all learners from every skill bracket.</p>
                         </article>
                         <article class="oh-narrative-card oh-narrative-reveal">
-                            <h4>What We Do</h4>
-                            <p>Hands-on labs, certification prep, hackathons, and mentorship circles that turn curiosity into deployable skills on EC2, S3, Lambda, and beyond.</p>
+                            <h4>Organization History</h4>
+                            <p>Founded October 2, 2024 by Kate Danielle Callao, the club navigated early growing pains, rebuilt under new leadership, and rose as a top socio-civic organization under Kelvin Ignacio's presidency.</p>
                         </article>
                         <article class="oh-narrative-card oh-narrative-reveal">
-                            <h4>Why It Matters</h4>
-                            <p>Every workshop, project, and study session builds a pipeline of Adamsonian builders ready for internships, competitions, and careers in the cloud.</p>
+                            <h4>Vision &amp; Mission</h4>
+                            <p>We build a lasting, nationwide community of passionate learners who harness AWS to drive innovation — empowering students through workshops, networking, volunteerism, and bridges to the AWS ecosystem.</p>
                         </article>
                     </div>
                     <blockquote class="oh-narrative-quote oh-narrative-reveal">
-                        "By the students, for the students, and with the students" — that is the heartbeat of everything we run, from our first lab to the community we are still growing today.
+                        Continuing its vision to upskill students with competitive skills in cloud and AI, the organization transitioned into AWS Student Builder Group — transforming learners from every skill bracket into builders.
                     </blockquote>
                 </div>
             </div>
@@ -1108,29 +172,19 @@
                     <div class="oh-finder-main">
                         <div class="oh-finder-story">
                             <div class="oh-finder-story-text">
-                                <h2>How a small idea grew into a community</h2>
-                                <p>What began as a handful of cloud-curious Adamsonian students has grown into one of the university's most active tech communities — a place to learn, build, and belong.</p>
-                                <p>Every milestone on the right marks a step in our mission to make AWS and cloud computing accessible to everyone, one workshop at a time.</p>
+                                <h2>From AWS Cloud Club to AWS Student Builder Group</h2>
+                                <p>AWS Cloud Club Adamson University was officially founded on October 2, 2024, spearheaded by Kate Danielle Callao with a vision to bring AWS and cloud computing education to Adamson students.</p>
+                                <p>After rocky roads in its first term, the club rebuilt with renewed direction, rose under Kelvin Ignacio's presidency, and transitioned into AWS Student Builder Group — accepting all learners with the aim of transforming them into builders.</p>
                             </div>
                             <div class="oh-finder-photos">
                                 <div class="oh-finder-gallery-view">
-                                    <img id="oh-gallery-main" src="img/home1.jpg" alt="Community event" />
+                                    <img id="oh-gallery-main" src="" alt="Event gallery" />
                                 </div>
                                 <div class="oh-finder-gallery-bar" aria-label="Photo gallery">
                                     <button type="button" class="oh-gallery-btn oh-gallery-prev" aria-label="Previous image">
                                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
                                     </button>
-                                    <div class="oh-finder-gallery-thumbs">
-                                        <button type="button" class="oh-gallery-thumb active" data-index="0" aria-label="Community event" aria-current="true">
-                                            <img src="img/home1.jpg" alt="" />
-                                        </button>
-                                        <button type="button" class="oh-gallery-thumb" data-index="1" aria-label="Workshop session">
-                                            <img src="img/home2.jpg" alt="" />
-                                        </button>
-                                        <button type="button" class="oh-gallery-thumb" data-index="2" aria-label="Group photo">
-                                            <img src="img/home3.jpg" alt="" />
-                                        </button>
-                                    </div>
+                                    <div class="oh-finder-gallery-thumbs" id="oh-gallery-thumbs"></div>
                                     <button type="button" class="oh-gallery-btn oh-gallery-next" aria-label="Next image">
                                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
                                     </button>
@@ -1143,18 +197,18 @@
                             <div class="oh-finder-timeline">
                                 <div class="oh-finder-node">
                                     <span class="oh-finder-node-year">2024</span>
-                                    <h3>The Spark</h3>
-                                    <p>A small circle of students came together to make AWS approachable on campus — and launched our first hands-on labs in Cloud Foundations, EC2, and S3.</p>
+                                    <h3>The Founding</h3>
+                                    <p>Founded October 2, 2024 by <strong>Kate Danielle Callao</strong> to bring AWS and cloud education to Adamson students.</p>
                                 </div>
                                 <div class="oh-finder-node">
                                     <span class="oh-finder-node-year">2025</span>
-                                    <h3>Growing the Community</h3>
-                                    <p>Membership crossed 100. Mentorship circles, study groups, and certification prep became part of our weekly rhythm.</p>
+                                    <h3>Renewed Direction</h3>
+                                    <p>After early growing pains, the club rebuilt and rose as a top socio-civic organization under <strong>Kelvin Ignacio</strong>'s presidency.</p>
                                 </div>
                                 <div class="oh-finder-node">
                                     <span class="oh-finder-node-year">2026 · Today</span>
-                                    <h3>A Cloud Family</h3>
-                                    <p>AWS SBG AdU is a welcoming home for builders — "by the students, for the students, and with the students" — and we're just getting started.</p>
+                                    <h3>AWS Student Builder Group</h3>
+                                    <p>Rebranded to welcome all skill levels — transforming learners into builders across cloud and AI.</p>
                                 </div>
                             </div>
                         </div>
@@ -1166,10 +220,8 @@
                 <div class="oh-finder-footer">
                     <span><span class="oh-finder-title-icon" aria-hidden="true"></span>Adamson University · AWS Student Builder Group</span>
                     <div class="oh-finder-footer-items">
-                        <span>👥 100+ members</span>
-                        <span>📚 12 workshops</span>
-                        <span>🛠️ 50+ projects</span>
-                        <span>🏅 8 certifications</span>
+                        <span>50+ members</span>
+                        <span data-finder-footer-events>11 events</span>
                     </div>
                 </div>
             </div>
@@ -1212,123 +264,11 @@
         </div>
     </footer>
 
-    <script>
-        (function () {
-            const customCursor = document.getElementById('custom-cursor');
-            const customCursorGlow = document.getElementById('custom-cursor-glow');
-            if (customCursor && customCursorGlow && window.matchMedia('(pointer: fine) and (hover: hover)').matches) {
-                document.body.classList.add('custom-cursor-active');
-                document.addEventListener('mousemove', (e) => {
-                    customCursor.style.left = `${e.clientX}px`;
-                    customCursor.style.top = `${e.clientY}px`;
-                    customCursorGlow.style.left = `${e.clientX}px`;
-                    customCursorGlow.style.top = `${e.clientY}px`;
-                });
-                document.addEventListener('mouseleave', () => { customCursor.style.opacity = '0'; customCursorGlow.style.opacity = '0'; });
-                document.addEventListener('mouseenter', () => { customCursor.style.opacity = '1'; customCursorGlow.style.opacity = '0.8'; });
-            }
-
-            function wireDropdown(wrap) {
-                if (!wrap) return;
-                const trigger = wrap.querySelector('[data-dropdown-trigger]');
-                let hoverTimer;
-                const openMenu = () => { clearTimeout(hoverTimer); wrap.classList.add('open'); if (trigger) trigger.setAttribute('aria-expanded', 'true'); };
-                const closeMenu = () => { wrap.classList.remove('open'); if (trigger) trigger.setAttribute('aria-expanded', 'false'); };
-                wrap.addEventListener('mouseenter', openMenu);
-                wrap.addEventListener('mouseleave', () => { hoverTimer = setTimeout(closeMenu, 130); });
-                if (trigger) trigger.addEventListener('click', (e) => { e.stopPropagation(); wrap.classList.contains('open') ? closeMenu() : openMenu(); });
-                document.addEventListener('click', (e) => { if (!wrap.contains(e.target)) closeMenu(); });
-            }
-            wireDropdown(document.getElementById('about-wrap'));
-            wireDropdown(document.getElementById('workshops-wrap'));
-            wireDropdown(document.getElementById('join-wrap'));
-
-            // ---- Timeline reveal ----
-            const nodes = document.querySelectorAll('.oh-finder-node');
-            const revealObserver = new IntersectionObserver((entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('in-view');
-                        revealObserver.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.15 });
-            nodes.forEach((node, i) => {
-                node.style.transitionDelay = `${i * 0.12}s`;
-                revealObserver.observe(node);
-            });
-
-            // ---- Gallery ----
-            const galleryImages = [
-                { src: 'img/home1.jpg', alt: 'Community event' },
-                { src: 'img/home2.jpg', alt: 'Workshop session' },
-                { src: 'img/home3.jpg', alt: 'Group photo' }
-            ];
-            const galleryMain = document.getElementById('oh-gallery-main');
-            const galleryThumbs = document.querySelectorAll('.oh-gallery-thumb');
-            const galleryPrev = document.querySelector('.oh-gallery-prev');
-            const galleryNext = document.querySelector('.oh-gallery-next');
-            let galleryIndex = 0;
-
-            function setGalleryIndex(index) {
-                galleryIndex = (index + galleryImages.length) % galleryImages.length;
-                const current = galleryImages[galleryIndex];
-
-                if (galleryMain) {
-                    galleryMain.classList.add('is-fading');
-                    window.setTimeout(() => {
-                        galleryMain.src = current.src;
-                        galleryMain.alt = current.alt;
-                        galleryMain.classList.remove('is-fading');
-                    }, 120);
-                }
-
-                galleryThumbs.forEach((thumb, i) => {
-                    const isActive = i === galleryIndex;
-                    thumb.classList.toggle('active', isActive);
-                    thumb.setAttribute('aria-current', isActive ? 'true' : 'false');
-                });
-
-                const activeThumb = galleryThumbs[galleryIndex];
-                if (activeThumb) {
-                    activeThumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-                }
-            }
-
-            galleryThumbs.forEach((thumb) => {
-                thumb.addEventListener('click', () => {
-                    setGalleryIndex(Number(thumb.dataset.index));
-                });
-            });
-
-            if (galleryPrev) {
-                galleryPrev.addEventListener('click', () => setGalleryIndex(galleryIndex - 1));
-            }
-            if (galleryNext) {
-                galleryNext.addEventListener('click', () => setGalleryIndex(galleryIndex + 1));
-            }
-
-            // ---- Narrative reveal ----
-            const narrative = document.getElementById('oh-finder-narrative');
-            const narrativeItems = narrative && narrative.querySelectorAll('.oh-narrative-reveal');
-            if (narrative && narrativeItems.length) {
-                const narrativeObserver = new IntersectionObserver((entries) => {
-                    entries.forEach((entry) => {
-                        if (entry.isIntersecting) {
-                            narrative.classList.add('is-revealed');
-                            narrativeItems.forEach((el, i) => {
-                                el.style.animationDelay = `${i * 0.08}s`;
-                            });
-                            narrativeObserver.unobserve(narrative);
-                        }
-                    });
-                }, { threshold: 0.2 });
-                narrativeObserver.observe(narrative);
-            }
-        })();
-    </script>
+    <script src="js/nav-dock.js"></script>
+    <script src="js/events-data.js"></script>
+    <script src="js/pages/org-history.js"></script>
 
     <img src="img/awscat1.png" alt="AWS Cat Sticker" class="sticker" />
-    <script src="mobile-nav.js"></script>
+    <script src="js/mobile-nav.js"></script>
 </body>
 </html>

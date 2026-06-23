@@ -5,806 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <title>All Events · AWS Student Builder Group · Adamson University</title>
     <link rel="icon" type="image/png" href="img/awscatlogo.png" />
-    <link rel="stylesheet" href="css/tokens.css" />
-    <link rel="stylesheet" href="css/shared.css" />
-    <link rel="stylesheet" href="css/responsive.css" />
-    <link rel="stylesheet" href="mobile.css" />
-    <style>
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background-image: url("img/awsrepetitive.png");
-            background-repeat: repeat;
-            background-size: 840px auto;
-            opacity: 0.3;
-            pointer-events: none;
-            z-index: 0;
-            animation: patternShift 28s linear infinite;
-        }
-
-        body::after {
-            display: none;
-        }
-
-        @keyframes patternShift {
-            0% { background-position: 0 0; }
-            100% { background-position: 840px 840px; }
-        }
-
-        /* ---------- PAGE CONTENT ---------- */
-        .events-page {
-            padding-bottom: calc(90px * var(--ui-scale));
-        }
-
-        .events-header {
-            margin-bottom: calc(48px * var(--ui-scale));
-        }
-
-        .events-label {
-            display: inline-block;
-            font-size: 13px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.6);
-            margin-bottom: 14px;
-            padding: 6px 16px;
-            background: rgba(255, 255, 255, 0.06);
-            border-radius: 100px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .events-header h1 {
-            font-size: clamp(34px, 5vw, 56px);
-            font-weight: 800;
-            line-height: 1.05;
-            margin-bottom: 14px;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .events-header .events-subtitle {
-            font-size: clamp(14px, 1.4vw, 17px);
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.6;
-            max-width: 620px;
-            margin: 0 auto;
-        }
-
-        /* ---------- EVENT STATS STRIP ---------- */
-        .ev-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 18px;
-            margin: 0 auto 48px;
-            max-width: 760px;
-            animation: fadeInUp 0.8s ease-out 0.15s both;
-        }
-
-        .ev-stat {
-            text-align: center;
-            padding: 24px 18px;
-            border-radius: 16px;
-            background: linear-gradient(
-                145deg,
-                rgba(58, 16, 184, 0.62) 0%,
-                rgba(36, 0, 144, 0.52) 42%,
-                rgba(24, 0, 108, 0.58) 100%
-            );
-            backdrop-filter: blur(28px) saturate(190%);
-            -webkit-backdrop-filter: blur(28px) saturate(190%);
-            border: 1px solid rgba(255, 255, 255, 0.14);
-            border-top: 1px solid rgba(255, 255, 255, 0.26);
-            box-shadow:
-                0 18px 40px rgba(0, 0, 0, 0.42),
-                0 0 0 1px rgba(36, 0, 144, 0.35),
-                inset 0 1px 0 rgba(255, 255, 255, 0.14),
-                inset 0 -1px 0 rgba(0, 0, 0, 0.18);
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
-        }
-
-        .ev-stat:hover {
-            transform: translateY(-5px);
-            background: linear-gradient(
-                145deg,
-                rgba(72, 24, 200, 0.68) 0%,
-                rgba(36, 0, 144, 0.58) 42%,
-                rgba(28, 0, 120, 0.64) 100%
-            );
-            box-shadow:
-                0 28px 55px rgba(0, 0, 0, 0.5),
-                0 0 24px rgba(36, 0, 144, 0.35),
-                inset 0 1px 0 rgba(255, 255, 255, 0.18),
-                inset 0 -1px 0 rgba(0, 0, 0, 0.2);
-            border-color: rgba(255, 255, 255, 0.28);
-        }
-
-        .ev-stat-num {
-            font-size: clamp(28px, 4vw, 42px);
-            font-weight: 900;
-            line-height: 1;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .ev-stat-label {
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.72);
-            margin-top: 8px;
-            letter-spacing: 0.4px;
-        }
-
-        /* ---------- FINDER WINDOW ---------- */
-        .ev-finder-wrap {
-            max-width: 1160px;
-            margin: 0 auto;
-            animation: fadeInUp 0.85s ease-out 0.25s both;
-        }
-
-        @keyframes evPulseGlow {
-            0%, 100% { box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05) inset, 0 0 20px rgba(187, 175, 253, 0.08); }
-            50% { box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05) inset, 0 0 40px rgba(242, 155, 60, 0.12); }
-        }
-
-        .ev-finder-window {
-            position: relative;
-            width: 100%;
-            border-radius: 12px;
-            background: rgba(28, 26, 42, 0.92);
-            backdrop-filter: blur(55px) saturate(180%);
-            -webkit-backdrop-filter: blur(55px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
-            overflow: hidden;
-            animation: evPulseGlow 4s ease-in-out infinite;
-            display: flex;
-            flex-direction: column;
-            min-height: 520px;
-        }
-
-        .ev-finder-titlebar {
-            display: flex;
-            align-items: center;
-            padding: 10px 16px;
-            background: rgba(40, 40, 45, 0.95);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-            flex-shrink: 0;
-            gap: 12px;
-            min-height: 44px;
-        }
-
-        .ev-finder-controls { display: flex; gap: 8px; flex-shrink: 0; }
-
-        .ev-finder-control {
-            width: 13px; height: 13px; border-radius: 50%;
-            border: 1px solid rgba(0, 0, 0, 0.15);
-        }
-
-        .ev-finder-control.red { background: #ff5f57; border-color: #e04e47; }
-        .ev-finder-control.yellow { background: #ffbd2e; border-color: #e0a524; }
-        .ev-finder-control.green { background: #28c840; border-color: #1fa833; }
-
-        .ev-finder-title {
-            flex: 1;
-            text-align: center;
-            font-size: 13px;
-            font-weight: 600;
-            color: rgba(255, 255, 255, 0.6);
-            letter-spacing: 0.2px;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        }
-
-        .ev-finder-title-icon {
-            display: inline-block;
-            width: 16px; height: 16px;
-            background: url("img/awscatlogo.png") center / contain no-repeat;
-            vertical-align: middle;
-            margin-right: 6px;
-            filter: brightness(0.8);
-        }
-
-        .ev-finder-body {
-            display: flex;
-            flex: 1;
-            min-height: 0;
-            background: rgba(20, 20, 25, 0.88);
-        }
-
-        .ev-finder-sidebar {
-            width: 180px;
-            flex-shrink: 0;
-            background: rgba(30, 30, 35, 0.9);
-            border-right: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 12px 0;
-        }
-
-        .ev-finder-sidebar-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 6px 12px;
-            margin: 0 8px;
-            border-radius: 6px;
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.6);
-            font-weight: 500;
-            white-space: nowrap;
-            cursor: pointer;
-            transition: background 0.15s ease, color 0.15s ease;
-            border: none;
-            background: transparent;
-            width: calc(100% - 16px);
-            text-align: left;
-            font-family: inherit;
-        }
-
-        .ev-finder-sidebar-item:hover {
-            background: rgba(255, 255, 255, 0.06);
-            color: rgba(255, 255, 255, 0.8);
-        }
-
-        .ev-finder-sidebar-item.active {
-            background: rgba(187, 175, 253, 0.15);
-            color: #bbaffd;
-        }
-
-        .ev-finder-sidebar-item .icon {
-            width: 18px; height: 18px;
-            background: url("img/folder.png") center / contain no-repeat;
-            flex-shrink: 0;
-        }
-
-        .ev-finder-sidebar-divider {
-            height: 1px;
-            background: rgba(255, 255, 255, 0.05);
-            margin: 8px 16px;
-        }
-
-        .ev-finder-sidebar-label {
-            font-size: 10px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            color: rgba(255, 255, 255, 0.25);
-            padding: 8px 16px 4px;
-        }
-
-        .ev-finder-main {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            min-width: 0;
-            min-height: 0;
-        }
-
-        .ev-finder-toolbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            padding: 10px 16px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            background: rgba(25, 25, 30, 0.88);
-            flex-shrink: 0;
-            flex-wrap: wrap;
-        }
-
-        .ev-finder-toolbar-label {
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 0.6px;
-            text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.35);
-        }
-
-        .ev-filter-chips {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-        }
-
-        .ev-filter-chip {
-            font-size: 11px;
-            font-weight: 600;
-            padding: 4px 12px;
-            border-radius: 100px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            background: rgba(255, 255, 255, 0.04);
-            color: rgba(255, 255, 255, 0.55);
-            cursor: pointer;
-            transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
-            font-family: inherit;
-        }
-
-        .ev-filter-chip:hover {
-            background: rgba(255, 255, 255, 0.08);
-            color: rgba(255, 255, 255, 0.85);
-        }
-
-        .ev-filter-chip.active {
-            background: rgba(242, 155, 60, 0.15);
-            border-color: rgba(242, 155, 60, 0.4);
-            color: #f7ad58;
-        }
-
-        .ev-month-strip {
-            display: flex;
-            gap: 4px;
-            padding: 10px 16px 0;
-            overflow-x: auto;
-            flex-shrink: 0;
-        }
-
-        .ev-month-strip::-webkit-scrollbar { height: 0; }
-
-        .ev-month-tab {
-            flex-shrink: 0;
-            padding: 6px 14px 10px;
-            border: none;
-            background: transparent;
-            color: rgba(255, 255, 255, 0.45);
-            font-size: 12px;
-            font-weight: 700;
-            cursor: pointer;
-            border-bottom: 2px solid transparent;
-            transition: color 0.2s ease, border-color 0.2s ease;
-            font-family: inherit;
-            position: relative;
-        }
-
-        .ev-month-tab.has-events::after {
-            content: '';
-            position: absolute;
-            bottom: 4px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 4px;
-            height: 4px;
-            border-radius: 50%;
-            background: #f29b3c;
-        }
-
-        .ev-month-tab.active {
-            color: #fff;
-            border-bottom-color: #f29b3c;
-        }
-
-        .ev-month-tab:hover:not(.active) {
-            color: rgba(255, 255, 255, 0.75);
-        }
-
-        .ev-split {
-            display: grid;
-            grid-template-columns: minmax(220px, 280px) 1fr;
-            flex: 1;
-            min-height: 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .ev-list-panel {
-            border-right: 1px solid rgba(255, 255, 255, 0.05);
-            overflow-y: auto;
-            background: rgba(18, 18, 22, 0.85);
-        }
-
-        .ev-list-panel::-webkit-scrollbar { width: 3px; }
-        .ev-list-panel::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.12);
-            border-radius: 2px;
-        }
-
-        .ev-list-header {
-            padding: 8px 14px;
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: 0.8px;
-            text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.28);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-            position: sticky;
-            top: 0;
-            background: rgba(18, 18, 22, 0.96);
-            backdrop-filter: blur(8px);
-            z-index: 2;
-        }
-
-        .ev-list-row {
-            display: grid;
-            grid-template-columns: 46px 1fr auto;
-            gap: 10px;
-            align-items: center;
-            width: 100%;
-            padding: 10px 12px;
-            border: none;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-            background: transparent;
-            cursor: pointer;
-            text-align: left;
-            font-family: inherit;
-            transition: background 0.15s ease;
-        }
-
-        .ev-list-row:hover {
-            background: rgba(255, 255, 255, 0.04);
-        }
-
-        .ev-list-row.selected {
-            background: rgba(187, 175, 253, 0.12);
-            box-shadow: inset 3px 0 0 #f29b3c;
-        }
-
-        .ev-list-date {
-            text-align: center;
-            padding: 4px 0;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-        }
-
-        .ev-list-date-month {
-            display: block;
-            font-size: 9px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        .ev-list-date-day {
-            display: block;
-            font-size: 18px;
-            font-weight: 900;
-            color: #fff;
-            line-height: 1.1;
-        }
-
-        .ev-list-info h3 {
-            font-size: 12.5px;
-            font-weight: 700;
-            color: rgba(255, 255, 255, 0.9);
-            line-height: 1.3;
-            margin-bottom: 3px;
-        }
-
-        .ev-list-info span {
-            font-size: 10.5px;
-            color: rgba(255, 255, 255, 0.4);
-        }
-
-        .ev-list-badge {
-            font-size: 9px;
-            font-weight: 700;
-            padding: 3px 8px;
-            border-radius: 100px;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-            white-space: nowrap;
-        }
-
-        .ev-list-badge.upcoming {
-            background: rgba(40, 200, 64, 0.15);
-            color: #5de878;
-            border: 1px solid rgba(40, 200, 64, 0.3);
-        }
-
-        .ev-list-badge.featured {
-            background: rgba(242, 155, 60, 0.15);
-            color: #f7ad58;
-            border: 1px solid rgba(242, 155, 60, 0.35);
-        }
-
-        .ev-list-badge.past {
-            background: rgba(255, 255, 255, 0.06);
-            color: rgba(255, 255, 255, 0.45);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .ev-list-empty {
-            padding: 32px 16px;
-            text-align: center;
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.35);
-        }
-
-        .ev-preview-panel {
-            overflow-y: auto;
-            padding: 20px 22px 24px;
-            position: relative;
-        }
-
-        .ev-preview-panel::-webkit-scrollbar { width: 3px; }
-        .ev-preview-panel::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.12);
-            border-radius: 2px;
-        }
-
-        .ev-preview-hero {
-            position: relative;
-            border-radius: 10px;
-            overflow: hidden;
-            min-height: 160px;
-            background-size: cover;
-            background-position: center;
-            margin-bottom: 18px;
-        }
-
-        .ev-preview-hero::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, rgba(13, 4, 40, 0.1) 0%, rgba(13, 4, 40, 0.75) 100%);
-        }
-
-        .ev-preview-hero-badge {
-            position: absolute;
-            top: 12px;
-            left: 12px;
-            z-index: 2;
-            font-size: 10px;
-            font-weight: 700;
-            padding: 5px 12px;
-            border-radius: 100px;
-            background: rgba(0, 0, 0, 0.55);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-        }
-
-        .ev-preview-hero-date {
-            position: absolute;
-            bottom: 12px;
-            left: 12px;
-            z-index: 2;
-            display: flex;
-            align-items: baseline;
-            gap: 6px;
-        }
-
-        .ev-preview-hero-date .day {
-            font-size: 32px;
-            font-weight: 900;
-            line-height: 1;
-        }
-
-        .ev-preview-hero-date .month-year {
-            font-size: 13px;
-            font-weight: 700;
-            color: rgba(255, 255, 255, 0.75);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .ev-preview-title {
-            font-size: clamp(18px, 2vw, 24px);
-            font-weight: 800;
-            line-height: 1.25;
-            margin-bottom: 10px;
-            color: rgba(255, 255, 255, 0.96);
-        }
-
-        .ev-preview-desc {
-            font-size: 14px;
-            line-height: 1.65;
-            color: rgba(255, 255, 255, 0.68);
-            margin-bottom: 16px;
-        }
-
-        .ev-preview-meta {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 18px;
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.55);
-        }
-
-        .ev-preview-avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #5a4494, #b897d4);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: 800;
-            flex-shrink: 0;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .ev-preview-meta strong {
-            color: rgba(255, 255, 255, 0.9);
-            font-weight: 700;
-        }
-
-        .ev-preview-footer {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            flex-wrap: wrap;
-            padding-top: 16px;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-        }
-
-        .ev-preview-tags {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-        }
-
-        .ev-tag {
-            font-size: 10px;
-            font-weight: 600;
-            color: rgba(255, 255, 255, 0.65);
-            padding: 4px 10px;
-            border-radius: 100px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .ev-register-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            font-family: 'Amazon Ember', sans-serif;
-            font-size: 13px;
-            font-weight: 700;
-            color: #f29b3c;
-            text-decoration: none;
-            padding: 0;
-            border: none;
-            background: none;
-            box-shadow: none;
-            cursor: pointer;
-            transition: color 0.2s ease;
-        }
-
-        .ev-register-btn:hover {
-            background: none;
-            border: none;
-            box-shadow: none;
-            transform: none;
-            color: #f7ad58;
-        }
-
-        .ev-preview-highlights {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 6px;
-            margin-bottom: 14px;
-        }
-
-        .ev-preview-highlight {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 1px;
-            min-width: 0;
-            padding: 7px 6px;
-            border-radius: 7px;
-            background: rgba(255, 255, 255, 0.035);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            text-align: center;
-        }
-
-        .ev-preview-highlight .val {
-            display: block;
-            font-size: 12px;
-            font-weight: 800;
-            color: #f29b3c;
-            margin-bottom: 0;
-            line-height: 1.15;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 100%;
-        }
-
-        .ev-preview-highlight .lbl {
-            display: block;
-            font-size: 8px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.35px;
-            color: rgba(255, 255, 255, 0.4);
-            line-height: 1.1;
-            white-space: nowrap;
-        }
-
-        .ev-finder-footer {
-            position: relative;
-            z-index: 3;
-            padding: 8px 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-shrink: 0;
-            font-size: 11px;
-            color: rgba(255, 255, 255, 0.45);
-            background: #000000;
-            min-height: 32px;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        }
-
-        .ev-finder-footer > span {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .ev-finder-footer-items { display: flex; gap: 20px; }
-        .ev-finder-footer-items span { display: flex; align-items: center; gap: 4px; }
-
-        /* ---------- FLOATING CAT STICKER ---------- */
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
-        /* ---------- RESPONSIVE ---------- */
-        @media (max-width: 1024px) and (hover: hover) and (pointer: fine) {
-            .ev-finder-sidebar { display: none; }
-            .ev-split {
-                grid-template-columns: 1fr;
-            }
-            .ev-list-panel {
-                border-right: none;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-                max-height: 220px;
-            }
-            .ev-preview-highlights {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        @media (max-width: 768px), ((hover: none) and (pointer: coarse)) {
-            .ev-stats {
-                grid-template-columns: 1fr;
-                max-width: 360px;
-                gap: 14px;
-            }
-            .ev-preview-highlights {
-                grid-template-columns: 1fr 1fr 1fr;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .ev-preview-footer {
-                flex-direction: row;
-                align-items: center;
-                justify-content: space-between;
-            }
-
-            .ev-register-btn {
-                font-size: 11px;
-            }
-            .ev-preview-highlights {
-                grid-template-columns: repeat(3, minmax(0, 1fr));
-                gap: 5px;
-            }
-
-            .ev-preview-highlight {
-                padding: 6px 4px;
-            }
-
-            .ev-preview-highlight .val {
-                font-size: 11px;
-            }
-
-            .ev-preview-highlight .lbl {
-                font-size: 7px;
-            }
-
-            .ev-finder-toolbar {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="css/design-tokens.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/desktop-adaptive.css" />
+    <link rel="stylesheet" href="css/mobile-layout.css" />
+    <link rel="stylesheet" href="css/pages/events.css" />
 </head>
 <body>
     <div class="custom-cursor-glow" id="custom-cursor-glow" aria-hidden="true"></div>
@@ -819,6 +24,7 @@
 
     <!-- NAVIGATION DOCK -->
     <nav class="liquid-dock">
+        <div class="dock-slider"></div>
         <div class="dock-item-wrap" id="about-wrap">
             <button class="dock-item" type="button" aria-haspopup="true" aria-expanded="false" data-dropdown-trigger>
                 About Us
@@ -880,11 +86,11 @@
 
         <div class="ev-stats">
             <div class="ev-stat">
-                <div class="ev-stat-num">4</div>
+                <div class="ev-stat-num">11</div>
                 <div class="ev-stat-label">Featured Sessions</div>
             </div>
             <div class="ev-stat">
-                <div class="ev-stat-num">3</div>
+                <div class="ev-stat-num">0</div>
                 <div class="ev-stat-label">Upcoming</div>
             </div>
             <div class="ev-stat">
@@ -913,27 +119,27 @@
                 </div>
 
                 <div class="ev-finder-body">
-                    <aside class="ev-finder-sidebar" id="ev-sidebar" aria-label="Event folders">
-                        <button type="button" class="ev-finder-sidebar-item active" data-filter="all">
+                    <aside class="ev-finder-sidebar ev-finder-sidebar--static" id="ev-sidebar" aria-label="Event folders">
+                        <div class="ev-finder-sidebar-item active" aria-current="true">
                             <span class="icon" aria-hidden="true"></span>All Events
-                        </button>
-                        <button type="button" class="ev-finder-sidebar-item" data-filter="upcoming">
+                        </div>
+                        <div class="ev-finder-sidebar-item">
                             <span class="icon" aria-hidden="true"></span>Upcoming
-                        </button>
+                        </div>
                         <div class="ev-finder-sidebar-divider"></div>
                         <div class="ev-finder-sidebar-label">Categories</div>
-                        <button type="button" class="ev-finder-sidebar-item" data-filter="workshop">
+                        <div class="ev-finder-sidebar-item">
                             <span class="icon" aria-hidden="true"></span>Workshops
-                        </button>
-                        <button type="button" class="ev-finder-sidebar-item" data-filter="lab">
+                        </div>
+                        <div class="ev-finder-sidebar-item">
                             <span class="icon" aria-hidden="true"></span>Hands-on Labs
-                        </button>
-                        <button type="button" class="ev-finder-sidebar-item" data-filter="hackathon">
+                        </div>
+                        <div class="ev-finder-sidebar-item">
                             <span class="icon" aria-hidden="true"></span>Hackathons
-                        </button>
-                        <button type="button" class="ev-finder-sidebar-item" data-filter="community">
+                        </div>
+                        <div class="ev-finder-sidebar-item">
                             <span class="icon" aria-hidden="true"></span>Community
-                        </button>
+                        </div>
                     </aside>
 
                     <div class="ev-finder-main">
@@ -946,6 +152,8 @@
                                 <button type="button" class="ev-filter-chip" data-filter="lab">Labs</button>
                             </div>
                         </div>
+
+                        <div class="ev-year-strip" id="ev-year-strip" role="tablist" aria-label="Years"></div>
 
                         <div class="ev-month-strip" id="ev-month-strip" role="tablist" aria-label="Months"></div>
 
@@ -962,9 +170,8 @@
                 <div class="ev-finder-footer">
                     <span><span class="ev-finder-title-icon" aria-hidden="true"></span>Adamson University · AWS Student Builder Group</span>
                     <div class="ev-finder-footer-items">
-                        <span>📅 4 events</span>
-                        <span>🛠️ 12 workshops</span>
-                        <span>🏆 1 hackathon</span>
+                        <span>50+ members</span>
+                        <span data-finder-footer-events>11 events</span>
                     </div>
                 </div>
             </div>
@@ -1009,262 +216,55 @@
 
     <img src="img/awscat1.png" alt="AWS Cat Sticker" class="sticker" />
 
-    <script>
-        (function () {
-            // ---- Events data (curated lineup) ----
-            const events = [
-                {
-                    id: 'cloud-foundations',
-                    title: 'AWS Workshop Series: Cloud Foundations',
-                    month: 'Mar', day: '15', year: '2026',
-                    badge: 'Upcoming', badgeClass: 'upcoming',
-                    category: 'lab', monthNum: 3,
-                    image: 'img/home1.jpg',
-                    desc: 'Dive into core AWS services with hands-on labs. Learn EC2, S3, and IAM fundamentals through guided exercises designed for beginners stepping into the cloud.',
-                    speaker: 'AWS Certified Mentors', avatar: 'AM',
-                    tags: ['Beginner', 'Hands-on Lab', 'Cloud Foundations'],
-                    duration: '3 hrs', seats: '40', level: 'Beginner'
-                },
-                {
-                    id: 'serverless-bootcamp',
-                    title: 'Cloud Bootcamp: Serverless & Beyond',
-                    month: 'Apr', day: '20', year: '2026',
-                    badge: 'Featured', badgeClass: 'featured',
-                    category: 'workshop', monthNum: 4,
-                    image: 'img/home2.jpg',
-                    desc: 'Master serverless architecture using AWS Lambda, API Gateway, and DynamoDB. Build and deploy a fully functional application in a single day.',
-                    speaker: 'Cloud Engineer, AWS', avatar: 'CE',
-                    tags: ['Intermediate', 'Serverless', 'Workshop'],
-                    duration: 'Full day', seats: '35', level: 'Intermediate'
-                },
-                {
-                    id: 'cert-prep',
-                    title: 'AWS Certification Prep: Cloud Practitioner',
-                    month: 'Jun', day: '22', year: '2026',
-                    badge: 'Featured', badgeClass: 'featured',
-                    category: 'workshop', monthNum: 6,
-                    image: 'img/home2.jpg',
-                    desc: 'A focused review session covering exam domains, practice questions, and study strategies to help you pass the AWS Certified Cloud Practitioner exam.',
-                    speaker: 'Maria Santos, AWS Community Builder', avatar: 'MS',
-                    tags: ['Beginner', 'Certification', 'Exam Prep'],
-                    duration: '4 hrs', seats: '50', level: 'All Levels'
-                },
-                {
-                    id: 'hackathon',
-                    title: 'Hackathon: Build on AWS 2026',
-                    month: 'Jul', day: '12', year: '2026',
-                    badge: 'Upcoming', badgeClass: 'upcoming',
-                    category: 'hackathon', monthNum: 7,
-                    image: 'img/home3.jpg',
-                    desc: 'A 24-hour cloud hackathon where teams design, build, and pitch real solutions on AWS. Prizes, mentorship, and bragging rights await.',
-                    speaker: 'Mentored by AWS SBG AdU Core Team', avatar: 'SB',
-                    tags: ['All Levels', 'Hackathon', 'Team Event'],
-                    duration: '24 hrs', seats: '80', level: 'Team Event'
-                }
-            ];
-
-            const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-            const listEl = document.getElementById('ev-list');
-            const previewEl = document.getElementById('ev-preview');
-            const monthStripEl = document.getElementById('ev-month-strip');
-            const sidebarItems = document.querySelectorAll('.ev-finder-sidebar-item[data-filter]');
-            const filterChips = document.querySelectorAll('.ev-filter-chip');
-
-            let activeFilter = 'all';
-            let activeMonth = null;
-            let selectedId = events[0].id;
-
-            const escapeHtml = (str) => String(str).replace(/[&<>"']/g, (c) => ({
-                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
-            })[c]);
-
-            function matchesFilter(ev) {
-                if (activeFilter === 'all') return true;
-                if (activeFilter === 'upcoming') return ev.badgeClass === 'upcoming' || ev.badgeClass === 'featured';
-                return ev.category === activeFilter;
-            }
-
-            function getFilteredEvents() {
-                return events.filter((ev) => {
-                    if (!matchesFilter(ev)) return false;
-                    if (activeMonth !== null && ev.monthNum !== activeMonth) return false;
-                    return true;
-                });
-            }
-
-            function badgeClass(ev) {
-                return ev.badgeClass || 'upcoming';
-            }
-
-            function renderPreview(ev) {
-                if (!ev) {
-                    previewEl.innerHTML = '<p class="ev-list-empty">Select an event to preview details.</p>';
-                    return;
-                }
-                previewEl.innerHTML = `
-                    <div class="ev-preview-hero" style="background-image:url('${escapeHtml(ev.image)}')">
-                        <span class="ev-preview-hero-badge">${escapeHtml(ev.badge)}</span>
-                        <div class="ev-preview-hero-date">
-                            <span class="day">${escapeHtml(ev.day)}</span>
-                            <span class="month-year">${escapeHtml(ev.month)} ${escapeHtml(ev.year)}</span>
-                        </div>
+    <div class="ev-gallery-modal" id="ev-gallery-modal" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="ev-gallery-modal-title">
+        <div class="ev-gallery-backdrop" data-ev-gallery-close></div>
+        <div class="ev-gallery-inner">
+            <button type="button" class="ev-gallery-back" data-ev-gallery-close>
+                <span class="arrow">←</span>
+                Back to events
+            </button>
+            <div class="ev-gallery-window">
+                <div class="ev-finder-titlebar ev-gallery-titlebar">
+                    <div class="ev-finder-controls">
+                        <button type="button" class="ev-finder-control red" data-ev-gallery-close aria-label="Close gallery"></button>
+                        <span class="ev-finder-control yellow" aria-hidden="true"></span>
+                        <span class="ev-finder-control green" aria-hidden="true"></span>
                     </div>
-                    <div class="ev-preview-highlights">
-                        <div class="ev-preview-highlight"><span class="val">${escapeHtml(ev.duration)}</span><span class="lbl">Duration</span></div>
-                        <div class="ev-preview-highlight"><span class="val">${escapeHtml(ev.seats)}</span><span class="lbl">Seats</span></div>
-                        <div class="ev-preview-highlight"><span class="val">${escapeHtml(ev.level)}</span><span class="lbl">Level</span></div>
+                    <div class="ev-finder-title" id="ev-gallery-modal-title">
+                        <span class="ev-finder-title-icon" aria-hidden="true"></span>
+                        Event Gallery
                     </div>
-                    <h2 class="ev-preview-title">${escapeHtml(ev.title)}</h2>
-                    <p class="ev-preview-desc">${escapeHtml(ev.desc)}</p>
-                    <div class="ev-preview-meta">
-                        <span class="ev-preview-avatar">${escapeHtml(ev.avatar)}</span>
-                        <span>Speaker: <strong>${escapeHtml(ev.speaker)}</strong></span>
+                    <div class="ev-gallery-titlebar-spacer" aria-hidden="true"></div>
+                </div>
+                <div class="ev-gallery-body">
+                    <div class="ev-gallery-view">
+                        <img id="ev-gallery-image" src="" alt="" />
+                        <span class="ev-gallery-counter" id="ev-gallery-counter" aria-live="polite">1 / 4</span>
                     </div>
-                    <div class="ev-preview-footer">
-                        <div class="ev-preview-tags">
-                            ${ev.tags.map((t) => `<span class="ev-tag">${escapeHtml(t)}</span>`).join('')}
-                        </div>
-                        <button type="button" class="ev-register-btn">View Event</button>
+                    <div class="ev-gallery-bar" aria-label="Event photo gallery">
+                        <button type="button" class="ev-gallery-btn ev-gallery-prev" aria-label="Previous image">
+                            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </button>
+                        <div class="ev-gallery-thumbs" id="ev-gallery-thumbs"></div>
+                        <button type="button" class="ev-gallery-btn ev-gallery-next" aria-label="Next image">
+                            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </button>
                     </div>
-                `;
-            }
+                </div>
+                <div class="ev-finder-footer ev-gallery-footer">
+                    <span><span class="ev-finder-title-icon" aria-hidden="true"></span>Adamson University · AWS Student Builder Group</span>
+                    <div class="ev-finder-footer-items">
+                        <span>50+ members</span>
+                        <span data-finder-footer-events>11 events</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-            function renderList() {
-                const filtered = getFilteredEvents();
-                if (!filtered.length) {
-                    listEl.innerHTML = '<p class="ev-list-empty">No events match this filter.</p>';
-                    renderPreview(null);
-                    return;
-                }
-                if (!filtered.find((e) => e.id === selectedId)) {
-                    selectedId = filtered[0].id;
-                }
-                listEl.innerHTML = filtered.map((ev) => `
-                    <button type="button" class="ev-list-row${ev.id === selectedId ? ' selected' : ''}" data-id="${escapeHtml(ev.id)}">
-                        <span class="ev-list-date">
-                            <span class="ev-list-date-month">${escapeHtml(ev.month)}</span>
-                            <span class="ev-list-date-day">${escapeHtml(ev.day)}</span>
-                        </span>
-                        <span class="ev-list-info">
-                            <h3>${escapeHtml(ev.title)}</h3>
-                            <span>${escapeHtml(ev.speaker)}</span>
-                        </span>
-                        <span class="ev-list-badge ${badgeClass(ev)}">${escapeHtml(ev.badge)}</span>
-                    </button>
-                `).join('');
-
-                listEl.querySelectorAll('.ev-list-row').forEach((row) => {
-                    row.addEventListener('click', () => {
-                        selectedId = row.dataset.id;
-                        renderList();
-                        renderPreview(events.find((e) => e.id === selectedId));
-                    });
-                });
-
-                renderPreview(events.find((e) => e.id === selectedId));
-            }
-
-            function renderMonthStrip() {
-                const eventMonths = new Set(events.map((e) => e.monthNum));
-                monthStripEl.innerHTML = MONTHS.map((name, i) => {
-                    const num = i + 1;
-                    const has = eventMonths.has(num);
-                    const active = activeMonth === num;
-                    return `<button type="button" class="ev-month-tab${has ? ' has-events' : ''}${active ? ' active' : ''}" data-month="${num}" role="tab" aria-selected="${active}">${name}</button>`;
-                }).join('');
-
-                monthStripEl.querySelectorAll('.ev-month-tab').forEach((tab) => {
-                    tab.addEventListener('click', () => {
-                        const m = parseInt(tab.dataset.month, 10);
-                        activeMonth = activeMonth === m ? null : m;
-                        renderMonthStrip();
-                        renderList();
-                    });
-                });
-            }
-
-            function setFilter(filter) {
-                activeFilter = filter;
-                let activeSidebarItem = null;
-                sidebarItems.forEach((item) => {
-                    const isActive = item.dataset.filter === filter;
-                    item.classList.toggle('active', isActive);
-                    if (isActive) activeSidebarItem = item;
-                });
-                filterChips.forEach((chip) => {
-                    chip.classList.toggle('active', chip.dataset.filter === filter);
-                });
-                if (activeSidebarItem && window.matchMedia('(max-width: 768px), ((hover: none) and (pointer: coarse))').matches) {
-                    activeSidebarItem.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-                }
-                renderList();
-            }
-
-            sidebarItems.forEach((item) => {
-                item.addEventListener('click', () => setFilter(item.dataset.filter));
-            });
-
-            filterChips.forEach((chip) => {
-                chip.addEventListener('click', () => setFilter(chip.dataset.filter));
-            });
-
-            renderMonthStrip();
-            renderList();
-
-            // ---- Custom cursor ----
-            const customCursor = document.getElementById('custom-cursor');
-            const customCursorGlow = document.getElementById('custom-cursor-glow');
-            if (customCursor && customCursorGlow && window.matchMedia('(pointer: fine) and (hover: hover)').matches) {
-                document.body.classList.add('custom-cursor-active');
-                document.addEventListener('mousemove', (e) => {
-                    customCursor.style.left = `${e.clientX}px`;
-                    customCursor.style.top = `${e.clientY}px`;
-                    customCursorGlow.style.left = `${e.clientX}px`;
-                    customCursorGlow.style.top = `${e.clientY}px`;
-                });
-                document.addEventListener('mouseleave', () => {
-                    customCursor.style.opacity = '0';
-                    customCursorGlow.style.opacity = '0';
-                });
-                document.addEventListener('mouseenter', () => {
-                    customCursor.style.opacity = '1';
-                    customCursorGlow.style.opacity = '0.8';
-                });
-            }
-
-            // ---- Nav dropdowns (macOS / iOS style) ----
-            function wireDropdown(wrap) {
-                if (!wrap) return;
-                const trigger = wrap.querySelector('[data-dropdown-trigger]');
-                let hoverTimer;
-                const openMenu = () => {
-                    clearTimeout(hoverTimer);
-                    wrap.classList.add('open');
-                    if (trigger) trigger.setAttribute('aria-expanded', 'true');
-                };
-                const closeMenu = () => {
-                    wrap.classList.remove('open');
-                    if (trigger) trigger.setAttribute('aria-expanded', 'false');
-                };
-                wrap.addEventListener('mouseenter', openMenu);
-                wrap.addEventListener('mouseleave', () => {
-                    hoverTimer = setTimeout(closeMenu, 130);
-                });
-                if (trigger) {
-                    trigger.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        wrap.classList.contains('open') ? closeMenu() : openMenu();
-                    });
-                }
-                document.addEventListener('click', (e) => {
-                    if (!wrap.contains(e.target)) closeMenu();
-                });
-            }
-            wireDropdown(document.getElementById('about-wrap'));
-            wireDropdown(document.getElementById('workshops-wrap'));
-            wireDropdown(document.getElementById('join-wrap'));
-        })();
-    </script>
-    <script src="mobile-nav.js"></script>
+    <script src="js/nav-dock.js"></script>
+    <script src="js/events-data.js"></script>
+    <script src="js/pages/events.js"></script>
+    <script src="js/mobile-nav.js"></script>
 </body>
 </html>
