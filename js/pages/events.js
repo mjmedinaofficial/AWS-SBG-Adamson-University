@@ -52,7 +52,7 @@
         return ev.badgeClass || 'upcoming';
     }
 
-    function renderPreview(ev) {
+    function renderPreview(ev, options = {}) {
         if (!ev) {
             previewEl.innerHTML = '<p class="ev-list-empty">Select an event to preview details.</p>';
             return;
@@ -95,12 +95,15 @@
             heroBtn.addEventListener('click', () => openGallery(ev));
         }
 
-        if (window.matchMedia('(max-width: 1024px)').matches) {
+        if (
+            options.scrollIntoView &&
+            window.matchMedia('(max-width: 1024px)').matches
+        ) {
             previewEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     }
 
-    function renderList() {
+    function renderList(options = {}) {
         const filtered = getFilteredEvents();
         if (!filtered.length) {
             const monthName = MONTHS[activeMonth - 1];
@@ -131,12 +134,11 @@
         listEl.querySelectorAll('.ev-list-row').forEach((row) => {
             row.addEventListener('click', () => {
                 selectedId = row.dataset.id;
-                renderList();
-                renderPreview(events.find((e) => e.id === selectedId));
+                renderList({ scrollIntoView: true });
             });
         });
 
-        renderPreview(events.find((e) => e.id === selectedId));
+        renderPreview(events.find((e) => e.id === selectedId), options);
     }
 
     function renderYearStrip() {
@@ -204,6 +206,11 @@
     renderYearStrip();
     renderMonthStrip();
     renderList();
+
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
 
     // ---- Event photo gallery modal ----
     const galleryModal = document.getElementById('ev-gallery-modal');
