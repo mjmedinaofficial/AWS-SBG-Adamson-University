@@ -43,7 +43,7 @@
         --mobile-header-top: max(8px, env(safe-area-inset-top));
         --mobile-back-gap: 8px;
         --mobile-back-h: 34px;
-        --mobile-content-top: calc(var(--mobile-header-top) + var(--mobile-header-h) + var(--mobile-back-gap) + var(--mobile-back-h) + var(--mobile-page-top-offset));
+        --mobile-content-top: calc(var(--mobile-back-gap) + var(--mobile-back-h) + 24px);
         --mobile-finder-pad: 14px;
         --mobile-stat-num: 22px;
         --mobile-stat-label: 10px;

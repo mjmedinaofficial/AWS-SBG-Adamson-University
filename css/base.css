@@ -184,7 +184,7 @@ body.custom-cursor-active * {
 .oh-page {
     position: relative;
     z-index: 1;
-    padding: calc(130px * var(--ui-scale)) var(--page-padding) calc(40px * var(--ui-scale));
+    padding: calc(40px * var(--ui-scale)) var(--page-padding) calc(40px * var(--ui-scale));
 }
 
 .join-hero,

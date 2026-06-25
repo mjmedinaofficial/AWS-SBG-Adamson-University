@@ -9,7 +9,7 @@
     .events-page,
     .of-page,
     .oh-page {
-        padding-top: calc(110px * var(--ui-scale));
+        padding-top: calc(32px * var(--ui-scale));
     }
 }
 
