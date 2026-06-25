@@ -210,10 +210,10 @@
     }
 
     // Global: nav dock, page indicator, scroll container
-    const topBar = document.querySelector('.top-bar');
-    const navDock = document.querySelector('.liquid-dock');
-    const navDockSlider = navDock.querySelector('.dock-slider');
-    const sectionItems = Array.from(navDock.querySelectorAll('[data-section-index]'));
+    const topBar = document.querySelector('.navbar-brand-pill');
+    const navDock = document.querySelector('.navbar-nav-pill');
+    const navDockSlider = navDock ? navDock.querySelector('.dock-slider') : null;
+    const sectionItems = navDock ? Array.from(navDock.querySelectorAll('[data-section-index]')) : Array.from(document.querySelectorAll('.navbar-link[data-section-index]'));
     const pageIndicatorDots = Array.from(document.querySelectorAll('.page-indicator-dot'));
     const pageSections = document.querySelectorAll('.page-section');
     const pageScrollContainer = document.querySelector('.horizontal-container');
@@ -277,7 +277,7 @@
             window.sbgUpdateDockSlider(activeItem);
             return;
         }
-        if (!navDockSlider) return;
+        if (!navDockSlider || !navDock) return;
         navDockSlider.style.opacity = '1';
         const itemRect = activeItem.getBoundingClientRect();
         const dockRect = navDock.getBoundingClientRect();
