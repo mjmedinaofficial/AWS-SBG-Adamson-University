@@ -7,9 +7,13 @@
     <link rel="icon" type="image/png" href="img/awscatlogo.png" />
     <link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/amazon-ember" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" />
 
     <link rel="stylesheet" href="css/design-tokens.css" />
     <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/navbar.css" />
     <link rel="stylesheet" href="css/desktop-adaptive.css" />
     <link rel="stylesheet" href="css/mobile-layout.css" />
     <link rel="stylesheet" href="css/pages/join.css" />
@@ -18,56 +22,57 @@
     <div class="custom-cursor-glow" id="custom-cursor-glow" aria-hidden="true"></div>
     <div class="custom-cursor" id="custom-cursor" aria-hidden="true"></div>
 
-    <header class="site-header" aria-label="Site header">
-    <a class="top-bar" href="index.html" aria-label="Go to home page">
-        <img src="img/awscatlogo.png" alt="AWS Cat Logo" class="top-bar-logo" fetchpriority="high" decoding="async" width="512" height="512" />
-        <span class="top-bar-text"><span class="brand-full">AWS Student Builder Group · Adamson University</span><span class="brand-short">AWS SBG · AdU</span></span>
-    </a>
+    <!-- NAVBAR -->
+    <header class="site-navbar" aria-label="Site navigation">
+        <div class="navbar-inner">
+            <a class="navbar-brand" href="index.html" aria-label="Go to home page">
+                <img src="img/awscatlogo.png" alt="AWS Cat Logo" class="navbar-brand-logo" fetchpriority="high" decoding="async" width="512" height="512" />
+                <span class="navbar-brand-name">AWS SBG · AdU</span>
+            </a>
 
-    <nav class="liquid-dock">
-        <div class="dock-slider"></div>
-        <div class="dock-item-wrap" id="about-wrap">
-            <button class="dock-item" type="button" aria-haspopup="true" aria-expanded="false" data-dropdown-trigger>
-                About Us
-                <span class="nav-caret" aria-hidden="true">
-                    <svg viewBox="0 0 10 6" width="10" height="6"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </span>
+            <nav class="navbar-links" aria-label="Main navigation">
+                <div class="navbar-link-wrap" id="about-wrap">
+                    <a class="navbar-link" href="index.html" data-dropdown-trigger>
+                        About Us
+                    </a>
+                    <div class="navbar-dropdown" role="menu" aria-label="About menu">
+                        <a class="navbar-dropdown-item" href="index.html" role="menuitem">About Overview</a>
+                        <div class="navbar-dropdown-divider"></div>
+                        <a class="navbar-dropdown-item" href="org-history.html" role="menuitem">Org History</a>
+                        <a class="navbar-dropdown-item" href="officers.html" role="menuitem">Officers</a>
+                        <a class="navbar-dropdown-item" href="sbg.html" role="menuitem">SBG</a>
+                    </div>
+                </div>
+                <div class="navbar-link-wrap" id="workshops-wrap">
+                    <a class="navbar-link" href="events.html" data-dropdown-trigger>
+                        Workshops
+                    </a>
+                    <div class="navbar-dropdown" role="menu" aria-label="Workshops menu">
+                        <a class="navbar-dropdown-item" href="index.html#workshops" role="menuitem">Workshops Overview</a>
+                        <div class="navbar-dropdown-divider"></div>
+                        <a class="navbar-dropdown-item" href="events.html" role="menuitem">View All Events</a>
+                    </div>
+                </div>
+                <a class="navbar-cta" href="join.html">Join Us</a>
+            </nav>
+
+            <button class="navbar-hamburger" type="button" aria-label="Open navigation menu" aria-expanded="false">
+                <span class="navbar-hamburger-line"></span>
+                <span class="navbar-hamburger-line"></span>
+                <span class="navbar-hamburger-line"></span>
             </button>
-            <div class="nav-dropdown" role="menu" aria-label="About menu">
-                <a class="nav-dropdown-item" href="index.html" role="menuitem">About Overview</a>
-                <div class="nav-dropdown-divider"></div>
-                <a class="nav-dropdown-item" href="org-history.html" role="menuitem">Org History</a>
-                <a class="nav-dropdown-item" href="officers.html" role="menuitem">Officers</a>
-                <a class="nav-dropdown-item" href="sbg.html" role="menuitem">SBG</a>
-            </div>
         </div>
-        <div class="dock-item-wrap" id="workshops-wrap">
-            <button class="dock-item" type="button" aria-haspopup="true" aria-expanded="false" data-dropdown-trigger>
-                Workshops
-                <span class="nav-caret" aria-hidden="true">
-                    <svg viewBox="0 0 10 6" width="10" height="6"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </span>
-            </button>
-            <div class="nav-dropdown" role="menu" aria-label="Workshops menu">
-                <a class="nav-dropdown-item" href="index.html#workshops" role="menuitem">Workshops Overview</a>
-                <div class="nav-dropdown-divider"></div>
-                <a class="nav-dropdown-item" href="events.html" role="menuitem">View All Events</a>
-            </div>
+
+        <div class="navbar-mobile-menu" aria-hidden="true">
+            <nav class="navbar-mobile-links" aria-label="Mobile navigation">
+                <a class="navbar-mobile-link" href="index.html">About Us</a>
+                <a class="navbar-mobile-link" href="org-history.html">Org History</a>
+                <a class="navbar-mobile-link" href="officers.html">Officers</a>
+                <a class="navbar-mobile-link" href="sbg.html">SBG</a>
+                <a class="navbar-mobile-link" href="events.html">Workshops</a>
+                <a class="navbar-mobile-cta" href="join.html">Join Us</a>
+            </nav>
         </div>
-        <div class="dock-item-wrap" id="join-wrap">
-            <button class="dock-item active" type="button" aria-haspopup="true" aria-expanded="false" data-dropdown-trigger>
-                Join Us
-                <span class="nav-caret" aria-hidden="true">
-                    <svg viewBox="0 0 10 6" width="10" height="6"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </span>
-            </button>
-            <div class="nav-dropdown" role="menu" aria-label="Join menu">
-                <a class="nav-dropdown-item" href="index.html#join" role="menuitem">Join Overview</a>
-                <div class="nav-dropdown-divider"></div>
-                <a class="nav-dropdown-item primary" href="join.html" role="menuitem">Fill a Form</a>
-            </div>
-        </div>
-    </nav>
     </header>
 
     <main class="join-page">
@@ -233,10 +238,9 @@
 
     <img src="img/awscat1.png" alt="AWS Cat Sticker" class="sticker"  loading="lazy" decoding="async" />
 
-    <script src="js/nav-dock.js" defer></script>
+    <script src="js/navbar.js" defer></script>
     <script src="js/custom-cursor.js" defer></script>
     <script src="js/pages/join.js" defer></script>
     <script src="js/footer-socials.js" defer></script>
-    <script src="js/mobile-nav.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,342 @@
+/* ============================================================
+   AWS SBG AdU — Redesigned Navbar
+   Full-width glass bar, sticky on scroll.
+   Left: logo + org name (Space Grotesk 600)
+   Right: text links with underline-on-hover + orange pill CTA
+   Mobile (<768px): collapses to hamburger menu
+   ============================================================ */
+
+/* ---------- Base navbar bar ---------- */
+.site-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    background: rgba(13, 11, 26, 0.8);
+    backdrop-filter: blur(12px) saturate(160%);
+    -webkit-backdrop-filter: blur(12px) saturate(160%);
+    border-bottom: 1px solid var(--color-border-subtle);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.site-navbar.is-scrolled {
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+}
+
+.navbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: var(--content-max);
+    margin: 0 auto;
+    padding: 12px clamp(20px, 4vw, 56px);
+    gap: 24px;
+}
+
+/* ---------- Brand (left side) ---------- */
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--color-text-primary);
+    flex-shrink: 0;
+    transition: opacity 0.2s ease;
+}
+
+.navbar-brand:hover {
+    opacity: 0.85;
+}
+
+.navbar-brand-logo {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
+}
+
+.navbar-brand-name {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+    color: var(--color-text-primary);
+}
+
+/* ---------- Nav links (right side) ---------- */
+.navbar-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.navbar-link-wrap {
+    position: relative;
+}
+
+.navbar-link {
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    padding: 4px 0;
+    position: relative;
+    transition: color 0.2s ease;
+}
+
+.navbar-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--color-text-primary);
+    border-radius: 1px;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.navbar-link:hover {
+    color: var(--color-text-primary);
+}
+
+.navbar-link:hover::after {
+    transform: scaleX(1);
+}
+
+.navbar-link.active {
+    color: var(--color-text-primary);
+}
+
+.navbar-link.active::after {
+    transform: scaleX(1);
+    background: var(--color-brand-purple);
+}
+
+/* ---------- CTA button (Join Us) ---------- */
+.navbar-cta {
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-bg-deep);
+    background: var(--color-accent-orange);
+    padding: 8px 20px;
+    border-radius: 999px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 2px 8px rgba(245, 166, 35, 0.3);
+}
+
+.navbar-cta:hover {
+    background: #ffb840;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(245, 166, 35, 0.45);
+}
+
+.navbar-cta:active {
+    transform: translateY(0);
+}
+
+/* ---------- Dropdown menus ---------- */
+.navbar-dropdown {
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%) translateY(-6px) scale(0.96);
+    transform-origin: top center;
+    min-width: 200px;
+    padding: 8px;
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 12px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+    z-index: 100;
+}
+
+.navbar-link-wrap:hover .navbar-dropdown,
+.navbar-link-wrap.open .navbar-dropdown {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0) scale(1);
+}
+
+.navbar-dropdown::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 10px;
+    height: 10px;
+    background: var(--color-bg-surface);
+    border-left: 1px solid var(--color-border-subtle);
+    border-top: 1px solid var(--color-border-subtle);
+    border-radius: 2px 0 0 0;
+}
+
+.navbar-dropdown-item {
+    display: block;
+    padding: 10px 14px;
+    border-radius: 8px;
+    color: var(--color-text-secondary);
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.navbar-dropdown-item:hover {
+    background: var(--color-bg-elevated);
+    color: var(--color-text-primary);
+}
+
+.navbar-dropdown-item.primary {
+    color: var(--color-text-primary);
+    font-weight: 600;
+}
+
+.navbar-dropdown-divider {
+    height: 1px;
+    margin: 4px 8px;
+    background: var(--color-border-subtle);
+}
+
+/* ---------- Hamburger button (mobile) ---------- */
+.navbar-hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.2s ease;
+}
+
+.navbar-hamburger:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.navbar-hamburger-line {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--color-text-primary);
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Hamburger → X animation */
+.navbar-hamburger[aria-expanded="true"] .navbar-hamburger-line:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.navbar-hamburger[aria-expanded="true"] .navbar-hamburger-line:nth-child(2) {
+    opacity: 0;
+}
+
+.navbar-hamburger[aria-expanded="true"] .navbar-hamburger-line:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ---------- Mobile menu ---------- */
+.navbar-mobile-menu {
+    display: none;
+    flex-direction: column;
+    padding: 0 clamp(20px, 4vw, 56px) 20px;
+    border-top: 1px solid var(--color-border-subtle);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s cubic-bezier(0.25, 1, 0.5, 1), padding 0.35s ease;
+}
+
+.navbar-mobile-menu.is-open {
+    max-height: 400px;
+    padding-top: 16px;
+    padding-bottom: 20px;
+}
+
+.navbar-mobile-links {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.navbar-mobile-link {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    padding: 12px 16px;
+    border-radius: 8px;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.navbar-mobile-link:hover,
+.navbar-mobile-link:active {
+    background: var(--color-bg-elevated);
+    color: var(--color-text-primary);
+}
+
+.navbar-mobile-cta {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-bg-deep);
+    background: var(--color-accent-orange);
+    text-align: center;
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    margin-top: 8px;
+    transition: background 0.2s ease;
+}
+
+.navbar-mobile-cta:hover {
+    background: #ffb840;
+}
+
+/* ---------- Mobile breakpoint (<768px) ---------- */
+@media (max-width: 767px) {
+    .navbar-links {
+        display: none;
+    }
+
+    .navbar-hamburger {
+        display: flex;
+    }
+
+    .navbar-mobile-menu {
+        display: flex;
+    }
+}
+
+/* ---------- Tablet adaptation (768px – 1024px) ---------- */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .navbar-links {
+        gap: 24px;
+    }
+
+    .navbar-cta {
+        padding: 8px 16px;
+        font-size: 0.8125rem;
+    }
+}

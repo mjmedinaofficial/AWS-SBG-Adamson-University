@@ -14,6 +14,21 @@
     --aws-orange-hover: #f7ad58;
     --font-sans: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 
+    /* New design system colors */
+    --color-bg-deep: #0D0B1A;
+    --color-bg-surface: #1A1530;
+    --color-bg-elevated: #241D45;
+    --color-brand-purple: #5B3FD9;
+    --color-accent-orange: #F5A623;
+    --color-text-primary: #F0EEFF;
+    --color-text-secondary: #A89FC5;
+    --color-border-subtle: rgba(255, 255, 255, 0.08);
+
+    /* New design system fonts */
+    --font-heading: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
     /* Layout */
     --page-padding: clamp(16px, 5vw, 10vw);
     --content-max: 1200px;
