@@ -3,6 +3,7 @@
 
     const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     const listEl = document.getElementById('ev-list');
+    const paginationEl = document.getElementById('ev-pagination');
     const previewEl = document.getElementById('ev-preview');
     const yearStripEl = document.getElementById('ev-year-strip');
     const monthStripEl = document.getElementById('ev-month-strip');
@@ -142,21 +143,43 @@
             </button>
         `).join('');
 
-        // Pagination controls
-        let paginationHtml = '';
-        if (totalPages > 1) {
-            paginationHtml = `<div class="ev-pagination">
-                <button type="button" class="ev-pagination-btn ev-pagination-prev"${currentPage <= 1 ? ' disabled' : ''} aria-label="Previous page">
-                    <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </button>
-                <span class="ev-pagination-info">${currentPage} / ${totalPages}</span>
-                <button type="button" class="ev-pagination-btn ev-pagination-next"${currentPage >= totalPages ? ' disabled' : ''} aria-label="Next page">
-                    <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </button>
-            </div>`;
-        }
+        listEl.innerHTML = listHtml;
 
-        listEl.innerHTML = listHtml + paginationHtml;
+        // Pagination controls — rendered in separate container
+        if (paginationEl) {
+            if (totalPages > 1) {
+                paginationEl.innerHTML = `<div class="ev-pagination">
+                    <button type="button" class="ev-pagination-btn ev-pagination-prev"${currentPage <= 1 ? ' disabled' : ''} aria-label="Previous page">
+                        <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <span class="ev-pagination-info">${currentPage} / ${totalPages}</span>
+                    <button type="button" class="ev-pagination-btn ev-pagination-next"${currentPage >= totalPages ? ' disabled' : ''} aria-label="Next page">
+                        <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                </div>`;
+            } else {
+                paginationEl.innerHTML = '';
+            }
+
+            const prevBtn = paginationEl.querySelector('.ev-pagination-prev');
+            const nextBtn = paginationEl.querySelector('.ev-pagination-next');
+            if (prevBtn) {
+                prevBtn.addEventListener('click', () => {
+                    if (currentPage > 1) {
+                        currentPage--;
+                        renderList();
+                    }
+                });
+            }
+            if (nextBtn) {
+                nextBtn.addEventListener('click', () => {
+                    if (currentPage < totalPages) {
+                        currentPage++;
+                        renderList();
+                    }
+                });
+            }
+        }
 
         listEl.querySelectorAll('.ev-list-row').forEach((row) => {
             row.addEventListener('click', () => {
@@ -164,26 +187,6 @@
                 renderList({ scrollIntoView: true });
             });
         });
-
-        // Pagination event listeners
-        const prevBtn = listEl.querySelector('.ev-pagination-prev');
-        const nextBtn = listEl.querySelector('.ev-pagination-next');
-        if (prevBtn) {
-            prevBtn.addEventListener('click', () => {
-                if (currentPage > 1) {
-                    currentPage--;
-                    renderList();
-                }
-            });
-        }
-        if (nextBtn) {
-            nextBtn.addEventListener('click', () => {
-                if (currentPage < totalPages) {
-                    currentPage++;
-                    renderList();
-                }
-            });
-        }
 
         renderPreview(events.find((e) => e.id === selectedId), options);
     }
