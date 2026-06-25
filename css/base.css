@@ -1,8 +1,7 @@
 /* ============================================================
    AWS SBG AdU — Base styles & shared chrome (all pages)
+   Font loaded via <link> in HTML (non-blocking).
    ============================================================ */
-
-@import url('https://fonts.cdnfonts.com/css/amazon-ember');
 
 *, *::before, *::after {
     margin: 0;

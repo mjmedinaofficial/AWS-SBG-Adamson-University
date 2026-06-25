@@ -229,22 +229,6 @@
     color: rgba(255, 255, 255, 0.35);
 }
 
-.site-footer { width: 100%; padding: 0; display: flex; flex-direction: column; align-items: stretch; position: relative; z-index: 2; isolation: isolate; }
-.site-footer-card { position: relative; width: 100%; background: #000000; border-top: 1px solid rgba(255, 255, 255, 0.1); box-shadow: none; }
-.site-footer-card::before { display: none; }
-.site-footer-main { position: relative; z-index: 1; width: 100%; max-width: 1200px; margin: 0 auto; padding: 48px 10vw 32px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 18px; }
-.site-footer-logo-row { display: flex; align-items: center; gap: 16px; }
-.site-footer-logo { width: 56px; height: 56px; border-radius: 12px; object-fit: contain; filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4)); flex-shrink: 0; }
-.site-footer-titles { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.15; }
-.site-footer-title { font-size: 22px; font-weight: 800; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-.site-footer-subtitle { font-size: 14px; font-weight: 600; color: rgba(255, 255, 255, 0.65); letter-spacing: 0.5px; }
-.site-footer-desc { max-width: 540px; margin: 0; font-size: 15px; line-height: 1.7; color: rgba(255, 255, 255, 0.8); }
-.site-footer-socials { display: flex; gap: 14px; margin-top: 4px; }
-.site-footer-social { width: 46px; height: 46px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: #fff; background: #f29b3c; border: 1px solid rgba(242, 155, 60, 0.6); box-shadow: 0 6px 18px rgba(242, 155, 60, 0.3); transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease; text-decoration: none; }
-.site-footer-social:hover { transform: translateY(-3px); background: #f7ad58; box-shadow: 0 0 22px rgba(242, 155, 60, 0.55); }
-.site-footer-social svg { width: 20px; height: 20px; display: block; }
-.site-footer-bottom { position: relative; z-index: 1; padding: 16px 10vw 20px; text-align: center; font-size: 10px; letter-spacing: 0.2px; color: rgba(255, 255, 255, 0.55); background: #000000; }
-
 /* Registration closed — blur finder only */
 .jf-finder-wrap--closed {
     position: relative;
@@ -324,11 +308,6 @@
 }
 
 @media (max-width: 1024px) {
-    :root { --page-padding: 5vw; }
-    .top-bar { top: 12px; } .top-bar-text { display: none; }
-    .liquid-dock { top: 12px; padding: 4px; }
-    .dock-item { font-size: 13px; padding: 9px 14px; }
-    .join-page { padding: 100px 5vw 30px; }
     .jf-finder-sidebar { display: none; }
     .jf-finder-main { padding: 20px 16px 24px; }
     .jf-form-row { flex-direction: column; align-items: stretch; gap: 4px; min-height: auto; padding: 12px 14px; }
@@ -342,9 +321,6 @@
     .jf-registration-closed-card { padding: 22px 20px 20px; }
     .jf-registration-closed-title { font-size: 19px; }
     .jf-registration-closed-desc { font-size: 13px; }
-    .jf-registration-closed-link { font-size: 12px; padding: 9px 14px; word-break: break-all; }
-    .sticker { width: 80px; bottom: 16px; right: 16px; }
-    .site-footer-main { padding: 36px 5vw 28px; }
-    .site-footer-logo-row { flex-direction: column; gap: 10px; }
-    .site-footer-titles { align-items: center; text-align: center; }
+    .jf-registration-closed-link { font-size: 12px; padding: 9px 14px; word-break: break-all;
+}
 }

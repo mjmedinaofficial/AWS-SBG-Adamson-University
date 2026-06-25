@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <title>Officers · AWS Student Builder Group · Adamson University</title>
     <link rel="icon" type="image/png" href="img/awscatlogo.png" />
+    <link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/amazon-ember" />
+
     <link rel="stylesheet" href="css/design-tokens.css" />
     <link rel="stylesheet" href="css/base.css" />
     <link rel="stylesheet" href="css/desktop-adaptive.css" />
@@ -18,7 +21,7 @@
     <!-- TOP BAR -->
     <header class="site-header" aria-label="Site header">
     <a class="top-bar" href="index.html" aria-label="Go to home page">
-        <img src="img/awscatlogo.png" alt="AWS Cat Logo" class="top-bar-logo" />
+        <img src="img/awscatlogo.png" alt="AWS Cat Logo" class="top-bar-logo" fetchpriority="high" decoding="async" width="512" height="512" />
         <span class="top-bar-text"><span class="brand-full">AWS Student Builder Group · Adamson University</span><span class="brand-short">AWS SBG · AdU</span></span>
     </a>
 
@@ -77,7 +80,7 @@
         </a>
 
         <header class="of-hero">
-            <img src="img/awscat3.png" alt="" class="page-hero-logo" />
+            <img src="img/awscat3.png" alt="" class="page-hero-logo"  loading="lazy" decoding="async" />
             <span class="page-label">Meet the Team</span>
             <h1>The Builders Behind AWS SBG</h1>
             <p>A passionate crew of student leaders driving the cloud community at Adamson University forward — organizing, mentoring, and building together.</p>
@@ -139,7 +142,7 @@
         <div class="site-footer-card">
             <div class="site-footer-main">
                 <div class="site-footer-logo-row">
-                    <img src="img/awscatlogo.png" alt="AWS Cat Logo" class="site-footer-logo" />
+                    <img src="img/awscatlogo.png" alt="AWS Cat Logo" class="site-footer-logo"  loading="lazy" decoding="async" />
                     <div class="site-footer-titles">
                         <span class="site-footer-title">AWS Student Builder Group</span>
                         <span class="site-footer-subtitle">Adamson University</span>
@@ -170,12 +173,13 @@
         </div>
     </footer>
 
-    <script src="js/nav-dock.js"></script>
-    <script src="js/officers-data.js"></script>
-    <script src="js/pages/officers.js"></script>
+    <script src="js/nav-dock.js" defer></script>
+    <script src="js/custom-cursor.js" defer></script>
+    <script src="js/officers-data.js" defer></script>
+    <script src="js/pages/officers.js" defer></script>
 
-    <img src="img/awscat1.png" alt="AWS Cat Sticker" class="sticker" />
-    <script src="js/footer-socials.js"></script>
-    <script src="js/mobile-nav.js"></script>
+    <img src="img/awscat1.png" alt="AWS Cat Sticker" class="sticker"  loading="lazy" decoding="async" />
+    <script src="js/footer-socials.js" defer></script>
+    <script src="js/mobile-nav.js" defer></script>
 </body>
 </html>

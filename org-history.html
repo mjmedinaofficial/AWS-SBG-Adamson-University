@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <title>Org History · AWS Student Builder Group · Adamson University</title>
     <link rel="icon" type="image/png" href="img/awscatlogo.png" />
+    <link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/amazon-ember" />
+
     <link rel="stylesheet" href="css/design-tokens.css" />
     <link rel="stylesheet" href="css/base.css" />
     <link rel="stylesheet" href="css/desktop-adaptive.css" />
@@ -18,7 +21,7 @@
     <!-- TOP BAR -->
     <header class="site-header" aria-label="Site header">
     <a class="top-bar" href="index.html" aria-label="Go to home page">
-        <img src="img/awscatlogo.png" alt="AWS Cat Logo" class="top-bar-logo" />
+        <img src="img/awscatlogo.png" alt="AWS Cat Logo" class="top-bar-logo" fetchpriority="high" decoding="async" width="512" height="512" />
         <span class="top-bar-text"><span class="brand-full">AWS Student Builder Group · Adamson University</span><span class="brand-short">AWS SBG · AdU</span></span>
     </a>
 
@@ -77,7 +80,7 @@
         </a>
 
         <header class="oh-hero">
-            <img src="img/awscatlogo.png" alt="AWS Cat Logo" class="oh-hero-logo" />
+            <img src="img/awscatlogo.png" alt="AWS Cat Logo" class="oh-hero-logo"  loading="lazy" decoding="async" />
             <span class="page-label">Our Journey</span>
             <h1>The Story of AWS SBG AdU</h1>
             <p>From AWS Cloud Club to AWS Student Builder Group — founded October 2, 2024, and growing into a nationwide community of passionate learners building with cloud and AI.</p>
@@ -215,7 +218,7 @@
                     </div>
                 </div>
 
-                <img src="img/awscat2.png" alt="" class="oh-finder-cat-decor" aria-hidden="true" />
+                <img src="img/awscat2.png" alt="" class="oh-finder-cat-decor" aria-hidden="true"  loading="lazy" decoding="async" />
 
                 <div class="oh-finder-footer">
                     <span><span class="oh-finder-title-icon" aria-hidden="true"></span>Adamson University · AWS Student Builder Group</span>
@@ -233,7 +236,7 @@
         <div class="site-footer-card">
             <div class="site-footer-main">
                 <div class="site-footer-logo-row">
-                    <img src="img/awscatlogo.png" alt="AWS Cat Logo" class="site-footer-logo" />
+                    <img src="img/awscatlogo.png" alt="AWS Cat Logo" class="site-footer-logo"  loading="lazy" decoding="async" />
                     <div class="site-footer-titles">
                         <span class="site-footer-title">AWS Student Builder Group</span>
                         <span class="site-footer-subtitle">Adamson University</span>
@@ -264,12 +267,13 @@
         </div>
     </footer>
 
-    <script src="js/nav-dock.js"></script>
-    <script src="js/events-data.js"></script>
-    <script src="js/pages/org-history.js"></script>
+    <script src="js/nav-dock.js" defer></script>
+    <script src="js/custom-cursor.js" defer></script>
+    <script src="js/events-data.js" defer></script>
+    <script src="js/pages/org-history.js" defer></script>
 
-    <img src="img/awscat1.png" alt="AWS Cat Sticker" class="sticker" />
-    <script src="js/footer-socials.js"></script>
-    <script src="js/mobile-nav.js"></script>
+    <img src="img/awscat1.png" alt="AWS Cat Sticker" class="sticker"  loading="lazy" decoding="async" />
+    <script src="js/footer-socials.js" defer></script>
+    <script src="js/mobile-nav.js" defer></script>
 </body>
 </html>
