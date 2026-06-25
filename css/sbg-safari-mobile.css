@@ -1,5 +1,5 @@
 /* SBG Safari — iOS mobile chrome (max-width matches mobile-layout.css) */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .sbg-safari {
         --safari-content: #000000;
         --ios-chrome: rgba(28, 28, 30, 0.98);

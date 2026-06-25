@@ -68,6 +68,19 @@ body.custom-cursor-active * {
     }
 }
 
+/* Phones, tablets (incl. iPad): no hero card cursor-tilt */
+@media (hover: none), (pointer: coarse) {
+    .home-page #section1-tilt-card {
+        transform: none !important;
+        transition: none !important;
+    }
+}
+
+.touch-primary-device .home-page #section1-tilt-card {
+    transform: none !important;
+    transition: none !important;
+}
+
 /* Shared animations */
 @keyframes fadeInUp {
     from { opacity: 0; transform: translateY(30px); }
@@ -355,7 +368,7 @@ body.custom-cursor-active * {
 }
 
 /* Desktop: open dock dropdowns on hover (consistent on every page) */
-@media (hover: hover) and (min-width: 769px) {
+@media (hover: hover) and (min-width: 1025px) {
     .site-header .dock-item-wrap:hover .nav-dropdown {
         opacity: 1;
         pointer-events: auto;
@@ -585,6 +598,15 @@ body.custom-cursor-active * {
     text-decoration: none;
 }
 
+button.site-footer-social {
+    appearance: none;
+    -webkit-appearance: none;
+    font: inherit;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+}
+
 .site-footer-social:hover {
     transform: translateY(-3px);
     background: var(--aws-orange-hover);
@@ -606,6 +628,34 @@ body.custom-cursor-active * {
     letter-spacing: 0.2px;
     color: rgba(255, 255, 255, 0.55);
     background: #000000;
+}
+
+.footer-copy-toast {
+    position: fixed;
+    bottom: calc(28px + env(safe-area-inset-bottom));
+    left: 50%;
+    z-index: 10010;
+    transform: translateX(-50%) translateY(10px);
+    padding: 12px 20px;
+    border-radius: 12px;
+    background: linear-gradient(180deg, rgba(38, 32, 58, 0.96) 0%, rgba(22, 16, 38, 0.96) 100%);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+    color: #ffffff;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.24s ease, transform 0.24s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.footer-copy-toast.is-visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
 }
 
 /* Finder window footer — branding + community stats (one line) */

@@ -1,5 +1,5 @@
 /* Section 3 iPhone Notes — mobile only */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .section3-notes-app,
     .section3-notes-app button,
     .section3-notes-app .section3-notes-search,

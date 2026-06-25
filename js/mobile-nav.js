@@ -2,10 +2,10 @@
    AWS SBG AdU — Mobile navigation
    Replaces the dock with a liquid-glass three-dot button that
    opens an iOS-style context menu (clickable section titles +
-   their dropdown choices). Desktop nav is untouched.
+   their dropdown choices). Active at viewport widths ≤1024px.
    ============================================================ */
 (function () {
-    const MOBILE_MQ = window.matchMedia('(max-width: 768px)');
+    const MOBILE_MQ = window.matchMedia('(max-width: 1024px)');
     let built = false;
     let isOpen = false;
     let toggleBtn = null;

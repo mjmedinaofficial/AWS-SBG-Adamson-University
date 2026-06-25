@@ -33,24 +33,14 @@
     }
 }
 
-@media (min-width: 769px) {
+@media (min-width: 1025px) {
     /* Scale index hero typography */
     .section1-content h1 {
         font-size: calc(var(--text-hero) * var(--ui-scale));
     }
 
-    .section1-content p,
-    .section2-header .section2-subtitle,
-    .section2-event-card-desc {
+    .section1-content p {
         font-size: calc(var(--text-subtitle) * var(--ui-scale));
-    }
-
-    .section2-header h2 {
-        font-size: calc(var(--text-2xl) * var(--ui-scale));
-    }
-
-    .section2-event-card-title {
-        font-size: calc(var(--text-lg) * var(--ui-scale));
     }
 
     .section3-stat-number {
@@ -73,24 +63,94 @@
 }
 
 /* Short viewports — keep home sections visible */
-@media (max-height: 800px) and (min-width: 769px) {
+@media (max-height: 800px) and (min-width: 1025px) {
     .section2 {
         justify-content: flex-start;
         padding-top: calc(84px * var(--ui-scale));
-        padding-bottom: calc(12px * var(--ui-scale));
-        gap: calc(14px * var(--ui-scale));
+        padding-bottom: calc(28px * var(--ui-scale));
+        gap: calc(10px * var(--ui-scale));
+    }
+
+    .home-page .section2-header .section2-subtitle {
+        margin-bottom: clamp(6px, 0.8vh, 12px);
+    }
+
+    .home-page .section2-events-grid {
+        margin-top: clamp(24px, 3vh, 44px);
+        gap: clamp(8px, 1vw, 12px);
+    }
+
+    .home-page .section2-event-card-image {
+        flex: 1 1 auto;
+        min-height: clamp(92px, 16vh, 155px);
+        height: auto;
+    }
+
+    .home-page .section2-event-card-content {
+        padding: clamp(8px, 0.9vh, 12px);
+    }
+
+    .home-page .section2-view-all-card {
+        padding: clamp(8px, 1vh, 14px) clamp(10px, 1vw, 14px);
+    }
+
+    .home-page .section2-header h2 {
+        font-size: clamp(1.375rem, 1rem + 1.6vw, 2rem);
+    }
+
+    .home-page .section2-header .section2-subtitle {
+        font-size: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+    }
+
+    .home-page .section2-event-card-title {
+        font-size: clamp(0.8125rem, 0.74rem + 0.3vw, 0.9375rem);
+    }
+
+    .home-page .section2-event-card-desc {
+        font-size: clamp(0.6875rem, 0.64rem + 0.2vw, 0.75rem);
     }
 }
 
-@media (max-height: 700px) and (min-width: 769px) {
+@media (max-height: 700px) and (min-width: 1025px) {
     .section1-content h1 {
         font-size: calc(clamp(1.5rem, 3vw, 2rem) * var(--ui-scale));
         margin-bottom: calc(12px * var(--ui-scale));
     }
 
-    .section1-glass-card {
-        transform: scale(calc(0.92 * var(--ui-scale)));
-        transform-origin: center;
+    .home-page .section2-header h2 {
+        font-size: clamp(1.25rem, 0.9rem + 1.4vw, 1.75rem);
+    }
+
+    .home-page .section2-header .section2-subtitle {
+        font-size: clamp(0.6875rem, 0.64rem + 0.2vw, 0.8125rem);
+    }
+
+    .home-page .section2-event-card-title {
+        font-size: clamp(0.75rem, 0.68rem + 0.25vw, 0.875rem);
+    }
+
+    .home-page .section2-event-card-desc {
+        font-size: clamp(0.625rem, 0.58rem + 0.18vw, 0.6875rem);
+    }
+
+    .home-page .section2-event-card-speaker,
+    .home-page .section2-event-card-link {
+        font-size: clamp(0.625rem, 0.58rem + 0.15vw, 0.6875rem);
+    }
+
+    .home-page .section2-event-card-image {
+        flex: 1 1 auto;
+        min-height: clamp(76px, 13vh, 120px);
+        height: auto;
+    }
+
+    .home-page .section2-view-all-card {
+        padding: clamp(6px, 0.8vh, 10px) clamp(8px, 0.9vw, 12px);
+    }
+
+    .home-page .section2-view-all-card-btn {
+        height: clamp(28px, 3.5vh, 34px);
+        max-width: clamp(120px, 11vw, 150px);
     }
 }
 
@@ -145,7 +205,7 @@ body:not(.home-page) {
 }
 
 /* Mobile menu elements never show on desktop/tablet */
-@media (min-width: 769px) and (hover: hover) and (pointer: fine) {
+@media (min-width: 1025px) and (hover: hover) and (pointer: fine) {
     .mnav-toggle,
     .mnav-sheet,
     .mnav-backdrop {
@@ -154,23 +214,23 @@ body:not(.home-page) {
 }
 
 /* Laptops & desktops: always run the Section 1 moving carousel */
-@media (min-width: 769px) {
+@media (min-width: 1025px) {
     .home-page .section1-carousel-track {
         display: flex !important;
         animation: slideCarousel 6.5s linear infinite !important;
-        transform: none;
         width: auto;
+        will-change: transform;
     }
 
     .home-page .section1-carousel-window {
         overflow: hidden;
-        padding: 0 38px;
+        padding: 0 clamp(20px, 2.5vw, 38px);
     }
 
     .home-page .section1-carousel-slide {
         display: block !important;
         flex: 0 0 65%;
-        min-width: min(380px, 42vw);
+        min-width: min(400px, 38vw);
     }
 
     .home-page .section1-carousel-slide:first-child,
@@ -184,38 +244,293 @@ body:not(.home-page) {
    viewport height so it never clashes on smaller laptops
    (e.g. Dell 7420 at 100%/125%).
    ============================================================ */
-@media (min-width: 769px) {
+@media (min-width: 1025px) {
     .home-page .page-section.section1 {
-        align-items: center;
-        padding-top: clamp(96px, 12vh, 132px);
-        padding-bottom: clamp(28px, 5vh, 56px);
+        align-items: stretch;
+        justify-content: flex-start;
+        padding-top: clamp(112px, 13vh, 148px);
+        padding-bottom: clamp(48px, 7vh, 80px);
+        padding-left: clamp(48px, 5vw, 88px);
+        padding-right: clamp(48px, 5vw, 88px);
+        gap: clamp(20px, 3.5vw, 56px);
+        box-sizing: border-box;
+    }
+
+    .home-page .section1-content {
+        flex: 0 1 clamp(280px, 32vw, 520px);
+        min-width: 0;
+        max-width: clamp(300px, 32vw, 520px);
+        text-align: left;
+        align-self: center;
     }
 
     .home-page .section1-hero-logo {
-        width: calc(132px * var(--ui-scale));
-        height: calc(132px * var(--ui-scale));
-        margin-bottom: calc(24px * var(--ui-scale));
+        width: clamp(96px, 9vmin, 140px);
+        height: clamp(96px, 9vmin, 140px);
+        margin-bottom: clamp(16px, 2.5vh, 28px);
+    }
+
+    .home-page .section1-content h1 {
+        margin-bottom: clamp(14px, 2vh, 20px);
     }
 
     .home-page .section1-content h1 .section1-title {
-        font-size: calc(clamp(1.75rem, 0.9rem + 2.2vw, 3rem) * var(--ui-scale));
+        font-size: clamp(1.75rem, 1rem + 1.5vw + 0.6vh, 3.25rem);
+        align-items: flex-start;
     }
 
-    .home-page .section1-content p {
-        font-size: calc(var(--text-md) * var(--ui-scale));
+    .home-page .section1-content h1 .section1-title .section1-title-line1,
+    .home-page .section1-content h1 .section1-title .section1-title-line2,
+    .home-page .section1-content h1 .section1-title .section1-title-line3 {
+        text-align: left;
+    }
+
+    .home-page .section1-lead {
+        font-size: clamp(0.9375rem, 0.82rem + 0.35vw, 1.125rem);
+        line-height: 1.6;
+        margin-bottom: clamp(10px, 1.4vh, 16px);
+    }
+
+    .home-page .section1-motto {
+        font-size: clamp(0.875rem, 0.78rem + 0.28vw, 1.0625rem);
+        line-height: 1.55;
+        margin-bottom: clamp(20px, 3vh, 32px);
     }
 
     .home-page .section1-btn {
-        font-size: calc(var(--text-base) * var(--ui-scale));
+        font-size: clamp(0.875rem, 0.8rem + 0.2vw, 1rem);
+        min-width: clamp(150px, 14vw, 170px);
+        height: clamp(48px, 5.2vh, 56px);
+        padding: clamp(12px, 1.2vh, 16px) clamp(24px, 2.5vw, 32px);
+    }
+
+    .home-page .section1-card-wrapper {
+        flex: 1 1 clamp(380px, 50vw, 960px);
+        min-width: 0;
+        max-width: none;
+        padding-left: 0;
+        padding-top: clamp(24px, 4vh, 48px);
+        padding-bottom: clamp(24px, 4vh, 48px);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+        align-self: stretch;
+        min-height: 0;
+        height: 100%;
+        box-sizing: border-box;
+    }
+
+    .home-page .section1-glass-card {
+        width: 100%;
+        max-width: min(960px, 100%);
+        flex: 1 1 auto;
+        min-height: 0;
+        height: 100%;
+        max-height: 100%;
+    }
+
+    .home-page .section1-card-media {
+        flex: 1 1 auto;
+        min-height: clamp(140px, 20vh, 220px);
+        height: auto;
+        width: calc(100% - clamp(24px, 2.5vw, 36px));
+        margin: clamp(10px, 1.2vh, 14px) clamp(12px, 1.6vw, 18px) 0;
+    }
+
+    .home-page .section1-carousel-window,
+    .home-page .section1-carousel-track,
+    .home-page .section1-carousel-slide {
+        height: 100%;
+        min-height: 100%;
+    }
+
+    .home-page .section1-card-topbar,
+    .home-page .section1-card-bottombar {
+        flex-shrink: 0;
+    }
+
+    .home-page .section1-glass-card h2 {
+        font-size: clamp(1rem, 0.85rem + 0.75vw, 1.5rem);
+        padding: clamp(10px, 1.6vh, 18px) clamp(14px, 2vw, 24px) 0;
+        flex-shrink: 0;
+    }
+
+    .home-page .section1-glass-card p {
+        font-size: clamp(0.8125rem, 0.75rem + 0.25vw, 1.0625rem);
+        padding: clamp(8px, 1vh, 12px) clamp(14px, 2vw, 24px) clamp(12px, 1.6vh, 16px);
+        flex-shrink: 0;
+    }
+
+    .home-page .section1-carousel-slide {
+        min-width: min(400px, 38vw);
+    }
+}
+
+/* Home — section 2 fluid typography (scales with viewport width & height) */
+@media (min-width: 1025px) {
+    .home-page .section2-header .page-label {
+        font-size: clamp(0.625rem, 0.54rem + 0.28vw, 0.75rem);
+        margin-bottom: clamp(8px, 1.2vh, 12px);
+    }
+
+    .home-page .section2-header h2 {
+        font-size: clamp(1.75rem, 1.05rem + 2vw + 0.45vh, 3.25rem);
+        margin-bottom: clamp(6px, 1vh, 10px);
+    }
+
+    .home-page .section2-header .section2-subtitle {
+        font-size: clamp(0.8125rem, 0.74rem + 0.38vw + 0.08vh, 1.0625rem);
+    }
+
+    .home-page .section2-event-card-content {
+        padding: clamp(14px, 1.2vw + 0.6vh, 22px);
+        gap: clamp(6px, 0.8vh, 10px);
+        flex: 0 0 auto;
+    }
+
+    .home-page .section2-event-card-title {
+        font-size: clamp(0.875rem, 0.78rem + 0.48vw, 1.125rem);
+    }
+
+    .home-page .section2-event-card-desc {
+        font-size: clamp(0.6875rem, 0.64rem + 0.32vw, 0.8125rem);
+    }
+
+    .home-page .section2-event-card-speaker {
+        font-size: clamp(0.625rem, 0.56rem + 0.22vw, 0.6875rem);
+    }
+
+    .home-page .section2-event-card-link {
+        font-size: clamp(0.6875rem, 0.62rem + 0.28vw, 0.8125rem);
+    }
+
+    .home-page .section2-event-date-day {
+        font-size: clamp(1rem, 0.88rem + 0.55vw, 1.375rem);
+    }
+
+    .home-page .section2-event-date-month {
+        font-size: clamp(0.5rem, 0.46rem + 0.18vw, 0.625rem);
+    }
+
+    .home-page .section2-event-card-badge {
+        font-size: clamp(0.5625rem, 0.5rem + 0.22vw, 0.6875rem);
+        padding: clamp(4px, 0.5vh, 5px) clamp(10px, 1vw, 14px);
+    }
+
+    .home-page .section2-view-all-card-label {
+        font-size: clamp(0.625rem, 0.55rem + 0.28vw, 0.6875rem);
+    }
+
+    .home-page .section2-view-all-card-title {
+        font-size: clamp(1rem, 0.88rem + 0.65vw, 1.375rem);
+    }
+
+    .home-page .section2-view-all-card-desc {
+        font-size: clamp(0.75rem, 0.68rem + 0.32vw, 0.875rem);
+    }
+
+    .home-page .section2-view-all-card-btn {
+        font-size: clamp(0.8125rem, 0.74rem + 0.28vw, 0.875rem);
+        height: clamp(40px, 4.8vh, 48px);
+        padding: clamp(10px, 1vh, 12px) clamp(18px, 2vw, 24px);
+    }
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+    .home-page .section2-header h2 {
+        font-size: clamp(1.5rem, 0.95rem + 2.4vw, 2.25rem);
+    }
+
+    .home-page .section2-event-card-title {
+        font-size: clamp(0.8125rem, 0.74rem + 0.4vw, 1rem);
+    }
+
+    .home-page .section2-events-grid {
+        gap: clamp(8px, 1vw, 14px);
+    }
+
+    .home-page .section2-event-card-image {
+        flex: 1 1 auto;
+        min-height: clamp(68px, 11vh, 130px);
+        height: auto;
+    }
+}
+
+/* Home — section 2 fills viewport (no internal scroll) */
+@media (min-width: 1025px) {
+    .home-page .page-section.section2 {
+        height: 100vh;
+        max-height: 100vh;
+        overflow: hidden;
+        justify-content: flex-start;
+        padding-top: clamp(104px, 12vh, 136px);
+        padding-bottom: clamp(52px, 7vh, 88px);
+        padding-left: clamp(48px, 5vw, 88px);
+        padding-right: clamp(48px, 5vw, 88px);
+        gap: clamp(8px, 1.2vh, 14px);
+    }
+
+    .home-page .section2-header {
+        flex-shrink: 0;
+    }
+
+    .home-page .section2-events-grid {
+        flex: 0 1 auto;
+        min-height: 0;
+        max-height: min(70vh, 620px);
+        margin-top: clamp(32px, 3.5vh, 52px);
+        margin-bottom: clamp(16px, 2.5vh, 32px);
+        gap: clamp(10px, 1.2vw, 18px);
+        max-width: min(1160px, 93vw);
+        grid-template-rows: minmax(0, 1fr);
+        align-self: center;
+    }
+
+    .home-page .section2-event-card,
+    .home-page .section2-view-all-card {
+        min-height: 0;
+        max-height: 100%;
+        border-radius: clamp(12px, 1.1vw, 18px);
+    }
+
+    .home-page .section2-event-card-image {
+        flex: 1 1 auto;
+        min-height: clamp(132px, 22vh, 290px);
+        height: auto;
+    }
+
+    .home-page .section2-event-card-content {
+        flex: 0 0 auto;
+    }
+
+    .home-page .section2-event-card-badge {
+        top: clamp(8px, 1vh, 12px);
+        right: clamp(8px, 1vw, 12px);
+    }
+
+    .home-page .section2-event-date-box {
+        padding: clamp(4px, 0.5vh, 6px) clamp(8px, 0.8vw, 12px);
+        min-width: clamp(40px, 3.5vw, 48px);
+        border-radius: clamp(8px, 0.8vw, 12px);
+    }
+
+    .home-page .section2-view-all-card {
+        padding: clamp(10px, 1.2vh, 19px) clamp(11px, 1.15vw, 19px);
+    }
+
+    .home-page .section2-view-all-card-btn {
+        max-width: clamp(140px, 13vw, 190px);
+        height: clamp(32px, 4vh, 42px);
     }
 }
 
 /* Shorter laptop screens (e.g. Dell 7420 at 100%/125%): shrink the hero so
    it never tucks under the fixed nav. */
-@media (min-width: 769px) and (max-height: 880px) {
+@media (min-width: 1025px) and (max-height: 880px) {
     .home-page .page-section.section1 {
-        padding-top: clamp(84px, 11vh, 104px);
-        padding-bottom: clamp(20px, 4vh, 40px);
+        padding-top: clamp(104px, 12vh, 124px);
+        padding-bottom: clamp(36px, 5.5vh, 56px);
     }
 
     .home-page .section1-hero-logo {
@@ -233,16 +548,47 @@ body:not(.home-page) {
         line-height: 1.06;
     }
 
-    .home-page .section1-content p {
+    .home-page .section1-lead {
         font-size: 0.95rem;
         line-height: 1.5;
+        margin-bottom: 12px;
+    }
+
+    .home-page .section1-motto {
+        font-size: 0.9rem;
         margin-bottom: 18px;
+    }
+
+    .home-page .section1-card-media {
+        min-height: clamp(110px, 16vh, 160px);
+    }
+
+    .home-page .section1-card-wrapper {
+        padding-top: clamp(16px, 3vh, 28px);
+        padding-bottom: clamp(16px, 3vh, 28px);
+    }
+
+    .home-page .page-section.section2 {
+        padding-top: clamp(96px, 11vh, 112px);
+        padding-bottom: clamp(36px, 5vh, 56px);
+        gap: clamp(6px, 1vh, 10px);
+    }
+
+    .home-page .section2-event-card-image {
+        flex: 1 1 auto;
+        min-height: clamp(112px, 18vh, 190px);
+        height: auto;
+    }
+
+    .home-page .section2-events-grid {
+        margin-top: clamp(18px, 2.2vh, 32px);
     }
 }
 
-@media (min-width: 769px) and (max-height: 730px) {
+@media (min-width: 1025px) and (max-height: 730px) {
     .home-page .page-section.section1 {
-        padding-top: 80px;
+        padding-top: clamp(96px, 11vh, 112px);
+        padding-bottom: clamp(28px, 4.5vh, 44px);
     }
 
     .home-page .section1-hero-logo {
@@ -255,48 +601,40 @@ body:not(.home-page) {
         font-size: clamp(1.35rem, 2.1vw, 1.75rem);
     }
 
-    .home-page .section1-content p {
+    .home-page .section1-lead {
         font-size: 0.9rem;
+        margin-bottom: 10px;
+    }
+
+    .home-page .section1-motto {
+        font-size: 0.85rem;
         margin-bottom: 14px;
+    }
+
+    .home-page .section1-card-media {
+        min-height: clamp(96px, 14vh, 140px);
+    }
+
+    .home-page .section1-card-wrapper {
+        padding-top: clamp(12px, 2.5vh, 20px);
+        padding-bottom: clamp(12px, 2.5vh, 20px);
+    }
+
+    .home-page .section2-event-card-image {
+        flex: 1 1 auto;
+        min-height: clamp(76px, 13vh, 120px);
+        height: auto;
+    }
+
+    .home-page .section2-view-all-card {
+        padding: clamp(6px, 0.8vh, 10px) clamp(8px, 0.9vw, 12px);
     }
 }
 
 /* Narrow desktop widths: prevent the hero text from crowding the card */
-@media (min-width: 769px) and (max-width: 1100px) {
+@media (min-width: 1025px) and (max-width: 1100px) {
     .home-page .section1-content {
         max-width: clamp(280px, 42vw, 460px);
-    }
-}
-
-/* ============================================================
-   Tablet & compact tablet (769px – 1024px)
-   iPad, small laptops at high zoom, portrait tablets
-   ============================================================ */
-@media (min-width: 769px) and (max-width: 1024px) {
-    .home-page .page-section.section1 {
-        padding-top: clamp(84px, 10vh, 104px);
-        padding-left: var(--page-padding);
-        padding-right: var(--page-padding);
-        gap: clamp(12px, 2.5vw, 24px);
-    }
-
-    .home-page .section1-content {
-        max-width: clamp(240px, 38vw, 380px);
-    }
-
-    .home-page .section1-card-wrapper {
-        flex: 1 1 auto;
-        max-width: clamp(260px, 42vw, 420px);
-        padding-left: clamp(8px, 2vw, 20px);
-    }
-
-    .home-page .section1-hero-logo {
-        width: clamp(88px, 10vw, 112px);
-        height: clamp(88px, 10vw, 112px);
-    }
-
-    .section2-events-grid {
-        gap: clamp(14px, 2vw, 20px);
     }
 }
 
@@ -305,7 +643,91 @@ body:not(.home-page) {
    ============================================================ */
 @media (min-width: 1025px) and (max-width: 1279px) {
     .home-page .section1-content {
-        max-width: clamp(320px, 36vw, 480px);
+        max-width: clamp(300px, 34vw, 460px);
+        flex-basis: clamp(300px, 34vw, 460px);
+    }
+
+    .home-page .section1-glass-card {
+        max-width: min(820px, 100%);
+    }
+}
+
+/* ============================================================
+   Large desktop — bigger community hub card
+   ============================================================ */
+@media (min-width: 1440px) {
+    .home-page .page-section.section1 {
+        padding-left: clamp(72px, 5vw, 120px);
+        padding-right: clamp(72px, 5vw, 120px);
+        gap: clamp(36px, 4vw, 80px);
+    }
+
+    .home-page .section1-content {
+        flex: 0 1 540px;
+        max-width: 540px;
+    }
+
+    .home-page .section1-card-wrapper {
+        flex: 1 1 720px;
+    }
+
+    .home-page .section1-glass-card {
+        max-width: min(1120px, 100%);
+    }
+
+    .home-page .section1-carousel-slide {
+        min-width: min(460px, 34vw);
+    }
+
+    .home-page .section1-glass-card h2 {
+        font-size: clamp(1.15rem, 0.9rem + 0.5vw, 1.625rem);
+        padding: clamp(12px, 1.8vh, 20px) clamp(18px, 2.2vw, 28px) 0;
+    }
+
+    .home-page .section1-glass-card p {
+        font-size: clamp(0.875rem, 0.8rem + 0.18vw, 1.0625rem);
+        padding: clamp(8px, 1.2vh, 12px) clamp(18px, 2.2vw, 28px) clamp(14px, 1.8vh, 18px);
+    }
+
+    .home-page .section2-events-grid {
+        max-width: min(1220px, 91vw);
+        max-height: min(72vh, 640px);
+    }
+
+    .home-page .section2-event-card-image {
+        min-height: clamp(158px, 24vh, 308px);
+    }
+}
+
+@media (min-width: 1920px) {
+    .home-page .page-section.section1 {
+        padding-left: clamp(96px, 6vw, 140px);
+        padding-right: clamp(96px, 6vw, 140px);
+    }
+
+    .home-page .section1-glass-card {
+        max-width: min(1320px, 100%);
+    }
+
+    .home-page .section1-carousel-slide {
+        min-width: min(520px, 30vw);
+    }
+
+    .home-page .section1-glass-card h2 {
+        font-size: clamp(1.25rem, 1rem + 0.4vw, 1.75rem);
+    }
+
+    .home-page .section1-glass-card p {
+        font-size: clamp(0.9375rem, 0.88rem + 0.12vw, 1.125rem);
+    }
+
+    .home-page .section2-events-grid {
+        max-width: min(1280px, 89vw);
+        max-height: min(74vh, 660px);
+    }
+
+    .home-page .section2-event-card-image {
+        min-height: clamp(182px, 27vh, 335px);
     }
 }
 

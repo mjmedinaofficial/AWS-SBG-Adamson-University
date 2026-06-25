@@ -1107,7 +1107,7 @@ body.ev-gallery-open {
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .ev-stats {
         grid-template-columns: 1fr;
         max-width: 360px;

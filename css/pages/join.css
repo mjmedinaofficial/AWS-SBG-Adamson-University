@@ -323,7 +323,7 @@
     transform: translateY(-1px);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     :root { --page-padding: 5vw; }
     .top-bar { top: 12px; } .top-bar-text { display: none; }
     .liquid-dock { top: 12px; padding: 4px; }

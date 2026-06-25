@@ -86,7 +86,7 @@
             heroBtn.addEventListener('click', () => openGallery(ev));
         }
 
-        if (window.matchMedia('(max-width: 768px)').matches) {
+        if (window.matchMedia('(max-width: 1024px)').matches) {
             previewEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
     }

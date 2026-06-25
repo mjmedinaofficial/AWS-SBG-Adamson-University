@@ -1,10 +1,11 @@
 /* ============================================================
-   AWS SBG AdU — Mobile stylesheet (phones, ≤768px)
-   Layout tiers are width-based so touchscreen laptops (e.g. Dell 7420)
-   keep the desktop layout. Requires: design-tokens, base, desktop-adaptive.
+   AWS SBG AdU — Compact layout stylesheet (≤1024px)
+   Applies stacked layouts + mobile nav when the window is narrow (phones,
+   tablets, or a minimized desktop browser). Requires: design-tokens, base,
+   desktop-adaptive.
    ============================================================ */
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     :root {
         --ui-scale: 1;
         --mobile-gutter: 16px;
@@ -965,7 +966,6 @@
 
     .sbg-features,
     .sbg-steps,
-    .of-grid,
     .section3-feature-grid {
         gap: 0 !important;
         border-radius: 10px !important;
@@ -997,7 +997,7 @@
 
     .sbg-feature,
     .sbg-step,
-    .of-card,
+    .of-card:not(.of-contact-card),
     .section3-feature-item {
         border-radius: 0 !important;
         border: none !important;
@@ -1041,7 +1041,7 @@
 
     .sbg-feature:last-child,
     .sbg-step:last-child,
-    .of-card:last-child,
+    .of-card:not(.of-contact-card):last-child,
     .section3-feature-item:last-child {
         border-bottom: none !important;
     }
@@ -1603,109 +1603,50 @@
         height: 28px !important;
     }
 
-    /* Officers finder */
+    /* Officers — iOS contact cards in grid */
     .of-page .of-finder-main {
         padding: var(--mobile-finder-pad) !important;
         gap: var(--space-lg) !important;
         overflow: visible !important;
         min-height: 0 !important;
         background: #1a1a1d !important;
-        display: flex !important;
-        flex-direction: column !important;
+        display: block !important;
+    }
+
+    .of-page .of-grid {
+        margin: 0 !important;
+        grid-template-columns: 1fr !important;
+        gap: var(--mobile-card-gap) !important;
+    }
+
+    .of-card.of-contact-card {
+        padding: var(--space-lg) var(--space-md) var(--space-md) !important;
+        background: linear-gradient(180deg, #3a1580 0%, #2d1066 45%, #1a0a4a 100%) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-radius: 16px !important;
+    }
+
+    .of-contact-photo-ring {
+        width: 112px !important;
+        height: 112px !important;
+    }
+
+    .of-contact-actions {
+        gap: 8px !important;
+        margin-bottom: var(--space-md) !important;
+    }
+
+    .of-contact-action {
+        width: 60px !important;
+        min-height: 54px !important;
     }
 
     .of-page .of-finder-footer {
         padding: 10px var(--mobile-finder-pad) !important;
     }
 
-    .of-page .of-group {
-        margin: 0 !important;
-    }
-
-    .of-page .of-group + .of-group {
-        margin-top: 0 !important;
-        padding-top: var(--space-lg) !important;
-        border-top: 0.5px solid rgba(255, 255, 255, 0.08) !important;
-    }
-
-    .of-page .of-group-title {
-        margin: 0 0 var(--space-md) !important;
-        padding: 0 2px !important;
-    }
-
-    .of-page .of-grid {
-        margin: 0 !important;
-    }
-
-    .of-spotlight {
-        flex-direction: column !important;
-        text-align: center !important;
-        padding: var(--space-lg) var(--space-md) !important;
-        margin: 0 0 var(--space-md) !important;
-        gap: var(--space-sm) !important;
-        border-radius: 10px !important;
-    }
-
-    .of-spotlight-avatar {
-        width: 112px !important;
-        height: 112px !important;
-        font-size: 38px !important;
-        margin: 0 auto var(--space-md) !important;
-    }
-
-    .of-spotlight-role {
-        font-size: 10px !important;
-        padding: 4px 10px !important;
-        margin: 0 0 var(--space-xs) !important;
-    }
-
-    .of-spotlight-name {
-        font-size: 1.15rem !important;
-        margin: 0 0 var(--space-xs) !important;
-    }
-
-    .of-spotlight-bio {
-        font-size: var(--mobile-text-sm) !important;
-        line-height: 1.55 !important;
-        margin: 0 0 var(--space-lg) !important;
-    }
-
-    .of-spotlight .of-socials {
-        margin-top: var(--space-sm) !important;
-    }
-
-    .of-card {
-        padding: var(--space-md) !important;
-        text-align: center !important;
-    }
-
-    .of-avatar {
-        width: 96px !important;
-        height: 96px !important;
-        font-size: 30px !important;
-        margin: 0 auto var(--space-md) !important;
-    }
-
     .oh-finder-node:last-child {
         padding-bottom: 0 !important;
-    }
-
-    .of-grid {
-        grid-template-columns: 1fr !important;
-    }
-
-    .of-name {
-        font-size: var(--mobile-text-sm) !important;
-        margin: 0 0 var(--space-xs) !important;
-    }
-
-    .of-role {
-        font-size: 11px !important;
-        margin: 0 0 var(--space-lg) !important;
-    }
-
-    .of-card .of-socials {
-        margin-top: var(--space-xs) !important;
     }
 
     /* ============================================================
@@ -1777,12 +1718,17 @@
         margin-bottom: var(--space-md) !important;
     }
 
-    .section1-content p {
+    .section1-lead {
         font-size: var(--mobile-text-base) !important;
+        margin: 0 0 var(--space-md) !important;
+    }
+
+    .section1-motto {
+        font-size: var(--mobile-text-sm) !important;
         margin: 0 0 var(--space-xl) !important;
     }
 
-    .section1-card-wrapper {
+    .section1-content p {
         margin-top: var(--space-2xl) !important;
         padding-left: 0 !important;
     }
@@ -1881,7 +1827,10 @@
         min-width: 0 !important;
         flex: 0 0 100% !important;
         border-radius: 10px !important;
-        box-shadow: none !important;
+        border: 1px solid rgba(255, 255, 255, 0.14) !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.22) !important;
+        box-sizing: border-box !important;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3) !important;
     }
 
     .section1-carousel-slide:not(:first-child) {
@@ -1970,10 +1919,16 @@
 
     .page-section.section2 {
         padding: var(--space-2xl) var(--mobile-gutter) var(--space-xl) !important;
+        height: auto !important;
+        min-height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
     }
 
     .page-section.section3 {
         padding: var(--space-xl) var(--mobile-gutter) var(--space-2xl) !important;
+        position: relative !important;
+        z-index: 2 !important;
     }
 
     .section2-header {
@@ -1995,11 +1950,15 @@
         gap: var(--space-lg) !important;
         margin-top: var(--space-lg) !important;
         margin-bottom: var(--space-sm) !important;
+        flex: none !important;
+        max-height: none !important;
+        grid-template-rows: none !important;
         flex-shrink: 0 !important;
         min-height: auto !important;
     }
 
-    .section2-event-card {
+    .section2-event-card,
+    .section2-view-all-card {
         max-width: 100% !important;
         width: 100% !important;
         padding: 0 !important;
@@ -2007,6 +1966,11 @@
         overflow: hidden !important;
         height: auto !important;
         min-height: auto !important;
+    }
+
+    .section2-view-all-card {
+        min-height: 260px !important;
+        padding: var(--space-lg) !important;
     }
 
     .section2-event-card-content {
@@ -2071,12 +2035,17 @@
         align-items: center !important;
         height: auto !important;
         min-height: auto !important;
+        max-height: none !important;
         overflow: visible !important;
+        position: relative !important;
+        z-index: 1 !important;
     }
 
     .section3 {
         min-height: auto !important;
         overflow: visible !important;
+        position: relative !important;
+        z-index: 2 !important;
     }
 
     .section3-stage {
@@ -2209,15 +2178,8 @@
     }
 }
 
-/* Tablet portrait / compact tablet — wider content column (769px–1024px) */
-@media (min-width: 769px) and (max-width: 1024px) {
-    :root {
-        --page-padding: clamp(20px, 4vw, 40px);
-    }
-}
-
-/* Desktop & tablet spacing */
-@media (min-width: 769px) {
+/* Desktop spacing */
+@media (min-width: 1025px) {
     .join-page > * + *,
     .sbg-page > * + *,
     .events-page > * + *,

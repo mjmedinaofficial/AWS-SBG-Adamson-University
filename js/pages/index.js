@@ -1,6 +1,6 @@
 (function() {
-    const DESKTOP_MQ = window.matchMedia('(min-width: 769px)');
-    const MOBILE_LAYOUT_MQ = window.matchMedia('(max-width: 768px)');
+    const DESKTOP_MQ = window.matchMedia('(min-width: 1025px)');
+    const MOBILE_LAYOUT_MQ = window.matchMedia('(max-width: 1024px)');
     const POINTER_FINE_MQ = window.matchMedia('(hover: hover) and (pointer: fine)');
 
     const customCursor = document.getElementById('custom-cursor');
@@ -28,8 +28,37 @@
         });
     }
 
-    // Section 1: hero glass card tilt
+    // Section 1: hero glass card follows cursor (3D tilt) — desktop mouse only
     const section1TiltCard = document.getElementById('section1-tilt-card');
+    const SECTION1_TILT_MQ = window.matchMedia('(min-width: 1025px) and (hover: hover) and (pointer: fine)');
+    const isTouchPrimaryDevice = navigator.maxTouchPoints > 0;
+
+    if (isTouchPrimaryDevice) {
+        document.body.classList.add('touch-primary-device');
+    }
+
+    function resetSection1TiltCard() {
+        if (!section1TiltCard) return;
+        section1TiltCard.style.transition = '';
+        section1TiltCard.style.transform = '';
+    }
+
+    function isSection1TiltEnabled() {
+        if (!section1TiltCard) return false;
+        if (MOBILE_LAYOUT_MQ.matches) return false;
+        if (document.body.classList.contains('desktop-zoom-stack')) return false;
+        if (!SECTION1_TILT_MQ.matches) return false;
+        if (isTouchPrimaryDevice) return false;
+        return true;
+    }
+
+    function syncSection1TiltState() {
+        if (!isSection1TiltEnabled()) resetSection1TiltCard();
+    }
+
+    syncSection1TiltState();
+    MOBILE_LAYOUT_MQ.addEventListener('change', syncSection1TiltState);
+    SECTION1_TILT_MQ.addEventListener('change', syncSection1TiltState);
 
     // Global: nav dock, page indicator, scroll container
     const topBar = document.querySelector('.top-bar');
@@ -61,17 +90,20 @@
     function syncDesktopZoomStack() {
         if (!DESKTOP_MQ.matches || MOBILE_LAYOUT_MQ.matches) {
             document.body.classList.remove('desktop-zoom-stack');
+            syncSection1TiltState();
             return;
         }
         // Laptops/desktops (≥1024px): keep side-by-side hero + moving carousel.
-        if (window.innerWidth >= 1024) {
+        if (window.innerWidth >= 1025) {
             document.body.classList.remove('desktop-zoom-stack');
+            syncSection1TiltState();
             return;
         }
         document.body.classList.toggle(
             'desktop-zoom-stack',
             estimateBrowserZoom() > ZOOM_STACK_THRESHOLD
         );
+        syncSection1TiltState();
     }
 
     syncDesktopZoomStack();
@@ -81,7 +113,7 @@
     }
 
     document.addEventListener('mousemove', (e) => {
-        if (!section1TiltCard || MOBILE_LAYOUT_MQ.matches || !POINTER_FINE_MQ.matches || document.body.classList.contains('desktop-zoom-stack')) return;
+        if (!isSection1TiltEnabled()) return;
         const rect = section1TiltCard.getBoundingClientRect();
         if (rect.left > window.innerWidth || rect.right < 0) return;
         const centerX = rect.left + rect.width / 2;
@@ -92,7 +124,10 @@
     });
 
     document.addEventListener('mouseleave', () => {
-        if (!section1TiltCard || document.body.classList.contains('desktop-zoom-stack')) return;
+        if (!isSection1TiltEnabled()) {
+            resetSection1TiltCard();
+            return;
+        }
         section1TiltCard.style.transition = 'transform 0.5s ease';
         section1TiltCard.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg)';
         setTimeout(() => { section1TiltCard.style.transition = 'transform 0.1s ease-out'; }, 500);
@@ -136,6 +171,17 @@
         });
     }
 
+    function scrollToSnapIndex(index) {
+        if (index === 3) scrollToFooter();
+        else scrollToSection(index);
+    }
+
+    function isEditableTarget(el) {
+        if (!el) return false;
+        const tag = el.tagName;
+        return tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || el.isContentEditable;
+    }
+
     // index: 0..2 = sections, 3 = footer
     function setActiveState(index) {
         const onFooter = index === 3;
@@ -176,6 +222,19 @@
     pageIndicatorDots.forEach((dot) => {
         const di = Number(dot.dataset.indicatorIndex);
         dot.addEventListener('click', () => di === 3 ? scrollToFooter() : scrollToSection(di));
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+        if (isEditableTarget(document.activeElement)) return;
+
+        const eventModal = document.getElementById('section2-event-modal');
+        if (eventModal && !eventModal.hasAttribute('hidden')) return;
+
+        e.preventDefault();
+        const current = getActiveStateIndex();
+        if (e.key === 'ArrowDown' && current < 3) scrollToSnapIndex(current + 1);
+        if (e.key === 'ArrowUp' && current > 0) scrollToSnapIndex(current - 1);
     });
 
     pageScrollContainer.addEventListener('scroll', () => {
@@ -248,7 +307,7 @@
         const notesHint = section3Window.querySelector('#section3-notes-hint');
         const notesMobileBack = section3Window.querySelector('#section3-notes-mobile-back');
         const notesDetail = section3Window.querySelector('.section3-notes-detail');
-        const mobileNotesMq = window.matchMedia('(max-width: 768px)');
+        const mobileNotesMq = window.matchMedia('(max-width: 1024px)');
         const reducedMotionMq = window.matchMedia('(prefers-reduced-motion: reduce)');
         const NOTES_NAV_MS = 320;
         let notesNavAnimating = false;
@@ -356,10 +415,11 @@
         const grid = document.getElementById('section2-events-grid');
         if (!grid || !window.SBG_EVENTS?.length) return;
 
-        const featuredCount = window.SBG_FEATURED_EVENT_COUNT ?? 3;
-        const featured = window.SBG_EVENTS.slice(0, featuredCount);
+        const gridSlots = window.SBG_FEATURED_EVENT_COUNT ?? 3;
+        const eventCount = Math.max(gridSlots - 1, 1);
+        const featured = window.SBG_EVENTS.slice(0, eventCount);
 
-        grid.innerHTML = featured.map((ev) => `
+        const eventCards = featured.map((ev) => `
             <div class="section2-event-card section2-reveal" data-event-number="${ev.number}">
                 <div class="section2-event-card-image" style="background-image: url('${escapeHtml(ev.image)}');">
                     <span class="section2-event-card-badge">${escapeHtml(ev.badge)}</span>
@@ -380,6 +440,17 @@
                 </div>
             </div>
         `).join('');
+
+        const viewAllCard = `
+            <a href="events.html" class="section2-view-all-card section2-reveal" title="View all events and workshops">
+                <p class="section2-view-all-card-label">Events</p>
+                <h3 class="section2-view-all-card-title">View All Events</h3>
+                <p class="section2-view-all-card-desc">View all the engaging events and workshops hosted by AWS Student Builder Group — from hands-on cloud labs to certification prep and community meetups.</p>
+                <span class="section2-view-all-card-btn section1-btn">View All Events</span>
+            </a>
+        `;
+
+        grid.innerHTML = eventCards + viewAllCard;
     }
 
     function wireEventViewButtons() {

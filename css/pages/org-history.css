@@ -909,7 +909,7 @@ body {
 
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 1024px) { :root { --page-padding: 5vw; } }
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     :root { --page-padding: 5vw; }
     .top-bar { top: 12px; }
     .top-bar-text { display: none; }

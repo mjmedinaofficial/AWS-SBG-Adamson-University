@@ -873,7 +873,7 @@ body { font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI
 
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 1024px) { :root { --page-padding: 5vw; } .sbg-steps { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     :root { --page-padding: 5vw; }
     .top-bar { top: 12px; } .top-bar-text { display: none; }
     .liquid-dock { top: 12px; padding: 4px; }
