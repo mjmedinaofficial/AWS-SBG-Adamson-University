@@ -421,7 +421,7 @@ body {
 }
 
 .section1-content h1 .section1-title .section1-title-line1 {
-    letter-spacing: 0.14em;
+    letter-spacing: inherit;
 }
 
 .section1-content h1 .section1-title .section1-title-line1,
@@ -3085,9 +3085,6 @@ body.section2-modal-open {
 @media (max-width: 480px) {
     .section1-content h1 .section1-title {
         font-size: clamp(1.45rem, 8vw, 1.65rem);
-    }
-    .section1-content h1 .section1-title .section1-title-line1 {
-        letter-spacing: 0.1em;
     }
     .section1-lead {
         font-size: 15px;
