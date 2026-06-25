@@ -1,31 +1,20 @@
 /* ============================================================
    AWS SBG AdU — Navbar controller
-   Handles: scroll-based styling, dropdown menus, hamburger
-   toggle, and scroll-to-section on the homepage.
+   Handles: dropdown menus, hamburger toggle, and
+   scroll-to-section on the homepage.
    ============================================================ */
 (function () {
     'use strict';
 
-    const navbar = document.querySelector('.site-navbar');
-    const hamburger = document.querySelector('.navbar-hamburger');
-    const mobileMenu = document.querySelector('.navbar-mobile-menu');
+    var navbar = document.querySelector('.site-navbar');
+    var hamburger = document.querySelector('.navbar-hamburger');
+    var mobileMenu = document.querySelector('.navbar-mobile-menu');
     if (!navbar) return;
 
-    /* --- Scroll effect: add shadow on scroll --- */
-    function onScroll() {
-        if (window.scrollY > 10) {
-            navbar.classList.add('is-scrolled');
-        } else {
-            navbar.classList.remove('is-scrolled');
-        }
-    }
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-
     /* --- Desktop dropdown menus (hover-based) --- */
-    const linkWraps = document.querySelectorAll('.navbar-link-wrap');
+    var linkWraps = document.querySelectorAll('.navbar-link-wrap');
     linkWraps.forEach(function (wrap) {
-        let timer = null;
+        var timer = null;
 
         wrap.addEventListener('mouseenter', function () {
             clearTimeout(timer);

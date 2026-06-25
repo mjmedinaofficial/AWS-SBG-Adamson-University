@@ -1,166 +1,168 @@
 /* ============================================================
-   AWS SBG AdU — Redesigned Navbar
-   Full-width glass bar, sticky on scroll.
-   Left: logo + org name (Space Grotesk 600)
-   Right: text links with underline-on-hover + orange pill CTA
-   Mobile (<768px): collapses to hamburger menu
+   AWS SBG AdU — Pill-Based Navbar
+   Full-width glass bar with pill containers for brand and nav.
+   Left: Brand pill (logo + name)
+   Right: Nav pill (About Us + Workshops) + standalone Join Us CTA
+   Mobile (<768px): collapses to hamburger
    ============================================================ */
 
 /* ---------- Base navbar bar ---------- */
 .site-navbar {
-    position: fixed;
+    position: sticky;
     top: 0;
     left: 0;
     right: 0;
-    z-index: 9999;
-    background: rgba(13, 11, 26, 0.8);
-    backdrop-filter: blur(12px) saturate(160%);
-    -webkit-backdrop-filter: blur(12px) saturate(160%);
-    border-bottom: 1px solid var(--color-border-subtle);
-    transition: background 0.3s ease, box-shadow 0.3s ease;
-}
-
-.site-navbar.is-scrolled {
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+    z-index: 100;
+    background: rgba(20, 12, 45, 0.85);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .navbar-inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 12px 40px;
     max-width: var(--content-max);
     margin: 0 auto;
-    padding: 12px clamp(20px, 4vw, 56px);
-    gap: 24px;
 }
 
-/* ---------- Brand (left side) ---------- */
-.navbar-brand {
+/* ---------- Left: Brand Pill ---------- */
+.navbar-brand-pill {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
+    padding: 8px 16px 8px 8px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
     text-decoration: none;
     color: var(--color-text-primary);
     flex-shrink: 0;
-    transition: opacity 0.2s ease;
+    transition: border-color 0.2s ease;
 }
 
-.navbar-brand:hover {
-    opacity: 0.85;
+.navbar-brand-pill:hover {
+    border-color: rgba(255, 255, 255, 0.22);
 }
 
 .navbar-brand-logo {
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
     object-fit: contain;
-    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
+    flex-shrink: 0;
 }
 
 .navbar-brand-name {
     font-family: var(--font-heading);
-    font-size: 1rem;
+    font-size: 14px;
     font-weight: 600;
-    letter-spacing: -0.02em;
+    color: #F0EEFF;
     white-space: nowrap;
-    color: var(--color-text-primary);
+    letter-spacing: -0.01em;
 }
 
-/* ---------- Nav links (right side) ---------- */
-.navbar-links {
+/* ---------- Right: Nav group (pill + CTA) ---------- */
+.navbar-right {
     display: flex;
     align-items: center;
-    gap: 32px;
+    gap: 12px;
 }
 
+/* Nav links pill container */
+.navbar-nav-pill {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 8px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    border-radius: 999px;
+}
+
+/* Individual link wrappers inside the pill */
 .navbar-link-wrap {
     position: relative;
+    display: flex;
+    align-items: center;
 }
 
 .navbar-link {
-    font-family: var(--font-body);
-    font-size: 0.9375rem;
+    font-family: var(--font-heading);
+    font-size: 14px;
     font-weight: 500;
-    color: var(--color-text-secondary);
+    color: #A89FC5;
     text-decoration: none;
-    padding: 4px 0;
+    padding: 6px 14px;
+    border-radius: 999px;
     position: relative;
     transition: color 0.2s ease;
-}
-
-.navbar-link::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: var(--color-text-primary);
-    border-radius: 1px;
-    transform: scaleX(0);
-    transform-origin: center;
-    transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+    white-space: nowrap;
 }
 
 .navbar-link:hover {
-    color: var(--color-text-primary);
+    color: #F0EEFF;
 }
 
-.navbar-link:hover::after {
-    transform: scaleX(1);
-}
-
+/* Active state: white text + orange dot below */
 .navbar-link.active {
-    color: var(--color-text-primary);
+    color: #F0EEFF;
 }
 
 .navbar-link.active::after {
-    transform: scaleX(1);
-    background: var(--color-brand-purple);
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #F5A623;
 }
 
-/* ---------- CTA button (Join Us) ---------- */
+/* ---------- CTA button (Join Us) — standalone orange pill ---------- */
 .navbar-cta {
-    font-family: var(--font-body);
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: var(--color-bg-deep);
-    background: var(--color-accent-orange);
-    padding: 8px 20px;
+    font-family: var(--font-heading);
+    font-size: 14px;
+    font-weight: 700;
+    color: #0D0B1A;
+    background: #F5A623;
+    padding: 10px 22px;
     border-radius: 999px;
     text-decoration: none;
     white-space: nowrap;
-    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-    box-shadow: 0 2px 8px rgba(245, 166, 35, 0.3);
+    transition: background 0.2s ease, transform 0.2s ease;
 }
 
 .navbar-cta:hover {
-    background: #ffb840;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 16px rgba(245, 166, 35, 0.45);
+    background: #FFB83F;
+    transform: scale(1.02);
 }
 
 .navbar-cta:active {
-    transform: translateY(0);
+    transform: scale(0.98);
 }
 
 /* ---------- Dropdown menus ---------- */
 .navbar-dropdown {
     position: absolute;
-    top: calc(100% + 12px);
+    top: calc(100% + 14px);
     left: 50%;
     transform: translateX(-50%) translateY(-6px) scale(0.96);
     transform-origin: top center;
     min-width: 200px;
     padding: 8px;
     background: var(--color-bg-surface);
-    border: 1px solid var(--color-border-subtle);
+    border: 1px solid rgba(255, 255, 255, 0.10);
     border-radius: 12px;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
-    z-index: 100;
+    z-index: 200;
 }
 
 .navbar-link-wrap:hover .navbar-dropdown,
@@ -173,14 +175,14 @@
 .navbar-dropdown::before {
     content: '';
     position: absolute;
-    top: -6px;
+    top: -5px;
     left: 50%;
     transform: translateX(-50%) rotate(45deg);
     width: 10px;
     height: 10px;
     background: var(--color-bg-surface);
-    border-left: 1px solid var(--color-border-subtle);
-    border-top: 1px solid var(--color-border-subtle);
+    border-left: 1px solid rgba(255, 255, 255, 0.10);
+    border-top: 1px solid rgba(255, 255, 255, 0.10);
     border-radius: 2px 0 0 0;
 }
 
@@ -188,9 +190,9 @@
     display: block;
     padding: 10px 14px;
     border-radius: 8px;
-    color: var(--color-text-secondary);
+    color: #A89FC5;
     font-family: var(--font-body);
-    font-size: 0.875rem;
+    font-size: 14px;
     font-weight: 500;
     text-decoration: none;
     transition: background 0.15s ease, color 0.15s ease;
@@ -198,18 +200,18 @@
 
 .navbar-dropdown-item:hover {
     background: var(--color-bg-elevated);
-    color: var(--color-text-primary);
+    color: #F0EEFF;
 }
 
 .navbar-dropdown-item.primary {
-    color: var(--color-text-primary);
+    color: #F0EEFF;
     font-weight: 600;
 }
 
 .navbar-dropdown-divider {
     height: 1px;
     margin: 4px 8px;
-    background: var(--color-border-subtle);
+    background: rgba(255, 255, 255, 0.06);
 }
 
 /* ---------- Hamburger button (mobile) ---------- */
@@ -218,7 +220,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 5px;
+    gap: 4px;
     width: 40px;
     height: 40px;
     padding: 0;
@@ -236,16 +238,16 @@
 
 .navbar-hamburger-line {
     display: block;
-    width: 20px;
+    width: 18px;
     height: 2px;
-    background: var(--color-text-primary);
+    background: #F0EEFF;
     border-radius: 2px;
     transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 /* Hamburger → X animation */
 .navbar-hamburger[aria-expanded="true"] .navbar-hamburger-line:nth-child(1) {
-    transform: translateY(7px) rotate(45deg);
+    transform: translateY(6px) rotate(45deg);
 }
 
 .navbar-hamburger[aria-expanded="true"] .navbar-hamburger-line:nth-child(2) {
@@ -253,15 +255,15 @@
 }
 
 .navbar-hamburger[aria-expanded="true"] .navbar-hamburger-line:nth-child(3) {
-    transform: translateY(-7px) rotate(-45deg);
+    transform: translateY(-6px) rotate(-45deg);
 }
 
 /* ---------- Mobile menu ---------- */
 .navbar-mobile-menu {
     display: none;
     flex-direction: column;
-    padding: 0 clamp(20px, 4vw, 56px) 20px;
-    border-top: 1px solid var(--color-border-subtle);
+    padding: 0 40px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.35s cubic-bezier(0.25, 1, 0.5, 1), padding 0.35s ease;
@@ -280,10 +282,10 @@
 }
 
 .navbar-mobile-link {
-    font-family: var(--font-body);
-    font-size: 1rem;
+    font-family: var(--font-heading);
+    font-size: 15px;
     font-weight: 500;
-    color: var(--color-text-secondary);
+    color: #A89FC5;
     text-decoration: none;
     padding: 12px 16px;
     border-radius: 8px;
@@ -293,50 +295,86 @@
 .navbar-mobile-link:hover,
 .navbar-mobile-link:active {
     background: var(--color-bg-elevated);
-    color: var(--color-text-primary);
+    color: #F0EEFF;
 }
 
 .navbar-mobile-cta {
-    font-family: var(--font-body);
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--color-bg-deep);
-    background: var(--color-accent-orange);
+    font-family: var(--font-heading);
+    font-size: 15px;
+    font-weight: 700;
+    color: #0D0B1A;
+    background: #F5A623;
     text-align: center;
     padding: 12px 20px;
-    border-radius: 8px;
+    border-radius: 999px;
     text-decoration: none;
-    margin-top: 8px;
+    margin-top: 12px;
     transition: background 0.2s ease;
 }
 
 .navbar-mobile-cta:hover {
-    background: #ffb840;
+    background: #FFB83F;
 }
 
 /* ---------- Mobile breakpoint (<768px) ---------- */
 @media (max-width: 767px) {
-    .navbar-links {
+    .navbar-inner {
+        padding: 10px 20px;
+    }
+
+    .navbar-right {
+        gap: 8px;
+    }
+
+    /* Hide nav pill, keep CTA visible */
+    .navbar-nav-pill {
         display: none;
     }
 
     .navbar-hamburger {
         display: flex;
+        order: 1;
+    }
+
+    .navbar-cta {
+        order: 2;
+        padding: 8px 16px;
+        font-size: 13px;
     }
 
     .navbar-mobile-menu {
         display: flex;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .navbar-brand-pill {
+        padding: 6px 12px 6px 6px;
+    }
+
+    .navbar-brand-logo {
+        width: 28px;
+        height: 28px;
+    }
+
+    .navbar-brand-name {
+        font-size: 13px;
     }
 }
 
 /* ---------- Tablet adaptation (768px – 1024px) ---------- */
 @media (min-width: 768px) and (max-width: 1024px) {
-    .navbar-links {
-        gap: 24px;
+    .navbar-inner {
+        padding: 12px 24px;
+    }
+
+    .navbar-link {
+        font-size: 13px;
+        padding: 6px 10px;
     }
 
     .navbar-cta {
-        padding: 8px 16px;
-        font-size: 0.8125rem;
+        padding: 8px 18px;
+        font-size: 13px;
     }
 }

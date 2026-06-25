@@ -2329,23 +2329,10 @@
 /* ---------- New navbar mobile adjustments ---------- */
 @media (max-width: 1024px) {
     .site-navbar {
-        position: fixed;
+        position: sticky;
         top: 0;
         left: 0;
         right: 0;
         z-index: 10000;
-    }
-
-    .navbar-inner {
-        padding: 10px var(--mobile-gutter, 20px);
-    }
-
-    .navbar-brand-name {
-        font-size: 0.875rem;
-    }
-
-    .navbar-brand-logo {
-        width: 30px;
-        height: 30px;
     }
 }
