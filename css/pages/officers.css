@@ -36,7 +36,7 @@ html {
 }
 
 body {
-    font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-family: var(--font-sans);
     color: #ffffff; background: transparent; position: relative; min-height: 100vh;
 }
 @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
@@ -80,7 +80,7 @@ body {
 .of-hero { text-align: center; margin-bottom: 40px; animation: fadeInUp 0.8s ease-out both; }
 .page-label { display: inline-block; font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 16px; padding: 6px 16px; background: rgba(255,255,255,0.06); border-radius: 100px; border: 1px solid rgba(255,255,255,0.1); }
 .of-hero h1 { font-size: clamp(36px, 5.5vw, 60px); font-weight: 800; line-height: 1.04; margin-bottom: 16px; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-.of-hero p { font-size: clamp(15px, 1.4vw, 17px); color: rgba(255,255,255,0.8); line-height: 1.7; max-width: 640px; margin: 0 auto; }
+.of-hero p { font-size: clamp(15px, 1.4vw, 17px); color: rgba(255,255,255,0.8); line-height: 1.7; max-width: 640px; margin: 0 auto; text-align: center; }
 
 /* Finder window */
 .of-finder-wrap { max-width: 1160px; margin: 0 auto; }
@@ -134,7 +134,7 @@ body {
     font-weight: 600;
     color: rgba(255, 255, 255, 0.6);
     letter-spacing: 0.2px;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: var(--font-sans);
 }
 
 .of-finder-title-icon {
@@ -222,7 +222,108 @@ body {
     border-radius: 2px;
 }
 
-/* Officer groups & grid */
+/* Officer org chart */
+.of-org-chart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 36px;
+    width: 100%;
+}
+
+.of-org-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+}
+
+.of-org-section-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.35);
+    margin: 0;
+    text-align: center;
+}
+
+.of-org-section-rows {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    width: 100%;
+}
+
+.of-org-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    gap: 16px;
+    width: 100%;
+}
+
+.of-org-row--president {
+    margin-bottom: 4px;
+}
+
+.of-org-row--leadership {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 18.75rem));
+    align-items: stretch;
+    justify-content: center;
+    gap: clamp(12px, 2vw, 16px);
+    width: 100%;
+    margin: 0 auto 4px;
+}
+
+.of-org-row--leadership .of-card.of-contact-card {
+    width: 100%;
+    max-width: 18.75rem;
+    justify-self: center;
+    height: 100%;
+}
+
+.of-org-row--roster {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 18.75rem));
+    align-items: stretch;
+    justify-content: center;
+    gap: clamp(12px, 2vw, 16px);
+    width: 100%;
+    margin: 0 auto;
+}
+
+.of-org-row--roster .of-card.of-contact-card {
+    width: 100%;
+    max-width: 18.75rem;
+    flex: none;
+    height: 100%;
+}
+
+.of-org-row--operations {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+    justify-items: center;
+    gap: clamp(16px, 4vw, 48px);
+    width: min(100%, 40rem);
+    margin: 0 auto;
+}
+
+.of-org-row--vice-president {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+    justify-items: center;
+    gap: clamp(16px, 4vw, 48px);
+    width: min(100%, 760px);
+    margin: 0 auto;
+}
+
 .of-group { margin-bottom: 0; }
 .of-group-title {
     font-size: 11px;
@@ -241,11 +342,20 @@ body {
 
 /* Individual officer box — iOS Contacts card inside */
 .of-card.of-contact-card {
+    --of-card-photo: 7.5rem;
+    --of-card-max: 18.75rem;
+    --of-card-pad-block: 1.375rem;
+    --of-card-pad-inline: 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 22px 16px 16px;
+    width: min(100%, var(--of-card-max));
+    min-width: 0;
+    max-width: var(--of-card-max);
+    height: 100%;
+    flex: 0 0 auto;
+    padding: var(--of-card-pad-block) var(--of-card-pad-inline) var(--of-card-pad-inline);
     border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     background: linear-gradient(180deg, #3a1580 0%, #2d1066 45%, #1a0a4a 100%);
@@ -253,7 +363,6 @@ body {
     opacity: 0;
     transform: translateY(16px);
     transition: opacity 0.55s ease, transform 0.55s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-    overflow: hidden;
 }
 
 .of-card.of-contact-card.in-view {
@@ -273,12 +382,13 @@ body {
     flex-direction: column;
     align-items: center;
     width: 100%;
+    flex: 1 1 auto;
     padding-bottom: 14px;
 }
 
 .of-contact-photo-ring {
-    width: 120px;
-    height: 120px;
+    width: var(--of-card-photo, 7.5rem);
+    height: var(--of-card-photo, 7.5rem);
     border-radius: 50%;
     overflow: hidden;
     margin-bottom: 14px;
@@ -306,7 +416,7 @@ body {
     font-weight: 700;
     color: rgba(255, 255, 255, 0.92);
     background: linear-gradient(145deg, #4a2d9e, #8874d4);
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+    font-family: var(--font-sans);
 }
 
 .of-contact-meta {
@@ -316,25 +426,42 @@ body {
     text-transform: uppercase;
     color: rgba(255, 255, 255, 0.48);
     margin: 0 0 8px;
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
+    font-family: var(--font-sans);
 }
 
 .of-contact-name {
-    font-size: 1.15rem;
+    font-size: clamp(1rem, 2.2vw, 1.15rem);
     font-weight: 700;
-    line-height: 1.15;
+    line-height: 1.2;
     letter-spacing: -0.02em;
     color: #ffffff;
     margin: 0 0 4px;
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+    font-family: var(--font-sans);
+    max-width: 100%;
+    overflow-wrap: anywhere;
 }
 
 .of-contact-nickname {
     font-size: 12px;
     font-weight: 500;
     color: rgba(255, 255, 255, 0.55);
+    margin: 0 0 4px;
+    font-family: var(--font-sans);
+    min-height: 1.125rem;
+}
+
+.of-contact-nickname--spacer {
+    visibility: hidden;
+}
+
+.of-contact-role {
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.55);
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
+    font-family: var(--font-sans);
+    max-width: 100%;
+    overflow-wrap: anywhere;
 }
 
 .of-contact-actions {
@@ -342,8 +469,9 @@ body {
     justify-content: center;
     gap: 8px;
     width: 100%;
-    margin: 0 0 14px;
+    margin: auto 0 14px;
     flex-wrap: wrap;
+    flex-shrink: 0;
 }
 
 .of-contact-action {
@@ -392,7 +520,7 @@ body {
     font-weight: 500;
     text-transform: lowercase;
     color: rgba(255, 255, 255, 0.88);
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
+    font-family: var(--font-sans);
 }
 
 .of-contact-details {
@@ -401,6 +529,7 @@ body {
     overflow: hidden;
     background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.08);
+    flex-shrink: 0;
 }
 
 .of-contact-field {
@@ -422,14 +551,14 @@ body {
     letter-spacing: 0.04em;
     text-transform: uppercase;
     color: rgba(255, 255, 255, 0.42);
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
+    font-family: var(--font-sans);
 }
 
 .of-contact-field-value {
     font-size: 13px;
     font-weight: 500;
     color: rgba(255, 255, 255, 0.94);
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
+    font-family: var(--font-sans);
 }
 
 .of-finder-footer {
@@ -448,7 +577,7 @@ body {
     color: rgba(255, 255, 255, 0.25);
     background: rgba(30, 30, 35, 0.9);
     min-height: 32px;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: var(--font-sans);
 }
 
 .of-finder-footer > span {
@@ -609,8 +738,43 @@ body {
     .of-finder-sidebar { display: none; }
     .of-finder-main { padding: var(--mobile-finder-pad, 14px) !important; min-height: 0; }
     .of-grid { grid-template-columns: 1fr; gap: 14px; }
-    .of-card.of-contact-card { padding: 20px 14px 14px; }
-    .of-contact-photo-ring { width: 112px; height: 112px; }
+    .of-org-row { flex-direction: column; align-items: stretch; }
+    .of-org-row--leadership {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        max-width: 100%;
+    }
+    .of-org-row--leadership .of-card.of-contact-card {
+        max-width: 100%;
+        width: 100%;
+        height: auto;
+    }
+    .of-org-row--roster {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+    }
+    .of-org-row--roster .of-card.of-contact-card {
+        max-width: 100%;
+        width: 100%;
+    }
+    .of-org-row--operations {
+        grid-template-columns: 1fr;
+        width: 100%;
+    }
+    .of-org-row--vice-president {
+        grid-template-columns: 1fr;
+        width: 100%;
+    }
+    .of-card.of-contact-card {
+        flex: 1 1 100%;
+        max-width: 100%;
+        width: 100%;
+        --of-card-max: 100%;
+    }
     .of-contact-name { font-size: 1.1rem; }
     .of-finder-footer {
         flex-direction: row;

@@ -8,8 +8,9 @@
 @media (max-width: 1024px) {
     :root {
         --ui-scale: 1;
-        --mobile-gutter: 16px;
-        --mobile-content-max: min(100%, 420px);
+        --mobile-gutter: clamp(20px, 6.5vw, 32px);
+        --mobile-content-max: calc(100vw - 2 * var(--mobile-gutter));
+        --page-padding: var(--mobile-gutter);
         --mobile-brand-block-h: 44px;
         --mobile-nav-h: 44px;
         --mobile-header-gap: 8px;
@@ -346,7 +347,7 @@
     .events-page,
     .of-page,
     .oh-page {
-        padding: var(--mobile-content-top) var(--mobile-gutter) var(--space-3xl) !important;
+        padding: var(--mobile-content-top) 0 var(--space-3xl) !important;
         display: block !important;
         width: 100% !important;
         max-width: 100% !important;
@@ -426,6 +427,9 @@
         margin-top: 0 !important;
         margin-bottom: 0 !important;
         text-align: center !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
     }
 
     .page-hero-logo {
@@ -452,16 +456,14 @@
     .join-hero p,
     .sbg-hero p,
     .events-header .events-subtitle,
-    .of-hero p {
-        font-size: var(--mobile-text-base) !important;
-        line-height: 1.6 !important;
-        margin: 0 !important;
-    }
-
+    .of-hero p,
     .oh-hero p {
         font-size: var(--mobile-text-base) !important;
         line-height: 1.6 !important;
-        margin: var(--space-md) 0 var(--space-lg) !important;
+        text-align: center !important;
+        max-width: 640px !important;
+        width: 100% !important;
+        margin: var(--space-sm) auto var(--space-lg) !important;
     }
 
     .page-label,
@@ -472,16 +474,32 @@
         display: inline-block !important;
     }
 
-    /* Stats / counter cards */
+    /* Stats / counter cards — align with finder cards below */
     .ev-stats,
     .oh-stats {
         display: grid !important;
         grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
         gap: var(--space-sm) !important;
-        max-width: 100% !important;
+        max-width: var(--mobile-content-max) !important;
         width: 100% !important;
         margin-top: var(--space-2xl) !important;
         margin-bottom: var(--space-xl) !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    .ev-finder-wrap,
+    .oh-page .oh-finder-wrap {
+        max-width: var(--mobile-content-max) !important;
+        width: 100% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        box-sizing: border-box !important;
     }
 
     .ev-stat,
@@ -522,6 +540,32 @@
         line-height: 1.25 !important;
         margin-top: var(--space-xs) !important;
         letter-spacing: 0 !important;
+    }
+
+    /* Full-width shells & cards — span content area like ev-stats / oh-stats */
+    .of-org-chart,
+    .of-org-row,
+    .section3-stat-grid,
+    .sbg-narrative-grid,
+    .oh-narrative-grid,
+    .jf-registration-closed-card {
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+
+    .of-card.of-contact-card,
+    .of-page .of-org-row--leadership .of-card.of-contact-card,
+    .section2-event-card,
+    .section2-view-all-card,
+    .sbg-narrative-card,
+    .oh-narrative-card,
+    .sbg-cta,
+    .section3-stat-item,
+    .jf-registration-closed-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        --of-card-max: 100%;
     }
 
     /* Narrative + CTA */
@@ -629,11 +673,16 @@
     }
 
     .site-footer-main {
-        padding: var(--space-2xl) var(--mobile-gutter) var(--space-xl) !important;
+        padding: var(--space-2xl) 0 var(--space-xl) !important;
     }
 
     .site-footer-bottom {
-        padding: var(--space-md) var(--mobile-gutter) calc(var(--space-md) + env(safe-area-inset-bottom)) !important;
+        padding: var(--space-md) 0 calc(var(--space-md) + env(safe-area-inset-bottom)) !important;
+        max-width: var(--mobile-content-max) !important;
+        width: 100% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        box-sizing: border-box !important;
         font-size: 10px !important;
     }
 
@@ -1102,32 +1151,7 @@
         font-size: 9px !important;
     }
 
-    .ev-finder-toolbar-label {
-        font-size: 10px !important;
-        margin-bottom: var(--space-xs) !important;
-    }
-
     /* Events finder */
-    .ev-finder-toolbar {
-        padding: var(--space-md) !important;
-        flex-direction: column !important;
-        align-items: stretch !important;
-        gap: var(--space-sm) !important;
-    }
-
-    .ev-filter-chips {
-        overflow-x: auto;
-        flex-wrap: nowrap !important;
-        -webkit-overflow-scrolling: touch;
-        gap: var(--space-sm) !important;
-    }
-
-    .ev-filter-chip {
-        flex-shrink: 0;
-        font-size: 11px !important;
-        padding: var(--space-xs) var(--space-md) !important;
-    }
-
     .ev-year-strip {
         padding: var(--space-xs) var(--space-sm) var(--space-sm) !important;
         gap: var(--space-xs) !important;
@@ -1151,14 +1175,28 @@
     }
 
     .ev-split {
+        display: flex !important;
+        flex-direction: column !important;
         grid-template-columns: 1fr !important;
     }
 
+    .ev-preview-panel {
+        order: 1 !important;
+        padding: var(--space-lg) var(--mobile-finder-pad) var(--mobile-finder-pad) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: var(--space-md) !important;
+        overflow: visible !important;
+        background: #1a1a1d !important;
+    }
+
     .ev-list-panel {
+        order: 2 !important;
         max-height: none !important;
         overflow: visible !important;
         border-right: none !important;
-        border-bottom: 0.5px solid rgba(255, 255, 255, 0.06) !important;
+        border-bottom: none !important;
+        border-top: 0.5px solid rgba(255, 255, 255, 0.06) !important;
     }
 
     .ev-list-header {
@@ -1188,15 +1226,6 @@
         border-left: none !important;
     }
 
-    .ev-preview-panel {
-        padding: var(--space-lg) var(--mobile-finder-pad) var(--mobile-finder-pad) !important;
-        display: flex !important;
-        flex-direction: column !important;
-        gap: var(--space-md) !important;
-        overflow: visible !important;
-        background: #1a1a1d !important;
-    }
-
     .ev-preview-panel .ev-list-empty {
         padding: var(--space-md) 0 !important;
         margin: 0 !important;
@@ -1208,7 +1237,8 @@
     }
 
     .ev-preview-hero {
-        min-height: 140px !important;
+        min-height: 190px !important;
+        height: 190px !important;
         border-radius: 10px !important;
         margin: 0 !important;
         width: 100% !important;
@@ -1241,26 +1271,6 @@
 
     .ev-preview-hero-badge.upcoming {
         color: #5de878 !important;
-    }
-
-    .ev-preview-highlights {
-        display: grid !important;
-        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-        gap: 5px !important;
-        margin: 0 !important;
-        width: 100% !important;
-    }
-
-    .ev-preview-highlight {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
-        gap: 1px !important;
-        min-width: 0 !important;
-        padding: 6px 3px !important;
-        border-radius: 7px !important;
-        text-align: center !important;
     }
 
     .ev-preview-title {
@@ -1302,25 +1312,10 @@
         padding: 3px 8px !important;
     }
 
-    .ev-preview-highlight .val {
-        font-size: 10px !important;
-        line-height: 1.15 !important;
-        white-space: nowrap !important;
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
-        max-width: 100% !important;
-    }
-
-    .ev-preview-highlight .lbl {
-        font-size: 7px !important;
-        letter-spacing: 0.3px !important;
-        white-space: nowrap !important;
-    }
-
     /* Join form — compact iOS grouped style */
     .jf-finder-main {
         padding: var(--mobile-finder-pad) !important;
-        font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+        font-family: var(--font-sans) !important;
     }
 
     .jf-form-intro {
@@ -1489,7 +1484,9 @@
     }
 
     .oh-finder-gallery-view {
-        min-height: 140px !important;
+        min-height: 190px !important;
+        aspect-ratio: 4 / 3 !important;
+        height: auto !important;
         border-radius: 10px !important;
         margin: 0 !important;
     }
@@ -1613,22 +1610,59 @@
         display: block !important;
     }
 
-    .of-page .of-grid {
+    .of-page .of-grid,
+    .of-page .of-org-chart {
         margin: 0 !important;
-        grid-template-columns: 1fr !important;
         gap: var(--mobile-card-gap) !important;
     }
 
+    .of-page .of-org-row {
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+
+    .of-page .of-org-row--leadership {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        width: 100% !important;
+        gap: var(--mobile-card-gap) !important;
+    }
+
+    .of-page .of-org-row--leadership .of-card.of-contact-card {
+        max-width: 100% !important;
+        width: 100% !important;
+        height: auto !important;
+    }
+
+    .of-page .of-org-row--roster {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        width: 100% !important;
+    }
+
+    .of-page .of-org-row--operations {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+    }
+
+    .of-page .of-org-row--vice-president {
+        grid-template-columns: 1fr !important;
+        width: 100% !important;
+    }
+
     .of-card.of-contact-card {
-        padding: var(--space-lg) var(--space-md) var(--space-md) !important;
+        padding: var(--of-card-pad-block, var(--space-lg)) var(--of-card-pad-inline, var(--space-md)) var(--of-card-pad-inline, var(--space-md)) !important;
         background: linear-gradient(180deg, #3a1580 0%, #2d1066 45%, #1a0a4a 100%) !important;
         border: 1px solid rgba(255, 255, 255, 0.1) !important;
         border-radius: 16px !important;
-    }
-
-    .of-contact-photo-ring {
-        width: 112px !important;
-        height: 112px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        flex: 1 1 100% !important;
+        min-width: 0 !important;
+        --of-card-max: 100%;
     }
 
     .of-contact-actions {
@@ -1667,7 +1701,7 @@
         flex-direction: column !important;
         justify-content: flex-start !important;
         align-items: center !important;
-        padding: calc(var(--mobile-header-h) + env(safe-area-inset-top) + var(--mobile-page-top-offset)) var(--mobile-gutter) var(--mobile-section-pad) !important;
+        padding: calc(var(--mobile-header-h) + env(safe-area-inset-top) + var(--mobile-page-top-offset)) 0 var(--mobile-section-pad) !important;
         height: auto !important;
         min-height: auto !important;
         overflow: visible !important;
@@ -1770,12 +1804,12 @@
         border-bottom-left-radius: 14px !important;
         border-bottom-right-radius: 14px !important;
         color: rgba(255, 255, 255, 0.42) !important;
-        font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+        font-family: var(--font-sans) !important;
     }
 
     .section1-glass-card h2 {
         padding: 14px 14px 0 !important;
-        font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+        font-family: var(--font-sans) !important;
         font-size: 1.12rem !important;
         font-weight: 700 !important;
         line-height: 1.35 !important;
@@ -1790,7 +1824,7 @@
 
     .section1-glass-card p {
         padding: 10px 14px 16px !important;
-        font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+        font-family: var(--font-sans) !important;
         font-size: 15px !important;
         font-weight: 400 !important;
         line-height: 1.6 !important;
@@ -1802,7 +1836,7 @@
     .section1-card-media {
         width: calc(100% - 28px) !important;
         margin: 14px 14px 0 !important;
-        height: 168px !important;
+        height: 200px !important;
         border-radius: 10px !important;
     }
 
@@ -1812,33 +1846,66 @@
         transition: none !important;
     }
 
-    .section1-carousel-track {
-        animation: none !important;
-        transform: none !important;
-        width: 100% !important;
+    .section1-carousel-window {
+        padding: 0 10px !important;
+        overflow: hidden !important;
+        height: 100% !important;
     }
 
-    .section1-carousel-window {
-        padding: 0 !important;
-        overflow: hidden !important;
+    .section1-carousel-track {
+        display: flex !important;
+        align-items: center !important;
+        gap: 16px !important;
+        width: auto !important;
+        height: 100% !important;
+        animation: slideCarousel 6.5s linear infinite !important;
+    }
+
+    .section1-carousel-track.is-paused {
+        animation-play-state: paused !important;
     }
 
     .section1-carousel-slide {
-        min-width: 0 !important;
-        flex: 0 0 100% !important;
+        flex: 0 0 82% !important;
+        min-width: min(280px, 76vw) !important;
+        height: 100% !important;
+        display: block !important;
         border-radius: 10px !important;
         border: 1px solid rgba(255, 255, 255, 0.14) !important;
         border-top: 1px solid rgba(255, 255, 255, 0.22) !important;
         box-sizing: border-box !important;
         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3) !important;
+        overflow: hidden !important;
     }
 
-    .section1-carousel-slide:not(:first-child) {
-        display: none !important;
+    .section1-carousel-slide:first-child,
+    .section1-carousel-slide:nth-child(4) {
+        opacity: 0.5 !important;
     }
 
-    .section1-carousel-slide:first-child {
-        opacity: 1 !important;
+    @media (prefers-reduced-motion: reduce) {
+        .section1-carousel-track {
+            animation: none !important;
+        }
+    }
+
+    /* iPad portrait / mini landscape (768–1024px): wide 16:10 frame + peeking slides */
+    @media (min-width: 768px) {
+        .section1-card-media {
+            height: auto !important;
+            aspect-ratio: 16 / 10 !important;
+            min-height: 240px !important;
+            max-height: min(400px, 44vh) !important;
+        }
+
+        .section1-carousel-window {
+            padding: 0 16px !important;
+        }
+
+        .section1-carousel-slide {
+            flex: 0 0 72% !important;
+            min-width: min(340px, 64vw) !important;
+        }
     }
 
     .section1-buttons {
@@ -1915,10 +1982,12 @@
     .page-section.section1 {
         padding-top: calc(var(--mobile-header-h) + env(safe-area-inset-top) + var(--mobile-page-top-offset)) !important;
         padding-bottom: var(--space-2xl) !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
     }
 
     .page-section.section2 {
-        padding: var(--space-2xl) var(--mobile-gutter) var(--space-xl) !important;
+        padding: var(--space-2xl) 0 var(--space-xl) !important;
         height: auto !important;
         min-height: auto !important;
         max-height: none !important;
@@ -1926,13 +1995,14 @@
     }
 
     .page-section.section3 {
-        padding: var(--space-xl) var(--mobile-gutter) var(--space-2xl) !important;
+        padding: var(--space-xl) 0 var(--space-2xl) !important;
         position: relative !important;
         z-index: 2 !important;
     }
 
     .section2-header {
         margin-bottom: var(--space-sm) !important;
+        text-align: center !important;
     }
 
     .section2-header h2 {
@@ -1940,7 +2010,23 @@
     }
 
     .section2-header .section2-subtitle {
-        margin: 0 !important;
+        font-size: var(--mobile-text-base) !important;
+        text-align: center !important;
+        margin: 0 auto !important;
+        max-width: 100% !important;
+    }
+
+    .section2-event-card-image {
+        min-height: 190px !important;
+        height: 190px !important;
+        flex: none !important;
+    }
+
+    .section2-view-all-card-desc {
+        text-align: center !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        max-width: 100% !important;
     }
 
     .section2-events-grid {
@@ -1970,7 +2056,7 @@
 
     .section2-view-all-card {
         min-height: 260px !important;
-        padding: var(--space-lg) !important;
+        padding: var(--space-md) var(--space-lg) var(--space-lg) !important;
     }
 
     .section2-event-card-content {
@@ -2062,7 +2148,21 @@
 
     .section2-header .section2-subtitle {
         font-size: var(--mobile-text-base) !important;
-        margin: 0 !important;
+        text-align: center !important;
+        margin: 0 auto !important;
+        max-width: 100% !important;
+    }
+
+    .section2-event-card-image {
+        min-height: 190px !important;
+        height: 190px !important;
+    }
+
+    .section2-view-all-card-desc {
+        text-align: center !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        max-width: 100% !important;
     }
 
     .section2-event-card-title {
@@ -2082,7 +2182,7 @@
 
 @media (max-width: 480px) {
     :root {
-        --mobile-gutter: 14px;
+        --mobile-gutter: clamp(18px, 6.5vw, 26px);
         --mobile-brand-block-h: 48px;
         --mobile-stat-num: 20px;
         --mobile-finder-pad: 12px;
@@ -2102,23 +2202,6 @@
     .site-header .top-bar,
     .site-header .liquid-dock {
         --mobile-header-pill-px: 14px;
-    }
-
-    .ev-preview-highlights {
-        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-        gap: 4px !important;
-    }
-
-    .ev-preview-highlight {
-        padding: 5px 2px !important;
-    }
-
-    .ev-preview-highlight .val {
-        font-size: 9px !important;
-    }
-
-    .ev-preview-highlight .lbl {
-        font-size: 6px !important;
     }
 
     .section3-stat-grid {

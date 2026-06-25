@@ -39,7 +39,7 @@ html {
 }
 
 body {
-    font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-family: var(--font-sans);
     color: #ffffff;
     background: transparent;
     position: relative;
@@ -151,11 +151,11 @@ body {
     font-size: clamp(36px, 5.5vw, 60px); font-weight: 800; line-height: 1.04; margin-bottom: 16px;
     background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }
-.oh-hero p { font-size: clamp(15px, 1.4vw, 17px); color: rgba(255,255,255,0.8); line-height: 1.7; max-width: 640px; margin: 0 auto; }
+.oh-hero p { font-size: clamp(15px, 1.4vw, 17px); color: rgba(255,255,255,0.8); line-height: 1.7; max-width: 640px; margin: 0 auto; text-align: center; }
 
 /* Stats strip */
 .oh-stats {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin: 0 auto 70px; max-width: 760px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin: 0 auto 70px; max-width: 1160px; width: 100%;
 }
 .oh-stat {
     text-align: center;
@@ -254,7 +254,7 @@ body {
     font-weight: 600;
     color: rgba(255, 255, 255, 0.6);
     letter-spacing: 0.2px;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: var(--font-sans);
 }
 
 .oh-finder-title-icon {
@@ -612,7 +612,7 @@ body {
     color: rgba(255, 255, 255, 0.25);
     background: rgba(30, 30, 35, 0.9);
     min-height: 32px;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: var(--font-sans);
 }
 
 .oh-finder-footer-items {
@@ -917,7 +917,7 @@ body {
     .dock-item { font-size: 13px; padding: 9px 14px; }
     .sticker { width: 80px; bottom: 16px; right: 16px; }
     .oh-page { padding: 100px 5vw 30px; }
-    .oh-stats { grid-template-columns: 1fr; max-width: 360px; gap: 14px; }
+    .oh-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 100%; width: 100%; gap: 14px; }
     .oh-finder-main { grid-template-columns: 1fr; min-height: 0; }
     .oh-finder-story { border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
     .oh-finder-sidebar { display: none; }

@@ -4,20 +4,26 @@ body::before {
     inset: 0;
     background-image: url("../../img/awsrepetitive.png");
     background-repeat: repeat;
-    background-size: 840px auto;
+    background-size: 1400px auto;
+    background-position: 0 0;
     opacity: 0.3;
     pointer-events: none;
     z-index: 0;
-    animation: patternShift 28s linear infinite;
+    animation: eventsPatternShift 28s linear infinite;
 }
 
 body::after {
-    display: none;
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(42, 16, 102, 0.2) 0%, rgba(13, 10, 26, 0.8) 100%);
+    pointer-events: none;
+    z-index: 0;
 }
 
-@keyframes patternShift {
+@keyframes eventsPatternShift {
     0% { background-position: 0 0; }
-    100% { background-position: 840px 840px; }
+    100% { background-position: 1400px 1400px; }
 }
 
 /* ---------- PAGE CONTENT ---------- */
@@ -26,6 +32,7 @@ body::after {
 }
 
 .events-header {
+    text-align: center;
     margin-bottom: calc(48px * var(--ui-scale));
 }
 
@@ -60,6 +67,7 @@ body::after {
     line-height: 1.6;
     max-width: 620px;
     margin: 0 auto;
+    text-align: center;
 }
 
 /* ---------- EVENT STATS STRIP ---------- */
@@ -68,7 +76,8 @@ body::after {
     grid-template-columns: repeat(3, 1fr);
     gap: 18px;
     margin: 0 auto 48px;
-    max-width: 760px;
+    max-width: 1160px;
+    width: 100%;
     animation: fadeInUp 0.8s ease-out 0.15s both;
 }
 
@@ -184,7 +193,7 @@ body::after {
     font-weight: 600;
     color: rgba(255, 255, 255, 0.6);
     letter-spacing: 0.2px;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: var(--font-sans);
 }
 
 .ev-finder-title-icon {
@@ -287,56 +296,6 @@ body::after {
     flex-direction: column;
     min-width: 0;
     min-height: 0;
-}
-
-.ev-finder-toolbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    padding: 10px 16px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    background: rgba(25, 25, 30, 0.88);
-    flex-shrink: 0;
-    flex-wrap: wrap;
-}
-
-.ev-finder-toolbar-label {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.6px;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.35);
-}
-
-.ev-filter-chips {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-}
-
-.ev-filter-chip {
-    font-size: 11px;
-    font-weight: 600;
-    padding: 4px 12px;
-    border-radius: 100px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.04);
-    color: rgba(255, 255, 255, 0.55);
-    cursor: pointer;
-    transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
-    font-family: inherit;
-}
-
-.ev-filter-chip:hover {
-    background: rgba(255, 255, 255, 0.08);
-    color: rgba(255, 255, 255, 0.85);
-}
-
-.ev-filter-chip.active {
-    background: rgba(242, 155, 60, 0.15);
-    border-color: rgba(242, 155, 60, 0.4);
-    color: #f7ad58;
 }
 
 .ev-year-strip {
@@ -622,6 +581,11 @@ body::after {
     background: linear-gradient(180deg, rgba(13, 4, 40, 0.1) 0%, rgba(13, 4, 40, 0.75) 100%);
 }
 
+.ev-preview-hero--no-image {
+    background: linear-gradient(135deg, rgba(42, 32, 70, 0.9) 0%, rgba(24, 16, 46, 0.95) 100%);
+    cursor: default;
+}
+
 .ev-preview-hero-badge {
     position: absolute;
     top: 12px;
@@ -756,7 +720,7 @@ body::after {
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    font-family: 'Amazon Ember', sans-serif;
+    font-family: var(--font-sans);
     font-size: 13px;
     font-weight: 700;
     color: #f29b3c;
@@ -777,51 +741,6 @@ body::after {
     color: #f7ad58;
 }
 
-.ev-preview-highlights {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 6px;
-    margin-bottom: 14px;
-}
-
-.ev-preview-highlight {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1px;
-    min-width: 0;
-    padding: 7px 6px;
-    border-radius: 7px;
-    background: rgba(255, 255, 255, 0.035);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    text-align: center;
-}
-
-.ev-preview-highlight .val {
-    display: block;
-    font-size: 12px;
-    font-weight: 800;
-    color: #f29b3c;
-    margin-bottom: 0;
-    line-height: 1.15;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100%;
-}
-
-.ev-preview-highlight .lbl {
-    display: block;
-    font-size: 8px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.35px;
-    color: rgba(255, 255, 255, 0.4);
-    line-height: 1.1;
-    white-space: nowrap;
-}
-
 .ev-finder-footer {
     position: relative;
     z-index: 3;
@@ -838,7 +757,7 @@ body::after {
     color: rgba(255, 255, 255, 0.25);
     background: rgba(30, 30, 35, 0.9);
     min-height: 32px;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: var(--font-sans);
 }
 
 .ev-finder-footer > span {
@@ -1095,26 +1014,28 @@ body.ev-gallery-open {
 @media (max-width: 1024px) {
     .ev-finder-sidebar { display: none; }
     .ev-split {
+        display: flex;
+        flex-direction: column;
         grid-template-columns: 1fr;
     }
-    .ev-list-panel {
-        border-right: none;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        max-height: 220px;
+    .ev-preview-panel {
+        order: 1;
     }
-    .ev-preview-highlights {
-        grid-template-columns: repeat(3, 1fr);
+    .ev-list-panel {
+        order: 2;
+        border-right: none;
+        border-bottom: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        max-height: none;
     }
 }
 
 @media (max-width: 1024px) {
     .ev-stats {
-        grid-template-columns: 1fr;
-        max-width: 360px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        max-width: 100%;
+        width: 100%;
         gap: 14px;
-    }
-    .ev-preview-highlights {
-        grid-template-columns: 1fr 1fr 1fr;
     }
 }
 
@@ -1127,26 +1048,5 @@ body.ev-gallery-open {
 
     .ev-register-btn {
         font-size: 11px;
-    }
-    .ev-preview-highlights {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 5px;
-    }
-
-    .ev-preview-highlight {
-        padding: 6px 4px;
-    }
-
-    .ev-preview-highlight .val {
-        font-size: 11px;
-    }
-
-    .ev-preview-highlight .lbl {
-        font-size: 7px;
-    }
-
-    .ev-finder-toolbar {
-        flex-direction: column;
-        align-items: flex-start;
     }
 }

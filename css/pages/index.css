@@ -461,7 +461,7 @@ body {
 
 /* ---------- BUTTONS - All same size ---------- */
 .section1-btn {
-    font-family: 'Amazon Ember', sans-serif;
+    font-family: var(--font-sans);
     font-weight: 600;
     cursor: pointer;
     padding: 16px 32px;
@@ -511,7 +511,7 @@ body {
 }
 
 .section2-view-all-btn {
-    font-family: 'Amazon Ember', sans-serif;
+    font-family: var(--font-sans);
     font-weight: 600;
     cursor: pointer;
     padding: 12px 28px;
@@ -573,9 +573,13 @@ body {
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    transition: transform 0.1s ease-out;
     transform-style: preserve-3d;
+}
+
+.section1-glass-card.is-tilting {
     will-change: transform;
+    backdrop-filter: blur(22px) saturate(160%);
+    -webkit-backdrop-filter: blur(22px) saturate(160%);
 }
 
 .section1-card-topbar {
@@ -595,7 +599,7 @@ body {
     font-weight: 900;
     margin: 0;
     padding: 20px 20px 0;
-    font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-family: var(--font-sans);
     background: linear-gradient(135deg, #ffffff 18%, #bbaffd 47%, #efdcf1 110%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -603,7 +607,7 @@ body {
 }
 
 .section1-glass-card p {
-    font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-family: var(--font-sans);
     font-size: 15px;
     font-weight: 400;
     line-height: 1.6;
@@ -637,6 +641,10 @@ body {
     gap: 16px;
     height: 100%;
     animation: slideCarousel 6.5s linear infinite;
+}
+
+.section1-carousel-track.is-paused {
+    animation-play-state: paused;
 }
 
 .section1-carousel-slide {
@@ -773,8 +781,11 @@ body {
         padding: clamp(8px, 1vh, 12px) clamp(10px, 1vw, 14px);
     }
     .section2-view-all-card-btn {
-        height: clamp(30px, 3.8vh, 36px);
-        max-width: clamp(130px, 12vw, 160px);
+        min-width: clamp(150px, 14vw, 170px);
+        height: clamp(48px, 5.2vh, 56px);
+        padding: clamp(12px, 1.2vh, 16px) clamp(24px, 2.5vw, 32px);
+        font-size: clamp(0.875rem, 0.8rem + 0.2vw, 1rem);
+        margin-top: clamp(14px, 1.8vh, 22px);
     }
     .section2-view-all-btn {
         padding: 10px 24px;
@@ -860,6 +871,10 @@ body {
     background-size: cover;
     background-position: center;
     position: relative;
+}
+
+.section2-event-card-image--empty {
+    background: linear-gradient(135deg, rgba(42, 32, 70, 0.85) 0%, rgba(24, 16, 46, 0.9) 100%);
 }
 
 .section2-event-card-badge {
@@ -981,7 +996,7 @@ body {
     justify-content: center;
     flex: 0 0 auto;
     margin-left: auto;
-    font-family: 'Amazon Ember', sans-serif;
+    font-family: var(--font-sans);
     font-size: clamp(0.75rem, 0.68rem + 0.3vw, 0.8125rem);
     font-weight: 700;
     color: #f29b3c;
@@ -1012,7 +1027,7 @@ body {
     min-width: 0;
     min-height: 0;
     max-height: 100%;
-    padding: clamp(12px, 1.4vh + 0.4vw, 24px) clamp(14px, 1.4vw, 22px);
+    padding: clamp(10px, 1.1vh + 0.3vw, 18px) clamp(14px, 1.4vw, 22px) clamp(12px, 1.4vh, 20px);
     border-radius: clamp(12px, 1.3vw, 20px);
     text-decoration: none;
     text-align: center;
@@ -1026,7 +1041,7 @@ body {
     border-top: 1px solid rgba(255, 255, 255, 0.22);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-    font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: var(--font-sans);
 }
 
 .section2-view-all-card::before {
@@ -1075,20 +1090,23 @@ body {
     font-size: clamp(0.75rem, 0.68rem + 0.35vw, 0.875rem);
     line-height: 1.55;
     color: rgba(255, 255, 255, 0.62);
-    margin: 0 0 clamp(8px, 1vh, 14px);
+    margin: 0 auto;
     max-width: min(320px, 90%);
+    flex: 0 0 auto;
+    text-align: center;
 }
 
 .section2-view-all-card-btn {
     position: relative;
     z-index: 1;
     pointer-events: none;
-    width: 100%;
-    max-width: clamp(150px, 14vw, 200px);
-    min-width: 0;
-    height: clamp(34px, 4.2vh, 44px);
-    padding: clamp(8px, 0.9vh, 10px) clamp(14px, 1.6vw, 20px);
-    font-size: clamp(0.8125rem, 0.74rem + 0.28vw, 0.875rem);
+    width: auto;
+    max-width: none;
+    min-width: 170px;
+    height: 56px;
+    padding: 16px 32px;
+    font-size: 16px;
+    margin-top: clamp(14px, 1.6vh, 22px);
 }
 
 .section2-view-all-card:hover .section2-view-all-card-btn {
@@ -1736,7 +1754,7 @@ body.section2-modal-open {
     font-weight: 600;
     color: rgba(255, 255, 255, 0.6);
     letter-spacing: 0.2px;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: var(--font-sans);
 }
 
 .section3-title-icon {
@@ -1856,7 +1874,7 @@ body.section2-modal-open {
     flex-direction: column;
     min-height: 0;
     background: var(--notes-bg-app);
-    font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-family: var(--font-sans);
 }
 
 .section3-notes-toolbar {
@@ -1925,7 +1943,7 @@ body.section2-modal-open {
 .section3-notes-toolbar-aa {
     font-size: 14px;
     font-weight: 700;
-    font-family: 'Amazon Ember', sans-serif;
+    font-family: var(--font-sans);
     color: var(--notes-icon);
 }
 
@@ -2324,6 +2342,7 @@ body.section2-modal-open {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;
     margin-top: 18px;
+    margin-bottom: 20px;
 }
 
 .section3-notes-stat {
@@ -2350,12 +2369,6 @@ body.section2-modal-open {
 
 .section3-notes-stats-grid--three {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-@media (max-width: 520px) {
-    .section3-notes-stats-grid--three {
-        grid-template-columns: 1fr;
-    }
 }
 
 .section3-notes-stat-label {
@@ -2596,7 +2609,7 @@ body.section2-modal-open {
     color: rgba(255, 255, 255, 0.25);
     background: rgba(30, 30, 35, 0.9);
     min-height: 32px;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: var(--font-sans);
 }
 
 .section3-footer > span {
@@ -2882,7 +2895,7 @@ body.section2-modal-open {
     .section1-buttons {
         justify-content: center;
     }
-    .section1-btn, .section2-view-all-btn {
+    .section1-btn, .section2-view-all-btn, .section2-view-all-card-btn {
         min-width: 140px;
         height: 48px;
         padding: 12px 24px;
@@ -3082,7 +3095,7 @@ body.section2-modal-open {
     .section1-motto {
         font-size: 14px;
     }
-    .section1-btn, .section2-view-all-btn {
+    .section1-btn, .section2-view-all-btn, .section2-view-all-card-btn {
         padding: 10px 20px;
         font-size: 13px;
         min-width: 120px;
@@ -3121,7 +3134,8 @@ body.section2-modal-open {
         max-width: 100%;
     }
     .section2-event-card-image {
-        height: 140px;
+        min-height: 190px;
+        height: 190px;
     }
     .section3-stat-number {
         font-size: 30px;

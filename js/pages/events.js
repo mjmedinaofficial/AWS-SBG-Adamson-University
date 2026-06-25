@@ -6,32 +6,33 @@
     const previewEl = document.getElementById('ev-preview');
     const yearStripEl = document.getElementById('ev-year-strip');
     const monthStripEl = document.getElementById('ev-month-strip');
-    const filterChips = document.querySelectorAll('.ev-filter-chip');
 
     const now = new Date();
-    let activeFilter = 'all';
-    let activeYear = String(now.getFullYear());
+    let activeYear = 'all';
     let activeMonth = now.getMonth() + 1;
     let selectedId = null;
 
     const eventYears = [...new Set(events.map((e) => e.year))].sort();
-    if (!eventYears.includes(activeYear) && eventYears.length) {
-        activeYear = eventYears[eventYears.length - 1];
-    }
 
     const escapeHtml = (str) => String(str).replace(/[&<>"']/g, (c) => ({
         '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
     })[c]);
 
-    function matchesFilter(ev) {
-        if (activeFilter === 'all') return true;
-        if (activeFilter === 'upcoming') return ev.badgeClass === 'upcoming' || ev.badgeClass === 'featured';
-        return ev.category === activeFilter;
+    function sortEventsChronologically(list) {
+        return list.slice().sort((a, b) => {
+            const dateA = new Date(parseInt(a.year, 10), a.monthNum - 1, parseInt(a.day, 10));
+            const dateB = new Date(parseInt(b.year, 10), b.monthNum - 1, parseInt(b.day, 10));
+            return dateB - dateA;
+        });
+    }
+
+    function isAllYearsView() {
+        return activeYear === 'all';
     }
 
     function getFilteredEvents() {
+        if (isAllYearsView()) return sortEventsChronologically(events);
         return events.filter((ev) => {
-            if (!matchesFilter(ev)) return false;
             if (String(ev.year) !== String(activeYear)) return false;
             if (ev.monthNum !== activeMonth) return false;
             return true;
@@ -40,6 +41,11 @@
 
     function eventsInYear(year) {
         return events.filter((ev) => String(ev.year) === String(year));
+    }
+
+    function firstMonthWithEvents(year) {
+        const months = eventsInYear(year).map((ev) => ev.monthNum);
+        return months.length ? Math.min(...months) : 1;
     }
 
     function badgeClass(ev) {
@@ -51,26 +57,29 @@
             previewEl.innerHTML = '<p class="ev-list-empty">Select an event to preview details.</p>';
             return;
         }
-        const imageCount = (ev.images && ev.images.length) || 1;
-        previewEl.innerHTML = `
-            <button type="button" class="ev-preview-hero-btn" aria-label="View ${imageCount} event photo${imageCount === 1 ? '' : 's'}">
-                <div class="ev-preview-hero" style="background-image:url('${escapeHtml(ev.image)}')">
+        const imageCount = ev.images?.length ?? 0;
+        const hasPhotos = imageCount > 0;
+        const heroInner = `
                     <span class="ev-preview-hero-badge ${badgeClass(ev)}">${escapeHtml(ev.badge)}</span>
                     <div class="ev-preview-hero-date">
                         <span class="day">${escapeHtml(ev.day)}</span>
                         <span class="month-year">${escapeHtml(ev.month)} ${escapeHtml(ev.year)}</span>
                     </div>
+                    ${hasPhotos ? `
                     <span class="ev-preview-hero-gallery-hint">
                         <svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true"><rect x="2" y="4" width="16" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="7.5" cy="9" r="1.6" fill="currentColor" stroke="none"/><path d="M2 14l4.2-3.5 3.3 2.8L13 10l5 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                         View ${imageCount} photo${imageCount === 1 ? '' : 's'}
-                    </span>
+                    </span>` : ''}`;
+        previewEl.innerHTML = `
+            ${hasPhotos ? `
+            <button type="button" class="ev-preview-hero-btn" aria-label="View ${imageCount} event photo${imageCount === 1 ? '' : 's'}">
+                <div class="ev-preview-hero" style="background-image:url('${escapeHtml(ev.image)}')">
+                    ${heroInner}
                 </div>
-            </button>
-            <div class="ev-preview-highlights">
-                <div class="ev-preview-highlight"><span class="val">${escapeHtml(ev.duration)}</span><span class="lbl">Duration</span></div>
-                <div class="ev-preview-highlight"><span class="val">${escapeHtml(ev.seats)}</span><span class="lbl">Seats</span></div>
-                <div class="ev-preview-highlight"><span class="val">${escapeHtml(ev.level)}</span><span class="lbl">Level</span></div>
-            </div>
+            </button>` : `
+            <div class="ev-preview-hero ev-preview-hero--no-image">
+                ${heroInner}
+            </div>`}
             <h2 class="ev-preview-title">${escapeHtml(ev.title)}</h2>
             <p class="ev-preview-desc">${escapeHtml(ev.desc)}</p>
             <p class="ev-preview-speaker">Speaker: <strong>${escapeHtml(ev.speaker)}</strong></p>
@@ -87,7 +96,7 @@
         }
 
         if (window.matchMedia('(max-width: 1024px)').matches) {
-            previewEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            previewEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     }
 
@@ -95,7 +104,10 @@
         const filtered = getFilteredEvents();
         if (!filtered.length) {
             const monthName = MONTHS[activeMonth - 1];
-            listEl.innerHTML = `<p class="ev-list-empty">No events in ${monthName} ${activeYear}.</p>`;
+            const emptyMsg = isAllYearsView()
+                ? 'No events found.'
+                : `No events in ${monthName} ${activeYear}.`;
+            listEl.innerHTML = `<p class="ev-list-empty">${emptyMsg}</p>`;
             renderPreview(null);
             return;
         }
@@ -129,15 +141,22 @@
 
     function renderYearStrip() {
         if (!yearStripEl) return;
-        yearStripEl.innerHTML = eventYears.map((year) => {
-            const active = String(year) === String(activeYear);
+        const allActive = isAllYearsView();
+        const allTab = `<button type="button" class="ev-year-tab${allActive ? ' active' : ''}" data-year="all" role="tab" aria-selected="${allActive}">All<span class="ev-year-tab-count">${events.length}</span></button>`;
+        const yearTabs = eventYears.map((year) => {
+            const active = !allActive && String(year) === String(activeYear);
             const count = eventsInYear(year).length;
             return `<button type="button" class="ev-year-tab${active ? ' active' : ''}" data-year="${escapeHtml(year)}" role="tab" aria-selected="${active}">${escapeHtml(year)}<span class="ev-year-tab-count">${count}</span></button>`;
         }).join('');
 
+        yearStripEl.innerHTML = allTab + yearTabs;
+
         yearStripEl.querySelectorAll('.ev-year-tab').forEach((tab) => {
             tab.addEventListener('click', () => {
                 activeYear = tab.dataset.year;
+                if (!isAllYearsView()) {
+                    activeMonth = firstMonthWithEvents(activeYear);
+                }
                 renderYearStrip();
                 renderMonthStrip();
                 renderList();
@@ -146,6 +165,14 @@
     }
 
     function renderMonthStrip() {
+        if (!monthStripEl) return;
+        if (isAllYearsView()) {
+            monthStripEl.innerHTML = '';
+            monthStripEl.hidden = true;
+            return;
+        }
+
+        monthStripEl.hidden = false;
         const yearEvents = eventsInYear(activeYear);
         const eventMonths = new Set(yearEvents.map((e) => e.monthNum));
         monthStripEl.innerHTML = MONTHS.map((name, i) => {
@@ -163,18 +190,6 @@
             });
         });
     }
-
-    function setFilter(filter) {
-        activeFilter = filter;
-        filterChips.forEach((chip) => {
-            chip.classList.toggle('active', chip.dataset.filter === filter);
-        });
-        renderList();
-    }
-
-    filterChips.forEach((chip) => {
-        chip.addEventListener('click', () => setFilter(chip.dataset.filter));
-    });
 
     document.querySelectorAll('[data-finder-footer-events]').forEach((el) => {
         if (events.length) el.textContent = `${events.length} events`;
@@ -243,7 +258,7 @@
     }
 
     function openGallery(ev) {
-        if (!galleryModal || !ev) return;
+        if (!galleryModal || !ev || !ev.images?.length) return;
         galleryLastFocus = document.activeElement;
         galleryImages = ev.images || [ev.image];
         galleryIndex = 0;

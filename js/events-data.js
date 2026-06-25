@@ -7,7 +7,7 @@
   }
 
   function buildEventImages(number, count) {
-    const imageCount = count || DEFAULT_EVENT_IMAGE_COUNT;
+    const imageCount = typeof count === 'number' ? count : DEFAULT_EVENT_IMAGE_COUNT;
     return Array.from({ length: imageCount }, (_, i) => eventImagePath(number, i + 1));
   }
 
@@ -31,7 +31,7 @@
       monthNum: 10,
       day: "2",
       year: "2024",
-      speaker: "Mr. Lesmon Saluta, Mr. Asi Guiang, Ms. Darla Daviid"
+      speaker: "Mr. Lesmon Saluta, Mr. Asi Guiang, Ms. Darla David"
     },
     {
       number: 2,
@@ -42,7 +42,8 @@
       monthNum: 11,
       day: "11",
       year: "2024",
-      speaker: "n/a"
+      speaker: "n/a",
+      imageCount: 0
     },
     {
       number: 3,
@@ -53,7 +54,8 @@
       monthNum: 3,
       day: "22",
       year: "2025",
-      speaker: "Mr. Asi Guiang"
+      speaker: "Mr. Asi Guiang",
+      imageCount: 2
     },
     {
       number: 4,
@@ -63,8 +65,9 @@
       tags: ["Ideathon", "Women in Tech", "Networking"],
       monthNum: 4,
       day: "5",
-      year: "2026",
-      speaker: "Ms. Maxine Ileto, Ms. Enrica Dio, Ms. Uriel Alonso"
+      year: "2025",
+      speaker: "Ms. Maxine Ileto, Ms. Enrica Dio, Ms. Uriel Alonso",
+      imageCount: 1
     },
     {
       number: 5,
@@ -164,14 +167,11 @@
         badge,
         badgeClass,
         category: ev.category,
-        image: images[0],
+        image: images[0] ?? null,
         images,
         speaker: ev.speaker,
         avatar: ev.speaker === 'n/a' ? 'N/A' : ev.speaker.split(',')[0].trim(),
-        tags: ev.tags,
-        duration: "TBA",
-        seats: "TBA",
-        level: "All Levels"
+        tags: ev.tags
       };
     });
 

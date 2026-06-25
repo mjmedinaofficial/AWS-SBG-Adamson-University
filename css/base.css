@@ -17,7 +17,7 @@ html {
 }
 
 body {
-    font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-family: var(--font-sans);
     color: #ffffff;
     background: transparent;
     position: relative;
@@ -45,7 +45,7 @@ body.custom-cursor-active * {
     filter: blur(6px);
     opacity: 0.8;
     transform: translate(-50%, -50%);
-    will-change: left, top;
+    will-change: transform;
 }
 
 .custom-cursor {
@@ -58,7 +58,7 @@ body.custom-cursor-active * {
     z-index: 99999;
     background: url("../img/cursor.png") center / contain no-repeat;
     transform: translate(-50%, -50%);
-    will-change: left, top;
+    will-change: transform;
 }
 
 @media (pointer: coarse) and (hover: none) {
@@ -79,6 +79,13 @@ body.custom-cursor-active * {
 .touch-primary-device .home-page #section1-tilt-card {
     transform: none !important;
     transition: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .home-page #section1-tilt-card {
+        transform: none !important;
+        transition: none !important;
+    }
 }
 
 /* Shared animations */
@@ -449,6 +456,9 @@ body.custom-cursor-active * {
     text-align: center;
     margin-bottom: calc(40px * var(--ui-scale));
     animation: fadeInUp 0.8s ease-out both;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .page-hero-logo {
@@ -491,6 +501,7 @@ body.custom-cursor-active * {
     line-height: 1.7;
     max-width: 680px;
     margin: 0 auto;
+    text-align: center;
 }
 
 /* Site footer */
@@ -674,7 +685,7 @@ button.site-footer-social {
     color: rgba(255, 255, 255, 0.25);
     background: rgba(30, 30, 35, 0.9);
     min-height: 32px;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: var(--font-sans);
 }
 
 [class$="-finder-footer"] > span,

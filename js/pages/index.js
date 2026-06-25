@@ -2,20 +2,30 @@
     const DESKTOP_MQ = window.matchMedia('(min-width: 1025px)');
     const MOBILE_LAYOUT_MQ = window.matchMedia('(max-width: 1024px)');
     const POINTER_FINE_MQ = window.matchMedia('(hover: hover) and (pointer: fine)');
+    const REDUCED_MOTION_MQ = window.matchMedia('(prefers-reduced-motion: reduce)');
 
     const customCursor = document.getElementById('custom-cursor');
     const customCursorGlow = document.getElementById('custom-cursor-glow');
     const useCustomCursor = customCursor && customCursorGlow && POINTER_FINE_MQ.matches;
 
+    let pointerX = 0;
+    let pointerY = 0;
+    let visualFrameQueued = false;
+
+    function scheduleVisualFrame() {
+        if (visualFrameQueued) return;
+        visualFrameQueued = true;
+        requestAnimationFrame(runVisualFrame);
+    }
+
     if (useCustomCursor) {
         document.body.classList.add('custom-cursor-active');
 
         document.addEventListener('mousemove', (e) => {
-            customCursor.style.left = `${e.clientX}px`;
-            customCursor.style.top = `${e.clientY}px`;
-            customCursorGlow.style.left = `${e.clientX}px`;
-            customCursorGlow.style.top = `${e.clientY}px`;
-        });
+            pointerX = e.clientX;
+            pointerY = e.clientY;
+            scheduleVisualFrame();
+        }, { passive: true });
 
         document.addEventListener('mouseleave', () => {
             customCursor.style.opacity = '0';
@@ -29,18 +39,94 @@
     }
 
     // Section 1: hero glass card follows cursor (3D tilt) — desktop mouse only
+    const section1El = document.querySelector('.section1');
     const section1TiltCard = document.getElementById('section1-tilt-card');
+    const section1CarouselTrack = section1TiltCard
+        ? section1TiltCard.querySelector('.section1-carousel-track')
+        : null;
     const SECTION1_TILT_MQ = window.matchMedia('(min-width: 1025px) and (hover: hover) and (pointer: fine)');
     const isTouchPrimaryDevice = navigator.maxTouchPoints > 0;
+    const TILT_LERP = 0.2;
+    const TILT_RESET_LERP = 0.1;
+    const TILT_DIVISOR = 30;
+    const TILT_MAX_DEG = 12;
+
+    let tiltRect = null;
+    let section1Rect = null;
+    let tiltRectDirty = true;
+    let tiltHovering = false;
+    let tiltCurrentRX = 0;
+    let tiltCurrentRY = 0;
+    let tiltTargetRX = 0;
+    let tiltTargetRY = 0;
 
     if (isTouchPrimaryDevice) {
         document.body.classList.add('touch-primary-device');
     }
 
+    function refreshTiltRects() {
+        if (section1TiltCard) tiltRect = section1TiltCard.getBoundingClientRect();
+        if (section1El) section1Rect = section1El.getBoundingClientRect();
+        tiltRectDirty = false;
+    }
+
+    function invalidateTiltRect() {
+        tiltRectDirty = true;
+    }
+
+    function clampTilt(value) {
+        return Math.max(-TILT_MAX_DEG, Math.min(TILT_MAX_DEG, value));
+    }
+
+    function setTiltTargets(clientX, clientY) {
+        if (!tiltRect || tiltRectDirty) refreshTiltRects();
+        if (!tiltRect) return;
+        const centerX = tiltRect.left + tiltRect.width / 2;
+        const centerY = tiltRect.top + tiltRect.height / 2;
+        tiltTargetRY = clampTilt((centerX - clientX) / TILT_DIVISOR);
+        tiltTargetRX = clampTilt((centerY - clientY) / TILT_DIVISOR);
+    }
+
+    function pointerInsideSection1(x, y) {
+        if (!section1Rect || tiltRectDirty) refreshTiltRects();
+        if (!section1Rect) return false;
+        return x >= section1Rect.left && x <= section1Rect.right
+            && y >= section1Rect.top && y <= section1Rect.bottom;
+    }
+
+    function beginTiltHover() {
+        if (!section1TiltCard || tiltHovering) return;
+        tiltHovering = true;
+        invalidateTiltRect();
+        section1TiltCard.classList.add('is-tilting');
+        if (section1CarouselTrack) section1CarouselTrack.classList.add('is-paused');
+    }
+
+    function endTiltHover() {
+        if (!section1TiltCard) return;
+        tiltHovering = false;
+        tiltTargetRX = 0;
+        tiltTargetRY = 0;
+        scheduleVisualFrame();
+    }
+
+    function finalizeTiltIdle() {
+        if (!section1TiltCard) return;
+        section1TiltCard.classList.remove('is-tilting');
+        if (section1CarouselTrack) section1CarouselTrack.classList.remove('is-paused');
+    }
+
     function resetSection1TiltCard() {
         if (!section1TiltCard) return;
+        tiltHovering = false;
+        tiltCurrentRX = 0;
+        tiltCurrentRY = 0;
+        tiltTargetRX = 0;
+        tiltTargetRY = 0;
+        section1TiltCard.classList.remove('is-tilting');
         section1TiltCard.style.transition = '';
         section1TiltCard.style.transform = '';
+        if (section1CarouselTrack) section1CarouselTrack.classList.remove('is-paused');
     }
 
     function isSection1TiltEnabled() {
@@ -49,7 +135,49 @@
         if (document.body.classList.contains('desktop-zoom-stack')) return false;
         if (!SECTION1_TILT_MQ.matches) return false;
         if (isTouchPrimaryDevice) return false;
+        if (REDUCED_MOTION_MQ.matches) return false;
         return true;
+    }
+
+    function applyTiltTransform() {
+        section1TiltCard.style.transform =
+            `perspective(1000px) rotateX(${tiltCurrentRX.toFixed(2)}deg) rotateY(${tiltCurrentRY.toFixed(2)}deg)`;
+    }
+
+    function runVisualFrame() {
+        visualFrameQueued = false;
+        let needsAnotherFrame = false;
+
+        if (useCustomCursor) {
+            const cursorTransform = `translate3d(${pointerX}px, ${pointerY}px, 0) translate(-50%, -50%)`;
+            customCursor.style.transform = cursorTransform;
+            customCursorGlow.style.transform = cursorTransform;
+        }
+
+        if (isSection1TiltEnabled() && section1TiltCard) {
+            const deltaX = tiltTargetRX - tiltCurrentRX;
+            const deltaY = tiltTargetRY - tiltCurrentRY;
+            const isSettling = !tiltHovering;
+            const lerp = isSettling ? TILT_RESET_LERP : TILT_LERP;
+
+            if (Math.abs(deltaX) > 0.02 || Math.abs(deltaY) > 0.02) {
+                tiltCurrentRX += deltaX * lerp;
+                tiltCurrentRY += deltaY * lerp;
+                applyTiltTransform();
+                needsAnotherFrame = true;
+            } else if (tiltHovering) {
+                tiltCurrentRX = tiltTargetRX;
+                tiltCurrentRY = tiltTargetRY;
+                applyTiltTransform();
+            } else {
+                tiltCurrentRX = 0;
+                tiltCurrentRY = 0;
+                applyTiltTransform();
+                finalizeTiltIdle();
+            }
+        }
+
+        if (needsAnotherFrame) scheduleVisualFrame();
     }
 
     function syncSection1TiltState() {
@@ -59,6 +187,33 @@
     syncSection1TiltState();
     MOBILE_LAYOUT_MQ.addEventListener('change', syncSection1TiltState);
     SECTION1_TILT_MQ.addEventListener('change', syncSection1TiltState);
+    REDUCED_MOTION_MQ.addEventListener('change', syncSection1TiltState);
+
+    if (section1TiltCard && section1El) {
+        window.addEventListener('resize', invalidateTiltRect, { passive: true });
+        if (window.visualViewport) {
+            window.visualViewport.addEventListener('resize', invalidateTiltRect, { passive: true });
+        }
+
+        document.addEventListener('mousemove', (e) => {
+            pointerX = e.clientX;
+            pointerY = e.clientY;
+            if (!isSection1TiltEnabled()) return;
+
+            if (pointerInsideSection1(pointerX, pointerY)) {
+                beginTiltHover();
+                setTiltTargets(pointerX, pointerY);
+                scheduleVisualFrame();
+                return;
+            }
+
+            if (tiltHovering) endTiltHover();
+        }, { passive: true });
+
+        document.addEventListener('mouseleave', () => {
+            endTiltHover();
+        });
+    }
 
     // Global: nav dock, page indicator, scroll container
     const topBar = document.querySelector('.top-bar');
@@ -69,6 +224,10 @@
     const pageSections = document.querySelectorAll('.page-section');
     const pageScrollContainer = document.querySelector('.horizontal-container');
     const siteFooter = document.querySelector('.site-footer');
+
+    if (section1TiltCard && pageScrollContainer) {
+        pageScrollContainer.addEventListener('scroll', invalidateTiltRect, { passive: true });
+    }
 
     // Desktop zoom: stack hero only above ~110% browser zoom.
     // Baseline viewport height is captured on first load (assumed 100%
@@ -111,27 +270,6 @@
     if (window.visualViewport) {
         window.visualViewport.addEventListener('resize', syncDesktopZoomStack);
     }
-
-    document.addEventListener('mousemove', (e) => {
-        if (!isSection1TiltEnabled()) return;
-        const rect = section1TiltCard.getBoundingClientRect();
-        if (rect.left > window.innerWidth || rect.right < 0) return;
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        const rotateY = (centerX - e.clientX) / 30;
-        const rotateX = (centerY - e.clientY) / 30;
-        section1TiltCard.style.transform = `perspective(1000px) rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
-    });
-
-    document.addEventListener('mouseleave', () => {
-        if (!isSection1TiltEnabled()) {
-            resetSection1TiltCard();
-            return;
-        }
-        section1TiltCard.style.transition = 'transform 0.5s ease';
-        section1TiltCard.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg)';
-        setTimeout(() => { section1TiltCard.style.transition = 'transform 0.1s ease-out'; }, 500);
-    });
 
     function updateNavDockSlider(activeItem) {
         sectionItems.forEach(i => i.classList.remove('active'));
@@ -421,7 +559,7 @@
 
         const eventCards = featured.map((ev) => `
             <div class="section2-event-card section2-reveal" data-event-number="${ev.number}">
-                <div class="section2-event-card-image" style="background-image: url('${escapeHtml(ev.image)}');">
+                <div class="section2-event-card-image${ev.image ? '' : ' section2-event-card-image--empty'}"${ev.image ? ` style="background-image: url('${escapeHtml(ev.image)}');"` : ''}>
                     <span class="section2-event-card-badge">${escapeHtml(ev.badge)}</span>
                 </div>
                 <div class="section2-event-card-content">
@@ -443,8 +581,6 @@
 
         const viewAllCard = `
             <a href="events.html" class="section2-view-all-card section2-reveal" title="View all events and workshops">
-                <p class="section2-view-all-card-label">Events</p>
-                <h3 class="section2-view-all-card-title">View All Events</h3>
                 <p class="section2-view-all-card-desc">View all the engaging events and workshops hosted by AWS Student Builder Group — from hands-on cloud labs to certification prep and community meetups.</p>
                 <span class="section2-view-all-card-btn section1-btn">View All Events</span>
             </a>

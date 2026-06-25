@@ -149,8 +149,11 @@
     }
 
     .home-page .section2-view-all-card-btn {
-        height: clamp(28px, 3.5vh, 34px);
-        max-width: clamp(120px, 11vw, 150px);
+        min-width: clamp(150px, 14vw, 170px);
+        height: clamp(48px, 5.2vh, 56px);
+        padding: clamp(12px, 1.2vh, 16px) clamp(24px, 2.5vw, 32px);
+        font-size: clamp(0.875rem, 0.8rem + 0.2vw, 1rem);
+        margin-top: clamp(14px, 1.8vh, 22px);
     }
 }
 
@@ -161,20 +164,6 @@
 .ev-stat,
 .oh-stat {
     container-type: inline-size;
-}
-
-@container (max-width: 280px) {
-    .ev-preview-highlights {
-        gap: 4px;
-    }
-
-    .ev-preview-highlight .val {
-        font-size: 9px;
-    }
-
-    .ev-preview-highlight .lbl {
-        font-size: 6px;
-    }
 }
 
 @container (max-width: 320px) {
@@ -219,7 +208,15 @@ body:not(.home-page) {
         display: flex !important;
         animation: slideCarousel 6.5s linear infinite !important;
         width: auto;
+    }
+
+    .home-page .section1-carousel-track:not(.is-paused) {
         will-change: transform;
+    }
+
+    .home-page .section1-carousel-track.is-paused {
+        animation-play-state: paused !important;
+        will-change: auto;
     }
 
     .home-page .section1-carousel-window {
@@ -431,9 +428,11 @@ body:not(.home-page) {
     }
 
     .home-page .section2-view-all-card-btn {
-        font-size: clamp(0.8125rem, 0.74rem + 0.28vw, 0.875rem);
-        height: clamp(40px, 4.8vh, 48px);
-        padding: clamp(10px, 1vh, 12px) clamp(18px, 2vw, 24px);
+        min-width: clamp(150px, 14vw, 170px);
+        height: clamp(48px, 5.2vh, 56px);
+        padding: clamp(12px, 1.2vh, 16px) clamp(24px, 2.5vw, 32px);
+        font-size: clamp(0.875rem, 0.8rem + 0.2vw, 1rem);
+        margin-top: clamp(16px, 2vh, 24px);
     }
 }
 
@@ -520,8 +519,11 @@ body:not(.home-page) {
     }
 
     .home-page .section2-view-all-card-btn {
-        max-width: clamp(140px, 13vw, 190px);
-        height: clamp(32px, 4vh, 42px);
+        min-width: clamp(150px, 14vw, 170px);
+        height: clamp(48px, 5.2vh, 56px);
+        padding: clamp(12px, 1.2vh, 16px) clamp(24px, 2.5vw, 32px);
+        font-size: clamp(0.875rem, 0.8rem + 0.2vw, 1rem);
+        margin-top: clamp(14px, 1.8vh, 22px);
     }
 }
 
@@ -974,4 +976,41 @@ body:not(.home-page) {
 
 .home-page.desktop-zoom-stack .section3-footer-items {
     gap: 10px;
+}
+
+/* ============================================================
+   iPad / tablet — keep Section 1 slideshow slides rectangular
+   (Mini, Air, Pro — portrait & landscape). Flex-grown media
+   height was squaring the 65%-width carousel slides.
+   ============================================================ */
+@media (min-width: 1025px) and (max-width: 1366px) {
+    .home-page .section1-card-wrapper {
+        align-self: center;
+        height: auto;
+    }
+
+    .home-page .section1-glass-card {
+        flex: 0 1 auto;
+        height: auto;
+        max-height: none;
+    }
+
+    .home-page .section1-card-media {
+        flex: 0 0 auto;
+        height: clamp(220px, 26vh, 275px);
+        min-height: 220px;
+        max-height: 275px;
+    }
+
+    .home-page .section1-carousel-window,
+    .home-page .section1-carousel-track,
+    .home-page .section1-carousel-slide {
+        height: 100%;
+        min-height: 0;
+    }
+
+    .home-page .section1-carousel-slide {
+        flex: 0 0 65%;
+        min-width: min(340px, 44vw);
+    }
 }

@@ -6,7 +6,7 @@
     .section3-notes-app .section3-notes-list,
     .section3-notes-app .section3-notes-detail,
     .section3-notes-app .section3-notes-mobile-dock {
-        font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+        font-family: var(--font-sans) !important;
     }
 
     .section3-titlebar {
@@ -14,7 +14,7 @@
         flex-shrink: 0 !important;
         border-top-left-radius: 14px !important;
         border-top-right-radius: 14px !important;
-        font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+        font-family: var(--font-sans) !important;
     }
 
     .section3-footer {
@@ -22,7 +22,7 @@
         flex-shrink: 0 !important;
         border-bottom-left-radius: 14px !important;
         border-bottom-right-radius: 14px !important;
-        font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+        font-family: var(--font-sans) !important;
     }
 
     .section3-window {
@@ -153,7 +153,7 @@
         letter-spacing: -0.04em !important;
         line-height: 1.05 !important;
         color: rgba(255, 255, 255, 0.92) !important;
-        font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+        font-family: var(--font-sans) !important;
     }
 
     .section3-notes-count {
@@ -164,7 +164,7 @@
         color: rgba(255, 255, 255, 0.52) !important;
         font-weight: 400 !important;
         margin-top: 0 !important;
-        font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+        font-family: var(--font-sans) !important;
     }
 
     .section3-notes-count-icon {
@@ -178,7 +178,6 @@
         min-height: 0 !important;
         background: #1a1a1d !important;
         overflow: hidden !important;
-        contain: layout style paint;
     }
 
     .section3-notes-list,
@@ -262,7 +261,7 @@
         font-weight: 700 !important;
         color: rgba(255, 255, 255, 0.92) !important;
         letter-spacing: -0.02em !important;
-        font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+        font-family: var(--font-sans) !important;
     }
 
     .section3-notes-list-card {
@@ -319,7 +318,7 @@
         font-weight: 700 !important;
         line-height: 1.2 !important;
         color: rgba(255, 255, 255, 0.92) !important;
-        font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+        font-family: var(--font-sans) !important;
         white-space: nowrap !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
@@ -332,7 +331,7 @@
         white-space: nowrap !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
-        font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+        font-family: var(--font-sans) !important;
         -webkit-line-clamp: unset !important;
         -webkit-box-orient: unset !important;
         display: block !important;
@@ -376,7 +375,7 @@
         font-size: 16px !important;
         color: rgba(255, 255, 255, 0.45) !important;
         background: #2c2c2e !important;
-        font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+        font-family: var(--font-sans) !important;
     }
 
     .section3-notes-mobile-dock .section3-notes-search svg {
@@ -406,10 +405,12 @@
     .section3-notes-detail {
         flex: none !important;
         min-height: 0 !important;
-        padding: 8px 20px 32px !important;
+        padding: 8px 20px 48px !important;
         background: #141416 !important;
         overflow-y: auto !important;
+        overflow-x: hidden !important;
         -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
     }
 
     .section3-notes-pane {
@@ -434,7 +435,7 @@
         margin-top: 0 !important;
         margin-bottom: 10px !important;
         color: rgba(255, 255, 255, 0.92) !important;
-        font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+        font-family: var(--font-sans) !important;
     }
 
     .section3-notes-app.is-mobile-detail .section3-notes-pane-title {
@@ -450,7 +451,7 @@
         font-size: 17px !important;
         line-height: 1.55 !important;
         color: rgba(255, 255, 255, 0.82) !important;
-        font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+        font-family: var(--font-sans) !important;
     }
 
     .section3-notes-pane-body strong {
@@ -468,14 +469,41 @@
         transform: rotate(-2deg) translateX(-12px) !important;
     }
 
+    .section3-notes-stats-grid {
+        display: grid !important;
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        gap: var(--space-sm) !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-top: var(--space-lg) !important;
+        margin-bottom: var(--space-xl) !important;
+    }
+
     .section3-notes-stat {
         background: #232326 !important;
         border-color: rgba(255, 255, 255, 0.08) !important;
+        padding: var(--space-lg) var(--space-xs) !important;
+        border-radius: 10px !important;
+        min-width: 0 !important;
     }
 
-    .section3-notes-stats-grid--three {
-        grid-template-columns: 1fr !important;
-        gap: 10px !important;
+    .section3-notes-stat-number {
+        font-size: 20px !important;
+        line-height: 1 !important;
+    }
+
+    .section3-notes-stat-label {
+        font-size: var(--mobile-stat-label, 11px) !important;
+        line-height: 1.25 !important;
+        margin-top: var(--space-xs) !important;
+    }
+
+    .section3-notes-pane-body p + .section3-notes-stats-grid {
+        margin-top: var(--space-md) !important;
+    }
+
+    .section3-notes-stats-grid + p {
+        margin-top: 0 !important;
     }
 
     .section3-stage {

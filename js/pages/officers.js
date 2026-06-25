@@ -20,7 +20,10 @@
     }
 
     const officers = window.SBG_OFFICERS || [];
-    const gridEl = document.getElementById('of-officers-grid');
+    const leadershipIds = window.SBG_LEADERSHIP_OFFICER_IDS || [];
+    const chartEl = document.getElementById('of-officers-chart');
+    const officersById = Object.fromEntries(officers.map((officer) => [officer.id, officer]));
+    const leadershipSet = new Set(leadershipIds);
 
     function initials(name) {
         return name
@@ -75,18 +78,21 @@
         </div>`;
     }
 
-    function renderOfficerCard(officer) {
+    function renderOfficerCard(officer, tier) {
         const meta = metaLine(officer);
-        const nickname = officer.nickname ? `Goes by ${officer.nickname}` : 'AWS SBG Officer';
+        const roleLine = officer.position || 'AWS SBG Officer';
+        const goesByLine = officer.nickname ? `Goes by ${officer.nickname}` : '';
+        const tierClass = tier ? ` of-card--${tier}` : '';
 
-        return `<article class="of-card of-contact-card" data-officer-id="${officer.id}">
+        return `<article class="of-card of-contact-card${tierClass}" data-officer-id="${officer.id}">
             <div class="of-contact-hero">
                 <div class="of-contact-photo-ring">
                     ${avatarHtml(officer, 'of-contact-photo')}
                 </div>
                 <p class="of-contact-meta">${meta || 'AWS Student Builder Group'}</p>
                 <h3 class="of-contact-name">${officer.name}</h3>
-                <p class="of-contact-nickname">${nickname}</p>
+                ${goesByLine ? `<p class="of-contact-nickname">${goesByLine}</p>` : '<p class="of-contact-nickname of-contact-nickname--spacer" aria-hidden="true"></p>'}
+                <p class="of-contact-role">${roleLine}</p>
             </div>
 
             <div class="of-contact-actions" role="group" aria-label="Contact actions for ${officer.name}">
@@ -95,17 +101,55 @@
             </div>
 
             <div class="of-contact-details">
-                ${fieldRow('Nickname', officer.nickname)}
                 ${fieldRow('Course', officer.course)}
                 ${fieldRow('Year Level', officer.yearLevel)}
             </div>
         </article>`;
     }
 
-    function initOfficerGrid() {
-        if (!gridEl || !officers.length) return;
+    function resolveCardTier(officer, rowTier) {
+        if (officer.position === 'President') return 'president';
+        if (officer.position && officer.position.startsWith('Vice President')) return 'vice-president';
+        return rowTier;
+    }
 
-        gridEl.innerHTML = officers.map(renderOfficerCard).join('');
+    function chunk(items, size) {
+        const groups = [];
+        for (let i = 0; i < items.length; i += size) {
+            groups.push(items.slice(i, i + size));
+        }
+        return groups;
+    }
+
+    function renderOrgChart() {
+        if (!chartEl) return;
+
+        const leadershipOfficers = leadershipIds
+            .map((id) => officersById[id])
+            .filter(Boolean);
+
+        const rosterOfficers = officers
+            .filter((officer) => !leadershipSet.has(officer.id))
+            .sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }));
+
+        const leadershipRow = leadershipOfficers.length
+            ? `<div class="of-org-row of-org-row--leadership">${leadershipOfficers
+                .map((officer) => renderOfficerCard(officer, resolveCardTier(officer, 'leadership')))
+                .join('')}</div>`
+            : '';
+
+        const rosterRows = chunk(rosterOfficers, 3)
+            .map((group) => `<div class="of-org-row of-org-row--roster">${group
+                .map((officer) => renderOfficerCard(officer, 'roster'))
+                .join('')}</div>`)
+            .join('');
+
+        chartEl.innerHTML = `${leadershipRow}${rosterRows}`;
+    }
+
+    function initOfficerChart() {
+        renderOrgChart();
+        if (!chartEl) return;
 
         const cardObserver = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
@@ -120,8 +164,8 @@
             });
         }, { threshold: 0.12 });
 
-        gridEl.querySelectorAll('.of-card').forEach((card) => cardObserver.observe(card));
+        chartEl.querySelectorAll('.of-card').forEach((card) => cardObserver.observe(card));
     }
 
-    initOfficerGrid();
+    initOfficerChart();
 })();
