@@ -207,16 +207,12 @@ body:not(.home-page) {
     .home-page .section1-carousel-track {
         display: flex !important;
         animation: slideCarousel 6.5s linear infinite !important;
+        animation-play-state: running !important;
         width: auto;
     }
 
-    .home-page .section1-carousel-track:not(.is-paused) {
+    .home-page .section1-carousel-track {
         will-change: transform;
-    }
-
-    .home-page .section1-carousel-track.is-paused {
-        animation-play-state: paused !important;
-        will-change: auto;
     }
 
     .home-page .section1-carousel-window {

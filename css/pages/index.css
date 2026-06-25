@@ -641,10 +641,7 @@ body {
     gap: 16px;
     height: 100%;
     animation: slideCarousel 6.5s linear infinite;
-}
-
-.section1-carousel-track.is-paused {
-    animation-play-state: paused;
+    animation-play-state: running;
 }
 
 .section1-carousel-slide {

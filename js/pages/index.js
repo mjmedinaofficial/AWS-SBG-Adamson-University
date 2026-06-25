@@ -41,9 +41,6 @@
     // Section 1: hero glass card follows cursor (3D tilt) — desktop mouse only
     const section1El = document.querySelector('.section1');
     const section1TiltCard = document.getElementById('section1-tilt-card');
-    const section1CarouselTrack = section1TiltCard
-        ? section1TiltCard.querySelector('.section1-carousel-track')
-        : null;
     const SECTION1_TILT_MQ = window.matchMedia('(min-width: 1025px) and (hover: hover) and (pointer: fine)');
     const isTouchPrimaryDevice = navigator.maxTouchPoints > 0;
     const TILT_LERP = 0.2;
@@ -99,7 +96,6 @@
         tiltHovering = true;
         invalidateTiltRect();
         section1TiltCard.classList.add('is-tilting');
-        if (section1CarouselTrack) section1CarouselTrack.classList.add('is-paused');
     }
 
     function endTiltHover() {
@@ -113,7 +109,6 @@
     function finalizeTiltIdle() {
         if (!section1TiltCard) return;
         section1TiltCard.classList.remove('is-tilting');
-        if (section1CarouselTrack) section1CarouselTrack.classList.remove('is-paused');
     }
 
     function resetSection1TiltCard() {
@@ -126,7 +121,6 @@
         section1TiltCard.classList.remove('is-tilting');
         section1TiltCard.style.transition = '';
         section1TiltCard.style.transform = '';
-        if (section1CarouselTrack) section1CarouselTrack.classList.remove('is-paused');
     }
 
     function isSection1TiltEnabled() {

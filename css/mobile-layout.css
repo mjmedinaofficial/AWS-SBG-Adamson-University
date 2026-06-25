@@ -1538,7 +1538,7 @@
     }
 
     .oh-finder-story-text p:last-child {
-        margin-bottom: 0 !important;
+        margin-bottom: var(--space-2xl) !important;
     }
 
     .oh-page .oh-finder-footer {
@@ -1859,10 +1859,7 @@
         width: auto !important;
         height: 100% !important;
         animation: slideCarousel 6.5s linear infinite !important;
-    }
-
-    .section1-carousel-track.is-paused {
-        animation-play-state: paused !important;
+        animation-play-state: running !important;
     }
 
     .section1-carousel-slide {
@@ -1881,12 +1878,6 @@
     .section1-carousel-slide:first-child,
     .section1-carousel-slide:nth-child(4) {
         opacity: 0.5 !important;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-        .section1-carousel-track {
-            animation: none !important;
-        }
     }
 
     /* iPad portrait / mini landscape (768–1024px): wide 16:10 frame + peeking slides */
