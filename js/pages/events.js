@@ -13,6 +13,7 @@
     let activeMonth = now.getMonth() + 1;
     let selectedId = null;
     let currentPage = 1;
+    let activeCategory = 'all';
     const EVENTS_PER_PAGE = 5;
 
     const eventYears = [...new Set(events.map((e) => e.year))].sort();
@@ -34,8 +35,18 @@
     }
 
     function getFilteredEvents() {
-        if (isAllYearsView()) return sortEventsChronologically(events);
-        return events.filter((ev) => {
+        let filtered = events;
+
+        // Category filter
+        if (activeCategory === 'upcoming') {
+            filtered = filtered.filter((ev) => ev.badgeClass === 'upcoming');
+        } else if (activeCategory !== 'all') {
+            filtered = filtered.filter((ev) => ev.category === activeCategory);
+        }
+
+        // Year/month filter
+        if (isAllYearsView()) return sortEventsChronologically(filtered);
+        return filtered.filter((ev) => {
             if (String(ev.year) !== String(activeYear)) return false;
             if (ev.monthNum !== activeMonth) return false;
             return true;
@@ -258,6 +269,22 @@
     renderYearStrip();
     renderMonthStrip();
     renderList();
+
+    // Sidebar category filtering
+    const sidebarItems = document.querySelectorAll('#ev-sidebar .ev-finder-sidebar-item[data-category]');
+    sidebarItems.forEach((item) => {
+        item.addEventListener('click', () => {
+            activeCategory = item.dataset.category;
+            currentPage = 1;
+            sidebarItems.forEach((el) => {
+                el.classList.remove('active');
+                el.removeAttribute('aria-current');
+            });
+            item.classList.add('active');
+            item.setAttribute('aria-current', 'true');
+            renderList();
+        });
+    });
 
     if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';

@@ -399,7 +399,7 @@
 
         if (statEvents) statEvents.textContent = String(totalEvents);
         if (statsSnippet) {
-            statsSnippet.textContent = `Founded 2024 · 50+ members · ${totalEvents} events`;
+            statsSnippet.textContent = `Founded 2024 · 120+ members · ${totalEvents} events`;
         }
         if (footerEvents) footerEvents.textContent = `${totalEvents} events`;
         document.querySelectorAll('[data-finder-footer-events]').forEach((el) => {
