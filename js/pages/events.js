@@ -11,6 +11,8 @@
     let activeYear = 'all';
     let activeMonth = now.getMonth() + 1;
     let selectedId = null;
+    let currentPage = 1;
+    const EVENTS_PER_PAGE = 5;
 
     const eventYears = [...new Set(events.map((e) => e.year))].sort();
 
@@ -114,10 +116,19 @@
             renderPreview(null);
             return;
         }
-        if (!filtered.find((e) => e.id === selectedId)) {
-            selectedId = filtered[0].id;
+
+        // Pagination logic
+        const totalPages = Math.ceil(filtered.length / EVENTS_PER_PAGE);
+        if (currentPage > totalPages) currentPage = totalPages;
+        if (currentPage < 1) currentPage = 1;
+        const startIdx = (currentPage - 1) * EVENTS_PER_PAGE;
+        const pageEvents = filtered.slice(startIdx, startIdx + EVENTS_PER_PAGE);
+
+        if (!pageEvents.find((e) => e.id === selectedId)) {
+            selectedId = pageEvents[0].id;
         }
-        listEl.innerHTML = filtered.map((ev) => `
+
+        const listHtml = pageEvents.map((ev) => `
             <button type="button" class="ev-list-row${ev.id === selectedId ? ' selected' : ''}" data-id="${escapeHtml(ev.id)}">
                 <span class="ev-list-date">
                     <span class="ev-list-date-month">${escapeHtml(ev.month)}</span>
@@ -131,12 +142,48 @@
             </button>
         `).join('');
 
+        // Pagination controls
+        let paginationHtml = '';
+        if (totalPages > 1) {
+            paginationHtml = `<div class="ev-pagination">
+                <button type="button" class="ev-pagination-btn ev-pagination-prev"${currentPage <= 1 ? ' disabled' : ''} aria-label="Previous page">
+                    <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <span class="ev-pagination-info">${currentPage} / ${totalPages}</span>
+                <button type="button" class="ev-pagination-btn ev-pagination-next"${currentPage >= totalPages ? ' disabled' : ''} aria-label="Next page">
+                    <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+            </div>`;
+        }
+
+        listEl.innerHTML = listHtml + paginationHtml;
+
         listEl.querySelectorAll('.ev-list-row').forEach((row) => {
             row.addEventListener('click', () => {
                 selectedId = row.dataset.id;
                 renderList({ scrollIntoView: true });
             });
         });
+
+        // Pagination event listeners
+        const prevBtn = listEl.querySelector('.ev-pagination-prev');
+        const nextBtn = listEl.querySelector('.ev-pagination-next');
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderList();
+                }
+            });
+        }
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderList();
+                }
+            });
+        }
 
         renderPreview(events.find((e) => e.id === selectedId), options);
     }
@@ -159,6 +206,7 @@
                 if (!isAllYearsView()) {
                     activeMonth = firstMonthWithEvents(activeYear);
                 }
+                currentPage = 1;
                 renderYearStrip();
                 renderMonthStrip();
                 renderList();
@@ -187,6 +235,7 @@
         monthStripEl.querySelectorAll('.ev-month-tab').forEach((tab) => {
             tab.addEventListener('click', () => {
                 activeMonth = parseInt(tab.dataset.month, 10);
+                currentPage = 1;
                 renderMonthStrip();
                 renderList();
             });

@@ -397,19 +397,19 @@
 
     .page-back,
     .events-back {
-        position: fixed !important;
-        top: calc(var(--mobile-header-top) + var(--mobile-header-h) + var(--mobile-back-gap)) !important;
-        left: max(var(--mobile-gutter), calc((100vw - var(--mobile-content-max)) / 2)) !important;
+        position: sticky !important;
+        top: 8px !important;
+        left: auto !important;
         right: auto !important;
         transform: none !important;
-        z-index: 9999 !important;
+        z-index: 99 !important;
         display: inline-flex !important;
         align-items: center !important;
         width: auto !important;
         max-width: calc(100vw - var(--mobile-gutter) * 2) !important;
         font-size: 12px !important;
         padding: 6px 14px !important;
-        margin: 0 !important;
+        margin: 0 0 8px !important;
         white-space: nowrap !important;
     }
 
