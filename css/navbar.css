@@ -28,23 +28,23 @@
     margin: 0 auto;
 }
 
-/* ---------- Left: Brand Pill ---------- */
+/* ---------- Left: Brand (no pill, clean logo + text) ---------- */
 .navbar-brand-pill {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 8px 16px 8px 8px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 999px;
+    padding: 0;
+    background: none;
+    border: none;
+    border-radius: 0;
     text-decoration: none;
     color: var(--color-text-primary);
     flex-shrink: 0;
-    transition: border-color 0.2s ease;
+    transition: opacity 0.2s ease;
 }
 
 .navbar-brand-pill:hover {
-    border-color: rgba(255, 255, 255, 0.22);
+    opacity: 0.8;
 }
 
 .navbar-brand-logo {
@@ -78,7 +78,7 @@
     gap: 4px;
     padding: 6px 8px;
     background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 999px;
 }
 
@@ -114,11 +114,11 @@
 .navbar-link.active::after {
     content: '';
     position: absolute;
-    bottom: 0;
+    bottom: -1px;
     left: 50%;
     transform: translateX(-50%);
-    width: 4px;
-    height: 4px;
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
     background: #F5A623;
 }
@@ -349,7 +349,7 @@
     }
 
     .navbar-brand-pill {
-        padding: 6px 12px 6px 6px;
+        gap: 8px;
     }
 
     .navbar-brand-logo {
