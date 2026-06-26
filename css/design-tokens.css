@@ -1,96 +1,83 @@
 /* ============================================================
-   AWS SBG AdU — Design tokens & fluid scale
+   AWS SBG AdU — Design Tokens (v2)
+   All visual decisions flow from these variables.
+   No ad-hoc values anywhere in the codebase.
    ============================================================ */
 
 :root {
-    /* Brand */
-    --bg-gradient: linear-gradient(180deg, #2d1066 0%, #1a0a4a 28%, #0d0428 55%, #000000 85%);
-    --accent-gradient: linear-gradient(135deg, #ffffff 18%, #bbaffd 47%, #efdcf1 110%);
-    --glow-purple: rgba(187, 175, 253, 0.65);
-    --glow-deep: rgba(45, 16, 102, 0.5);
-    --glow-light: rgba(239, 220, 241, 0.45);
-    --apple-focus: rgba(10, 132, 255, 0.85);
-    --aws-orange: #f29b3c;
-    --aws-orange-hover: #f7ad58;
-    --font-sans: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-
-    /* New design system colors */
-    --color-bg-deep: #0D0B1A;
-    --color-bg-surface: #1A1530;
+    /* Colors */
+    --color-bg-deep: #0B0918;
+    --color-bg-dark: #110E21;
+    --color-bg-surface: #1A1535;
     --color-bg-elevated: #241D45;
     --color-brand-purple: #5B3FD9;
     --color-accent-orange: #F5A623;
+    --color-accent-glow: rgba(91, 63, 217, 0.15);
     --color-text-primary: #F0EEFF;
     --color-text-secondary: #A89FC5;
-    --color-border-subtle: rgba(255, 255, 255, 0.08);
+    --color-text-muted: #6B6488;
+    --color-border-subtle: rgba(255, 255, 255, 0.07);
+    --color-border-active: rgba(255, 255, 255, 0.15);
 
-    /* New design system fonts */
-    --font-heading: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+    /* Typography */
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    /* Type scale */
+    --text-xs: clamp(11px, 1vw, 12px);
+    --text-sm: clamp(13px, 1.2vw, 14px);
+    --text-base: clamp(14px, 1.5vw, 16px);
+    --text-lg: clamp(16px, 2vw, 20px);
+    --text-xl: clamp(20px, 2.5vw, 28px);
+    --text-2xl: clamp(28px, 3.5vw, 40px);
+    --text-3xl: clamp(36px, 4.5vw, 56px);
+    --text-hero: clamp(32px, 5vw, 64px);
+
+    /* Spacing (4px base) */
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 40px;
+    --space-2xl: 64px;
+    --space-3xl: 96px;
+
+    /* Border radius */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-pill: 999px;
+
+    /* Legacy compatibility aliases */
+    --bg-gradient: linear-gradient(180deg, #0B0918 0%, #110E21 40%, #0B0918 100%);
+    --accent-gradient: linear-gradient(135deg, #F0EEFF 0%, #A89FC5 50%, #5B3FD9 100%);
+    --aws-orange: #F5A623;
+    --aws-orange-hover: #FFB83F;
+    --font-sans: var(--font-body);
+    --font-heading: var(--font-display);
 
     /* Layout */
-    --page-padding: clamp(16px, 5vw, 10vw);
-    --content-max: 1200px;
+    --page-padding: clamp(20px, 5vw, 80px);
+    --content-max: 1400px;
     --ui-scale: 1;
 
-    /* Fluid typography */
-    --text-xs: clamp(0.625rem, 0.58rem + 0.18vw, 0.75rem);
-    --text-sm: clamp(0.8125rem, 0.76rem + 0.22vw, 0.875rem);
-    --text-base: clamp(0.875rem, 0.82rem + 0.26vw, 1rem);
-    --text-md: clamp(0.9375rem, 0.86rem + 0.32vw, 1.0625rem);
-    --text-lg: clamp(1.0625rem, 0.95rem + 0.5vw, 1.25rem);
-    --text-xl: clamp(1.25rem, 1.05rem + 0.9vw, 1.625rem);
-    --text-2xl: clamp(1.5rem, 1.2rem + 1.4vw, 2rem);
-    --text-hero: clamp(1.75rem, 1.15rem + 2.8vw, 3.625rem);
-    --text-subtitle: clamp(0.9375rem, 0.88rem + 0.32vw, 1.0625rem);
-    --text-nav: clamp(0.8125rem, 0.76rem + 0.28vw, 0.9375rem);
-
-    /* Fluid spacing */
-    --space-xs: clamp(4px, 0.25rem, 6px);
-    --space-sm: clamp(8px, 0.5rem, 10px);
-    --space-md: clamp(12px, 0.75rem, 16px);
-    --space-lg: clamp(16px, 1rem, 20px);
-    --space-xl: clamp(20px, 1.25rem, 28px);
-    --space-2xl: clamp(24px, 1.5rem, 32px);
-    --space-3xl: clamp(32px, 2rem, 48px);
-
-    /* Breakpoint references (keep in sync with css/mobile-layout.css + js/mobile-nav.js)
-       Compact layout (stacked):   max-width: 1024px
-       Laptop:                   1025px – 1279px
-       Desktop:                  1280px+
-       Pointer/hover queries are only for cursor + hover effects — not layout tier. */
-    --bp-sm: 360px;
-    --bp-md: 480px;
-    --bp-lg: 768px;
-    --bp-xl: 1024px;
-    --bp-2xl: 1440px;
-}
-
-/* Small desktop: shrink UI proportionally so layout matches large displays.
-   NB: divide by 1440px (a length) so the ratio is unitless — dividing by a
-   bare number yields a length and makes the whole clamp() invalid. */
-@media (min-width: 1025px) and (max-width: 1439px) {
-    :root {
-        --ui-scale: clamp(0.78, 0.55 + 0.45 * (100vw / 1440px), 0.98);
-    }
-}
-
-@media (min-width: 1440px) {
-    :root {
-        --ui-scale: 1;
-    }
+    /* Section padding */
+    --section-pad-v: var(--space-3xl);
+    --section-pad-h: 80px;
 }
 
 @media (max-width: 1024px) {
     :root {
+        --section-pad-v: var(--space-2xl);
+        --section-pad-h: 40px;
         --ui-scale: 1;
-        --page-padding: clamp(20px, 6.5vw, 32px);
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 767px) {
     :root {
-        --page-padding: clamp(18px, 6.5vw, 26px);
+        --section-pad-v: 48px;
+        --section-pad-h: 20px;
     }
 }

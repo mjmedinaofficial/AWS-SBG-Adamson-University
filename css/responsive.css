@@ -1,47 +1,126 @@
 /* ============================================================
-   AWS SBG AdU — Unified Responsive Overrides
-   Loads LAST to enforce consistent breakpoint behavior.
-   Uses !important throughout to override legacy mobile-layout.css
+   AWS SBG AdU — Global Responsive & Design System Overrides
+   Loads LAST. Enforces design tokens, removes AI feel,
+   ensures full responsiveness across all breakpoints.
    ============================================================ */
 
-/* --- GLOBAL: prevent horizontal scroll --- */
+/* ═══════════════════════════════════════
+   GLOBAL RESETS & FOUNDATIONS
+   ═══════════════════════════════════════ */
 html, body {
     overflow-x: hidden !important;
     max-width: 100vw !important;
 }
 
-/* --- GLOBAL: fluid images --- */
+body {
+    font-family: var(--font-body) !important;
+    color: var(--color-text-primary) !important;
+    background: var(--color-bg-deep) !important;
+    line-height: 1.6;
+}
+
 img {
     max-width: 100%;
     height: auto;
+    display: block;
 }
 
-/* --- MASCOT (Falcat sticker) --- */
+/* All interactive elements get consistent transition */
+a, button, [role="button"], input, select, textarea {
+    transition: all 0.2s ease;
+}
+
+/* Remove the floating gear/cog icon site-wide */
+.custom-cursor,
+.custom-cursor-glow {
+    display: none !important;
+}
+
+/* ═══════════════════════════════════════
+   MASCOT (Falcat sticker)
+   ═══════════════════════════════════════ */
 .sticker {
-    width: 80px !important;
     position: fixed !important;
-    bottom: 20px !important;
-    right: 20px !important;
-    z-index: 999 !important;
+    bottom: 24px !important;
+    right: 24px !important;
+    width: 72px !important;
+    z-index: 50 !important;
     pointer-events: none !important;
+    animation: float 3s ease-in-out infinite;
 }
 
-/* --- GLOBAL: cards never overflow --- */
+@media (max-width: 1024px) {
+    .sticker {
+        width: 56px !important;
+        bottom: 20px !important;
+        right: 20px !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .sticker {
+        width: 44px !important;
+        bottom: 16px !important;
+        right: 16px !important;
+    }
+}
+
+/* ═══════════════════════════════════════
+   TYPOGRAPHY — enforce token fonts
+   ═══════════════════════════════════════ */
+h1, h2, h3, h4, h5, h6,
+.section1-content h1,
+.section2-header h2,
+.join-hero h1,
+.sbg-hero h1,
+.events-header h1,
+.of-hero h1,
+.oh-hero h1 {
+    font-family: var(--font-display) !important;
+    color: var(--color-text-primary);
+}
+
+p, li, span, a, label, td, th {
+    font-family: var(--font-body);
+}
+
+/* Mono only for stats, dates, labels, badges */
+.ev-list-date,
+.ev-list-badge,
+.section3-notes-stat-number,
+.ev-stat-num,
+.oh-stat-num,
+.ev-pagination-info,
+.section2-event-card-badge,
+.section2-event-date-month,
+.section2-event-date-day,
+.page-label,
+.events-label {
+    font-family: var(--font-mono) !important;
+}
+
+/* ═══════════════════════════════════════
+   CARDS — consistent treatment
+   ═══════════════════════════════════════ */
 .section2-event-card,
 .section2-view-all-card,
 .of-card.of-contact-card,
 .sbg-narrative-card,
-.oh-narrative-card {
+.oh-narrative-card,
+.section1-glass-card {
+    border-radius: var(--radius-md) !important;
+    border: 1px solid var(--color-border-subtle) !important;
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
 }
 
-/* ============================================================
-   MOBILE + TABLET (≤1024px) — Navbar
-   Hide nav pill, show hamburger
-   ============================================================ */
-@media (max-width: 1024px) {
+/* ═══════════════════════════════════════
+   NAVBAR — all breakpoints
+   ═══════════════════════════════════════ */
+
+/* Tablet (768–1024px): hide nav pill, show hamburger + CTA */
+@media (min-width: 768px) and (max-width: 1024px) {
     .navbar-nav-pill {
         display: none !important;
     }
@@ -52,19 +131,20 @@ img {
 
     .navbar-mobile-menu {
         display: flex !important;
-        background: rgba(20, 12, 45, 0.98) !important;
+        background: rgba(11, 9, 24, 0.98) !important;
     }
 
     .navbar-mobile-link {
         min-height: 48px !important;
         display: flex !important;
         align-items: center !important;
+        border-bottom: 1px solid var(--color-border-subtle) !important;
+        border-radius: 0 !important;
+        padding: 0 var(--space-md) !important;
     }
 }
 
-/* ============================================================
-   MOBILE (≤767px) — Navbar: hide CTA, brand shrinks
-   ============================================================ */
+/* Mobile (<768px): brand shrinks, no CTA in bar */
 @media (max-width: 767px) {
     .navbar-cta {
         display: none !important;
@@ -83,6 +163,19 @@ img {
         height: 28px !important;
     }
 
+    .navbar-nav-pill {
+        display: none !important;
+    }
+
+    .navbar-hamburger {
+        display: flex !important;
+    }
+
+    .navbar-mobile-menu {
+        display: flex !important;
+        background: rgba(11, 9, 24, 0.98) !important;
+    }
+
     .navbar-inner {
         padding: 8px 20px !important;
     }
@@ -90,28 +183,26 @@ img {
     .navbar-mobile-cta {
         order: -1 !important;
         width: 100% !important;
-        margin-bottom: 8px !important;
+        margin-bottom: var(--space-sm) !important;
         margin-top: 0 !important;
     }
 }
 
-/* ============================================================
-   MOBILE (≤1024px) — Homepage hero + sections
-   Override the scroll-snap system, make it normal scroll
-   ============================================================ */
+/* ═══════════════════════════════════════
+   HOMEPAGE — MOBILE (≤1024px)
+   ═══════════════════════════════════════ */
 @media (max-width: 1024px) {
-    /* Kill the fixed navbar on home — make it sticky for mobile scroll */
+    /* Sticky nav on mobile home (not fixed) */
     .home-page .site-navbar {
         position: sticky !important;
         top: 0 !important;
     }
 
-    /* Normal scrolling body */
+    /* Normal scroll */
     .home-page html,
     .home-page body {
         overflow-y: auto !important;
         height: auto !important;
-        min-height: 100% !important;
     }
 
     .home-page .horizontal-container {
@@ -124,17 +215,15 @@ img {
         height: auto !important;
         min-height: auto !important;
         scroll-snap-align: none !important;
-        padding: 60px 20px 40px !important;
+        padding: var(--section-pad-v) var(--section-pad-h) !important;
     }
 
-    /* Hero section — stack vertically */
+    /* Hero — stack */
     .home-page .page-section.section1 {
         flex-direction: column !important;
         align-items: center !important;
         justify-content: flex-start !important;
-        padding-top: 16px !important;
-        padding-bottom: 32px !important;
-        gap: 24px !important;
+        gap: var(--space-lg) !important;
     }
 
     .section1-content {
@@ -146,7 +235,7 @@ img {
     }
 
     .section1-content h1 .section1-title {
-        font-size: clamp(24px, 7vw, 36px) !important;
+        font-size: var(--text-2xl) !important;
         align-items: center !important;
     }
 
@@ -158,7 +247,7 @@ img {
 
     .section1-lead,
     .section1-motto {
-        font-size: 14px !important;
+        font-size: var(--text-base) !important;
         text-align: center !important;
     }
 
@@ -201,7 +290,6 @@ img {
     .section1-carousel-slide {
         min-width: 100% !important;
         flex: 0 0 100% !important;
-        border-radius: 12px !important;
     }
 
     .section1-carousel-slide:first-child,
@@ -219,7 +307,6 @@ img {
 
     /* Section 2 */
     .home-page .page-section.section2 {
-        padding: 40px 20px !important;
         height: auto !important;
         max-height: none !important;
         min-height: auto !important;
@@ -227,25 +314,23 @@ img {
 
     .section2-events-grid {
         grid-template-columns: 1fr !important;
-        gap: 16px !important;
+        gap: var(--space-md) !important;
     }
 
     .section2-header h2 {
-        font-size: clamp(22px, 6vw, 32px) !important;
+        font-size: var(--text-2xl) !important;
     }
 
-    /* Section 3 */
+    /* Section 3 — Notes scrollable */
     .home-page .page-section.section3 {
         min-height: auto !important;
-        padding: 40px 20px !important;
     }
 
     .section3-stage {
         min-height: auto !important;
-        padding: 20px 0 !important;
+        padding: var(--space-lg) 0 !important;
     }
 
-    /* Notes app — make scrollable on mobile */
     .section3-window {
         min-height: auto !important;
         max-height: none !important;
@@ -274,44 +359,39 @@ img {
         transform: none !important;
     }
 
-    /* Page indicators — hide on mobile */
+    /* Page indicators — hide */
     .page-indicator {
         display: none !important;
     }
+}
 
-    /* Sticker smaller */
-    .sticker {
-        width: 48px !important;
-        bottom: 12px !important;
-        right: 12px !important;
+/* Tablet events grid */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .section2-events-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+
+    .section1-content h1 .section1-title {
+        font-size: var(--text-3xl) !important;
     }
 }
 
-/* ============================================================
-   SUBPAGES (≤1024px) — Tighter padding
-   ============================================================ */
+/* ═══════════════════════════════════════
+   SUBPAGES — padding & layout
+   ═══════════════════════════════════════ */
 @media (max-width: 1024px) {
     .join-page,
     .sbg-page,
     .events-page,
     .of-page,
     .oh-page {
-        padding: 24px 20px 32px !important;
+        padding: var(--section-pad-v) var(--section-pad-h) !important;
     }
 
     .page-back,
     .events-back {
         position: static !important;
-        margin-bottom: 16px !important;
-    }
-
-    /* Heroes — ensure centered */
-    .join-hero,
-    .sbg-hero,
-    .events-header,
-    .of-hero,
-    .oh-hero {
-        text-align: center !important;
+        margin-bottom: var(--space-md) !important;
     }
 
     .join-hero h1,
@@ -319,18 +399,18 @@ img {
     .events-header h1,
     .of-hero h1,
     .oh-hero h1 {
-        font-size: clamp(22px, 6vw, 32px) !important;
+        font-size: var(--text-2xl) !important;
     }
 }
 
-/* ============================================================
-   OFFICERS PAGE — Card grid
-   ============================================================ */
+/* ═══════════════════════════════════════
+   OFFICERS — Card grid
+   ═══════════════════════════════════════ */
 @media (max-width: 767px) {
     .of-org-row {
         display: flex !important;
         flex-direction: column !important;
-        gap: 16px !important;
+        gap: var(--space-md) !important;
     }
 
     .of-card.of-contact-card {
@@ -351,9 +431,9 @@ img {
     }
 }
 
-/* ============================================================
-   EVENTS PAGE — Layout
-   ============================================================ */
+/* ═══════════════════════════════════════
+   EVENTS — Layout
+   ═══════════════════════════════════════ */
 @media (max-width: 767px) {
     .ev-finder-window {
         height: auto !important;
@@ -369,18 +449,14 @@ img {
         max-height: 300px !important;
     }
 
-    .section2-events-grid {
-        grid-template-columns: 1fr !important;
-    }
-
     .section2-view-all-btn {
         width: 100% !important;
     }
 }
 
-/* ============================================================
-   TOUCH TARGETS — minimum 44px on mobile
-   ============================================================ */
+/* ═══════════════════════════════════════
+   TOUCH TARGETS — 44px minimum on mobile
+   ═══════════════════════════════════════ */
 @media (max-width: 1024px) {
     .navbar-hamburger,
     .navbar-mobile-link,
@@ -392,22 +468,5 @@ img {
     .ev-list-row,
     .ev-pagination-btn {
         min-height: 44px;
-    }
-}
-
-/* ============================================================
-   TABLET ONLY (768px – 1024px)
-   ============================================================ */
-@media (min-width: 768px) and (max-width: 1024px) {
-    .sticker {
-        width: 60px !important;
-    }
-
-    .section2-events-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    }
-
-    .section1-content h1 .section1-title {
-        font-size: 36px !important;
     }
 }
