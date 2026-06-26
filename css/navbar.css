@@ -28,9 +28,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 40px;
-    max-width: var(--content-max);
-    margin: 0 auto;
+    padding: 10px 10vw;
 }
 
 /* ---------- Left: Brand (no pill, clean logo + text) ---------- */
@@ -369,7 +367,7 @@
 /* ---------- Tablet adaptation (768px – 1024px) ---------- */
 @media (min-width: 768px) and (max-width: 1024px) {
     .navbar-inner {
-        padding: 12px 24px;
+        padding: 10px 5vw;
     }
 
     .navbar-link {
