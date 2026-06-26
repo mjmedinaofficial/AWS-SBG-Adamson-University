@@ -1,25 +1,22 @@
 /* ============================================================
-   AWS SBG AdU — Pill-Based Navbar
-   Full-width glass bar with pill containers for brand and nav.
-   Left: Brand pill (logo + name)
-   Right: Nav pill (About Us + Workshops) + standalone Join Us CTA
-   Mobile (<768px): collapses to hamburger
+   AWS SBG AdU — Navbar v3
+   Pill-based sticky bar. Brand pill left, nav pill + CTA right.
+   Responsive: tablet hides nav pill, mobile hides CTA too.
    ============================================================ */
 
-/* ---------- Base navbar bar ---------- */
+/* ---------- Base bar ---------- */
 .site-navbar {
     position: sticky;
     top: 0;
     left: 0;
     right: 0;
-    z-index: 9999;
+    z-index: 100;
     background: rgba(11, 9, 24, 0.88);
-    backdrop-filter: blur(16px) saturate(160%);
-    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
     border-bottom: 1px solid var(--color-border-subtle);
 }
 
-/* Homepage: fixed positioning so it doesn't push the scroll container */
 .home-page .site-navbar {
     position: fixed;
 }
@@ -28,48 +25,57 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px clamp(20px, 5vw, 80px);
+    padding: 10px 40px;
     max-width: 1400px;
     margin: 0 auto;
 }
 
-/* ---------- Left: Brand (no pill, clean logo + text) ---------- */
+/* ---------- LEFT: Brand pill ---------- */
 .navbar-brand-pill {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 0;
-    background: none;
-    border: none;
-    border-radius: 0;
+    padding: 6px 16px 6px 6px;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid var(--color-border-active);
+    border-radius: var(--radius-pill);
     text-decoration: none;
     color: var(--color-text-primary);
     flex-shrink: 0;
-    transition: opacity 0.2s ease;
+    transition: border-color 0.2s ease, background 0.2s ease;
 }
 
 .navbar-brand-pill:hover {
-    opacity: 0.8;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.25);
 }
 
 .navbar-brand-logo {
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    object-fit: contain;
+    object-fit: cover;
     flex-shrink: 0;
 }
 
 .navbar-brand-name {
-    font-family: var(--font-heading);
-    font-size: 14px;
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
     font-weight: 600;
-    color: #F0EEFF;
+    color: var(--color-text-primary);
     white-space: nowrap;
     letter-spacing: -0.01em;
 }
 
-/* ---------- Right: Nav group (pill + CTA) ---------- */
+/* Short brand name — hidden by default, shown on tablet */
+.navbar-brand-name .brand-short {
+    display: none;
+}
+.navbar-brand-name .brand-full {
+    display: inline;
+}
+
+/* ---------- RIGHT: Nav group ---------- */
 .navbar-right {
     display: flex;
     align-items: center;
@@ -81,13 +87,13 @@
     display: flex;
     align-items: center;
     gap: 4px;
-    padding: 6px 8px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 999px;
+    padding: 5px 6px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-pill);
 }
 
-/* Individual link wrappers inside the pill */
+/* Link wrappers */
 .navbar-link-wrap {
     position: relative;
     display: flex;
@@ -95,50 +101,52 @@
 }
 
 .navbar-link {
-    font-family: var(--font-heading);
-    font-size: 14px;
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
     font-weight: 500;
-    color: #A89FC5;
+    color: var(--color-text-secondary);
     text-decoration: none;
-    padding: 6px 14px;
-    border-radius: 999px;
+    padding: 7px 16px;
+    border-radius: var(--radius-pill);
     position: relative;
-    transition: color 0.2s ease;
+    transition: color 0.2s ease, background 0.2s ease;
     white-space: nowrap;
 }
 
 .navbar-link:hover {
-    color: #F0EEFF;
+    color: var(--color-text-primary);
 }
 
-/* Active state: white text + orange dot below */
+/* Active state */
 .navbar-link.active {
-    color: #F0EEFF;
+    color: var(--color-text-primary);
+    background: rgba(255, 255, 255, 0.09);
 }
 
 .navbar-link.active::after {
     content: '';
     position: absolute;
-    bottom: -1px;
+    bottom: 2px;
     left: 50%;
     transform: translateX(-50%);
-    width: 5px;
-    height: 5px;
+    width: 4px;
+    height: 4px;
     border-radius: 50%;
-    background: #F5A623;
+    background: var(--color-accent-orange);
 }
 
-/* ---------- CTA button (Join Us) — standalone orange pill ---------- */
+/* ---------- CTA: Join Us ---------- */
 .navbar-cta {
-    font-family: var(--font-heading);
-    font-size: 14px;
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
     font-weight: 700;
-    color: #0D0B1A;
-    background: #F5A623;
-    padding: 10px 22px;
-    border-radius: 999px;
+    color: #0B0918;
+    background: var(--color-accent-orange);
+    padding: 9px 22px;
+    border-radius: var(--radius-pill);
     text-decoration: none;
     white-space: nowrap;
+    margin-left: 12px;
     transition: background 0.2s ease, transform 0.2s ease;
 }
 
@@ -154,19 +162,19 @@
 /* ---------- Dropdown menus ---------- */
 .navbar-dropdown {
     position: absolute;
-    top: calc(100% + 14px);
+    top: calc(100% + 12px);
     left: 50%;
     transform: translateX(-50%) translateY(-6px) scale(0.96);
     transform-origin: top center;
-    min-width: 200px;
+    min-width: 180px;
     padding: 8px;
-    background: var(--color-bg-surface);
-    border: 1px solid rgba(255, 255, 255, 0.10);
-    border-radius: 12px;
+    background: rgba(15, 12, 30, 0.97);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-md);
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+    transition: opacity 0.2s ease, transform 0.2s ease;
     z-index: 200;
 }
 
@@ -177,60 +185,46 @@
     transform: translateX(-50%) translateY(0) scale(1);
 }
 
-.navbar-dropdown::before {
-    content: '';
-    position: absolute;
-    top: -5px;
-    left: 50%;
-    transform: translateX(-50%) rotate(45deg);
-    width: 10px;
-    height: 10px;
-    background: var(--color-bg-surface);
-    border-left: 1px solid rgba(255, 255, 255, 0.10);
-    border-top: 1px solid rgba(255, 255, 255, 0.10);
-    border-radius: 2px 0 0 0;
-}
-
 .navbar-dropdown-item {
     display: block;
     padding: 10px 14px;
-    border-radius: 8px;
-    color: #A89FC5;
+    border-radius: var(--radius-sm);
+    color: var(--color-text-secondary);
     font-family: var(--font-body);
-    font-size: 14px;
+    font-size: var(--text-sm);
     font-weight: 500;
     text-decoration: none;
-    transition: background 0.15s ease, color 0.15s ease;
+    transition: background 0.2s ease, color 0.2s ease;
 }
 
 .navbar-dropdown-item:hover {
     background: var(--color-bg-elevated);
-    color: #F0EEFF;
+    color: var(--color-text-primary);
 }
 
 .navbar-dropdown-item.primary {
-    color: #F0EEFF;
+    color: var(--color-text-primary);
     font-weight: 600;
 }
 
 .navbar-dropdown-divider {
     height: 1px;
     margin: 4px 8px;
-    background: rgba(255, 255, 255, 0.06);
+    background: var(--color-border-subtle);
 }
 
-/* ---------- Hamburger button (mobile) ---------- */
+/* ---------- Hamburger ---------- */
 .navbar-hamburger {
     display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 4px;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     padding: 0;
     border: none;
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     background: transparent;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
@@ -243,32 +237,28 @@
 
 .navbar-hamburger-line {
     display: block;
-    width: 18px;
+    width: 20px;
     height: 2px;
-    background: #F0EEFF;
+    background: var(--color-text-primary);
     border-radius: 2px;
     transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-/* Hamburger → X animation */
 .navbar-hamburger[aria-expanded="true"] .navbar-hamburger-line:nth-child(1) {
     transform: translateY(6px) rotate(45deg);
 }
-
 .navbar-hamburger[aria-expanded="true"] .navbar-hamburger-line:nth-child(2) {
     opacity: 0;
 }
-
 .navbar-hamburger[aria-expanded="true"] .navbar-hamburger-line:nth-child(3) {
     transform: translateY(-6px) rotate(-45deg);
 }
 
-/* ---------- Mobile menu ---------- */
+/* ---------- Mobile menu (dropdown panel) ---------- */
 .navbar-mobile-menu {
     display: none;
     flex-direction: column;
-    padding: 0 40px 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 0;
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.35s cubic-bezier(0.25, 1, 0.5, 1), padding 0.35s ease;
@@ -276,109 +266,141 @@
 }
 
 .navbar-mobile-menu.is-open {
-    max-height: 400px;
-    padding-top: 16px;
-    padding-bottom: 20px;
+    max-height: 500px;
+    padding: 16px 24px;
     visibility: visible;
 }
 
 .navbar-mobile-links {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 0;
 }
 
 .navbar-mobile-link {
-    font-family: var(--font-heading);
-    font-size: 15px;
+    font-family: var(--font-display);
+    font-size: var(--text-base);
     font-weight: 500;
-    color: #A89FC5;
+    color: var(--color-text-secondary);
     text-decoration: none;
-    padding: 12px 16px;
-    border-radius: 8px;
-    transition: background 0.15s ease, color 0.15s ease;
+    padding: 0 16px;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--color-border-subtle);
+    transition: color 0.2s ease, background 0.2s ease;
+}
+
+.navbar-mobile-link:last-of-type {
+    border-bottom: none;
 }
 
 .navbar-mobile-link:hover,
 .navbar-mobile-link:active {
     background: var(--color-bg-elevated);
-    color: #F0EEFF;
+    color: var(--color-text-primary);
 }
 
 .navbar-mobile-cta {
-    font-family: var(--font-heading);
-    font-size: 15px;
+    font-family: var(--font-display);
+    font-size: var(--text-base);
     font-weight: 700;
-    color: #0D0B1A;
-    background: #F5A623;
+    color: #0B0918;
+    background: var(--color-accent-orange);
     text-align: center;
-    padding: 12px 20px;
-    border-radius: 999px;
+    padding: 14px 20px;
+    border-radius: var(--radius-sm);
     text-decoration: none;
-    margin-top: 12px;
+    margin-bottom: 8px;
     transition: background 0.2s ease;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .navbar-mobile-cta:hover {
     background: #FFB83F;
 }
 
-/* ---------- Mobile breakpoint (<768px) ---------- */
+/* ═══════════════════════════════════════
+   TABLET (768px – 1024px)
+   ═══════════════════════════════════════ */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .navbar-inner {
+        padding: 10px 24px;
+    }
+
+    /* Brand: short name */
+    .navbar-brand-name .brand-full {
+        display: none;
+    }
+    .navbar-brand-name .brand-short {
+        display: inline;
+    }
+
+    /* Hide nav pill */
+    .navbar-nav-pill {
+        display: none;
+    }
+
+    /* Show hamburger */
+    .navbar-hamburger {
+        display: flex;
+    }
+
+    /* Keep Join Us visible */
+    .navbar-cta {
+        margin-left: 0;
+    }
+
+    /* Show mobile menu */
+    .navbar-mobile-menu {
+        display: flex;
+        background: rgba(11, 9, 24, 0.98);
+    }
+}
+
+/* ═══════════════════════════════════════
+   MOBILE (<768px)
+   ═══════════════════════════════════════ */
 @media (max-width: 767px) {
     .navbar-inner {
         padding: 10px 20px;
     }
 
-    .navbar-right {
-        gap: 8px;
+    /* Brand: short name */
+    .navbar-brand-name .brand-full {
+        display: none;
+    }
+    .navbar-brand-name .brand-short {
+        display: inline;
+    }
+    .navbar-brand-name {
+        font-size: 12px;
     }
 
-    /* Hide nav pill and CTA — both go into hamburger menu */
+    /* Hide nav pill and CTA */
     .navbar-nav-pill {
         display: none;
     }
-
     .navbar-cta {
         display: none;
     }
 
+    /* Hamburger only */
     .navbar-hamburger {
         display: flex;
     }
 
+    /* Mobile menu with Join Us as first item */
     .navbar-mobile-menu {
         display: flex;
-        padding-left: 20px;
-        padding-right: 20px;
+        background: rgba(11, 9, 24, 0.98);
     }
 
-    .navbar-brand-pill {
-        gap: 8px;
-    }
-
-    .navbar-brand-logo {
-        width: 28px;
-        height: 28px;
-    }
-
-    .navbar-brand-name {
-        font-size: 13px;
-    }
-}
-
-/* ---------- Tablet adaptation (768px – 1024px) ---------- */
-@media (min-width: 768px) and (max-width: 1024px) {
-    .navbar-inner {
-        padding: 10px 5vw;
-    }
-
-    .navbar-link {
-        font-size: 13px;
-        padding: 6px 10px;
-    }
-
-    .navbar-cta {
-        padding: 8px 18px;
-        font-size: 13px;
+    .navbar-mobile-cta {
+        order: -1;
+        width: 100%;
     }
 }

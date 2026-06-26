@@ -116,77 +116,9 @@ p, li, span, a, label, td, th {
 }
 
 /* ═══════════════════════════════════════
-   NAVBAR — all breakpoints
+   NAVBAR — responsive overrides handled in navbar.css
+   Only add !important overrides here if navbar.css isn't winning
    ═══════════════════════════════════════ */
-
-/* Tablet (768–1024px): hide nav pill, show hamburger + CTA */
-@media (min-width: 768px) and (max-width: 1024px) {
-    .navbar-nav-pill {
-        display: none !important;
-    }
-
-    .navbar-hamburger {
-        display: flex !important;
-    }
-
-    .navbar-mobile-menu {
-        display: flex !important;
-        background: rgba(11, 9, 24, 0.98) !important;
-    }
-
-    .navbar-mobile-link {
-        min-height: 48px !important;
-        display: flex !important;
-        align-items: center !important;
-        border-bottom: 1px solid var(--color-border-subtle) !important;
-        border-radius: 0 !important;
-        padding: 0 var(--space-md) !important;
-    }
-}
-
-/* Mobile (<768px): brand shrinks, no CTA in bar */
-@media (max-width: 767px) {
-    .navbar-cta {
-        display: none !important;
-    }
-
-    .navbar-right {
-        gap: 0 !important;
-    }
-
-    .navbar-brand-name {
-        font-size: 13px !important;
-    }
-
-    .navbar-brand-logo {
-        width: 28px !important;
-        height: 28px !important;
-    }
-
-    .navbar-nav-pill {
-        display: none !important;
-    }
-
-    .navbar-hamburger {
-        display: flex !important;
-    }
-
-    .navbar-mobile-menu {
-        display: flex !important;
-        background: rgba(11, 9, 24, 0.98) !important;
-    }
-
-    .navbar-inner {
-        padding: 8px 20px !important;
-    }
-
-    .navbar-mobile-cta {
-        order: -1 !important;
-        width: 100% !important;
-        margin-bottom: var(--space-sm) !important;
-        margin-top: 0 !important;
-    }
-}
 
 /* ═══════════════════════════════════════
    HOMEPAGE — MOBILE (≤1024px)
