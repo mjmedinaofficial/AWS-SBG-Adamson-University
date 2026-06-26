@@ -30,10 +30,16 @@ a, button, [role="button"], input, select, textarea {
     transition: all 0.2s ease;
 }
 
-/* Remove the floating gear/cog icon site-wide */
-.custom-cursor,
-.custom-cursor-glow {
-    display: none !important;
+/* Custom cursor — keep the builder icon */
+.custom-cursor {
+    pointer-events: none;
+}
+
+@media (pointer: coarse) {
+    .custom-cursor,
+    .custom-cursor-glow {
+        display: none !important;
+    }
 }
 
 /* ═══════════════════════════════════════
