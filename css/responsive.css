@@ -522,15 +522,23 @@ p, li, span, a, label, td, th {
     margin: 0;
 }
 
-/* Homepage footer — ensure it's reachable inside the scroll flow */
+/* Homepage footer — inside scroll container */
 .site-footer--home {
     position: relative;
     z-index: 2;
+    scroll-snap-align: none;
 }
 
-/* On desktop, homepage scroll container hides outside content.
-   The footer dot in page-indicator scrolls to section 3 which
-   contains the footer. On mobile, everything flows naturally. */
+/* Page hero logos (Falcat illustrations) — decorative, smaller */
+.page-hero-logo {
+    width: 120px !important;
+    height: 120px !important;
+    margin: 0 auto var(--space-lg) !important;
+    display: block;
+    object-fit: contain;
+    border-radius: 0 !important;
+    filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.3));
+}
 .site-footer-card,
 .site-footer-main,
 .site-footer-logo-row,
