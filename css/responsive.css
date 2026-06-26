@@ -1,13 +1,13 @@
 /* ============================================================
    AWS SBG AdU — Unified Responsive Overrides
    Loads LAST to enforce consistent breakpoint behavior.
-   Breakpoints: 480 / 768 / 1024 / 1280 / 1440
+   Uses !important throughout to override legacy mobile-layout.css
    ============================================================ */
 
 /* --- GLOBAL: prevent horizontal scroll --- */
 html, body {
-    overflow-x: hidden;
-    max-width: 100vw;
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
 }
 
 /* --- GLOBAL: fluid images --- */
@@ -16,15 +16,7 @@ img {
     height: auto;
 }
 
-/* --- GLOBAL: typography scaling --- */
-:root {
-    --text-hero-fluid: clamp(26px, 4vw, 56px);
-    --text-section-heading: clamp(22px, 3vw, 40px);
-    --text-body-fluid: clamp(14px, 1.5vw, 16px);
-    --text-label-fluid: clamp(11px, 1vw, 13px);
-}
-
-/* --- MASCOT (Falcat sticker) global sizing --- */
+/* --- MASCOT (Falcat sticker) --- */
 .sticker {
     width: 80px !important;
     position: fixed !important;
@@ -34,56 +26,54 @@ img {
     pointer-events: none !important;
 }
 
+/* --- GLOBAL: cards never overflow --- */
+.section2-event-card,
+.section2-view-all-card,
+.of-card.of-contact-card,
+.sbg-narrative-card,
+.oh-narrative-card {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
 /* ============================================================
-   NAVBAR — TABLET (768px – 1024px)
-   Hide nav pill text links, show hamburger + CTA
+   MOBILE + TABLET (≤1024px) — Navbar
+   Hide nav pill, show hamburger
    ============================================================ */
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (max-width: 1024px) {
     .navbar-nav-pill {
-        display: none;
+        display: none !important;
     }
 
     .navbar-hamburger {
-        display: flex;
-        order: 1;
-    }
-
-    .navbar-cta {
-        order: 2;
+        display: flex !important;
     }
 
     .navbar-mobile-menu {
-        display: flex;
-        background: rgba(20, 12, 45, 0.98);
-    }
-
-    .navbar-mobile-menu.is-open {
-        padding: 16px 24px;
+        display: flex !important;
+        background: rgba(20, 12, 45, 0.98) !important;
     }
 
     .navbar-mobile-link {
-        min-height: 48px;
-        display: flex;
-        align-items: center;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-        border-radius: 0;
-        padding: 0 16px;
-    }
-
-    .navbar-mobile-link:last-of-type {
-        border-bottom: none;
-    }
-
-    .navbar-inner {
-        padding: 10px 32px;
+        min-height: 48px !important;
+        display: flex !important;
+        align-items: center !important;
     }
 }
 
 /* ============================================================
-   NAVBAR — MOBILE (<768px)
-   Brand shrinks, hamburger only, no top-bar CTA
+   MOBILE (≤767px) — Navbar: hide CTA, brand shrinks
    ============================================================ */
 @media (max-width: 767px) {
+    .navbar-cta {
+        display: none !important;
+    }
+
+    .navbar-right {
+        gap: 0 !important;
+    }
+
     .navbar-brand-name {
         font-size: 13px !important;
     }
@@ -93,88 +83,57 @@ img {
         height: 28px !important;
     }
 
-    /* Hide CTA from top bar — it goes inside the mobile menu */
-    .navbar-right .navbar-cta {
-        display: none !important;
-    }
-
-    .navbar-right {
-        gap: 0 !important;
-    }
-
-    .navbar-hamburger {
-        display: flex !important;
-    }
-
-    .navbar-nav-pill {
-        display: none !important;
-    }
-
-    .navbar-mobile-menu {
-        display: flex !important;
-    }
-
-    /* Move Join Us inside mobile menu as first item styled as button */
-    .navbar-mobile-cta {
-        order: -1;
-        width: 100%;
-        margin-bottom: 8px;
-        margin-top: 0;
-        min-height: 48px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
     .navbar-inner {
-        padding: 10px 20px !important;
+        padding: 8px 16px !important;
     }
 
-    /* Page indicator dots — hide on mobile */
-    .page-indicator {
-        display: none !important;
-    }
-}
-
-/* ============================================================
-   HERO SECTION — TABLET (768px – 1024px)
-   ============================================================ */
-@media (min-width: 768px) and (max-width: 1024px) {
-    .page-section.section1 {
-        padding: 56px 5vw 0;
-    }
-
-    .section1-content {
-        flex: 1 1 50%;
-        max-width: 50%;
-    }
-
-    .section1-card-wrapper {
-        flex: 1 1 50%;
-        padding-left: 20px;
-    }
-
-    .section1-content h1 .section1-title {
-        font-size: 36px !important;
-    }
-
-    .section1-glass-card {
-        font-size: 13px;
+    .navbar-mobile-cta {
+        order: -1 !important;
+        width: 100% !important;
+        margin-bottom: 8px !important;
+        margin-top: 0 !important;
     }
 }
 
 /* ============================================================
-   HERO SECTION — MOBILE (<768px)
-   Single column, text on top, mockup below
+   MOBILE (≤1024px) — Homepage hero + sections
+   Override the scroll-snap system, make it normal scroll
    ============================================================ */
-@media (max-width: 767px) {
-    .page-section.section1 {
-        flex-direction: column !important;
-        justify-content: flex-start !important;
-        align-items: center !important;
-        padding: 80px 20px 20px !important;
+@media (max-width: 1024px) {
+    /* Kill the fixed navbar on home — make it sticky for mobile scroll */
+    .home-page .site-navbar {
+        position: sticky !important;
+        top: 0 !important;
+    }
+
+    /* Normal scrolling body */
+    .home-page html,
+    .home-page body {
+        overflow-y: auto !important;
         height: auto !important;
-        min-height: 100vh !important;
+        min-height: 100% !important;
+    }
+
+    .home-page .horizontal-container {
+        height: auto !important;
+        overflow: visible !important;
+        scroll-snap-type: none !important;
+    }
+
+    .home-page .page-section {
+        height: auto !important;
+        min-height: auto !important;
+        scroll-snap-align: none !important;
+        padding: 60px 20px 40px !important;
+    }
+
+    /* Hero section — stack vertically */
+    .home-page .page-section.section1 {
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        padding-top: 32px !important;
+        gap: 24px !important;
     }
 
     .section1-content {
@@ -182,11 +141,11 @@ img {
         max-width: 100% !important;
         width: 100% !important;
         text-align: center !important;
-        margin-bottom: 24px !important;
+        order: 1 !important;
     }
 
     .section1-content h1 .section1-title {
-        font-size: 28px !important;
+        font-size: clamp(24px, 7vw, 36px) !important;
         align-items: center !important;
     }
 
@@ -209,29 +168,31 @@ img {
 
     .section1-btn {
         width: 100% !important;
+        max-width: 280px !important;
         text-align: center !important;
         justify-content: center !important;
+        padding: 14px 28px !important;
+        min-width: 0 !important;
+        height: auto !important;
     }
 
     .section1-card-wrapper {
         flex: none !important;
         width: 100% !important;
         padding-left: 0 !important;
-        justify-content: center !important;
+        order: 2 !important;
     }
 
     .section1-glass-card {
         max-width: 100% !important;
-        max-height: 300px !important;
+        max-height: 280px !important;
         overflow: hidden !important;
     }
 
-    /* Hide the footer bar inside the mockup on mobile */
     .section1-card-bottombar {
         display: none !important;
     }
 
-    /* Carousel — stop animation, simplify */
     .section1-carousel-track {
         animation: none !important;
     }
@@ -239,127 +200,56 @@ img {
     .section1-carousel-slide {
         min-width: 100% !important;
         flex: 0 0 100% !important;
-    }
-}
-
-/* ============================================================
-   SUBPAGES — Section padding by breakpoint
-   ============================================================ */
-@media (min-width: 1025px) {
-    .join-page,
-    .sbg-page,
-    .events-page,
-    .of-page,
-    .oh-page {
-        padding: 40px 60px;
-    }
-}
-
-@media (min-width: 768px) and (max-width: 1024px) {
-    .join-page,
-    .sbg-page,
-    .events-page,
-    .of-page,
-    .oh-page {
-        padding: 32px 32px !important;
-    }
-}
-
-@media (max-width: 767px) {
-    .join-page,
-    .sbg-page,
-    .events-page,
-    .of-page,
-    .oh-page {
-        padding: 24px 20px !important;
-    }
-}
-
-/* ============================================================
-   OFFICERS PAGE — Card grid breakpoints
-   ============================================================ */
-@media (min-width: 1025px) {
-    .of-org-row {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-}
-
-@media (min-width: 768px) and (max-width: 1024px) {
-    .of-org-row {
-        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        border-radius: 12px !important;
     }
 
-    .of-org-row--leadership .of-card.of-contact-card:first-child {
-        grid-column: 1 / -1;
-    }
-}
-
-@media (max-width: 767px) {
-    .of-org-row {
-        grid-template-columns: 1fr !important;
-        display: flex !important;
-        flex-direction: column !important;
+    .section1-carousel-slide:first-child,
+    .section1-carousel-slide:nth-child(4) {
+        opacity: 1 !important;
     }
 
-    .of-card.of-contact-card {
+    .section1-card-media {
         width: 100% !important;
-        max-width: 100% !important;
-        --of-card-max: 100%;
-        padding: 16px !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
+        min-height: 180px !important;
+        height: 200px !important;
     }
 
-    .of-contact-photo-ring {
-        width: 100px !important;
-        height: 100px !important;
+    /* Section 2 */
+    .home-page .page-section.section2 {
+        padding: 40px 20px !important;
+        height: auto !important;
+        max-height: none !important;
+        min-height: auto !important;
     }
 
-    .of-contact-socials {
-        justify-content: center !important;
-    }
-}
-
-/* ============================================================
-   EVENTS PAGE — Master-detail layout breakpoints
-   ============================================================ */
-@media (min-width: 1025px) {
-    .ev-split {
-        grid-template-columns: minmax(220px, 280px) 1fr;
-    }
-
-    .section2-events-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-}
-
-@media (min-width: 768px) and (max-width: 1024px) {
-    .section2-events-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    }
-}
-
-@media (max-width: 767px) {
     .section2-events-grid {
         grid-template-columns: 1fr !important;
+        gap: 16px !important;
     }
 
-    .section2-view-all-btn,
-    .section2-view-all-card-btn {
-        width: 100%;
+    .section2-header h2 {
+        font-size: clamp(22px, 6vw, 32px) !important;
     }
-}
 
-/* ============================================================
-   MASCOT — Responsive sizing
-   ============================================================ */
-@media (min-width: 768px) and (max-width: 1024px) {
-    .sticker {
-        width: 60px !important;
-        bottom: 16px !important;
-        right: 16px !important;
+    /* Section 3 */
+    .home-page .page-section.section3 {
+        min-height: auto !important;
+        padding: 40px 20px !important;
     }
-}
 
-@media (max-width: 767px) {
+    .section3-stage {
+        min-height: auto !important;
+        padding: 20px 0 !important;
+    }
+
+    /* Page indicators — hide on mobile */
+    .page-indicator {
+        display: none !important;
+    }
+
+    /* Sticker smaller */
     .sticker {
         width: 48px !important;
         bottom: 12px !important;
@@ -368,9 +258,100 @@ img {
 }
 
 /* ============================================================
-   TOUCH TARGETS — minimum 44x44px on mobile
+   SUBPAGES (≤1024px) — Tighter padding
+   ============================================================ */
+@media (max-width: 1024px) {
+    .join-page,
+    .sbg-page,
+    .events-page,
+    .of-page,
+    .oh-page {
+        padding: 24px 20px 32px !important;
+    }
+
+    .page-back,
+    .events-back {
+        position: static !important;
+        margin-bottom: 16px !important;
+    }
+
+    /* Heroes — ensure centered */
+    .join-hero,
+    .sbg-hero,
+    .events-header,
+    .of-hero,
+    .oh-hero {
+        text-align: center !important;
+    }
+
+    .join-hero h1,
+    .sbg-hero h1,
+    .events-header h1,
+    .of-hero h1,
+    .oh-hero h1 {
+        font-size: clamp(22px, 6vw, 32px) !important;
+    }
+}
+
+/* ============================================================
+   OFFICERS PAGE — Card grid
    ============================================================ */
 @media (max-width: 767px) {
+    .of-org-row {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 16px !important;
+    }
+
+    .of-card.of-contact-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        --of-card-max: 100% !important;
+    }
+
+    .of-contact-photo-ring {
+        width: 100px !important;
+        height: 100px !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .of-org-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+}
+
+/* ============================================================
+   EVENTS PAGE — Layout
+   ============================================================ */
+@media (max-width: 767px) {
+    .ev-finder-window {
+        height: auto !important;
+        max-height: none !important;
+    }
+
+    .ev-split {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    .ev-list-panel {
+        max-height: 300px !important;
+    }
+
+    .section2-events-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .section2-view-all-btn {
+        width: 100% !important;
+    }
+}
+
+/* ============================================================
+   TOUCH TARGETS — minimum 44px on mobile
+   ============================================================ */
+@media (max-width: 1024px) {
     .navbar-hamburger,
     .navbar-mobile-link,
     .navbar-mobile-cta,
@@ -382,22 +363,21 @@ img {
     .ev-pagination-btn {
         min-height: 44px;
     }
-
-    .ev-pagination-btn {
-        width: 36px;
-        height: 36px;
-    }
 }
 
 /* ============================================================
-   GLOBAL CARDS — never fixed width
+   TABLET ONLY (768px – 1024px)
    ============================================================ */
-.section2-event-card,
-.section2-view-all-card,
-.of-card.of-contact-card,
-.sbg-narrative-card,
-.oh-narrative-card {
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
+@media (min-width: 768px) and (max-width: 1024px) {
+    .sticker {
+        width: 60px !important;
+    }
+
+    .section2-events-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+
+    .section1-content h1 .section1-title {
+        font-size: 36px !important;
+    }
 }
