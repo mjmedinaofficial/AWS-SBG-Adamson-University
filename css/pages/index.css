@@ -17,7 +17,9 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 56px 10vw 0;
+    padding: 56px clamp(20px, 5vw, 80px) 0;
+    max-width: 1400px;
+    margin: 0 auto;
     position: relative;
     overflow: hidden;
 }
@@ -100,7 +102,9 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 60px 10vw 40px;
+    padding: 60px clamp(20px, 5vw, 80px) 40px;
+    max-width: 1400px;
+    margin: 0 auto;
     scroll-snap-align: start;
     scroll-snap-stop: always;
 }

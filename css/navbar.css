@@ -28,7 +28,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 10vw;
+    padding: 10px clamp(20px, 5vw, 80px);
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
 /* ---------- Left: Brand (no pill, clean logo + text) ---------- */
