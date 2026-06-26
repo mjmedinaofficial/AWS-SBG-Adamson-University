@@ -187,6 +187,26 @@
     margin-bottom: 4px;
 }
 
+/* President card — distinctive treatment */
+.of-card.of-contact-card.of-card--president {
+    background: linear-gradient(135deg, #241D45 0%, #1a1035 100%) !important;
+    border: 1px solid rgba(91, 63, 217, 0.4) !important;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35), 0 0 24px rgba(91, 63, 217, 0.1) !important;
+    max-width: 480px;
+}
+
+.of-card--president .of-contact-photo-ring {
+    width: 130px !important;
+    height: 130px !important;
+    border: 3px solid var(--color-accent-orange, #F5A623) !important;
+    box-shadow: 0 0 20px rgba(245, 166, 35, 0.2) !important;
+}
+
+.of-card--president .of-contact-role {
+    color: var(--color-accent-orange, #F5A623) !important;
+    font-weight: 700 !important;
+}
+
 .of-org-row--leadership {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 18.75rem));
@@ -372,11 +392,13 @@
 }
 
 .of-contact-role {
-    font-size: 12px;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.55);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--color-accent-orange, #F5A623);
     margin: 0;
-    font-family: var(--font-sans);
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
     max-width: 100%;
     overflow-wrap: anywhere;
 }

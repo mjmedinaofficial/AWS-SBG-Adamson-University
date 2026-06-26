@@ -101,7 +101,7 @@
 }
 
 .sbg-narrative-card {
-    padding: 14px 16px;
+    padding: 24px;
     border-radius: var(--radius-md, 12px);
     background: var(--color-bg-surface, rgba(255, 255, 255, 0.035));
     border: 1px solid var(--color-border-subtle, rgba(255, 255, 255, 0.07));
@@ -112,6 +112,11 @@
     transform: translateY(-2px);
     border-color: var(--color-border-active, rgba(255, 255, 255, 0.15));
     background: var(--color-bg-elevated, #241D45);
+}
+
+.sbg-narrative-icon {
+    color: var(--color-accent-orange, #F5A623);
+    margin-bottom: 12px;
 }
 
 .sbg-narrative-card h4 {
