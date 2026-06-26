@@ -267,17 +267,19 @@
 .navbar-mobile-menu {
     display: none;
     flex-direction: column;
-    padding: 0 40px 20px;
+    padding: 0 40px 0;
     border-top: 1px solid rgba(255, 255, 255, 0.06);
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.35s cubic-bezier(0.25, 1, 0.5, 1), padding 0.35s ease;
+    visibility: hidden;
 }
 
 .navbar-mobile-menu.is-open {
     max-height: 400px;
     padding-top: 16px;
     padding-bottom: 20px;
+    visibility: visible;
 }
 
 .navbar-mobile-links {

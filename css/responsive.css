@@ -132,7 +132,8 @@ img {
         flex-direction: column !important;
         align-items: center !important;
         justify-content: flex-start !important;
-        padding-top: 32px !important;
+        padding-top: 16px !important;
+        padding-bottom: 32px !important;
         gap: 24px !important;
     }
 
