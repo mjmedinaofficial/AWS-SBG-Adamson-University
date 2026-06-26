@@ -30,24 +30,23 @@
     margin: 0 auto;
 }
 
-/* ---------- LEFT: Brand pill ---------- */
+/* ---------- LEFT: Brand (clean, no pill) ---------- */
 .navbar-brand-pill {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 6px 16px 6px 6px;
-    background: rgba(255, 255, 255, 0.07);
-    border: 1px solid var(--color-border-active);
-    border-radius: var(--radius-pill);
+    padding: 0;
+    background: none;
+    border: none;
+    border-radius: 0;
     text-decoration: none;
     color: var(--color-text-primary);
     flex-shrink: 0;
-    transition: border-color 0.2s ease, background 0.2s ease;
+    transition: opacity 0.2s ease;
 }
 
 .navbar-brand-pill:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.25);
+    opacity: 0.8;
 }
 
 .navbar-brand-logo {
