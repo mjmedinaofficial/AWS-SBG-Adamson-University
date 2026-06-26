@@ -522,7 +522,15 @@ p, li, span, a, label, td, th {
     margin: 0;
 }
 
-/* Hide legacy footer elements */
+/* Homepage footer — ensure it's reachable inside the scroll flow */
+.site-footer--home {
+    position: relative;
+    z-index: 2;
+}
+
+/* On desktop, homepage scroll container hides outside content.
+   The footer dot in page-indicator scrolls to section 3 which
+   contains the footer. On mobile, everything flows naturally. */
 .site-footer-card,
 .site-footer-main,
 .site-footer-logo-row,
