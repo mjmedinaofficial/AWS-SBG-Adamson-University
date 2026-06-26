@@ -2,6 +2,7 @@
    AWS SBG AdU — Navbar controller
    Handles: dropdown menus, hamburger toggle, and
    scroll-to-section on the homepage.
+   Active hamburger at ≤1024px (tablet + mobile).
    ============================================================ */
 (function () {
     'use strict';
@@ -11,12 +12,13 @@
     var mobileMenu = document.querySelector('.navbar-mobile-menu');
     if (!navbar) return;
 
-    /* --- Desktop dropdown menus (hover-based) --- */
+    /* --- Desktop dropdown menus (hover-based, >1024px only) --- */
     var linkWraps = document.querySelectorAll('.navbar-link-wrap');
     linkWraps.forEach(function (wrap) {
         var timer = null;
 
         wrap.addEventListener('mouseenter', function () {
+            if (window.innerWidth <= 1024) return;
             clearTimeout(timer);
             wrap.classList.add('open');
         });
@@ -73,6 +75,15 @@
         // Close on Escape key
         document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape' && mobileMenu.classList.contains('is-open')) {
+                hamburger.setAttribute('aria-expanded', 'false');
+                mobileMenu.classList.remove('is-open');
+                mobileMenu.setAttribute('aria-hidden', 'true');
+            }
+        });
+
+        // Close menu on resize above 1024px
+        window.addEventListener('resize', function () {
+            if (window.innerWidth > 1024 && mobileMenu.classList.contains('is-open')) {
                 hamburger.setAttribute('aria-expanded', 'false');
                 mobileMenu.classList.remove('is-open');
                 mobileMenu.setAttribute('aria-hidden', 'true');

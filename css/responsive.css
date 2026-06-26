@@ -1,0 +1,394 @@
+/* ============================================================
+   AWS SBG AdU — Unified Responsive Overrides
+   Loads LAST to enforce consistent breakpoint behavior.
+   Breakpoints: 480 / 768 / 1024 / 1280 / 1440
+   ============================================================ */
+
+/* --- GLOBAL: prevent horizontal scroll --- */
+html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+}
+
+/* --- GLOBAL: fluid images --- */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* --- GLOBAL: typography scaling --- */
+:root {
+    --text-hero-fluid: clamp(26px, 4vw, 56px);
+    --text-section-heading: clamp(22px, 3vw, 40px);
+    --text-body-fluid: clamp(14px, 1.5vw, 16px);
+    --text-label-fluid: clamp(11px, 1vw, 13px);
+}
+
+/* --- MASCOT (Falcat sticker) global sizing --- */
+.sticker {
+    width: 80px !important;
+    position: fixed !important;
+    bottom: 20px !important;
+    right: 20px !important;
+    z-index: 999 !important;
+    pointer-events: none !important;
+}
+
+/* ============================================================
+   NAVBAR — TABLET (768px – 1024px)
+   Hide nav pill text links, show hamburger + CTA
+   ============================================================ */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .navbar-nav-pill {
+        display: none;
+    }
+
+    .navbar-hamburger {
+        display: flex;
+        order: 1;
+    }
+
+    .navbar-cta {
+        order: 2;
+    }
+
+    .navbar-mobile-menu {
+        display: flex;
+        background: rgba(20, 12, 45, 0.98);
+    }
+
+    .navbar-mobile-menu.is-open {
+        padding: 16px 24px;
+    }
+
+    .navbar-mobile-link {
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 0;
+        padding: 0 16px;
+    }
+
+    .navbar-mobile-link:last-of-type {
+        border-bottom: none;
+    }
+
+    .navbar-inner {
+        padding: 10px 32px;
+    }
+}
+
+/* ============================================================
+   NAVBAR — MOBILE (<768px)
+   Brand shrinks, hamburger only, no top-bar CTA
+   ============================================================ */
+@media (max-width: 767px) {
+    .navbar-brand-name {
+        font-size: 13px;
+    }
+
+    .navbar-brand-logo {
+        width: 28px;
+        height: 28px;
+    }
+
+    /* Hide CTA from top bar — it goes inside the mobile menu */
+    .navbar-right .navbar-cta {
+        display: none;
+    }
+
+    .navbar-hamburger {
+        display: flex;
+    }
+
+    .navbar-nav-pill {
+        display: none;
+    }
+
+    .navbar-mobile-menu {
+        display: flex;
+    }
+
+    /* Move Join Us inside mobile menu as first item styled as button */
+    .navbar-mobile-cta {
+        order: -1;
+        width: 100%;
+        margin-bottom: 8px;
+        margin-top: 0;
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .navbar-inner {
+        padding: 10px 20px;
+    }
+
+    /* Page indicator dots — hide on mobile */
+    .page-indicator {
+        display: none !important;
+    }
+}
+
+/* ============================================================
+   HERO SECTION — TABLET (768px – 1024px)
+   ============================================================ */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .page-section.section1 {
+        padding: 56px 5vw 0;
+    }
+
+    .section1-content {
+        flex: 1 1 50%;
+        max-width: 50%;
+    }
+
+    .section1-card-wrapper {
+        flex: 1 1 50%;
+        padding-left: 20px;
+    }
+
+    .section1-content h1 .section1-title {
+        font-size: 36px !important;
+    }
+
+    .section1-glass-card {
+        font-size: 13px;
+    }
+}
+
+/* ============================================================
+   HERO SECTION — MOBILE (<768px)
+   Single column, text on top, mockup below
+   ============================================================ */
+@media (max-width: 767px) {
+    .page-section.section1 {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 56px 20px 20px;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .section1-content {
+        flex: none;
+        max-width: 100%;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 24px;
+    }
+
+    .section1-content h1 .section1-title {
+        font-size: 28px !important;
+        align-items: center;
+    }
+
+    .section1-content h1 .section1-title .section1-title-line1,
+    .section1-content h1 .section1-title .section1-title-line2,
+    .section1-content h1 .section1-title .section1-title-line3 {
+        text-align: center;
+    }
+
+    .section1-lead,
+    .section1-motto {
+        font-size: 14px;
+        text-align: center;
+    }
+
+    .section1-buttons {
+        justify-content: center;
+        width: 100%;
+    }
+
+    .section1-btn {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .section1-card-wrapper {
+        flex: none;
+        width: 100%;
+        padding-left: 0;
+        justify-content: center;
+    }
+
+    .section1-glass-card {
+        max-width: 100%;
+        max-height: 320px;
+        overflow: hidden;
+    }
+
+    /* Hide the footer bar inside the mockup on mobile */
+    .section1-card-bottombar {
+        display: none;
+    }
+
+    /* Page indicator hidden on mobile */
+    .page-indicator {
+        display: none !important;
+    }
+}
+
+/* ============================================================
+   SUBPAGES — Section padding by breakpoint
+   ============================================================ */
+@media (min-width: 1025px) {
+    .join-page,
+    .sbg-page,
+    .events-page,
+    .of-page,
+    .oh-page {
+        padding: 40px 60px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .join-page,
+    .sbg-page,
+    .events-page,
+    .of-page,
+    .oh-page {
+        padding: 32px 32px !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .join-page,
+    .sbg-page,
+    .events-page,
+    .of-page,
+    .oh-page {
+        padding: 24px 20px !important;
+    }
+}
+
+/* ============================================================
+   OFFICERS PAGE — Card grid breakpoints
+   ============================================================ */
+@media (min-width: 1025px) {
+    .of-org-row {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .of-org-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+
+    .of-org-row--leadership .of-card.of-contact-card:first-child {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 767px) {
+    .of-org-row {
+        grid-template-columns: 1fr !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    .of-card.of-contact-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        --of-card-max: 100%;
+        padding: 16px !important;
+    }
+
+    .of-contact-photo-ring {
+        width: 100px !important;
+        height: 100px !important;
+    }
+
+    .of-contact-socials {
+        justify-content: center !important;
+    }
+}
+
+/* ============================================================
+   EVENTS PAGE — Master-detail layout breakpoints
+   ============================================================ */
+@media (min-width: 1025px) {
+    .ev-split {
+        grid-template-columns: minmax(220px, 280px) 1fr;
+    }
+
+    .section2-events-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .section2-events-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .section2-events-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .section2-view-all-btn,
+    .section2-view-all-card-btn {
+        width: 100%;
+    }
+}
+
+/* ============================================================
+   MASCOT — Responsive sizing
+   ============================================================ */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .sticker {
+        width: 60px !important;
+        bottom: 16px !important;
+        right: 16px !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .sticker {
+        width: 48px !important;
+        bottom: 12px !important;
+        right: 12px !important;
+    }
+}
+
+/* ============================================================
+   TOUCH TARGETS — minimum 44x44px on mobile
+   ============================================================ */
+@media (max-width: 767px) {
+    .navbar-hamburger,
+    .navbar-mobile-link,
+    .navbar-mobile-cta,
+    .page-back,
+    .events-back,
+    .section1-btn,
+    .section2-view-all-btn,
+    .ev-list-row,
+    .ev-pagination-btn {
+        min-height: 44px;
+    }
+
+    .ev-pagination-btn {
+        width: 36px;
+        height: 36px;
+    }
+}
+
+/* ============================================================
+   GLOBAL CARDS — never fixed width
+   ============================================================ */
+.section2-event-card,
+.section2-view-all-card,
+.of-card.of-contact-card,
+.sbg-narrative-card,
+.oh-narrative-card {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
