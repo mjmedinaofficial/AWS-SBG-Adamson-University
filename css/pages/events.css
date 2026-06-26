@@ -136,6 +136,19 @@ body::after {
     letter-spacing: 0.4px;
 }
 
+.ev-stat-follow {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-style: italic;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.ev-stat-follow:hover {
+    color: var(--color-accent-orange);
+}
+
 /* ---------- FINDER WINDOW ---------- */
 .ev-finder-wrap {
     max-width: 1160px;
@@ -512,21 +525,24 @@ body::after {
 }
 
 .ev-list-badge.upcoming {
-    background: rgba(40, 200, 64, 0.15);
-    color: #5de878;
-    border: 1px solid rgba(40, 200, 64, 0.3);
+    background: rgba(245, 166, 35, 0.15);
+    color: var(--color-accent-orange, #F5A623);
+    border: 1px solid rgba(245, 166, 35, 0.3);
+    font-family: var(--font-mono);
 }
 
 .ev-list-badge.featured {
-    background: rgba(242, 155, 60, 0.15);
-    color: #f7ad58;
-    border: 1px solid rgba(242, 155, 60, 0.35);
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--color-text-muted, #6B6488);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    font-family: var(--font-mono);
 }
 
 .ev-list-badge.past {
     background: rgba(255, 255, 255, 0.06);
-    color: rgba(255, 255, 255, 0.45);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--color-text-muted, #6B6488);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    font-family: var(--font-mono);
 }
 
 .ev-list-empty {

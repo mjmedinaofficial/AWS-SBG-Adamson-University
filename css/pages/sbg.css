@@ -102,16 +102,16 @@
 
 .sbg-narrative-card {
     padding: 14px 16px;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.035);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    transition: transform 0.28s ease, border-color 0.28s ease, background 0.28s ease;
+    border-radius: var(--radius-md, 12px);
+    background: var(--color-bg-surface, rgba(255, 255, 255, 0.035));
+    border: 1px solid var(--color-border-subtle, rgba(255, 255, 255, 0.07));
+    transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
 }
 
 .sbg-narrative-card:hover {
-    transform: translateY(-3px);
-    border-color: rgba(242, 155, 60, 0.28);
-    background: rgba(255, 255, 255, 0.055);
+    transform: translateY(-2px);
+    border-color: var(--color-border-active, rgba(255, 255, 255, 0.15));
+    background: var(--color-bg-elevated, #241D45);
 }
 
 .sbg-narrative-card h4 {

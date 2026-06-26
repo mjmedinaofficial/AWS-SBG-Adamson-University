@@ -241,70 +241,84 @@
 }
 
 .jf-registration-closed {
-    position: absolute;
-    inset: 0;
+    position: relative;
     z-index: 5;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 24px;
-    border-radius: 12px;
-    background: rgba(10, 10, 14, 0.4);
+    padding: var(--space-2xl) var(--space-lg);
+    text-align: center;
 }
 
 .jf-registration-closed-card {
-    max-width: 440px;
+    max-width: 480px;
     width: 100%;
-    padding: 28px 28px 24px;
-    border-radius: 14px;
-    background: rgba(28, 26, 42, 0.96);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
-    text-align: center;
-    font-family: var(--font-sans);
+    padding: var(--space-2xl);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
 }
 
-.jf-registration-closed-label {
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: rgba(187, 175, 253, 0.85);
-    margin: 0 0 10px;
+.jf-closed-icon {
+    color: var(--color-accent-orange);
+    margin-bottom: var(--space-sm);
 }
 
 .jf-registration-closed-title {
-    font-size: 22px;
-    font-weight: 800;
-    margin: 0 0 12px;
-    color: #fff;
-    line-height: 1.25;
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    margin: 0;
+    color: var(--color-text-primary);
+    line-height: 1.2;
 }
 
 .jf-registration-closed-desc {
-    font-size: 14px;
-    line-height: 1.65;
-    color: rgba(255, 255, 255, 0.62);
-    margin: 0 0 20px;
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    line-height: 1.7;
+    color: var(--color-text-secondary);
+    margin: 0;
+    max-width: 360px;
 }
 
-.jf-registration-closed-link {
+.jf-registration-closed-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 10px 18px;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 600;
-    color: #fff;
-    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    padding: 14px 28px;
+    border-radius: var(--radius-pill);
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: #0B0918;
+    background: var(--color-accent-orange);
     text-decoration: none;
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    transition: background 0.2s ease, transform 0.2s ease;
+    margin-top: var(--space-sm);
 }
 
-.jf-registration-closed-link:hover {
-    opacity: 0.92;
-    transform: translateY(-1px);
+.jf-registration-closed-btn:hover {
+    background: #FFB83F;
+    transform: translateY(-2px);
+}
+
+.jf-registration-closed-secondary {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.jf-registration-closed-secondary:hover {
+    color: var(--color-text-secondary);
+}
+
+/* Hide the form mockup when registration is closed */
+.jf-finder-wrap--closed .jf-finder-window {
+    display: none;
 }
 
 @media (max-width: 1024px) {
