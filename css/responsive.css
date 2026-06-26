@@ -245,6 +245,35 @@ img {
         padding: 20px 0 !important;
     }
 
+    /* Notes app — make scrollable on mobile */
+    .section3-window {
+        min-height: auto !important;
+        max-height: none !important;
+        height: auto !important;
+    }
+
+    .section3-notes-body {
+        position: relative !important;
+        height: auto !important;
+        min-height: 300px !important;
+        overflow: visible !important;
+    }
+
+    .section3-notes-list {
+        position: relative !important;
+        height: auto !important;
+        overflow-y: auto !important;
+        max-height: none !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+
+    .section3-notes-detail {
+        position: relative !important;
+        height: auto !important;
+        overflow-y: auto !important;
+        transform: none !important;
+    }
+
     /* Page indicators — hide on mobile */
     .page-indicator {
         display: none !important;
