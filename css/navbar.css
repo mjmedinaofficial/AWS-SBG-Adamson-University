@@ -331,20 +331,17 @@
         gap: 8px;
     }
 
-    /* Hide nav pill, keep CTA visible */
+    /* Hide nav pill and CTA — both go into hamburger menu */
     .navbar-nav-pill {
+        display: none;
+    }
+
+    .navbar-cta {
         display: none;
     }
 
     .navbar-hamburger {
         display: flex;
-        order: 1;
-    }
-
-    .navbar-cta {
-        order: 2;
-        padding: 8px 16px;
-        font-size: 13px;
     }
 
     .navbar-mobile-menu {
