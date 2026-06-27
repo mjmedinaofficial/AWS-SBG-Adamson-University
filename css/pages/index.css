@@ -84,6 +84,7 @@ body {
     display: flex;
     gap: var(--space-lg);
     margin-bottom: var(--space-lg);
+    flex-wrap: wrap;
 }
 
 .section1-stat {
@@ -99,6 +100,13 @@ body {
     color: var(--color-accent-orange);
     display: block;
     line-height: 1.1;
+}
+
+@media (max-width: 767px) {
+    .section1-stats {
+        justify-content: center;
+        gap: var(--space-xl);
+    }
 }
 
 /* Button row */
