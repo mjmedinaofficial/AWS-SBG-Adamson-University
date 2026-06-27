@@ -11,6 +11,7 @@ body {
 
 .page-section {
     width: 100%;
+    min-height: 100vh;
     height: 100vh;
     scroll-snap-align: start;
     scroll-snap-stop: always;
@@ -22,6 +23,16 @@ body {
     margin: 0 auto;
     position: relative;
     overflow: hidden;
+    box-sizing: border-box;
+}
+
+/* Section 1 specifically — tighter on smaller desktops */
+.section1 {
+    background: var(--color-bg-deep);
+    position: relative;
+    gap: clamp(24px, 3vw, 48px);
+    padding-top: 60px;
+    padding-bottom: 40px;
 }
 
 /* ---------- SECTION 1: Hero ---------- */
