@@ -1,4 +1,4 @@
-(function() {
+﻿(function() {
     const DESKTOP_MQ = window.matchMedia('(min-width: 1025px)');
     const MOBILE_LAYOUT_MQ = window.matchMedia('(max-width: 1024px)');
     const POINTER_FINE_MQ = window.matchMedia('(hover: hover) and (pointer: fine)');
@@ -216,11 +216,11 @@
     const sectionItems = navDock ? Array.from(navDock.querySelectorAll('[data-section-index]')) : Array.from(document.querySelectorAll('.navbar-link[data-section-index]'));
     const pageIndicatorDots = Array.from(document.querySelectorAll('.page-indicator-dot'));
     const pageSections = document.querySelectorAll('.page-section');
-    const pageScrollContainer = document.querySelector('.horizontal-container');
+    const pageScrollContainer = document.querySelector('.home-main') || document.documentElement;
     const siteFooter = document.querySelector('.site-footer');
 
-    if (section1TiltCard && pageScrollContainer) {
-        pageScrollContainer.addEventListener('scroll', invalidateTiltRect, { passive: true });
+    if (section1TiltCard) {
+        window.addEventListener('scroll', invalidateTiltRect, { passive: true });
     }
 
     // Desktop zoom: stack hero only above ~110% browser zoom.
@@ -286,8 +286,8 @@
     }
 
     function scrollToSection(index) {
-        if (!pageSections[index] || !pageScrollContainer) return;
-        pageScrollContainer.scrollTo({
+        if (!pageSections[index]) return;
+        window.scrollTo({
             top: pageSections[index].offsetTop,
             behavior: 'smooth'
         });
@@ -296,9 +296,9 @@
     window.sbgNavScrollToSection = scrollToSection;
 
     function scrollToFooter() {
-        if (!siteFooter || !pageScrollContainer) return;
-        pageScrollContainer.scrollTo({
-            top: pageScrollContainer.scrollHeight,
+        if (!siteFooter) return;
+        window.scrollTo({
+            top: document.body.scrollHeight,
             behavior: 'smooth'
         });
     }
@@ -330,15 +330,14 @@
     }
 
     function getActiveStateIndex() {
-        const scrollPos = pageScrollContainer.scrollTop;
+        const scrollPos = window.scrollY || document.documentElement.scrollTop;
         if (siteFooter) {
-            const cRect = pageScrollContainer.getBoundingClientRect();
             const fRect = siteFooter.getBoundingClientRect();
-            if (fRect.top <= cRect.bottom - siteFooter.offsetHeight * 0.35) {
+            if (fRect.top <= window.innerHeight - siteFooter.offsetHeight * 0.35) {
                 return 3;
             }
         }
-        const scrollMid = scrollPos + pageScrollContainer.clientHeight * 0.4;
+        const scrollMid = scrollPos + window.innerHeight * 0.4;
         let activeIndex = 0;
         pageSections.forEach((section, i) => {
             if (scrollMid >= section.offsetTop) activeIndex = i;
@@ -369,7 +368,7 @@
         if (e.key === 'ArrowUp' && current > 0) scrollToSnapIndex(current - 1);
     });
 
-    pageScrollContainer.addEventListener('scroll', () => {
+    window.addEventListener('scroll', () => {
         setActiveState(getActiveStateIndex());
     }, { passive: true });
 
@@ -383,7 +382,7 @@
         } else if (hash === '#footer') {
             scrollToFooter();
         } else {
-            pageScrollContainer.scrollTop = 0;
+            window.scrollTo({ top: 0 });
             setActiveState(0);
         }
     }
@@ -429,7 +428,7 @@
                     });
                 }
             });
-        }, { root: pageScrollContainer, threshold: 0.25 });
+        }, { root: null, threshold: 0.25 });
 
         section3RevealObserver.observe(section3Window);
 
@@ -535,7 +534,7 @@
                 section2El.classList.add('is-revealed');
             }
         });
-    }, { root: pageScrollContainer, threshold: 0.25 });
+    }, { root: null, threshold: 0.25 });
 
     if (section2El) section2RevealObserver.observe(section2El);
 
