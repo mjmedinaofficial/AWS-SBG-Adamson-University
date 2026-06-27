@@ -290,6 +290,12 @@ p, li, span, a, label, td, th {
 /* Page indicator — hidden since scroll-snap removed */
 .page-indicator {
     display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+    position: absolute !important;
 }
 }
 
