@@ -187,24 +187,58 @@
     margin-bottom: 4px;
 }
 
-/* President card — distinctive treatment */
+/* President card — distinctive horizontal treatment */
 .of-card.of-contact-card.of-card--president {
     background: linear-gradient(135deg, #241D45 0%, #1a1035 100%) !important;
     border: 1px solid rgba(91, 63, 217, 0.4) !important;
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35), 0 0 24px rgba(91, 63, 217, 0.1) !important;
-    max-width: 480px;
+    max-width: 520px;
+    flex-direction: row !important;
+    text-align: left !important;
+    padding: 32px !important;
+    gap: 24px;
+}
+
+.of-card--president .of-contact-hero {
+    flex-direction: row !important;
+    align-items: center;
+    gap: 24px;
+    padding-bottom: 0;
 }
 
 .of-card--president .of-contact-photo-ring {
-    width: 130px !important;
-    height: 130px !important;
+    width: 120px !important;
+    height: 120px !important;
     border: 3px solid var(--color-accent-orange, #F5A623) !important;
     box-shadow: 0 0 20px rgba(245, 166, 35, 0.2) !important;
+    flex-shrink: 0;
+    margin-bottom: 0 !important;
+}
+
+.of-card--president .of-contact-name {
+    font-size: clamp(20px, 2.5vw, 26px) !important;
 }
 
 .of-card--president .of-contact-role {
     color: var(--color-accent-orange, #F5A623) !important;
     font-weight: 700 !important;
+}
+
+@media (max-width: 767px) {
+    .of-card.of-contact-card.of-card--president {
+        flex-direction: column !important;
+        text-align: center !important;
+        padding: 24px !important;
+    }
+
+    .of-card--president .of-contact-hero {
+        flex-direction: column !important;
+    }
+
+    .of-card--president .of-contact-photo-ring {
+        width: 110px !important;
+        height: 110px !important;
+    }
 }
 
 .of-org-row--leadership {
