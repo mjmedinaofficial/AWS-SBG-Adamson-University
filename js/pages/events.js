@@ -262,9 +262,6 @@
 
     const statNums = document.querySelectorAll('.ev-stat-num');
     if (statNums[0] && events.length) statNums[0].textContent = String(events.length);
-    if (statNums[1] && events.length) {
-        statNums[1].textContent = String(events.filter((ev) => ev.badgeClass === 'upcoming').length);
-    }
 
     renderYearStrip();
     renderMonthStrip();
