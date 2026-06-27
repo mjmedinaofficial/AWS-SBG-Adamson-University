@@ -1,20 +1,16 @@
 /* Index-specific layout overrides (shared chrome in css/base.css) */
 html {
     min-height: 100%;
-    height: 100%;
 }
 
 body {
-    overflow: hidden;
-    height: 100%;
+    overflow-y: auto;
 }
 
 .page-section {
     width: 100%;
     min-height: 100vh;
-    height: 100vh;
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
+    scroll-snap-align: none;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -83,6 +79,28 @@ body {
     line-height: 1.7;
     margin-bottom: var(--space-lg);
     font-style: italic;
+}
+
+/* Stats inline in hero */
+.section1-stats {
+    display: flex;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-lg);
+}
+
+.section1-stat {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+}
+
+.section1-stat strong {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--color-accent-orange);
+    display: block;
+    line-height: 1.1;
 }
 
 /* Button row */
@@ -289,10 +307,8 @@ body {
 
 .horizontal-container {
     width: 100%;
-    height: 100vh;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
-    scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
     scrollbar-width: none;
     background: var(--bg-gradient);

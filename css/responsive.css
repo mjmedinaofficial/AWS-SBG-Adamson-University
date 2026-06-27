@@ -130,31 +130,7 @@ p, li, span, a, label, td, th {
    HOMEPAGE — MOBILE (≤1024px)
    ═══════════════════════════════════════ */
 @media (max-width: 1024px) {
-    /* Sticky nav on mobile home (not fixed) */
-    .home-page .site-navbar {
-        position: sticky !important;
-        top: 0 !important;
-    }
-
-    /* Normal scroll */
-    .home-page html,
-    .home-page body {
-        overflow-y: auto !important;
-        height: auto !important;
-    }
-
-    .home-page .horizontal-container {
-        height: auto !important;
-        overflow: visible !important;
-        scroll-snap-type: none !important;
-    }
-
-    .home-page .page-section {
-        height: auto !important;
-        min-height: auto !important;
-        scroll-snap-align: none !important;
-        padding: var(--section-pad-v) var(--section-pad-h) !important;
-    }
+    /* Normal scroll — already handled by killing scroll-snap in index.css */
 
     /* Hero — stack */
     .home-page .page-section.section1 {

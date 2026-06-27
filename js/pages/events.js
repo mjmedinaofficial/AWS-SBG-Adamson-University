@@ -14,7 +14,7 @@
     let selectedId = null;
     let currentPage = 1;
     let activeCategory = 'all';
-    const EVENTS_PER_PAGE = 5;
+    const EVENTS_PER_PAGE = window.innerWidth <= 767 ? 3 : 5;
 
     const eventYears = [...new Set(events.map((e) => e.year))].sort();
 

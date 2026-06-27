@@ -17,8 +17,9 @@
     border-bottom: 1px solid var(--color-border-subtle);
 }
 
+/* Homepage: sticky like all other pages now that scroll-snap is removed */
 .home-page .site-navbar {
-    position: fixed;
+    position: sticky;
 }
 
 .navbar-inner {
