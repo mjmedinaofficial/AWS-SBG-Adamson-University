@@ -15,8 +15,6 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 0 clamp(20px, 5vw, 80px);
-    max-width: 1400px;
-    margin: 0 auto;
     position: relative;
     overflow: hidden;
     box-sizing: border-box;
@@ -323,7 +321,7 @@ body {
 
 /* ---------- PAGE INDICATOR ---------- */
 .page-indicator {
-    position: fixed;
+    display: none;
     right: 28px;
     top: 50%;
     transform: translateY(-50%);
