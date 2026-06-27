@@ -376,6 +376,7 @@ p, li, span, a, label, td, th {
     .ev-finder-window {
         height: auto !important;
         max-height: none !important;
+        border-radius: 12px !important;
     }
 
     .ev-split {
@@ -384,11 +385,76 @@ p, li, span, a, label, td, th {
     }
 
     .ev-list-panel {
-        max-height: 300px !important;
+        max-height: 400px !important;
+        overflow-y: auto !important;
+    }
+
+    /* Fix overlapping event rows on mobile */
+    .ev-list-row {
+        grid-template-columns: 42px 1fr auto !important;
+        gap: 8px !important;
+        padding: 14px 12px !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+        min-height: 60px !important;
+    }
+
+    .ev-list-info h3 {
+        font-size: 13px !important;
+        line-height: 1.3 !important;
+        margin-bottom: 2px !important;
+    }
+
+    .ev-list-info span {
+        font-size: 11px !important;
+        display: block !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        max-width: 180px !important;
+    }
+
+    .ev-list-date {
+        padding: 4px 2px !important;
+    }
+
+    .ev-list-date-month {
+        font-size: 8px !important;
+    }
+
+    .ev-list-date-day {
+        font-size: 16px !important;
+    }
+
+    .ev-list-badge {
+        font-size: 8px !important;
+        padding: 3px 6px !important;
+        white-space: nowrap !important;
+    }
+
+    /* Sidebar — hide on mobile */
+    .ev-finder-sidebar {
+        display: none !important;
+    }
+
+    /* Year tabs — scrollable */
+    .ev-year-strip {
+        overflow-x: auto !important;
+        flex-wrap: nowrap !important;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .section2-events-grid {
+        grid-template-columns: 1fr !important;
     }
 
     .section2-view-all-btn {
         width: 100% !important;
+    }
+
+    /* Stats row */
+    .ev-stats {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
     }
 }
 
