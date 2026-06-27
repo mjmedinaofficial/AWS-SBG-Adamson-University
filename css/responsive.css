@@ -290,10 +290,10 @@ p, li, span, a, label, td, th {
         transform: none !important;
     }
 
-    /* Page indicators — hide */
-    .page-indicator {
-        display: none !important;
-    }
+/* Page indicator — hidden since scroll-snap removed */
+.page-indicator {
+    display: none !important;
+}
 }
 
 /* Tablet events grid */
