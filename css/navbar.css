@@ -6,7 +6,7 @@
 
 /* ---------- Base bar ---------- */
 .site-navbar {
-    position: sticky;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
@@ -17,9 +17,9 @@
     border-bottom: 1px solid var(--color-border-subtle);
 }
 
-/* Homepage: same sticky behavior as all pages */
+/* Homepage: same fixed behavior */
 .home-page .site-navbar {
-    position: sticky;
+    position: fixed;
 }
 
 .navbar-inner {

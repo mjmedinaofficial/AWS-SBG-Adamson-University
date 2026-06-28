@@ -17,6 +17,7 @@ body {
     color: var(--color-text-primary) !important;
     background: var(--color-bg-deep) !important;
     line-height: 1.6;
+    padding-top: 56px; /* Space for fixed navbar */
 }
 
 img {
@@ -30,18 +31,40 @@ a, button, [role="button"], input, select, textarea {
     transition: all 0.2s ease;
 }
 
-/* Community photo divider */
+/* Community photo strip — moving */
 .community-photo-divider {
     width: 100%;
     overflow: hidden;
     position: relative;
+    height: 220px;
 }
 
-.community-photo-divider img {
-    width: 100%;
-    height: auto;
-    display: block;
-    filter: brightness(0.75);
+.community-photo-track {
+    display: flex;
+    gap: 8px;
+    height: 100%;
+    animation: photoSlide 20s linear infinite;
+    width: max-content;
+}
+
+.community-photo-track img {
+    height: 100%;
+    width: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    filter: brightness(0.8);
+    flex-shrink: 0;
+}
+
+@keyframes photoSlide {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+@media (max-width: 767px) {
+    .community-photo-divider {
+        height: 160px;
+    }
 }
 
 /* Custom cursor — keep the builder icon */

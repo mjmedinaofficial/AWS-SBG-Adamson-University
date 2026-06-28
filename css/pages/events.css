@@ -174,8 +174,8 @@ body::after {
     animation: evPulseGlow 4s ease-in-out infinite;
     display: flex;
     flex-direction: column;
-    height: clamp(520px, 60vh, 640px);
-    max-height: 640px;
+    height: clamp(560px, 70vh, 760px);
+    max-height: 760px;
 }
 
 .ev-finder-titlebar {
