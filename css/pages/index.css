@@ -1052,9 +1052,8 @@ body {
 
 .section2-event-card-image {
     width: 100%;
-    flex: 1 1 auto;
-    min-height: clamp(110px, 20vh, 245px);
-    height: auto;
+    flex: 0 0 auto;
+    height: 160px;
     background-size: cover;
     background-position: center;
     position: relative;
