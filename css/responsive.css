@@ -31,39 +31,46 @@ a, button, [role="button"], input, select, textarea {
     transition: all 0.2s ease;
 }
 
-/* Community photo strip — moving */
+/* Community photo strip — static grid */
 .community-photo-divider {
     width: 100%;
     overflow: hidden;
     position: relative;
-    height: 220px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+    height: 200px;
 }
 
 .community-photo-track {
-    display: flex;
-    gap: 8px;
-    height: 100%;
-    animation: photoSlide 20s linear infinite;
-    width: max-content;
+    display: contents;
 }
 
 .community-photo-track img {
-    height: 100%;
-    width: auto;
+    width: 100%;
+    height: 200px;
     object-fit: cover;
-    border-radius: 8px;
-    filter: brightness(0.8);
-    flex-shrink: 0;
+    filter: brightness(0.75);
+    display: block;
 }
 
-@keyframes photoSlide {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
+/* Hide duplicates — only show first 3 */
+.community-photo-track img:nth-child(n+4) {
+    display: none;
 }
 
 @media (max-width: 767px) {
     .community-photo-divider {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+
+    .community-photo-track img {
         height: 160px;
+    }
+
+    .community-photo-track img:nth-child(n+3) {
+        display: none;
     }
 }
 
