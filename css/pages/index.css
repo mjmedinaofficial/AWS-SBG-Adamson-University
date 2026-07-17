@@ -116,6 +116,21 @@ body {
     }
 }
 
+/* Latest event liveness signal */
+.section1-latest {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-lg);
+    opacity: 0.8;
+}
+
+@media (max-width: 767px) {
+    .section1-latest {
+        text-align: center;
+    }
+}
+
 /* Button row */
 .section1-buttons {
     display: flex;
@@ -149,6 +164,18 @@ body {
     background: #FFB83F;
     transform: translateY(-2px);
     box-shadow: 0 8px 24px rgba(245, 166, 35, 0.35);
+}
+
+.section1-btn-ghost {
+    background: transparent;
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border-active, rgba(255,255,255,0.15));
+}
+
+.section1-btn-ghost:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
 }
 
 /* Hero card — carousel with stats */

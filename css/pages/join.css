@@ -9,6 +9,45 @@
     animation: fadeInUp 0.85s ease-out 0.15s both;
 }
 
+/* Benefits list */
+.jf-benefits {
+    max-width: 480px;
+    margin: 0 auto var(--space-xl, 40px);
+    text-align: center;
+}
+
+.jf-benefits h3 {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-md, 16px);
+}
+
+.jf-benefits ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm, 8px);
+}
+
+.jf-benefits li {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    padding-left: 24px;
+    position: relative;
+}
+
+.jf-benefits li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--color-accent-orange, #F5A623);
+    font-weight: 700;
+}
+
 .jf-finder-window {
     position: relative; width: 100%; border-radius: 12px;
     background: rgba(28, 26, 42, 0.92);

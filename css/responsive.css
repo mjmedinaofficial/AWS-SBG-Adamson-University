@@ -26,9 +26,48 @@ img {
     display: block;
 }
 
+/* Skip link — accessibility */
+.skip-link {
+    position: absolute;
+    top: -100px;
+    left: 16px;
+    background: var(--color-accent-orange, #F5A623);
+    color: #0B0918;
+    padding: 12px 24px;
+    border-radius: var(--radius-sm, 8px);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 14px;
+    z-index: 10000;
+    text-decoration: none;
+    transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+    top: 12px;
+}
+
 /* All interactive elements get consistent transition */
 a, button, [role="button"], input, select, textarea {
     transition: all 0.2s ease;
+}
+
+/* Focus-visible — keyboard accessibility */
+:focus-visible {
+    outline: 2px solid var(--color-brand-purple, #5B3FD9);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+a:focus-visible,
+button:focus-visible {
+    outline: 2px solid var(--color-brand-purple, #5B3FD9);
+    outline-offset: 3px;
+}
+
+/* Don't show outline on mouse click */
+:focus:not(:focus-visible) {
+    outline: none;
 }
 
 /* Community photo strip — static grid */
@@ -83,6 +122,20 @@ a, button, [role="button"], input, select, textarea {
     .custom-cursor,
     .custom-cursor-glow {
         display: none !important;
+    }
+}
+
+/* Reduced motion — respect user preference */
+@media (prefers-reduced-motion: reduce) {
+    .section1-carousel-track,
+    .community-photo-track,
+    .sticker {
+        animation: none !important;
+    }
+
+    *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
     }
 }
 
