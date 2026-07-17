@@ -127,6 +127,30 @@
     max-width: 640px;
 }
 
+/* Benefits list inside Safari mockup — no cards, just clean text */
+.sbg-benefits-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 24px 28px;
+}
+
+.sbg-benefit h3 {
+    font-family: var(--font-display, 'Space Grotesk', sans-serif);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-text-primary, #F0EEFF);
+    margin: 0 0 6px;
+}
+
+.sbg-benefit p {
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: 14px;
+    color: var(--color-text-secondary, #A89FC5);
+    line-height: 1.6;
+    margin: 0;
+}
+
 .sbg-narrative-card h4 {
     font-size: 10px;
     font-weight: 700;
