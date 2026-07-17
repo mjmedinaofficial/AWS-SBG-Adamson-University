@@ -198,6 +198,36 @@
     font-weight: 700 !important;
 }
 
+/* Section headings for officer groups */
+.of-org-row--leadership::before {
+    content: 'Leadership';
+    display: block;
+    width: 100%;
+    grid-column: 1 / -1;
+    font-family: var(--font-display, 'Space Grotesk', sans-serif);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-text-muted, #8A82A8);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+}
+
+.of-org-row--roster:first-of-type::before {
+    content: 'Core Team';
+    display: block;
+    width: 100%;
+    grid-column: 1 / -1;
+    font-family: var(--font-display, 'Space Grotesk', sans-serif);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-text-muted, #8A82A8);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+    margin-top: 16px;
+}
+
 .of-org-row--leadership {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 18.75rem));

@@ -75,6 +75,22 @@ button:focus-visible {
     outline: none;
 }
 
+/* Scroll hint chevron */
+.scroll-hint {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: scrollBounce 2s ease-in-out infinite;
+    color: var(--color-text-muted, #8A82A8);
+    opacity: 0.6;
+}
+
+@keyframes scrollBounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+}
+
 /* Community photo strip — static grid */
 .community-photo-divider {
     width: 100%;

@@ -81,8 +81,9 @@
             </div>
 
             <div class="of-contact-details">
-                ${fieldRow('Course', officer.course)}
-                ${fieldRow('Year Level', officer.yearLevel)}
+                ${officer.course || officer.yearLevel ? `<div class="of-contact-field">
+                    <span class="of-contact-field-value">${[officer.course, officer.yearLevel].filter(Boolean).join(' · ')}</span>
+                </div>` : ''}
             </div>
         </article>`;
     }
