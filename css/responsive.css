@@ -102,8 +102,8 @@ button:focus-visible {
     position: relative;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 4px;
-    height: 200px;
+    gap: 8px;
+    height: 240px;
 }
 
 .community-photo-track {
@@ -112,7 +112,7 @@ button:focus-visible {
 
 .community-photo-track img {
     width: 100%;
-    height: 200px;
+    height: 240px;
     object-fit: cover;
     filter: brightness(0.75);
     display: block;
