@@ -52,6 +52,11 @@ a, button, [role="button"], input, select, textarea {
     transition: all 0.2s ease;
 }
 
+/* Cursor pointer on all clickable elements */
+a, button, [role="button"], summary, [tabindex="0"] {
+    cursor: pointer;
+}
+
 /* Focus-visible — keyboard accessibility */
 :focus-visible {
     outline: 2px solid var(--color-brand-purple, #5B3FD9);

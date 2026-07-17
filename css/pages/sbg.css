@@ -49,6 +49,7 @@
 .sbg-finder-narrative-inner {
     position: relative;
     z-index: 1;
+    text-align: left;
 }
 
 .sbg-narrative-tags {
