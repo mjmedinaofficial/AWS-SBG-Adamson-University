@@ -79,12 +79,6 @@
                 ${actionButton('linkedin', ICON_LINKEDIN, officer.linkedin, !officer.linkedin)}
                 ${actionButton('instagram', ICON_INSTAGRAM, officer.instagram, !officer.instagram)}
             </div>
-
-            <div class="of-contact-details">
-                ${officer.course || officer.yearLevel ? `<div class="of-contact-field">
-                    <span class="of-contact-field-value">${[officer.course, officer.yearLevel].filter(Boolean).join(' · ')}</span>
-                </div>` : ''}
-            </div>
         </article>`;
     }
 
