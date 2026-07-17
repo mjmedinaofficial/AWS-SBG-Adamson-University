@@ -149,6 +149,24 @@ body::after {
     color: var(--color-accent-orange);
 }
 
+/* Inline stats text (replaces stat boxes) */
+.ev-inline-stats {
+    text-align: center;
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary, #A89FC5);
+    margin: var(--space-lg, 24px) 0;
+}
+
+.ev-inline-stats a {
+    color: var(--color-accent-orange, #F5A623);
+    text-decoration: none;
+}
+
+.ev-inline-stats a:hover {
+    text-decoration: underline;
+}
+
 /* ---------- FINDER WINDOW ---------- */
 .ev-finder-wrap {
     max-width: 1160px;
