@@ -3,7 +3,6 @@
 
     const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     const listEl = document.getElementById('ev-list');
-    const paginationEl = document.getElementById('ev-pagination');
     const previewEl = document.getElementById('ev-preview');
     const yearStripEl = document.getElementById('ev-year-strip');
     const monthStripEl = document.getElementById('ev-month-strip');
@@ -13,8 +12,7 @@
     let activeMonth = now.getMonth() + 1;
     let selectedId = null;
     let currentPage = 1;
-    let activeCategory = 'all';
-    const EVENTS_PER_PAGE = window.innerWidth <= 767 ? 3 : 5;
+    const EVENTS_PER_PAGE = 5;
 
     const eventYears = [...new Set(events.map((e) => e.year))].sort();
 
@@ -35,18 +33,8 @@
     }
 
     function getFilteredEvents() {
-        let filtered = events;
-
-        // Category filter
-        if (activeCategory === 'upcoming') {
-            filtered = filtered.filter((ev) => ev.badgeClass === 'upcoming');
-        } else if (activeCategory !== 'all') {
-            filtered = filtered.filter((ev) => ev.category === activeCategory);
-        }
-
-        // Year/month filter
-        if (isAllYearsView()) return sortEventsChronologically(filtered);
-        return filtered.filter((ev) => {
+        if (isAllYearsView()) return sortEventsChronologically(events);
+        return events.filter((ev) => {
             if (String(ev.year) !== String(activeYear)) return false;
             if (ev.monthNum !== activeMonth) return false;
             return true;
@@ -94,12 +82,14 @@
             <div class="ev-preview-hero ev-preview-hero--no-image">
                 ${heroInner}
             </div>`}
-            <h2 class="ev-preview-title">${escapeHtml(ev.title)}</h2>
-            <p class="ev-preview-desc">${escapeHtml(ev.desc)}</p>
-            <p class="ev-preview-speaker">Speaker: <strong>${escapeHtml(ev.speaker)}</strong></p>
-            <div class="ev-preview-footer">
-                <div class="ev-preview-tags">
-                    ${ev.tags.map((t) => `<span class="ev-tag">${escapeHtml(t)}</span>`).join('')}
+            <div class="ev-preview-content">
+                <h2 class="ev-preview-title">${escapeHtml(ev.title)}</h2>
+                <p class="ev-preview-desc">${escapeHtml(ev.desc)}</p>
+                <p class="ev-preview-speaker">Speaker: <strong>${escapeHtml(ev.speaker)}</strong></p>
+                <div class="ev-preview-footer">
+                    <div class="ev-preview-tags">
+                        ${ev.tags.map((t) => `<span class="ev-tag">${escapeHtml(t)}</span>`).join('')}
+                    </div>
                 </div>
             </div>
         `;
@@ -119,28 +109,39 @@
 
     function renderList(options = {}) {
         const filtered = getFilteredEvents();
+        
+        let paginationEl = document.getElementById('ev-pagination');
+        if (!paginationEl && listEl) {
+            paginationEl = document.createElement('div');
+            paginationEl.id = 'ev-pagination';
+            paginationEl.className = 'ev-pagination';
+            listEl.parentNode.appendChild(paginationEl);
+        }
+
         if (!filtered.length) {
             const monthName = MONTHS[activeMonth - 1];
             const emptyMsg = isAllYearsView()
                 ? 'No events found.'
                 : `No events in ${monthName} ${activeYear}.`;
             listEl.innerHTML = `<p class="ev-list-empty">${emptyMsg}</p>`;
+            if (paginationEl) paginationEl.style.display = 'none';
             renderPreview(null);
             return;
         }
 
-        // Pagination logic
-        const totalPages = Math.ceil(filtered.length / EVENTS_PER_PAGE);
+        const totalPages = Math.ceil(filtered.length / EVENTS_PER_PAGE) || 1;
         if (currentPage > totalPages) currentPage = totalPages;
         if (currentPage < 1) currentPage = 1;
-        const startIdx = (currentPage - 1) * EVENTS_PER_PAGE;
-        const pageEvents = filtered.slice(startIdx, startIdx + EVENTS_PER_PAGE);
+
+        const startIndex = (currentPage - 1) * EVENTS_PER_PAGE;
+        const endIndex = startIndex + EVENTS_PER_PAGE;
+        const pageEvents = filtered.slice(startIndex, endIndex);
 
         if (!pageEvents.find((e) => e.id === selectedId)) {
-            selectedId = pageEvents[0].id;
+            selectedId = pageEvents[0]?.id;
         }
 
-        const listHtml = pageEvents.map((ev) => `
+        listEl.innerHTML = pageEvents.map((ev) => `
             <button type="button" class="ev-list-row${ev.id === selectedId ? ' selected' : ''}" data-id="${escapeHtml(ev.id)}">
                 <span class="ev-list-date">
                     <span class="ev-list-date-month">${escapeHtml(ev.month)}</span>
@@ -154,36 +155,39 @@
             </button>
         `).join('');
 
-        listEl.innerHTML = listHtml;
+        listEl.querySelectorAll('.ev-list-row').forEach((row) => {
+            row.addEventListener('click', () => {
+                selectedId = row.dataset.id;
+                renderList({ scrollIntoView: true });
+            });
+        });
 
-        // Pagination controls — rendered in separate container
+        // Render Pagination Controls
         if (paginationEl) {
-            if (totalPages > 1) {
-                paginationEl.innerHTML = `<div class="ev-pagination">
-                    <button type="button" class="ev-pagination-btn ev-pagination-prev"${currentPage <= 1 ? ' disabled' : ''} aria-label="Previous page">
-                        <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </button>
-                    <span class="ev-pagination-info">${currentPage} / ${totalPages}</span>
-                    <button type="button" class="ev-pagination-btn ev-pagination-next"${currentPage >= totalPages ? ' disabled' : ''} aria-label="Next page">
-                        <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </button>
-                </div>`;
+            if (totalPages <= 1) {
+                paginationEl.style.display = 'none';
             } else {
-                paginationEl.innerHTML = '';
-            }
+                paginationEl.style.display = 'flex';
+                paginationEl.innerHTML = `
+                    <button type="button" class="ev-page-btn ev-page-prev" id="ev-page-prev" aria-label="Previous page" ${currentPage === 1 ? 'disabled' : ''}>
+                        <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 12L4 8l6-4"/></svg>
+                    </button>
+                    <span class="ev-page-number">${currentPage} / ${totalPages}</span>
+                    <button type="button" class="ev-page-btn ev-page-next" id="ev-page-next" aria-label="Next page" ${currentPage === totalPages ? 'disabled' : ''}>
+                        <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12l6-4-6-4"/></svg>
+                    </button>
+                `;
 
-            const prevBtn = paginationEl.querySelector('.ev-pagination-prev');
-            const nextBtn = paginationEl.querySelector('.ev-pagination-next');
-            if (prevBtn) {
-                prevBtn.addEventListener('click', () => {
+                paginationEl.querySelector('.ev-page-prev').addEventListener('click', (e) => {
+                    e.stopPropagation();
                     if (currentPage > 1) {
                         currentPage--;
                         renderList();
                     }
                 });
-            }
-            if (nextBtn) {
-                nextBtn.addEventListener('click', () => {
+
+                paginationEl.querySelector('.ev-page-next').addEventListener('click', (e) => {
+                    e.stopPropagation();
                     if (currentPage < totalPages) {
                         currentPage++;
                         renderList();
@@ -191,13 +195,6 @@
                 });
             }
         }
-
-        listEl.querySelectorAll('.ev-list-row').forEach((row) => {
-            row.addEventListener('click', () => {
-                selectedId = row.dataset.id;
-                renderList({ scrollIntoView: true });
-            });
-        });
 
         renderPreview(events.find((e) => e.id === selectedId), options);
     }
@@ -262,26 +259,14 @@
 
     const statNums = document.querySelectorAll('.ev-stat-num');
     if (statNums[0] && events.length) statNums[0].textContent = String(events.length);
+    if (statNums[1] && events.length) {
+        const upcomingCount = events.filter((ev) => ev.badgeClass === 'upcoming').length;
+        statNums[1].textContent = upcomingCount > 0 ? String(upcomingCount) : 'TBA';
+    }
 
     renderYearStrip();
     renderMonthStrip();
     renderList();
-
-    // Sidebar category filtering
-    const sidebarItems = document.querySelectorAll('#ev-sidebar .ev-finder-sidebar-item[data-category]');
-    sidebarItems.forEach((item) => {
-        item.addEventListener('click', () => {
-            activeCategory = item.dataset.category;
-            currentPage = 1;
-            sidebarItems.forEach((el) => {
-                el.classList.remove('active');
-                el.removeAttribute('aria-current');
-            });
-            item.classList.add('active');
-            item.setAttribute('aria-current', 'true');
-            renderList();
-        });
-    });
 
     if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
@@ -400,5 +385,26 @@
         if (e.key === 'ArrowLeft') setGalleryIndex(galleryIndex - 1);
         if (e.key === 'ArrowRight') setGalleryIndex(galleryIndex + 1);
     });
+
+    // ---- Custom cursor ----
+    const customCursor = document.getElementById('custom-cursor');
+    const customCursorGlow = document.getElementById('custom-cursor-glow');
+    if (customCursor && customCursorGlow && window.matchMedia('(pointer: fine) and (hover: hover)').matches) {
+        document.body.classList.add('custom-cursor-active');
+        document.addEventListener('mousemove', (e) => {
+            customCursor.style.left = `${e.clientX}px`;
+            customCursor.style.top = `${e.clientY}px`;
+            customCursorGlow.style.left = `${e.clientX}px`;
+            customCursorGlow.style.top = `${e.clientY}px`;
+        });
+        document.addEventListener('mouseleave', () => {
+            customCursor.style.opacity = '0';
+            customCursorGlow.style.opacity = '0';
+        });
+        document.addEventListener('mouseenter', () => {
+            customCursor.style.opacity = '1';
+            customCursorGlow.style.opacity = '0.8';
+        });
+    }
 
 })();

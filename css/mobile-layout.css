@@ -43,7 +43,7 @@
         --mobile-header-top: max(8px, env(safe-area-inset-top));
         --mobile-back-gap: 8px;
         --mobile-back-h: 34px;
-        --mobile-content-top: calc(var(--mobile-back-gap) + var(--mobile-back-h) + 24px);
+        --mobile-content-top: calc(var(--mobile-header-top) + var(--mobile-header-h) + var(--mobile-back-gap) + var(--mobile-back-h) + var(--mobile-page-top-offset));
         --mobile-finder-pad: 14px;
         --mobile-stat-num: 22px;
         --mobile-stat-label: 10px;
@@ -397,19 +397,19 @@
 
     .page-back,
     .events-back {
-        position: sticky !important;
-        top: 8px !important;
-        left: auto !important;
+        position: fixed !important;
+        top: calc(var(--mobile-header-top) + var(--mobile-header-h) + var(--mobile-back-gap)) !important;
+        left: max(var(--mobile-gutter), calc((100vw - var(--mobile-content-max)) / 2)) !important;
         right: auto !important;
         transform: none !important;
-        z-index: 99 !important;
+        z-index: 9999 !important;
         display: inline-flex !important;
         align-items: center !important;
         width: auto !important;
         max-width: calc(100vw - var(--mobile-gutter) * 2) !important;
         font-size: 12px !important;
         padding: 6px 14px !important;
-        margin: 0 0 8px !important;
+        margin: 0 !important;
         white-space: nowrap !important;
     }
 
@@ -1754,7 +1754,7 @@
 
     .section1-lead {
         font-size: var(--mobile-text-base) !important;
-        margin: 0 0 var(--space-md) !important;
+        margin: var(--space-lg) 0 var(--space-md) !important;
     }
 
     .section1-motto {
@@ -2323,16 +2323,5 @@
     .sbg-finder-narrative,
     .oh-finder-narrative {
         margin-bottom: 1.5rem;
-    }
-}
-
-/* ---------- New navbar mobile adjustments ---------- */
-@media (max-width: 1024px) {
-    .site-navbar {
-        position: sticky;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 10000;
     }
 }

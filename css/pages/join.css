@@ -9,45 +9,6 @@
     animation: fadeInUp 0.85s ease-out 0.15s both;
 }
 
-/* Benefits list */
-.jf-benefits {
-    max-width: 480px;
-    margin: 0 auto var(--space-xl, 40px);
-    text-align: center;
-}
-
-.jf-benefits h3 {
-    font-family: var(--font-display);
-    font-size: var(--text-lg);
-    font-weight: 700;
-    color: var(--color-text-primary);
-    margin-bottom: var(--space-md, 16px);
-}
-
-.jf-benefits ul {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-sm, 8px);
-}
-
-.jf-benefits li {
-    font-family: var(--font-body);
-    font-size: var(--text-sm);
-    color: var(--color-text-secondary);
-    padding-left: 24px;
-    position: relative;
-}
-
-.jf-benefits li::before {
-    content: '✓';
-    position: absolute;
-    left: 0;
-    color: var(--color-accent-orange, #F5A623);
-    font-weight: 700;
-}
-
 .jf-finder-window {
     position: relative; width: 100%; border-radius: 12px;
     background: rgba(28, 26, 42, 0.92);
@@ -268,6 +229,22 @@
     color: rgba(255, 255, 255, 0.35);
 }
 
+.site-footer { width: 100%; padding: 0; display: flex; flex-direction: column; align-items: stretch; position: relative; z-index: 2; isolation: isolate; }
+.site-footer-card { position: relative; width: 100%; background: #000000; border-top: 1px solid rgba(255, 255, 255, 0.1); box-shadow: none; }
+.site-footer-card::before { display: none; }
+.site-footer-main { position: relative; z-index: 1; width: 100%; max-width: 1200px; margin: 0 auto; padding: 48px 10vw 32px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 18px; }
+.site-footer-logo-row { display: flex; align-items: center; gap: 16px; }
+.site-footer-logo { width: 56px; height: 56px; border-radius: 12px; object-fit: contain; filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4)); flex-shrink: 0; }
+.site-footer-titles { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.15; }
+.site-footer-title { font-size: 22px; font-weight: 800; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.site-footer-subtitle { font-size: 14px; font-weight: 600; color: rgba(255, 255, 255, 0.65); letter-spacing: 0.5px; }
+.site-footer-desc { max-width: 540px; margin: 0; font-size: 15px; line-height: 1.7; color: rgba(255, 255, 255, 0.8); }
+.site-footer-socials { display: flex; gap: 14px; margin-top: 4px; }
+.site-footer-social { width: 46px; height: 46px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: #fff; background: #f29b3c; border: 1px solid rgba(242, 155, 60, 0.6); box-shadow: 0 6px 18px rgba(242, 155, 60, 0.3); transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease; text-decoration: none; }
+.site-footer-social:hover { transform: translateY(-3px); background: #f7ad58; box-shadow: 0 0 22px rgba(242, 155, 60, 0.55); }
+.site-footer-social svg { width: 20px; height: 20px; display: block; }
+.site-footer-bottom { position: relative; z-index: 1; padding: 16px 10vw 20px; text-align: center; font-size: 10px; letter-spacing: 0.2px; color: rgba(255, 255, 255, 0.55); background: #000000; }
+
 /* Registration closed — blur finder only */
 .jf-finder-wrap--closed {
     position: relative;
@@ -280,104 +257,78 @@
 }
 
 .jf-registration-closed {
-    position: relative;
+    position: absolute;
+    inset: 0;
     z-index: 5;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: var(--space-2xl) var(--space-lg);
-    text-align: center;
+    padding: 24px;
+    border-radius: 12px;
+    background: rgba(10, 10, 14, 0.4);
 }
 
 .jf-registration-closed-card {
-    max-width: 480px;
+    max-width: 440px;
     width: 100%;
-    padding: var(--space-2xl);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-md);
+    padding: 28px 28px 24px;
+    border-radius: 14px;
+    background: rgba(28, 26, 42, 0.96);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+    text-align: center;
+    font-family: var(--font-sans);
 }
 
-.jf-closed-icon {
-    color: var(--color-accent-orange);
-    margin-bottom: var(--space-sm);
+.jf-registration-closed-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(187, 175, 253, 0.85);
+    margin: 0 0 10px;
 }
 
 .jf-registration-closed-title {
-    font-family: var(--font-display);
-    font-size: var(--text-2xl);
-    font-weight: 700;
-    margin: 0;
-    color: var(--color-text-primary);
-    line-height: 1.2;
+    font-size: 22px;
+    font-weight: 800;
+    margin: 0 0 12px;
+    color: #fff;
+    line-height: 1.25;
 }
 
 .jf-registration-closed-desc {
-    font-family: var(--font-body);
-    font-size: var(--text-base);
-    line-height: 1.7;
-    color: var(--color-text-secondary);
-    margin: 0;
-    max-width: 360px;
+    font-size: 14px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.62);
+    margin: 0 0 20px;
 }
 
-.jf-registration-closed-btn {
+.jf-registration-closed-link {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 14px 28px;
-    border-radius: var(--radius-pill);
-    font-family: var(--font-display);
-    font-size: var(--text-sm);
-    font-weight: 700;
-    color: #0B0918;
-    background: var(--color-accent-orange);
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
     text-decoration: none;
-    transition: background 0.2s ease, transform 0.2s ease;
-    margin-top: var(--space-sm);
+    transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-.jf-registration-closed-btn:hover {
-    background: #FFB83F;
-    transform: translateY(-2px);
-}
-
-.jf-registration-closed-secondary {
-    font-family: var(--font-body);
-    font-size: var(--text-sm);
-    color: var(--color-text-muted);
-    text-decoration: none;
-    transition: color 0.2s ease;
-}
-
-.jf-registration-closed-secondary:hover {
-    color: var(--color-text-secondary);
-}
-
-.jf-explore-links {
-    font-family: var(--font-body);
-    font-size: var(--text-sm);
-    color: var(--color-text-muted);
-    margin-top: var(--space-lg);
-}
-
-.jf-explore-links a {
-    color: var(--color-text-secondary);
-    text-decoration: underline;
-    transition: color 0.2s ease;
-}
-
-.jf-explore-links a:hover {
-    color: var(--color-text-primary);
-}
-
-/* Hide the form mockup when registration is closed */
-.jf-finder-wrap--closed .jf-finder-window {
-    display: none;
+.jf-registration-closed-link:hover {
+    opacity: 0.92;
+    transform: translateY(-1px);
 }
 
 @media (max-width: 1024px) {
+    :root { --page-padding: 5vw; }
+    .top-bar { top: 12px; } .top-bar-text { display: none; }
+    .liquid-dock { top: 12px; padding: 4px; }
+    .dock-item { font-size: 13px; padding: 9px 14px; }
+    .join-page { padding: 100px 5vw 30px; }
     .jf-finder-sidebar { display: none; }
     .jf-finder-main { padding: 20px 16px 24px; }
     .jf-form-row { flex-direction: column; align-items: stretch; gap: 4px; min-height: auto; padding: 12px 14px; }
@@ -391,6 +342,9 @@
     .jf-registration-closed-card { padding: 22px 20px 20px; }
     .jf-registration-closed-title { font-size: 19px; }
     .jf-registration-closed-desc { font-size: 13px; }
-    .jf-registration-closed-link { font-size: 12px; padding: 9px 14px; word-break: break-all;
-}
+    .jf-registration-closed-link { font-size: 12px; padding: 9px 14px; word-break: break-all; }
+    .sticker { width: 80px; bottom: 16px; right: 16px; }
+    .site-footer-main { padding: 36px 5vw 28px; }
+    .site-footer-logo-row { flex-direction: column; gap: 10px; }
+    .site-footer-titles { align-items: center; text-align: center; }
 }

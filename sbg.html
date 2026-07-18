@@ -1,81 +1,119 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <title>Student Builder Groups · AWS · Adamson University</title>
     <link rel="icon" type="image/png" href="img/awscatlogo.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" />
-
     <link rel="stylesheet" href="css/design-tokens.css" />
     <link rel="stylesheet" href="css/base.css" />
-    <link rel="stylesheet" href="css/navbar.css" />
     <link rel="stylesheet" href="css/desktop-adaptive.css" />
     <link rel="stylesheet" href="css/mobile-layout.css" />
     <link rel="stylesheet" href="css/pages/sbg.css" />
     <link rel="stylesheet" href="css/sbg-safari-mobile.css" />
-    <link rel="stylesheet" href="css/responsive.css" />
 </head>
 <body>
     <div class="custom-cursor-glow" id="custom-cursor-glow" aria-hidden="true"></div>
     <div class="custom-cursor" id="custom-cursor" aria-hidden="true"></div>
 
-    <!-- NAVBAR -->
-    <header class="site-navbar" aria-label="Site navigation">
-        <div class="navbar-inner">
-            <a class="navbar-brand-pill" href="index.html" aria-label="Go to home page">
-                <img src="img/awscatlogo.png" alt="AWS Cat Logo" class="navbar-brand-logo" fetchpriority="high" decoding="async" width="512" height="512" />
-                <span class="navbar-brand-name"><span class="brand-full">AWS Student Builder Group – AdU</span><span class="brand-short">AWS SBG · AdU</span></span>
-            </a>
+    <!-- TOP BAR -->
+    <header class="site-header" aria-label="Site header">
+    <a class="top-bar" href="index.html" aria-label="Go to home page">
+        <img src="img/awscatlogo.png" alt="AWS Cat Logo" class="top-bar-logo" />
+        <span class="top-bar-text"><span class="brand-full">AWS Student Builder Group · Adamson University</span><span class="brand-short">AWS SBG · AdU</span></span>
+    </a>
 
-            <div class="navbar-right">
-                <nav class="navbar-nav-pill" aria-label="Main navigation">
-                    <a class="navbar-link" href="org-history.html">Our Story</a>
-                    <a class="navbar-link" href="events.html">Events</a>
-                    <a class="navbar-link" href="officers.html">Officers</a>
-                    <a class="navbar-link active" href="sbg.html">SBG</a>
-                </nav>
-                <a class="navbar-cta" href="join.html">Join Us</a>
-            </div>
-
-            <button class="navbar-hamburger" type="button" aria-label="Open navigation menu" aria-expanded="false">
-                <span class="navbar-hamburger-line"></span>
-                <span class="navbar-hamburger-line"></span>
-                <span class="navbar-hamburger-line"></span>
+    <!-- NAVIGATION DOCK -->
+    <nav class="liquid-dock">
+        <div class="dock-slider"></div>
+        <div class="dock-item-wrap" id="about-wrap">
+            <button class="dock-item active" type="button" aria-haspopup="true" aria-expanded="false" data-dropdown-trigger>
+                About Us
+                <span class="nav-caret" aria-hidden="true">
+                    <svg viewBox="0 0 10 6" width="10" height="6"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
             </button>
+            <div class="nav-dropdown" role="menu" aria-label="About menu">
+                <a class="nav-dropdown-item" href="index.html" role="menuitem">About Overview</a>
+                <div class="nav-dropdown-divider"></div>
+                <a class="nav-dropdown-item" href="org-history.html" role="menuitem">Org History</a>
+                <a class="nav-dropdown-item" href="officers.html" role="menuitem">Officers</a>
+                <a class="nav-dropdown-item primary" href="sbg.html" role="menuitem">SBG</a>
+            </div>
         </div>
-
-        <div class="navbar-mobile-menu" aria-hidden="true">
-            <nav class="navbar-mobile-links" aria-label="Mobile navigation">
-                <a class="navbar-mobile-cta" href="join.html">Join Us</a>
-                <a class="navbar-mobile-link" href="org-history.html">Our Story</a>
-                <a class="navbar-mobile-link" href="events.html">Events</a>
-                <a class="navbar-mobile-link" href="officers.html">Officers</a>
-                <a class="navbar-mobile-link" href="sbg.html">SBG</a>
-            </nav>
+        <div class="dock-item-wrap" id="workshops-wrap">
+            <button class="dock-item" type="button" aria-haspopup="true" aria-expanded="false" data-dropdown-trigger>
+                Workshops
+                <span class="nav-caret" aria-hidden="true">
+                    <svg viewBox="0 0 10 6" width="10" height="6"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+            </button>
+            <div class="nav-dropdown" role="menu" aria-label="Workshops menu">
+                <a class="nav-dropdown-item primary" href="index.html#workshops" role="menuitem">Workshops Overview</a>
+                <div class="nav-dropdown-divider"></div>
+                <a class="nav-dropdown-item" href="events.html" role="menuitem">View All Events</a>
+            </div>
         </div>
+        <div class="dock-item-wrap" id="join-wrap">
+            <button class="dock-item" type="button" aria-haspopup="true" aria-expanded="false" data-dropdown-trigger>
+                Join Us
+                <span class="nav-caret" aria-hidden="true">
+                    <svg viewBox="0 0 10 6" width="10" height="6"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+            </button>
+            <div class="nav-dropdown" role="menu" aria-label="Join menu">
+                <a class="nav-dropdown-item" href="index.html#join" role="menuitem">Join Overview</a>
+                <div class="nav-dropdown-divider"></div>
+                <a class="nav-dropdown-item" href="join.html" role="menuitem">Fill a Form</a>
+            </div>
+        </div>
+    </nav>
     </header>
 
     <!-- PAGE CONTENT -->
     <main class="sbg-page">
+        <a class="page-back" href="index.html">
+            <span class="arrow">←</span>
+            Back to Home
+        </a>
 
         <header class="sbg-hero">
-            <img src="img/awscat2.png" alt="" class="page-hero-logo" loading="lazy" decoding="async" />
-            <span class="page-label">About</span>
+            <img src="img/awssbglogo.png" alt="" class="page-hero-logo page-hero-logo--flat" />
+            <span class="page-label">AWS Builder Center</span>
             <h1>Student Builder Groups</h1>
+            <p>Student Builder Groups (SBGs) are student-led communities, supported by AWS, where learners come together to grow their cloud skills, build real projects, and connect with a global network of builders.</p>
         </header>
 
         <div class="sbg-finder-wrap">
             <div class="sbg-finder-narrative" id="sbg-finder-narrative">
                 <div class="sbg-finder-narrative-inner">
+                    <div class="sbg-narrative-tags sbg-narrative-reveal">
+                        <span class="sbg-narrative-tag">Student-Led</span>
+                        <span class="sbg-narrative-tag">AWS-Supported</span>
+                        <span class="sbg-narrative-tag">Hands-On Learning</span>
+                        <span class="sbg-narrative-tag">Global Network</span>
+                    </div>
                     <p class="sbg-narrative-lead sbg-narrative-reveal">
-                        Student Builder Groups are student-run communities backed by AWS. We run workshops, study groups, and build challenges at our own pace. No prior experience needed, just show up willing to learn.
+                        A <span class="sbg-narrative-shimmer">Student Builder Group</span> is a community of students who share a passion for cloud computing —
+                        organized by students, for students, with support from AWS and a worldwide network of mentors.
                     </p>
-                    <p class="sbg-narrative-body sbg-narrative-reveal">
-                        At Adamson, our chapter brings together students from every course and year level. We focus on practical cloud skills through hands-on labs, not just theory. The community extends beyond campus through a global network of mentors and fellow student builders.
-                    </p>
+                    <div class="sbg-narrative-grid">
+                        <article class="sbg-narrative-card sbg-narrative-reveal">
+                            <h4>What It Is</h4>
+                            <p>A welcoming space to learn AWS hands-on, exchange ideas, and turn curiosity into in-demand cloud skills.</p>
+                        </article>
+                        <article class="sbg-narrative-card sbg-narrative-reveal">
+                            <h4>What We Run</h4>
+                            <p>Workshops, study sessions, and build challenges — each group sets its own pace, guided by AWS resources and community mentors.</p>
+                        </article>
+                        <article class="sbg-narrative-card sbg-narrative-reveal">
+                            <h4>Who It's For</h4>
+                            <p>Anyone starting their cloud journey at Adamson — no matter your course, year level, or prior experience with AWS.</p>
+                        </article>
+                    </div>
+                    <blockquote class="sbg-narrative-quote sbg-narrative-reveal">
+                        "It's a place to start your cloud journey, no matter your background or year level — built by students who believe cloud skills should be open to everyone."
+                    </blockquote>
                 </div>
             </div>
 
@@ -141,29 +179,39 @@
                 <div class="sbg-finder-body sbg-safari-body">
                     <div class="sbg-finder-main sbg-safari-content">
                         <div class="sbg-finder-block" id="sbg-why-join">
-                            <div class="sbg-about-prose">
-                                <p>Here's what actually happens when you join:</p>
-                                <div class="sbg-benefits-list">
-                                    <div class="sbg-benefit">
-                                        <h3>Learn</h3>
-                                        <p>Guided AWS labs, study groups, and certification prep at a pace that works for students.</p>
+                            <h2 class="sbg-section-title">Why Join a Builder Group?</h2>
+                            <section class="sbg-features">
+                                <div class="sbg-feature">
+                                    <div class="sbg-feature-icon" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
                                     </div>
-                                    <div class="sbg-benefit">
-                                        <h3>Build</h3>
-                                        <p>Real cloud projects, from your first web app to serverless and AI/ML experiments.</p>
-                                    </div>
-                                    <div class="sbg-benefit">
-                                        <h3>Connect</h3>
-                                        <p>Meet peers, mentors, and AWS community builders locally and across the global network.</p>
-                                    </div>
-                                    <div class="sbg-benefit">
-                                        <h3>Grow</h3>
-                                        <p>Leadership, collaboration, and technical skills that open doors to internships and careers.</p>
-                                    </div>
+                                    <h3>Learn</h3>
+                                    <p>Get hands-on with AWS services through guided labs, study groups, and certification prep — at a pace that works for students.</p>
                                 </div>
-                                <p>No prerequisite. First-year students and thesis-level CS majors show up to the same workshops.</p>
-                            </div>
+                                <div class="sbg-feature">
+                                    <div class="sbg-feature-icon" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+                                    </div>
+                                    <h3>Build</h3>
+                                    <p>Apply what you learn by building real projects on the cloud, from your first web app to serverless and AI/ML experiments.</p>
+                                </div>
+                                <div class="sbg-feature">
+                                    <div class="sbg-feature-icon" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+                                    </div>
+                                    <h3>Connect</h3>
+                                    <p>Meet like-minded peers, mentors, and AWS community builders. Grow your network locally and across the global community.</p>
+                                </div>
+                                <div class="sbg-feature">
+                                    <div class="sbg-feature-icon" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
+                                    </div>
+                                    <h3>Grow</h3>
+                                    <p>Develop leadership, collaboration, and technical skills that set you apart — and open doors to internships and careers in tech.</p>
+                                </div>
+                            </section>
                         </div>
+
                     </div>
                 </div>
 
@@ -188,14 +236,18 @@
 
                 <div class="sbg-finder-footer sbg-window-footer">
                     <span><span class="sbg-finder-title-icon" aria-hidden="true"></span>Adamson University · AWS Student Builder Group</span>
+                    <div class="sbg-finder-footer-items">
+                        <span>50+ members</span>
+                        <span data-finder-footer-events>11 events</span>
+                    </div>
                 </div>
             </div>
         </div>
 
         <section class="sbg-cta">
             <div class="sbg-cta-inner">
-                <h2>We're part of a worldwide network</h2>
-                <p>AWS SBG Adamson is one of many student builder groups across the globe. The official AWS program connects us with mentors, resources, and fellow student communities.</p>
+                <h2>Part of a Global Movement</h2>
+                <p>AWS SBG Adamson University is one of many Student Builder Groups around the world. Explore the official program and discover the wider community of student builders.</p>
                 <a class="sbg-cta-btn" href="https://builder.aws.com/community/student-builder-groups" target="_blank" rel="noopener noreferrer">
                     Explore AWS Student Builder Groups
                     <span class="arrow">→</span>
@@ -204,45 +256,40 @@
         </section>
     </main>
 
+    <!-- SITE FOOTER -->
     <footer class="site-footer" aria-label="Site footer">
-        <div class="site-footer-inner">
-            <div class="site-footer-columns">
-                <div class="site-footer-brand">
-                    <img src="img/awscatlogo.png" alt="AWS Cat Logo" class="site-footer-logo" loading="lazy" decoding="async" />
-                    <span class="site-footer-brand-name">AWS SBG · AdU</span>
+        <div class="site-footer-card">
+            <div class="site-footer-main">
+                <div class="site-footer-logo-row">
+                    <img src="img/awscatlogo.png" alt="AWS Cat Logo" class="site-footer-logo" />
+                    <div class="site-footer-titles">
+                        <span class="site-footer-title">AWS Student Builder Group</span>
+                        <span class="site-footer-subtitle">Adamson University</span>
+                    </div>
                 </div>
-                <nav class="site-footer-nav" aria-label="Footer navigation">
-                    <a href="index.html">About</a>
-                    <span class="site-footer-nav-dot">·</span>
-                    <a href="events.html">Events</a>
-                    <span class="site-footer-nav-dot">·</span>
-                    <a href="officers.html">Officers</a>
-                    <span class="site-footer-nav-dot">·</span>
-                    <a href="join.html">Join Us</a>
-                    <span class="site-footer-nav-dot">·</span>
-                    <a href="https://www.facebook.com/awsccadamsonuniversity/photos" target="_blank" rel="noopener noreferrer">Photos</a>
-                </nav>
+                <p class="site-footer-desc">
+                    Learn cloud. Build projects. Meet your people.
+                </p>
                 <div class="site-footer-socials">
-                    <a href="https://www.facebook.com/awsccadamsonuniversity" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                        <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor" aria-hidden="true"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.9h2.54V9.85c0-2.51 1.49-3.9 3.78-3.9 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.9h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94z"/></svg>
+                    <a class="site-footer-social" href="https://www.facebook.com/awssbgadamsonuniversity" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.9h2.54V9.85c0-2.51 1.49-3.9 3.78-3.9 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.9h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94z"/></svg>
                     </a>
-                    <a href="https://www.instagram.com/awscc_adu/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                        <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.2" fill="currentColor" stroke="none"/></svg>
-                    </a>
-                    <a href="https://www.linkedin.com/company/aws-cloud-clubs-adamson-university/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                        <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3zM9 9h3.8v1.64h.05c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.3c0-1.26-.02-2.9-1.77-2.9-1.77 0-2.04 1.38-2.04 2.8V21H9z"/></svg>
+                    <a class="site-footer-social" href="https://www.instagram.com/awssbg_adu/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.2" fill="currentColor" stroke="none"/></svg>
                     </a>
                 </div>
             </div>
-            <div class="site-footer-divider"></div>
-            <p class="site-footer-copy">© 2026 AWS Student Builder Group · Adamson University. All rights reserved.</p>
+            <div class="site-footer-bottom">
+                © 2026 AWS Student Builder Group · Adamson University. All rights reserved.
+            </div>
         </div>
     </footer>
 
-    <img src="img/awscat1.png" alt="AWS Cat Sticker" class="sticker" loading="lazy" decoding="async" />
+    <script src="js/nav-dock.js"></script>
+    <script src="js/pages/sbg.js"></script>
 
-    <script src="js/navbar.js" defer></script>
-    <script src="js/custom-cursor.js" defer></script>
-    <script src="js/pages/sbg.js" defer></script>
+    <img src="img/awscat1.png" alt="AWS Cat Sticker" class="sticker" />
+    <script src="js/footer-socials.js"></script>
+    <script src="js/mobile-nav.js"></script>
 </body>
 </html>

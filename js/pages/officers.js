@@ -1,4 +1,24 @@
 (function () {
+    const customCursor = document.getElementById('custom-cursor');
+    const customCursorGlow = document.getElementById('custom-cursor-glow');
+    if (customCursor && customCursorGlow && window.matchMedia('(pointer: fine) and (hover: hover)').matches) {
+        document.body.classList.add('custom-cursor-active');
+        document.addEventListener('mousemove', (e) => {
+            customCursor.style.left = `${e.clientX}px`;
+            customCursor.style.top = `${e.clientY}px`;
+            customCursorGlow.style.left = `${e.clientX}px`;
+            customCursorGlow.style.top = `${e.clientY}px`;
+        });
+        document.addEventListener('mouseleave', () => {
+            customCursor.style.opacity = '0';
+            customCursorGlow.style.opacity = '0';
+        });
+        document.addEventListener('mouseenter', () => {
+            customCursor.style.opacity = '1';
+            customCursorGlow.style.opacity = '0.8';
+        });
+    }
+
     const officers = window.SBG_OFFICERS || [];
     const leadershipIds = window.SBG_LEADERSHIP_OFFICER_IDS || [];
     const chartEl = document.getElementById('of-officers-chart');
@@ -69,7 +89,6 @@
                 <div class="of-contact-photo-ring">
                     ${avatarHtml(officer, 'of-contact-photo')}
                 </div>
-                <p class="of-contact-meta">${meta || 'AWS Student Builder Group'}</p>
                 <h3 class="of-contact-name">${officer.name}</h3>
                 ${goesByLine ? `<p class="of-contact-nickname">${goesByLine}</p>` : '<p class="of-contact-nickname of-contact-nickname--spacer" aria-hidden="true"></p>'}
                 <p class="of-contact-role">${roleLine}</p>
@@ -78,6 +97,11 @@
             <div class="of-contact-actions" role="group" aria-label="Contact actions for ${officer.name}">
                 ${actionButton('linkedin', ICON_LINKEDIN, officer.linkedin, !officer.linkedin)}
                 ${actionButton('instagram', ICON_INSTAGRAM, officer.instagram, !officer.instagram)}
+            </div>
+
+            <div class="of-contact-details">
+                ${fieldRow('Course', officer.course)}
+                ${fieldRow('Year Level', officer.yearLevel)}
             </div>
         </article>`;
     }

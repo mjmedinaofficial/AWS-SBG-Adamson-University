@@ -1,112 +1,129 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <title>Org History · AWS Student Builder Group · Adamson University</title>
     <link rel="icon" type="image/png" href="img/awscatlogo.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" />
-
     <link rel="stylesheet" href="css/design-tokens.css" />
     <link rel="stylesheet" href="css/base.css" />
-    <link rel="stylesheet" href="css/navbar.css" />
     <link rel="stylesheet" href="css/desktop-adaptive.css" />
     <link rel="stylesheet" href="css/mobile-layout.css" />
     <link rel="stylesheet" href="css/pages/org-history.css" />
-    <link rel="stylesheet" href="css/responsive.css" />
 </head>
 <body>
     <div class="custom-cursor-glow" id="custom-cursor-glow" aria-hidden="true"></div>
     <div class="custom-cursor" id="custom-cursor" aria-hidden="true"></div>
 
-    <!-- NAVBAR -->
-    <header class="site-navbar" aria-label="Site navigation">
-        <div class="navbar-inner">
-            <a class="navbar-brand-pill" href="index.html" aria-label="Go to home page">
-                <img src="img/awscatlogo.png" alt="AWS Cat Logo" class="navbar-brand-logo" fetchpriority="high" decoding="async" width="512" height="512" />
-                <span class="navbar-brand-name"><span class="brand-full">AWS Student Builder Group – AdU</span><span class="brand-short">AWS SBG · AdU</span></span>
-            </a>
+    <!-- TOP BAR -->
+    <header class="site-header" aria-label="Site header">
+    <a class="top-bar" href="index.html" aria-label="Go to home page">
+        <img src="img/awscatlogo.png" alt="AWS Cat Logo" class="top-bar-logo" />
+        <span class="top-bar-text"><span class="brand-full">AWS Student Builder Group · Adamson University</span><span class="brand-short">AWS SBG · AdU</span></span>
+    </a>
 
-            <div class="navbar-right">
-                <nav class="navbar-nav-pill" aria-label="Main navigation">
-                    <a class="navbar-link active" href="org-history.html">Our Story</a>
-                    <a class="navbar-link" href="events.html">Events</a>
-                    <a class="navbar-link" href="officers.html">Officers</a>
-                    <a class="navbar-link" href="sbg.html">SBG</a>
-                </nav>
-                <a class="navbar-cta" href="join.html">Join Us</a>
-            </div>
-
-            <button class="navbar-hamburger" type="button" aria-label="Open navigation menu" aria-expanded="false">
-                <span class="navbar-hamburger-line"></span>
-                <span class="navbar-hamburger-line"></span>
-                <span class="navbar-hamburger-line"></span>
+    <!-- NAVIGATION DOCK -->
+    <nav class="liquid-dock">
+        <div class="dock-slider"></div>
+        <div class="dock-item-wrap" id="about-wrap">
+            <button class="dock-item active" type="button" aria-haspopup="true" aria-expanded="false" data-dropdown-trigger>
+                About Us
+                <span class="nav-caret" aria-hidden="true">
+                    <svg viewBox="0 0 10 6" width="10" height="6"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
             </button>
+            <div class="nav-dropdown" role="menu" aria-label="About menu">
+                <a class="nav-dropdown-item" href="index.html" role="menuitem">About Overview</a>
+                <div class="nav-dropdown-divider"></div>
+                <a class="nav-dropdown-item primary" href="org-history.html" role="menuitem">Org History</a>
+                <a class="nav-dropdown-item" href="officers.html" role="menuitem">Officers</a>
+                <a class="nav-dropdown-item" href="sbg.html" role="menuitem">SBG</a>
+            </div>
         </div>
-
-        <div class="navbar-mobile-menu" aria-hidden="true">
-            <nav class="navbar-mobile-links" aria-label="Mobile navigation">
-                <a class="navbar-mobile-cta" href="join.html">Join Us</a>
-                <a class="navbar-mobile-link" href="org-history.html">Our Story</a>
-                <a class="navbar-mobile-link" href="events.html">Events</a>
-                <a class="navbar-mobile-link" href="officers.html">Officers</a>
-                <a class="navbar-mobile-link" href="sbg.html">SBG</a>
-            </nav>
+        <div class="dock-item-wrap" id="workshops-wrap">
+            <button class="dock-item" type="button" aria-haspopup="true" aria-expanded="false" data-dropdown-trigger>
+                Workshops
+                <span class="nav-caret" aria-hidden="true">
+                    <svg viewBox="0 0 10 6" width="10" height="6"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+            </button>
+            <div class="nav-dropdown" role="menu" aria-label="Workshops menu">
+                <a class="nav-dropdown-item primary" href="index.html#workshops" role="menuitem">Workshops Overview</a>
+                <div class="nav-dropdown-divider"></div>
+                <a class="nav-dropdown-item" href="events.html" role="menuitem">View All Events</a>
+            </div>
         </div>
+        <div class="dock-item-wrap" id="join-wrap">
+            <button class="dock-item" type="button" aria-haspopup="true" aria-expanded="false" data-dropdown-trigger>
+                Join Us
+                <span class="nav-caret" aria-hidden="true">
+                    <svg viewBox="0 0 10 6" width="10" height="6"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+            </button>
+            <div class="nav-dropdown" role="menu" aria-label="Join menu">
+                <a class="nav-dropdown-item" href="index.html#join" role="menuitem">Join Overview</a>
+                <div class="nav-dropdown-divider"></div>
+                <a class="nav-dropdown-item" href="join.html" role="menuitem">Fill a Form</a>
+            </div>
+        </div>
+    </nav>
     </header>
 
     <!-- PAGE CONTENT -->
     <main class="oh-page">
+        <a class="page-back" href="index.html">
+            <span class="arrow">←</span>
+            Back to Home
+        </a>
 
         <header class="oh-hero">
-            <img src="img/awscat1.png" alt="" class="page-hero-logo" loading="lazy" decoding="async" />
+            <img src="img/awscatlogo.png" alt="AWS Cat Logo" class="oh-hero-logo" />
             <span class="page-label">Our Journey</span>
             <h1>The Story of AWS SBG AdU</h1>
             <p>How we started and where we're headed.</p>
         </header>
 
-        <!-- Horizontal milestone timeline -->
-        <section class="oh-timeline" aria-label="Organization milestones">
-            <div class="oh-timeline-track">
-                <div class="oh-timeline-line" aria-hidden="true"></div>
-                <div class="oh-timeline-milestone">
-                    <div class="oh-timeline-dot"></div>
-                    <div class="oh-timeline-card">
-                        <span class="oh-timeline-date">Oct 2024</span>
-                        <h4>Founded</h4>
-                        <p>AWS Cloud Club AdU officially launched by Kate Danielle Callao</p>
+
+        <div class="oh-finder-wrap">
+            <!-- HORIZONTAL TIMELINE -->
+            <div class="oh-horizontal-timeline" aria-label="Organization milestones timeline">
+                <div class="oh-timeline-line"></div>
+                <div class="oh-timeline-nodes">
+                    <div class="oh-timeline-node">
+                        <div class="oh-node-marker"></div>
+                        <div class="oh-node-content">
+                            <span class="oh-node-date">Oct 2024</span>
+                            <h3 class="oh-node-title">Founded</h3>
+                            <p class="oh-node-desc">AWS Cloud Club AdU officially launched by Kate Danielle Callao</p>
+                        </div>
                     </div>
-                </div>
-                <div class="oh-timeline-milestone">
-                    <div class="oh-timeline-dot"></div>
-                    <div class="oh-timeline-card">
-                        <span class="oh-timeline-date">Nov 2024</span>
-                        <h4>First Events</h4>
-                        <p>Chapter 1 + ECOTHON hackathon held within the first month</p>
+                    <div class="oh-timeline-node">
+                        <div class="oh-node-marker"></div>
+                        <div class="oh-node-content">
+                            <span class="oh-node-date">Nov 2024</span>
+                            <h3 class="oh-node-title">First Events</h3>
+                            <p class="oh-node-desc">Chapter 1 + ECOTHON hackathon held within the first month</p>
+                        </div>
                     </div>
-                </div>
-                <div class="oh-timeline-milestone">
-                    <div class="oh-timeline-dot"></div>
-                    <div class="oh-timeline-card">
-                        <span class="oh-timeline-date">2025</span>
-                        <h4>New Leadership</h4>
-                        <p>Kelvin Ignacio takes presidency where the org becomes top socio-civic group</p>
+                    <div class="oh-timeline-node">
+                        <div class="oh-node-marker"></div>
+                        <div class="oh-node-content">
+                            <span class="oh-node-date">2025</span>
+                            <h3 class="oh-node-title">New Leadership</h3>
+                            <p class="oh-node-desc">Kelvin Ignacio takes presidency where the org becomes top socio-civic group</p>
+                        </div>
                     </div>
-                </div>
-                <div class="oh-timeline-milestone">
-                    <div class="oh-timeline-dot oh-timeline-dot--active"></div>
-                    <div class="oh-timeline-card">
-                        <span class="oh-timeline-date">2026</span>
-                        <h4>AWS SBG Era</h4>
-                        <p>Rebranded to AWS Student Builder Group, now open to all skill levels</p>
+                    <div class="oh-timeline-node active">
+                        <div class="oh-node-marker"></div>
+                        <div class="oh-node-content">
+                            <span class="oh-node-date">2026</span>
+                            <h3 class="oh-node-title">AWS SBG Era</h3>
+                            <p class="oh-node-desc">Rebranded to AWS Student Builder Group, now open to all skill levels</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <div class="oh-finder-wrap">
             <div class="oh-finder-window">
                 <div class="oh-finder-titlebar">
                     <div class="oh-finder-controls">
@@ -116,7 +133,7 @@
                     </div>
                     <div class="oh-finder-title">
                         <span class="oh-finder-title-icon" aria-hidden="true"></span>
-                        How We Grew
+                        AWS SBG AdU · How We Grew
                     </div>
                     <div style="width:52px;" aria-hidden="true"></div>
                 </div>
@@ -148,11 +165,11 @@
                     <div class="oh-finder-main">
                         <div class="oh-finder-story">
                             <div class="oh-finder-story-text">
-                                <h2>From AWS Cloud Club to AWS Student Builder Group</h2>
-                                <p>AWS Cloud Club Adamson University was officially founded on October 2, 2024, by Kate Danielle Callao, driven by a vision to bring AWS and cloud computing education to every Adamson student. Like all founding chapters, the first term was a period of building, learning, and laying groundwork that would carry the org forward.</p>
-                                <p>Under Kelvin Ignacio's presidency, that foundation grew into something recognized, rising as a top socio-civic organization and eventually evolving into AWS Student Builder Group, opening its doors to all learners regardless of skill level, with one goal: to transform students into builders.</p>
-                                <h3>Vision & Mission</h3>
-                                <p>We aim to build a lasting community of learners who harness AWS to drive innovation. We empower students through hands-on workshops, meaningful networking, and volunteerism, bridging the gap between academia and the AWS ecosystem.</p>
+                                 <h2>From AWS Cloud Club to AWS Student Builder Group</h2>
+                                 <p>AWS Cloud Club Adamson University was officially founded on October 2, 2024, by <strong>Kate Danielle Callao</strong>, driven by a vision to bring AWS and cloud computing education to every Adamson student. Like all founding chapters, the first term was a period of building, learning, and laying groundwork that would carry the org forward.</p>
+                                 <p>Under <strong>Kelvin Ignacio</strong>'s presidency, that foundation grew into something recognized, rising as a top socio-civic organization and eventually evolving into AWS Student Builder Group, opening its doors to all learners regardless of skill level, with one goal: to transform students into builders.</p>
+                                 <h3>Vision &amp; Mission</h3>
+                                 <p>We aim to build a lasting community of learners who harness AWS to drive innovation. We empower students through hands-on workshops, meaningful networking, and volunteerism, bridging the gap between academia and the AWS ecosystem.</p>
                             </div>
                             <div class="oh-finder-photos">
                                 <div class="oh-finder-gallery-view">
@@ -170,58 +187,58 @@
                             </div>
                         </div>
 
+
                     </div>
                 </div>
 
-                <img src="img/awscat2.png" alt="" class="oh-finder-cat-decor" aria-hidden="true"  loading="lazy" decoding="async" />
+                <img src="img/awscat2.png" alt="" class="oh-finder-cat-decor" aria-hidden="true" />
 
                 <div class="oh-finder-footer">
                     <span><span class="oh-finder-title-icon" aria-hidden="true"></span>Adamson University · AWS Student Builder Group</span>
+                    <div class="oh-finder-footer-items">
+                        <span>50+ members</span>
+                        <span data-finder-footer-events>11 events</span>
+                    </div>
                 </div>
             </div>
         </div>
     </main>
 
+    <!-- SITE FOOTER -->
     <footer class="site-footer" aria-label="Site footer">
-        <div class="site-footer-inner">
-            <div class="site-footer-columns">
-                <div class="site-footer-brand">
-                    <img src="img/awscatlogo.png" alt="AWS Cat Logo" class="site-footer-logo" loading="lazy" decoding="async" />
-                    <span class="site-footer-brand-name">AWS SBG · AdU</span>
+        <div class="site-footer-card">
+            <div class="site-footer-main">
+                <div class="site-footer-logo-row">
+                    <img src="img/awscatlogo.png" alt="AWS Cat Logo" class="site-footer-logo" />
+                    <div class="site-footer-titles">
+                        <span class="site-footer-title">AWS Student Builder Group</span>
+                        <span class="site-footer-subtitle">Adamson University</span>
+                    </div>
                 </div>
-                <nav class="site-footer-nav" aria-label="Footer navigation">
-                    <a href="index.html">About</a>
-                    <span class="site-footer-nav-dot">·</span>
-                    <a href="events.html">Events</a>
-                    <span class="site-footer-nav-dot">·</span>
-                    <a href="officers.html">Officers</a>
-                    <span class="site-footer-nav-dot">·</span>
-                    <a href="join.html">Join Us</a>
-                    <span class="site-footer-nav-dot">·</span>
-                    <a href="https://www.facebook.com/awsccadamsonuniversity/photos" target="_blank" rel="noopener noreferrer">Photos</a>
-                </nav>
+                <p class="site-footer-desc">
+                    Learn cloud. Build projects. Meet your people.
+                </p>
                 <div class="site-footer-socials">
-                    <a href="https://www.facebook.com/awsccadamsonuniversity" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                        <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor" aria-hidden="true"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.9h2.54V9.85c0-2.51 1.49-3.9 3.78-3.9 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.9h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94z"/></svg>
+                    <a class="site-footer-social" href="https://www.facebook.com/awssbgadamsonuniversity" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.9h2.54V9.85c0-2.51 1.49-3.9 3.78-3.9 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.9h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94z"/></svg>
                     </a>
-                    <a href="https://www.instagram.com/awscc_adu/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                        <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.2" fill="currentColor" stroke="none"/></svg>
-                    </a>
-                    <a href="https://www.linkedin.com/company/aws-cloud-clubs-adamson-university/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                        <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3zM9 9h3.8v1.64h.05c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.3c0-1.26-.02-2.9-1.77-2.9-1.77 0-2.04 1.38-2.04 2.8V21H9z"/></svg>
+                    <a class="site-footer-social" href="https://www.instagram.com/awssbg_adu/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.2" fill="currentColor" stroke="none"/></svg>
                     </a>
                 </div>
             </div>
-            <div class="site-footer-divider"></div>
-            <p class="site-footer-copy">© 2026 AWS Student Builder Group · Adamson University. All rights reserved.</p>
+            <div class="site-footer-bottom">
+                © 2026 AWS Student Builder Group · Adamson University. All rights reserved.
+            </div>
         </div>
     </footer>
 
-    <img src="img/awscat1.png" alt="AWS Cat Sticker" class="sticker" loading="lazy" decoding="async" />
+    <script src="js/nav-dock.js"></script>
+    <script src="js/events-data.js"></script>
+    <script src="js/pages/org-history.js"></script>
 
-    <script src="js/navbar.js" defer></script>
-    <script src="js/custom-cursor.js" defer></script>
-    <script src="js/events-data.js" defer></script>
-    <script src="js/pages/org-history.js" defer></script>
+    <img src="img/awscat1.png" alt="AWS Cat Sticker" class="sticker" />
+    <script src="js/footer-socials.js"></script>
+    <script src="js/mobile-nav.js"></script>
 </body>
 </html>

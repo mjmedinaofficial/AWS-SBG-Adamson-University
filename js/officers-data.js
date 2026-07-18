@@ -158,7 +158,7 @@ window.SBG_OFFICERS = [
 
 /* Leadership row — president line (all other officers render below in A–Z rows of 3) */
 window.SBG_LEADERSHIP_OFFICER_IDS = [
-    'timothy-james-lastrilla',
     'darla-nova-sumanting',
+    'timothy-james-lastrilla',
     'chrysler-anonuevo'
 ];

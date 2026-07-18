@@ -1,4 +1,4 @@
-﻿(function() {
+(function() {
     const DESKTOP_MQ = window.matchMedia('(min-width: 1025px)');
     const MOBILE_LAYOUT_MQ = window.matchMedia('(max-width: 1024px)');
     const POINTER_FINE_MQ = window.matchMedia('(hover: hover) and (pointer: fine)');
@@ -210,17 +210,17 @@
     }
 
     // Global: nav dock, page indicator, scroll container
-    const topBar = document.querySelector('.navbar-brand-pill');
-    const navDock = document.querySelector('.navbar-nav-pill');
-    const navDockSlider = navDock ? navDock.querySelector('.dock-slider') : null;
-    const sectionItems = navDock ? Array.from(navDock.querySelectorAll('[data-section-index]')) : Array.from(document.querySelectorAll('.navbar-link[data-section-index]'));
+    const topBar = document.querySelector('.top-bar');
+    const navDock = document.querySelector('.liquid-dock');
+    const navDockSlider = navDock.querySelector('.dock-slider');
+    const sectionItems = Array.from(navDock.querySelectorAll('[data-section-index]'));
     const pageIndicatorDots = Array.from(document.querySelectorAll('.page-indicator-dot'));
     const pageSections = document.querySelectorAll('.page-section');
-    const pageScrollContainer = document.querySelector('.home-main') || document.documentElement;
+    const pageScrollContainer = document.querySelector('.horizontal-container');
     const siteFooter = document.querySelector('.site-footer');
 
-    if (section1TiltCard) {
-        window.addEventListener('scroll', invalidateTiltRect, { passive: true });
+    if (section1TiltCard && pageScrollContainer) {
+        pageScrollContainer.addEventListener('scroll', invalidateTiltRect, { passive: true });
     }
 
     // Desktop zoom: stack hero only above ~110% browser zoom.
@@ -277,7 +277,7 @@
             window.sbgUpdateDockSlider(activeItem);
             return;
         }
-        if (!navDockSlider || !navDock) return;
+        if (!navDockSlider) return;
         navDockSlider.style.opacity = '1';
         const itemRect = activeItem.getBoundingClientRect();
         const dockRect = navDock.getBoundingClientRect();
@@ -286,8 +286,8 @@
     }
 
     function scrollToSection(index) {
-        if (!pageSections[index]) return;
-        window.scrollTo({
+        if (!pageSections[index] || !pageScrollContainer) return;
+        pageScrollContainer.scrollTo({
             top: pageSections[index].offsetTop,
             behavior: 'smooth'
         });
@@ -296,9 +296,9 @@
     window.sbgNavScrollToSection = scrollToSection;
 
     function scrollToFooter() {
-        if (!siteFooter) return;
-        window.scrollTo({
-            top: document.body.scrollHeight,
+        if (!siteFooter || !pageScrollContainer) return;
+        pageScrollContainer.scrollTo({
+            top: pageScrollContainer.scrollHeight,
             behavior: 'smooth'
         });
     }
@@ -330,14 +330,15 @@
     }
 
     function getActiveStateIndex() {
-        const scrollPos = window.scrollY || document.documentElement.scrollTop;
+        const scrollPos = pageScrollContainer.scrollTop;
         if (siteFooter) {
+            const cRect = pageScrollContainer.getBoundingClientRect();
             const fRect = siteFooter.getBoundingClientRect();
-            if (fRect.top <= window.innerHeight - siteFooter.offsetHeight * 0.35) {
+            if (fRect.top <= cRect.bottom - siteFooter.offsetHeight * 0.35) {
                 return 3;
             }
         }
-        const scrollMid = scrollPos + window.innerHeight * 0.4;
+        const scrollMid = scrollPos + pageScrollContainer.clientHeight * 0.4;
         let activeIndex = 0;
         pageSections.forEach((section, i) => {
             if (scrollMid >= section.offsetTop) activeIndex = i;
@@ -368,7 +369,7 @@
         if (e.key === 'ArrowUp' && current > 0) scrollToSnapIndex(current - 1);
     });
 
-    window.addEventListener('scroll', () => {
+    pageScrollContainer.addEventListener('scroll', () => {
         setActiveState(getActiveStateIndex());
     }, { passive: true });
 
@@ -382,7 +383,7 @@
         } else if (hash === '#footer') {
             scrollToFooter();
         } else {
-            window.scrollTo({ top: 0 });
+            pageScrollContainer.scrollTop = 0;
             setActiveState(0);
         }
     }
@@ -398,7 +399,7 @@
 
         if (statEvents) statEvents.textContent = String(totalEvents);
         if (statsSnippet) {
-            statsSnippet.textContent = `Founded 2024 · 120+ members · ${totalEvents} events`;
+            statsSnippet.textContent = `Founded 2024 · 50+ members · ${totalEvents} events`;
         }
         if (footerEvents) footerEvents.textContent = `${totalEvents} events`;
         document.querySelectorAll('[data-finder-footer-events]').forEach((el) => {
@@ -428,7 +429,7 @@
                     });
                 }
             });
-        }, { root: null, threshold: 0.25 });
+        }, { root: pageScrollContainer, threshold: 0.25 });
 
         section3RevealObserver.observe(section3Window);
 
@@ -534,7 +535,7 @@
                 section2El.classList.add('is-revealed');
             }
         });
-    }, { root: null, threshold: 0.25 });
+    }, { root: pageScrollContainer, threshold: 0.25 });
 
     if (section2El) section2RevealObserver.observe(section2El);
 

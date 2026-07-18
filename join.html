@@ -1,80 +1,83 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <title>Join · AWS Student Builder Group · Adamson University</title>
     <link rel="icon" type="image/png" href="img/awscatlogo.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" />
-
     <link rel="stylesheet" href="css/design-tokens.css" />
     <link rel="stylesheet" href="css/base.css" />
-    <link rel="stylesheet" href="css/navbar.css" />
     <link rel="stylesheet" href="css/desktop-adaptive.css" />
     <link rel="stylesheet" href="css/mobile-layout.css" />
     <link rel="stylesheet" href="css/pages/join.css" />
-    <link rel="stylesheet" href="css/responsive.css" />
 </head>
 <body>
     <div class="custom-cursor-glow" id="custom-cursor-glow" aria-hidden="true"></div>
     <div class="custom-cursor" id="custom-cursor" aria-hidden="true"></div>
 
-    <!-- NAVBAR -->
-    <header class="site-navbar" aria-label="Site navigation">
-        <div class="navbar-inner">
-            <a class="navbar-brand-pill" href="index.html" aria-label="Go to home page">
-                <img src="img/awscatlogo.png" alt="AWS Cat Logo" class="navbar-brand-logo" fetchpriority="high" decoding="async" width="512" height="512" />
-                <span class="navbar-brand-name"><span class="brand-full">AWS Student Builder Group – AdU</span><span class="brand-short">AWS SBG · AdU</span></span>
-            </a>
+    <header class="site-header" aria-label="Site header">
+    <a class="top-bar" href="index.html" aria-label="Go to home page">
+        <img src="img/awscatlogo.png" alt="AWS Cat Logo" class="top-bar-logo" />
+        <span class="top-bar-text"><span class="brand-full">AWS Student Builder Group · Adamson University</span><span class="brand-short">AWS SBG · AdU</span></span>
+    </a>
 
-            <div class="navbar-right">
-                <nav class="navbar-nav-pill" aria-label="Main navigation">
-                    <a class="navbar-link" href="org-history.html">Our Story</a>
-                    <a class="navbar-link" href="events.html">Events</a>
-                    <a class="navbar-link" href="officers.html">Officers</a>
-                    <a class="navbar-link" href="sbg.html">SBG</a>
-                </nav>
-                <a class="navbar-cta" href="join.html">Join Us</a>
-            </div>
-
-            <button class="navbar-hamburger" type="button" aria-label="Open navigation menu" aria-expanded="false">
-                <span class="navbar-hamburger-line"></span>
-                <span class="navbar-hamburger-line"></span>
-                <span class="navbar-hamburger-line"></span>
+    <nav class="liquid-dock">
+        <div class="dock-slider"></div>
+        <div class="dock-item-wrap" id="about-wrap">
+            <button class="dock-item" type="button" aria-haspopup="true" aria-expanded="false" data-dropdown-trigger>
+                About Us
+                <span class="nav-caret" aria-hidden="true">
+                    <svg viewBox="0 0 10 6" width="10" height="6"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
             </button>
+            <div class="nav-dropdown" role="menu" aria-label="About menu">
+                <a class="nav-dropdown-item" href="index.html" role="menuitem">About Overview</a>
+                <div class="nav-dropdown-divider"></div>
+                <a class="nav-dropdown-item" href="org-history.html" role="menuitem">Org History</a>
+                <a class="nav-dropdown-item" href="officers.html" role="menuitem">Officers</a>
+                <a class="nav-dropdown-item" href="sbg.html" role="menuitem">SBG</a>
+            </div>
         </div>
-
-        <div class="navbar-mobile-menu" aria-hidden="true">
-            <nav class="navbar-mobile-links" aria-label="Mobile navigation">
-                <a class="navbar-mobile-cta" href="join.html">Join Us</a>
-                <a class="navbar-mobile-link" href="org-history.html">Our Story</a>
-                <a class="navbar-mobile-link" href="events.html">Events</a>
-                <a class="navbar-mobile-link" href="officers.html">Officers</a>
-                <a class="navbar-mobile-link" href="sbg.html">SBG</a>
-            </nav>
+        <div class="dock-item-wrap" id="workshops-wrap">
+            <button class="dock-item" type="button" aria-haspopup="true" aria-expanded="false" data-dropdown-trigger>
+                Workshops
+                <span class="nav-caret" aria-hidden="true">
+                    <svg viewBox="0 0 10 6" width="10" height="6"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+            </button>
+            <div class="nav-dropdown" role="menu" aria-label="Workshops menu">
+                <a class="nav-dropdown-item" href="index.html#workshops" role="menuitem">Workshops Overview</a>
+                <div class="nav-dropdown-divider"></div>
+                <a class="nav-dropdown-item" href="events.html" role="menuitem">View All Events</a>
+            </div>
         </div>
+        <div class="dock-item-wrap" id="join-wrap">
+            <button class="dock-item active" type="button" aria-haspopup="true" aria-expanded="false" data-dropdown-trigger>
+                Join Us
+                <span class="nav-caret" aria-hidden="true">
+                    <svg viewBox="0 0 10 6" width="10" height="6"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+            </button>
+            <div class="nav-dropdown" role="menu" aria-label="Join menu">
+                <a class="nav-dropdown-item" href="index.html#join" role="menuitem">Join Overview</a>
+                <div class="nav-dropdown-divider"></div>
+                <a class="nav-dropdown-item primary" href="join.html" role="menuitem">Fill a Form</a>
+            </div>
+        </div>
+    </nav>
     </header>
 
     <main class="join-page">
+        <a class="page-back" href="index.html#join">
+            <span class="arrow">←</span>
+            Back to Home
+        </a>
 
         <header class="join-hero">
             <span class="page-label">Membership</span>
             <h1>Join AWS SBG AdU</h1>
             <p>Fill out the application below to become part of Adamson University's AWS Student Builder Group. We'll reach out via your Adamson email.</p>
         </header>
-
-        <div class="jf-benefits">
-            <h3>What you'll get</h3>
-            <ul>
-                <li>Free hands-on workshops on AWS cloud services</li>
-                <li>AWS certification prep and study groups</li>
-                <li>Networking with industry mentors and peers</li>
-                <li>Real project experience for your portfolio</li>
-                <li>A community that builds together</li>
-            </ul>
-        </div>
 
         <div class="jf-finder-wrap jf-finder-wrap--closed" inert>
             <div class="jf-finder-window">
@@ -169,74 +172,60 @@
                 <div class="jf-finder-footer">
                     <span><span class="jf-finder-title-icon" aria-hidden="true"></span>Adamson University · AWS Student Builder Group</span>
                     <div class="jf-finder-footer-items">
-                        <span>120+ members</span>
+                        <span>50+ members</span>
                         <span data-finder-footer-events>11 events</span>
                     </div>
                 </div>
             </div>
 
-            <div class="jf-registration-closed" role="alert" aria-labelledby="jf-registration-closed-title" aria-describedby="jf-registration-closed-desc">
+            <div class="jf-registration-closed" role="alertdialog" aria-modal="true" aria-labelledby="jf-registration-closed-title" aria-describedby="jf-registration-closed-desc">
                 <div class="jf-registration-closed-card">
-                    <svg class="jf-closed-icon" viewBox="0 0 48 48" width="48" height="48" aria-hidden="true">
-                        <rect x="10" y="22" width="28" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="2.5"/>
-                        <path d="M16 22V14a8 8 0 0116 0v8" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-                        <circle cx="24" cy="33" r="2.5" fill="currentColor"/>
-                    </svg>
-                    <h2 class="jf-registration-closed-title" id="jf-registration-closed-title">Registration is Currently Closed</h2>
+                    <p class="jf-registration-closed-label">Membership</p>
+                    <h2 class="jf-registration-closed-title" id="jf-registration-closed-title">Registration is currently unavailable</h2>
                     <p class="jf-registration-closed-desc" id="jf-registration-closed-desc">
-                        We'll announce the next intake on our Facebook page. Stay connected.
+                        We're not accepting applications at the moment. Please wait for announcements on our Facebook page for updates on when registration opens.
                     </p>
-                    <a class="jf-registration-closed-btn" href="https://www.facebook.com/awsccadamsonuniversity" target="_blank" rel="noopener noreferrer">
-                        Follow us on Facebook
+                    <a class="jf-registration-closed-link" href="https://www.facebook.com/awssbgadamsonuniversity" target="_blank" rel="noopener noreferrer">
+                        facebook.com/awssbgadamsonuniversity
                     </a>
-                    <a class="jf-registration-closed-secondary" href="https://www.instagram.com/awscc_adu/" target="_blank" rel="noopener noreferrer">
-                        Have questions? Reach us on Instagram
-                    </a>
-                    <p class="jf-explore-links">In the meantime, explore <a href="events.html">what we do</a> or read <a href="org-history.html">our story</a>.</p>
                 </div>
             </div>
         </div>
     </main>
 
     <footer class="site-footer" aria-label="Site footer">
-        <div class="site-footer-inner">
-            <div class="site-footer-columns">
-                <div class="site-footer-brand">
-                    <img src="img/awscatlogo.png" alt="AWS Cat Logo" class="site-footer-logo" loading="lazy" decoding="async" />
-                    <span class="site-footer-brand-name">AWS SBG · AdU</span>
+        <div class="site-footer-card">
+            <div class="site-footer-main">
+                <div class="site-footer-logo-row">
+                    <img src="img/awscatlogo.png" alt="AWS Cat Logo" class="site-footer-logo" />
+                    <div class="site-footer-titles">
+                        <span class="site-footer-title">AWS Student Builder Group</span>
+                        <span class="site-footer-subtitle">Adamson University</span>
+                    </div>
                 </div>
-                <nav class="site-footer-nav" aria-label="Footer navigation">
-                    <a href="index.html">About</a>
-                    <span class="site-footer-nav-dot">·</span>
-                    <a href="events.html">Events</a>
-                    <span class="site-footer-nav-dot">·</span>
-                    <a href="officers.html">Officers</a>
-                    <span class="site-footer-nav-dot">·</span>
-                    <a href="join.html">Join Us</a>
-                    <span class="site-footer-nav-dot">·</span>
-                    <a href="https://www.facebook.com/awsccadamsonuniversity/photos" target="_blank" rel="noopener noreferrer">Photos</a>
-                </nav>
+                <p class="site-footer-desc">
+                    Learn cloud. Build projects. Meet your people.
+                </p>
                 <div class="site-footer-socials">
-                    <a href="https://www.facebook.com/awsccadamsonuniversity" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                        <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor" aria-hidden="true"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.9h2.54V9.85c0-2.51 1.49-3.9 3.78-3.9 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.9h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94z"/></svg>
+                    <a class="site-footer-social" href="https://www.facebook.com/awssbgadamsonuniversity" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.9h2.54V9.85c0-2.51 1.49-3.9 3.78-3.9 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.9h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94z"/></svg>
                     </a>
-                    <a href="https://www.instagram.com/awscc_adu/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                        <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.2" fill="currentColor" stroke="none"/></svg>
-                    </a>
-                    <a href="https://www.linkedin.com/company/aws-cloud-clubs-adamson-university/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                        <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3zM9 9h3.8v1.64h.05c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.3c0-1.26-.02-2.9-1.77-2.9-1.77 0-2.04 1.38-2.04 2.8V21H9z"/></svg>
+                    <a class="site-footer-social" href="https://www.instagram.com/awssbg_adu/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.2" fill="currentColor" stroke="none"/></svg>
                     </a>
                 </div>
             </div>
-            <div class="site-footer-divider"></div>
-            <p class="site-footer-copy">© 2026 AWS Student Builder Group · Adamson University. All rights reserved.</p>
+            <div class="site-footer-bottom">
+                © 2026 AWS Student Builder Group · Adamson University. All rights reserved.
+            </div>
         </div>
     </footer>
 
-    <img src="img/awscat1.png" alt="AWS Cat Sticker" class="sticker" loading="lazy" decoding="async" />
+    <img src="img/awscat1.png" alt="AWS Cat Sticker" class="sticker" />
 
-    <script src="js/navbar.js" defer></script>
-    <script src="js/custom-cursor.js" defer></script>
-    <script src="js/pages/join.js" defer></script>
+    <script src="js/nav-dock.js"></script>
+    <script src="js/pages/join.js"></script>
+    <script src="js/footer-socials.js"></script>
+    <script src="js/mobile-nav.js"></script>
 </body>
 </html>
