@@ -133,16 +133,39 @@
     padding: 24px 28px;
 }
 
-.sbg-about-prose p {
+.sbg-about-prose > p {
     font-family: var(--font-body, 'Inter', sans-serif);
     font-size: 14px;
-    color: var(--color-text-secondary, #A89FC5);
+    color: var(--color-text-muted, #8A82A8);
     line-height: 1.7;
-    margin: 0 0 16px;
+    margin: 0 0 20px;
 }
 
-.sbg-about-prose p:last-child {
+.sbg-about-prose > p:last-child {
+    margin-top: 20px;
     margin-bottom: 0;
+}
+
+.sbg-about-prose .sbg-benefits-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.sbg-about-prose .sbg-benefit h3 {
+    font-family: var(--font-display, 'Space Grotesk', sans-serif);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--color-text-primary, #F0EEFF);
+    margin: 0 0 4px;
+}
+
+.sbg-about-prose .sbg-benefit p {
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: 13px;
+    color: var(--color-text-secondary, #A89FC5);
+    line-height: 1.6;
+    margin: 0;
 }
 
 /* Benefits list inside Safari mockup — no cards, just clean text */
