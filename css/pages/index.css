@@ -60,10 +60,7 @@ body {
 
 .section1-content h1 .section1-title span {
     display: block;
-    background: linear-gradient(135deg, #F0EEFF 20%, #A89FC5 80%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--color-text-primary, #F0EEFF);
 }
 
 .section1-subtitle {

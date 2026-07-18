@@ -128,6 +128,23 @@
     max-width: 640px;
 }
 
+/* About prose inside Safari mockup */
+.sbg-about-prose {
+    padding: 24px 28px;
+}
+
+.sbg-about-prose p {
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: 14px;
+    color: var(--color-text-secondary, #A89FC5);
+    line-height: 1.7;
+    margin: 0 0 16px;
+}
+
+.sbg-about-prose p:last-child {
+    margin-bottom: 0;
+}
+
 /* Benefits list inside Safari mockup — no cards, just clean text */
 .sbg-benefits-list {
     display: flex;

@@ -42,7 +42,7 @@
       monthNum: 11,
       day: "11",
       year: "2024",
-      speaker: "n/a",
+      speaker: "ACOMSS × AWS SBG AdU",
       imageCount: 0
     },
     {
@@ -170,7 +170,7 @@
         image: images[0] ?? null,
         images,
         speaker: ev.speaker,
-        avatar: ev.speaker === 'n/a' ? 'N/A' : ev.speaker.split(',')[0].trim(),
+        avatar: ev.speaker.split(',')[0].trim(),
         tags: ev.tags
       };
     });
