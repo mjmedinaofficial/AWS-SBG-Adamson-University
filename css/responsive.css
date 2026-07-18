@@ -717,3 +717,9 @@ p, li, span, a, label, td, th {
 .site-footer-bottom {
     display: none !important;
 }
+
+/* Hide redundant stats from all Finder window footers */
+[class$="-finder-footer-items"],
+.section3-footer-items {
+    display: none !important;
+}

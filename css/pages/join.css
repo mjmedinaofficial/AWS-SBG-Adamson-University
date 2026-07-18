@@ -355,6 +355,23 @@
     color: var(--color-text-secondary);
 }
 
+.jf-explore-links {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin-top: var(--space-lg);
+}
+
+.jf-explore-links a {
+    color: var(--color-text-secondary);
+    text-decoration: underline;
+    transition: color 0.2s ease;
+}
+
+.jf-explore-links a:hover {
+    color: var(--color-text-primary);
+}
+
 /* Hide the form mockup when registration is closed */
 .jf-finder-wrap--closed .jf-finder-window {
     display: none;
