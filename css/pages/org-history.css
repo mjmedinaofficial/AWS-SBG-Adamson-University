@@ -2,14 +2,7 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-:root {
-    --bg-gradient: linear-gradient(180deg, #2d1066 0%, #1a0a4a 28%, #0d0428 55%, #000000 85%);
-    --accent-gradient: linear-gradient(135deg, #ffffff 18%, #bbaffd 47%, #efdcf1 110%);
-    --glow-purple: rgba(187, 175, 253, 0.65);
-    --glow-deep: rgba(45, 16, 102, 0.5);
-    --glow-light: rgba(239, 220, 241, 0.45);
-    --page-padding: 10vw;
-}
+/* `:root` tokens inherited from design-tokens.css */
 
 /* ---------- CUSTOM CURSOR ---------- */
 body.custom-cursor-active,
@@ -52,18 +45,7 @@ body {
 @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 .sticker { position: fixed; bottom: 30px; right: 30px; width: 120px; height: auto; z-index: 999; animation: float 3s ease-in-out infinite; pointer-events: none; }
 
-/* ---------- TOP BAR ---------- */
-.top-bar {
-    position: fixed; top: 20px; left: var(--page-padding); z-index: 9998;
-    display: flex; align-items: center; gap: 10px;
-    height: 44px;
-}
-.top-bar-logo { width: 36px; height: 36px; border-radius: 8px; object-fit: contain; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3)); flex-shrink: 0; }
-.top-bar-text {
-    font-size: 15px; font-weight: 700; white-space: nowrap;
-    background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    letter-spacing: -0.2px; line-height: 1;
-}
+/* ---------- TOP BAR — visual styles now in base.css ---------- */
 
 /* ---------- NAVIGATION DOCK ---------- */
 .liquid-dock {
@@ -908,13 +890,7 @@ body {
 }
 
 /* ---------- RESPONSIVE ---------- */
-@media (max-width: 1024px) { :root { --page-padding: 5vw; } }
 @media (max-width: 1024px) {
-    :root { --page-padding: 5vw; }
-    .top-bar { top: 12px; }
-    .top-bar-text { display: none; }
-    .liquid-dock { top: 12px; padding: 4px; }
-    .dock-item { font-size: 13px; padding: 9px 14px; }
     .sticker { width: 80px; bottom: 16px; right: 16px; }
     .oh-page { padding: 100px 5vw 30px; }
     .oh-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 100%; width: 100%; gap: 14px; }

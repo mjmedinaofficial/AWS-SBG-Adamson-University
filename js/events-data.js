@@ -33,18 +33,7 @@
       year: "2024",
       speaker: "Mr. Lesmon Saluta, Mr. Asi Guiang, Ms. Darla David"
     },
-    {
-      number: 2,
-      title: "ECOTHON: Code For A Sustainable Metro Manila",
-      desc: "In just 24 hours, the ECOTHON: Code For A Sustainable Metro Manila kicks off! Watch our talented Computer Science students merge their coding prowess with their dedication to the environment to tackle Metro Manila's most critical ecological challenges. Along with Adamson Computer Science Society (ACOMSS), we want to advocate for a greener Metro Manila through tech!",
-      category: "hackathon",
-      tags: ["Hackathon", "Sustainability", "24 Hours"],
-      monthNum: 11,
-      day: "11",
-      year: "2024",
-      speaker: "n/a",
-      imageCount: 0
-    },
+
     {
       number: 3,
       title: "Skillbuilder: Introduction to Cybersecurity",

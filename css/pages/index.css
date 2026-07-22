@@ -17,7 +17,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 10vw;
+    padding: 0 var(--page-padding);
     position: relative;
     overflow: hidden;
 }
@@ -100,7 +100,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 60px 10vw 40px;
+    padding: 60px var(--page-padding) 40px;
     scroll-snap-align: start;
     scroll-snap-stop: always;
 }
@@ -190,7 +190,7 @@ body {
     box-shadow: 0 0 12px rgba(187, 175, 253, 0.6);
 }
 
-/* ---------- TOP BAR (legacy home overrides; layout from base.css .site-header) ---------- */
+/* ---------- TOP BAR (layout from base.css .site-header — no page overrides needed) ---------- */
 .site-header .top-bar {
     position: relative;
     top: auto;
@@ -198,40 +198,7 @@ body {
     transform: none;
 }
 
-.top-bar {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 6px 14px 6px 8px;
-    border-radius: 100px;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.08) 100%);
-    backdrop-filter: blur(45px) saturate(200%);
-    -webkit-backdrop-filter: blur(45px) saturate(200%);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
-    box-sizing: border-box;
-}
-
-.top-bar-logo {
-    width: 39px;
-    height: 39px;
-    border-radius: 8px;
-    object-fit: contain;
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
-    flex-shrink: 0;
-}
-
-.top-bar-text {
-    font-size: 15px;
-    font-weight: 700;
-    white-space: nowrap;
-    line-height: 1;
-    background: linear-gradient(135deg, #ffffff 18%, #bbaffd 47%, #efdcf1 110%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    letter-spacing: -0.2px;
-}
+/* top-bar visual styles are now in base.css (flat nav bar, no pill) */
 
 /* ---------- NAVIGATION DOCK (legacy; layout from base.css .site-header) ---------- */
 .site-header .liquid-dock {
@@ -3165,26 +3132,7 @@ body.section2-modal-open {
         padding: 8px 12px;
         min-height: 36px;
     }
-    .top-bar-text {
-        font-size: 12px;
-    }
-    .liquid-dock {
-        padding: 4px;
-        top: 12px;
-    }
-    .dock-item {
-        font-size: 12px;
-        padding: 8px 14px;
-        line-height: 1;
-    }
-    .top-bar {
-        top: 12px;
-        padding: 4px 12px 4px 6px;
-    }
-    .top-bar-logo {
-        width: 28px;
-        height: 28px;
-    }
+    /* legacy navbar overrides removed to prevent layout jumps */
     .sticker {
         width: 80px;
         bottom: 16px;

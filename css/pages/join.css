@@ -325,9 +325,6 @@
 
 @media (max-width: 1024px) {
     :root { --page-padding: 5vw; }
-    .top-bar { top: 12px; } .top-bar-text { display: none; }
-    .liquid-dock { top: 12px; padding: 4px; }
-    .dock-item { font-size: 13px; padding: 9px 14px; }
     .join-page { padding: 100px 5vw 30px; }
     .jf-finder-sidebar { display: none; }
     .jf-finder-main { padding: 20px 16px 24px; }

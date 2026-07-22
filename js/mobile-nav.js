@@ -1,8 +1,7 @@
 /* ============================================================
    AWS SBG AdU — Mobile navigation
-   Replaces the dock with a liquid-glass three-dot button that
-   opens an iOS-style context menu (clickable section titles +
-   their dropdown choices). Active at viewport widths ≤1024px.
+   Replaces the nav-links with a liquid-glass three-dot button
+   that opens an iOS-style context menu. Active at ≤1024px.
    ============================================================ */
 (function () {
     const MOBILE_MQ = window.matchMedia('(max-width: 1024px)');
@@ -16,32 +15,11 @@
         return MOBILE_MQ.matches;
     }
 
-    function cleanTitle(btn) {
-        if (!btn) return '';
-        // Strip the caret text; use only the label
-        const clone = btn.cloneNode(true);
-        clone.querySelectorAll('.nav-caret, svg').forEach((n) => n.remove());
-        return clone.textContent.replace(/\s+/g, ' ').trim();
-    }
-
-    function triggerSource(source) {
-        // Reuse all existing wiring (scroll-to-section on home, real
-        // navigation on subpages) by replaying the click on the origin.
-        if (!source) return;
-        const href = source.getAttribute('href');
-        const isScroll = source.hasAttribute('data-scroll-section');
-        if (href && href !== '#' && !isScroll) {
-            window.location.href = href;
-        } else {
-            source.click();
-        }
-    }
-
     function buildMenu() {
         if (built) return;
-        const dock = document.querySelector('.liquid-dock');
+        const navLinks = document.querySelector('.nav-links');
         const header = document.querySelector('.site-header');
-        if (!dock || !header) return;
+        if (!navLinks || !header) return;
         built = true;
 
         toggleBtn = document.createElement('button');
@@ -62,46 +40,30 @@
         sheet.setAttribute('role', 'menu');
         sheet.setAttribute('aria-label', 'Site navigation');
 
-        dock.querySelectorAll('.dock-item-wrap').forEach((wrap) => {
-            const btn = wrap.querySelector('.dock-item');
-            const items = Array.from(wrap.querySelectorAll('.nav-dropdown-item'));
-            if (!items.length) return;
-
-            const overview = items[0];
-            const rest = items.slice(1);
-
+        /* Build menu items from the nav-links anchors */
+        const links = navLinks.querySelectorAll('.nav-link');
+        links.forEach((link) => {
             const group = document.createElement('div');
             group.className = 'mnav-group';
 
             const titleEl = document.createElement('a');
             titleEl.className = 'mnav-title';
-            titleEl.href = overview.getAttribute('href') || '#';
+            titleEl.href = link.getAttribute('href') || '#';
+            const text = link.textContent.replace(/\s+/g, ' ').trim();
             titleEl.innerHTML =
-                '<span class="mnav-title-text">' + cleanTitle(btn) + '</span>' +
+                '<span class="mnav-title-text">' + text + '</span>' +
                 '<span class="mnav-chevron" aria-hidden="true">' +
                 '<svg viewBox="0 0 8 14" width="8" height="14"><path d="M1 1l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
                 '</span>';
-            if (btn && btn.classList.contains('active')) titleEl.classList.add('is-current');
+            if (link.classList.contains('active')) titleEl.classList.add('is-current');
             titleEl.addEventListener('click', (e) => {
                 e.preventDefault();
                 closeMenu();
-                window.setTimeout(() => triggerSource(overview), 80);
+                window.setTimeout(() => {
+                    window.location.href = link.getAttribute('href');
+                }, 80);
             });
             group.appendChild(titleEl);
-
-            rest.forEach((item) => {
-                const link = document.createElement('a');
-                link.className = 'mnav-item';
-                link.href = item.getAttribute('href') || '#';
-                link.textContent = item.textContent.replace(/\s+/g, ' ').trim();
-                if (item.classList.contains('primary')) link.classList.add('is-current');
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    closeMenu();
-                    window.setTimeout(() => triggerSource(item), 80);
-                });
-                group.appendChild(link);
-            });
 
             sheet.appendChild(group);
         });

@@ -41,7 +41,7 @@
         --mobile-section-pad: 20px;
         --mobile-page-top-offset: clamp(56px, 14vh, 96px);
         --mobile-header-top: max(8px, env(safe-area-inset-top));
-        --mobile-back-gap: 8px;
+        --mobile-back-gap: 28px;
         --mobile-back-h: 34px;
         --mobile-content-top: calc(var(--mobile-header-top) + var(--mobile-header-h) + var(--mobile-back-gap) + var(--mobile-back-h) + var(--mobile-page-top-offset));
         --mobile-finder-pad: 14px;
@@ -94,7 +94,7 @@
         overflow: visible !important;
     }
 
-    /* Brand pill only consumes what it needs (not the full width) */
+    /* Brand area — flat (no pill) */
     .site-header .top-bar {
         position: static !important;
         left: auto !important;
@@ -109,14 +109,14 @@
         justify-content: flex-start !important;
         text-align: left !important;
         gap: 8px !important;
-        padding: 6px 14px 6px 7px !important;
+        padding: 0 !important;
         height: var(--mobile-header-h) !important;
-        background: var(--mobile-header-glass) !important;
-        backdrop-filter: blur(45px) saturate(200%) !important;
-        -webkit-backdrop-filter: blur(45px) saturate(200%) !important;
-        border: var(--mobile-header-border) !important;
-        border-radius: 26px !important;
-        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35) !important;
+        background: transparent !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
         overflow: hidden !important;
     }
 
@@ -157,8 +157,8 @@
         display: inline !important;
     }
 
-    /* Hide the desktop dock entirely on mobile */
-    .site-header .liquid-dock {
+    /* Hide the desktop nav links on mobile (mobile-nav.js provides a hamburger menu) */
+    .site-header .nav-links {
         display: none !important;
     }
 
@@ -1747,13 +1747,13 @@
 
     .section1-content h1,
     .section1-content h1 .section1-title {
-        font-size: clamp(1.4rem, 6vw, 1.75rem) !important;
+        font-size: clamp(1.8rem, 7.5vw, 2.8rem) !important;
         align-items: center !important;
         margin-bottom: var(--space-md) !important;
     }
 
     .section1-lead {
-        font-size: var(--mobile-text-base) !important;
+        font-size: clamp(1rem, 3.8vw, 1.35rem) !important;
         margin: var(--space-lg) 0 var(--space-md) !important;
     }
 
@@ -2185,13 +2185,7 @@
         font-size: 10px !important;
     }
 
-    .dock-item {
-        font-size: 10.5px !important;
-        padding: 6px 3px !important;
-    }
-
-    .site-header .top-bar,
-    .site-header .liquid-dock {
+    .site-header .top-bar {
         --mobile-header-pill-px: 14px;
     }
 
@@ -2324,4 +2318,5 @@
     .oh-finder-narrative {
         margin-bottom: 1.5rem;
     }
+
 }
