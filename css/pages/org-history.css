@@ -45,60 +45,7 @@ body {
 @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 .sticker { position: fixed; bottom: 30px; right: 30px; width: 120px; height: auto; z-index: 999; animation: float 3s ease-in-out infinite; pointer-events: none; }
 
-/* ---------- TOP BAR — visual styles now in base.css ---------- */
-
-/* ---------- NAVIGATION DOCK ---------- */
-.liquid-dock {
-    position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 9999;
-    display: flex; align-items: center; padding: 6px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.06) 100%);
-    backdrop-filter: blur(35px) saturate(200%); -webkit-backdrop-filter: blur(35px) saturate(200%);
-    border-radius: 100px; border: 1px solid rgba(255,255,255,0.15);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-}
-.dock-item {
-    background: transparent; border: none; cursor: pointer; color: rgba(255,255,255,0.6);
-    font-size: 15px; font-weight: 500; padding: 12px 22px; border-radius: 50px;
-    display: inline-flex; justify-content: center; align-items: center; gap: 6px;
-    white-space: nowrap; text-decoration: none; transition: color 0.3s ease, background 0.3s ease;
-    position: relative; z-index: 20;
-}
-.dock-item:hover { color: rgba(255,255,255,0.9); }
-.dock-item.active {
-    color: #ffffff; font-weight: 700;
-}
-
-/* ---------- NAV DROPDOWN ---------- */
-.dock-item-wrap { position: relative; display: flex; align-items: center; }
-.nav-caret { display: inline-flex; align-items: center; margin-left: 2px; opacity: 0.7; transition: transform 0.25s ease; }
-.dock-item-wrap.open .nav-caret { transform: rotate(180deg); }
-.nav-dropdown {
-    position: absolute; top: calc(100% + 14px); left: 50%;
-    transform: translateX(-50%) translateY(-8px) scale(0.96); transform-origin: top center;
-    min-width: 240px; padding: 8px;
-    background: linear-gradient(180deg, rgba(42,32,70,0.86) 0%, rgba(24,16,46,0.84) 100%);
-    backdrop-filter: blur(34px) saturate(180%); -webkit-backdrop-filter: blur(34px) saturate(180%);
-    border: 1px solid rgba(255,255,255,0.14); border-radius: 16px;
-    box-shadow: 0 24px 50px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.12);
-    opacity: 0; pointer-events: none;
-    transition: opacity 0.22s ease, transform 0.22s cubic-bezier(0.25, 1, 0.5, 1); z-index: 40;
-}
-.dock-item-wrap.open .nav-dropdown { opacity: 1; pointer-events: auto; transform: translateX(-50%) translateY(0) scale(1); }
-.nav-dropdown::before {
-    content: ''; position: absolute; top: -6px; left: 50%; transform: translateX(-50%) rotate(45deg);
-    width: 12px; height: 12px; background: rgba(42,32,70,0.86);
-    border-left: 1px solid rgba(255,255,255,0.14); border-top: 1px solid rgba(255,255,255,0.14); border-radius: 3px 0 0 0;
-}
-.nav-dropdown-item {
-    display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 10px;
-    color: rgba(255,255,255,0.85); font-size: 14px; font-weight: 500; text-decoration: none;
-    cursor: pointer; white-space: nowrap; transition: background 0.18s ease, color 0.18s ease;
-}
-.nav-dropdown-item:hover { background: rgba(187,175,253,0.18); color: #fff; }
-.nav-dropdown-item.primary { background: rgba(187,175,253,0.16); color: #fff; font-weight: 700; }
-.nav-dropdown-item.primary:hover { background: rgba(187,175,253,0.3); }
-.nav-dropdown-icon { width: 20px; height: 20px; flex-shrink: 0; background: url("../../img/folder.png") center / contain no-repeat; }
-.nav-dropdown-divider { height: 1px; margin: 6px 8px; background: rgba(255,255,255,0.1); }
+/* ---------- TOP BAR & NAVIGATION — layout and sizing from base.css ---------- */
 
 /* ---------- PAGE: ORG HISTORY ---------- */
 .oh-page { position: relative; z-index: 1; padding: 130px var(--page-padding) 40px; }
@@ -1042,3 +989,1053 @@ body {
         top: 32px;
     }
 }
+
+/* ============================================================
+   MAC FREEFORM WINDOW & CANVAS STYLES
+   ============================================================ */
+.oh-freeform-window {
+    position: relative;
+    width: 100%;
+    height: 620px;
+    border-radius: 12px;
+    background: rgba(20, 19, 31, 0.94);
+    backdrop-filter: blur(55px) saturate(180%);
+    -webkit-backdrop-filter: blur(55px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    margin-top: 60px;
+    animation: ohPulseGlow 4s ease-in-out infinite;
+}
+
+.oh-freeform-titlebar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    background: rgba(30, 29, 44, 0.95);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    flex-shrink: 0;
+    min-height: 44px;
+}
+
+.oh-freeform-controls {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.oh-freeform-control {
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    cursor: default;
+}
+
+.oh-freeform-control.red { background: #ff5f57; border-color: #e04e47; }
+.oh-freeform-control.yellow { background: #ffbd2e; border-color: #e0a524; }
+.oh-freeform-control.green { background: #28c840; border-color: #1fa833; }
+
+.oh-freeform-title {
+    flex: 1;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.65);
+    letter-spacing: 0.2px;
+    font-family: var(--font-sans);
+}
+
+.oh-freeform-title-icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: url("../../img/awscatlogo.png") center / contain no-repeat;
+    vertical-align: middle;
+    margin-right: 6px;
+    filter: brightness(0.9) saturate(1.2);
+}
+
+.oh-freeform-body {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    background: #11101a;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Floating Toolbar */
+.oh-freeform-toolbar {
+    position: absolute;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    background: rgba(35, 33, 53, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    display: flex;
+    padding: 6px;
+    gap: 6px;
+}
+
+.oh-tool-btn {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.oh-tool-btn:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.oh-tool-btn.active {
+    color: #bbaffd;
+    background: rgba(187, 175, 253, 0.18);
+    border: 1px solid rgba(187, 175, 253, 0.25);
+}
+
+.oh-tool-btn svg {
+    width: 20px;
+    height: 20px;
+    display: block;
+}
+
+/* Zoom Panel */
+.oh-freeform-zoom-panel {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    z-index: 10;
+    background: rgba(35, 33, 53, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    display: flex;
+    align-items: center;
+    padding: 4px 8px;
+    gap: 8px;
+    height: 32px;
+}
+
+.oh-zoom-btn {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.oh-zoom-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+.oh-zoom-btn svg {
+    width: 14px;
+    height: 14px;
+}
+
+.oh-zoom-level {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 600;
+    min-width: 42px;
+    text-align: center;
+    font-family: var(--font-sans);
+}
+
+.oh-zoom-divider {
+    width: 1px;
+    height: 14px;
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* Canvas Viewport */
+.oh-freeform-canvas-container {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    cursor: grab;
+    user-select: none;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1.2px, transparent 1.2px);
+    background-size: 24px 24px;
+}
+
+.oh-freeform-canvas-container:active {
+    cursor: grabbing;
+}
+
+/* Canvas Board (grid container) */
+.oh-freeform-canvas-board {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1.2px, transparent 1.2px);
+    background-size: 24px 24px;
+    transform-origin: center center;
+    top: 0;
+    left: 0;
+}
+
+/* SVG Connectors */
+.oh-freeform-connections {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.oh-freeform-connections path {
+    fill: none;
+    stroke: rgba(187, 175, 253, 0.24);
+    stroke-width: 2px;
+    stroke-dasharray: 4 4;
+    transition: stroke 0.3s ease;
+}
+
+.oh-freeform-connections circle {
+    fill: rgba(242, 155, 60, 0.7);
+    transition: fill 0.3s ease;
+}
+
+/* Board Title (Index.html Section 2 Card Design) */
+.oh-freeform-board-title {
+    position: absolute;
+    left: 380px;
+    top: 190px;
+    width: 340px;
+    min-height: 120px;
+    padding: 16px 20px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.02) 100%);
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-top: 1px solid rgba(255, 255, 255, 0.24);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: grab;
+    transition: all 0.3s ease;
+}
+
+.oh-freeform-board-title:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 28px 55px rgba(0, 0, 0, 0.55), 0 0 25px rgba(242, 155, 60, 0.15);
+}
+
+.oh-freeform-board-title:active {
+    cursor: grabbing;
+    transform: scale(1.02);
+}
+
+.section3-window-controls {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 10px;
+}
+
+.section3-control {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: none;
+    padding: 0;
+}
+.section3-control.red { background: #ff5f56; }
+.section3-control.yellow { background: #ffbd2e; }
+.section3-control.green { background: #27c93f; }
+
+.section2-card-title-text {
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1.3;
+    background: linear-gradient(135deg, #ffffff 30%, #f29b3c 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0 0 6px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.oh-freeform-board-title p {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0;
+    font-weight: 500;
+}
+
+/* Freeform Section Badges & Color Swatch Block */
+.ff-badge-tag {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.ff-badge-highlight {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    background: linear-gradient(135deg, var(--aws-orange) 0%, var(--aws-orange-hover) 100%);
+    color: #0d0428;
+    padding: 4px 10px;
+    border-radius: 6px;
+    display: inline-block;
+    width: fit-content;
+    box-shadow: 0 4px 14px rgba(242, 155, 60, 0.3);
+}
+
+.ff-badge-sub {
+    font-family: 'Caveat', cursive;
+    font-size: 16px;
+    color: rgba(239, 220, 241, 0.65);
+    padding-left: 2px;
+}
+
+/* AWS Cloud Stack Badge (Top Right Background) */
+.ff-aws-badge-card {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    background: rgba(18, 24, 38, 0.75);
+    border: 1px solid rgba(242, 155, 60, 0.35);
+    padding: 8px 14px;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    z-index: 1;
+    pointer-events: none;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 15px rgba(242, 155, 60, 0.12);
+}
+
+.ff-aws-badge-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.ff-aws-badge-icon {
+    width: 18px;
+    height: 18px;
+}
+
+.ff-aws-badge-title {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: 0.5px;
+}
+
+.ff-aws-badge-sub {
+    font-family: 'Caveat', cursive;
+    font-size: 14px;
+    color: rgba(242, 155, 60, 0.85);
+}
+
+/* AWS Service Chips (EC2, S3, Lambda, DynamoDB) */
+.ff-service-chip {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(18, 24, 38, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    padding: 6px 12px;
+    border-radius: 100px;
+    backdrop-filter: blur(10px);
+    z-index: 1;
+    pointer-events: none;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+
+.ff-chip-icon {
+    font-size: 14px;
+    font-weight: 900;
+    color: #f29b3c;
+    line-height: 1;
+}
+
+.ff-chip-svg {
+    width: 16px;
+    height: 16px;
+}
+
+.ff-chip-label {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.85);
+    letter-spacing: 0.3px;
+}
+
+.chip-lambda { border-color: rgba(242, 155, 60, 0.35); }
+.chip-ec2 { border-color: rgba(79, 172, 254, 0.35); }
+.chip-s3 { border-color: rgba(255, 117, 143, 0.35); }
+.chip-dynamo { border-color: rgba(168, 85, 247, 0.35); }
+
+/* Handwritten CLI Annotations */
+.ff-hw-cli {
+    font-family: monospace, monospace;
+    font-size: 12px;
+    color: rgba(79, 172, 254, 0.45) !important;
+}
+
+.ff-hw-s3uri {
+    font-family: monospace, monospace;
+    font-size: 12px;
+    color: rgba(242, 155, 60, 0.45) !important;
+}
+
+.ff-swatch-card {
+    position: absolute;
+    background: rgba(18, 24, 38, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 8px 12px;
+    border-radius: 10px;
+    backdrop-filter: blur(8px);
+    z-index: 1;
+    pointer-events: none;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.ff-swatch-title {
+    font-family: 'Caveat', cursive;
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.6);
+    display: block;
+    margin-bottom: 4px;
+}
+
+.ff-swatch-colors {
+    display: flex;
+    gap: 6px;
+}
+
+.ff-swatch-chip {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Member Profile Cards (Index Section 2 Glass Style) */
+.oh-freeform-note {
+    position: absolute;
+    width: 155px;
+    min-height: 120px;
+    padding: 16px 12px 14px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%);
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+    z-index: 3;
+    cursor: grab;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    text-align: center;
+    user-select: none;
+    transform-origin: center center;
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.oh-freeform-note:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 22px 45px rgba(0, 0, 0, 0.55);
+}
+
+.oh-freeform-note:active {
+    cursor: grabbing;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.65);
+    transform: scale(1.05) !important;
+    z-index: 99 !important;
+}
+
+/* Sticky Note Tape Decoration */
+.note-pin {
+    position: absolute;
+    top: -7px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 46px;
+    height: 14px;
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 2px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* Card Header: Avatar Circle */
+.note-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.member-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 13.5px;
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+    border: 2px solid rgba(255, 255, 255, 0.6);
+}
+
+.oh-freeform-note .note-content {
+    font-family: var(--font-sans);
+    font-weight: 800;
+    font-size: 12.5px;
+    line-height: 1.3;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    word-break: break-word;
+}
+
+/* Pastel Color Palettes & Avatar Accent Themes */
+.note-pink {
+    background: linear-gradient(135deg, #fda4af 0%, #f43f5e 100%);
+    color: #fff;
+}
+.avatar-pink { background: #be123c; }
+
+.note-cyan {
+    background: linear-gradient(135deg, #67e8f9 0%, #06b6d4 100%);
+    color: #083344;
+}
+.avatar-cyan { background: #0e7490; color: #fff; }
+
+.note-yellow {
+    background: linear-gradient(135deg, #fde047 0%, #eab308 100%);
+    color: #422006;
+}
+.avatar-yellow { background: #854d0e; color: #fff; }
+
+.note-green {
+    background: linear-gradient(135deg, #86efac 0%, #22c55e 100%);
+    color: #052e16;
+}
+.avatar-green { background: #15803d; color: #fff; }
+
+.note-purple {
+    background: linear-gradient(135deg, #d8b4fe 0%, #a855f7 100%);
+    color: #fff;
+}
+.avatar-purple { background: #6b21a8; }
+
+.note-orange {
+    background: linear-gradient(135deg, #fed7aa 0%, #f97316 100%);
+    color: #fff;
+}
+.avatar-orange { background: #c2410c; }
+
+.note-blue {
+    background: linear-gradient(135deg, #93c5fd 0%, #3b82f6 100%);
+    color: #fff;
+}
+.avatar-blue { background: #1d4ed8; }
+
+.note-indigo {
+    background: linear-gradient(135deg, #c7d2fe 0%, #6366f1 100%);
+    color: #fff;
+}
+.avatar-indigo { background: #3730a3; }
+
+/* Rotations for organic feel */
+.oh-freeform-note[data-id="chelsea"] { transform: rotate(-2deg); }
+.oh-freeform-note[data-id="kyzren"] { transform: rotate(1.5deg); }
+.oh-freeform-note[data-id="tanya"] { transform: rotate(-1deg); }
+.oh-freeform-note[data-id="raefshaun"] { transform: rotate(2deg); }
+.oh-freeform-note[data-id="christine"] { transform: rotate(-2.5deg); }
+.oh-freeform-note[data-id="john"] { transform: rotate(1.8deg); }
+.oh-freeform-note[data-id="rafael"] { transform: rotate(-1.5deg); }
+.oh-freeform-note[data-id="jan"] { transform: rotate(2.2deg); }
+
+/* Chrome Footer */
+.oh-freeform-footer {
+    position: relative;
+    z-index: 3;
+    padding: 8px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.35);
+    background: rgba(30, 29, 44, 0.95);
+    min-height: 32px;
+    font-family: var(--font-sans);
+}
+
+.oh-freeform-footer-items {
+    display: flex;
+    gap: 20px;
+}
+
+.oh-freeform-titlebar-icon-small {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background: url("../../img/awscatlogo.png") center / contain no-repeat;
+    vertical-align: middle;
+    margin-right: 6px;
+    opacity: 0.4;
+}
+
+/* Mobile Adaptive overrides for Freeform */
+@media (max-width: 1024px) {
+    .oh-freeform-window {
+        height: 520px;
+        margin-top: 40px;
+    }
+    .oh-freeform-toolbar {
+        top: 12px;
+        padding: 4px;
+        gap: 4px;
+    }
+    .oh-tool-btn {
+        width: 32px;
+        height: 32px;
+        padding: 6px;
+    }
+    .oh-tool-btn svg {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+/* ---- Decorative Freeform Doodles (Apple Freeform-inspired) ---- */
+.ff-doodle {
+    position: absolute;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* -- Handwritten annotations -- */
+.ff-handwritten {
+    font-family: 'Caveat', cursive;
+    color: rgba(255, 255, 255, 0.22);
+    white-space: nowrap;
+    user-select: none;
+}
+
+.ff-handwritten span {
+    display: inline-block;
+}
+
+/* "est. 2024" top-left */
+.ff-doodle:first-of-type.ff-handwritten {
+    font-size: 22px;
+    font-weight: 600;
+    transform: rotate(-4deg);
+    color: rgba(245, 183, 49, 0.3);
+}
+
+/* "AWS SBG" bold label */
+.ff-hw-title {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.08) !important;
+    letter-spacing: 2px;
+    transform: rotate(-6deg);
+}
+
+/* "the dream team ★" */
+.ff-hw-accent {
+    font-size: 18px;
+    font-weight: 600;
+    color: rgba(255, 107, 138, 0.28) !important;
+    transform: rotate(3deg);
+}
+
+/* "teamwork makes the dreamwork !!" quote */
+.ff-hw-quote {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.15;
+    color: rgba(255, 255, 255, 0.12) !important;
+    transform: rotate(-3deg);
+}
+
+/* -- Curvy arrows (hand-drawn style) -- */
+.ff-curvy-arrow {
+    opacity: 0.2;
+}
+
+.ff-curvy-arrow-1 {
+    width: 80px;
+    height: 30px;
+    color: #f5b731;
+}
+
+.ff-curvy-arrow-2 {
+    width: 55px;
+    height: 35px;
+    color: #ff6b8a;
+}
+
+.ff-curvy-arrow-3 {
+    width: 45px;
+    height: 25px;
+    color: #5de6c8;
+}
+
+.ff-curvy-arrow svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* -- Marker highlight swoosh -- */
+.ff-marker-swoosh {
+    width: 200px;
+    height: 20px;
+    color: #f5b731;
+    opacity: 0.15;
+}
+
+.ff-marker-swoosh svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* -- Doodle sketches (lightbulb, checkmark, starburst, etc.) -- */
+.ff-sketch {
+    opacity: 0.18;
+}
+
+.ff-sketch svg {
+    width: 100%;
+    height: 100%;
+}
+
+.ff-sketch-bulb {
+    width: 34px;
+    height: 42px;
+    color: #ffe066;
+}
+
+.ff-sketch-check {
+    width: 28px;
+    height: 28px;
+    color: #5de6c8;
+}
+
+.ff-starburst {
+    width: 36px;
+    height: 36px;
+    color: #ff9d5c;
+}
+
+.ff-doodle-circle {
+    width: 45px;
+    height: 45px;
+    color: #bbaffd;
+}
+
+.ff-bracket {
+    width: 14px;
+    height: 36px;
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.ff-cross {
+    width: 14px;
+    height: 14px;
+    color: rgba(255, 255, 255, 0.15);
+}
+
+/* -- Wavy underline doodle -- */
+.ff-wavy-line {
+    width: 110px;
+    height: 12px;
+    color: #ff6b8a;
+    opacity: 0.18;
+}
+
+.ff-wavy-line svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* -- Color palette dots -- */
+.ff-color-dots {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    opacity: 0.35;
+    height: 100%;
+    top: 0 !important;
+    bottom: 0 !important;
+    overflow: hidden;
+    justify-content: space-evenly;
+    padding: 16px 0;
+}
+
+.ff-dot {
+    display: block;
+    width: 11px;
+    height: 11px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+}
+
+/* -- AWS Service Logo Doodles (right side) -- */
+.ff-aws-logo {
+    opacity: 0.2;
+}
+
+.ff-aws-logo svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Lambda (λ) */
+.ff-aws-lambda {
+    width: 36px;
+    height: 40px;
+    color: #ff9d5c;
+    transform: rotate(-3deg);
+}
+
+/* S3 Bucket */
+.ff-aws-s3 {
+    width: 34px;
+    height: 38px;
+    color: #5de6c8;
+    transform: rotate(4deg);
+}
+
+/* Cloud outline */
+.ff-aws-cloud {
+    width: 48px;
+    height: 32px;
+    color: #7ec8e3;
+}
+
+/* EC2 Server rack */
+.ff-aws-ec2 {
+    width: 28px;
+    height: 34px;
+    color: #f5b731;
+    transform: rotate(2deg);
+}
+
+/* DynamoDB Lightning bolt */
+.ff-aws-dynamo {
+    width: 24px;
+    height: 32px;
+    color: #7c8cf5;
+    transform: rotate(5deg);
+}
+
+/* AWS Smile arrow */
+.ff-aws-smile {
+    width: 42px;
+    height: 18px;
+    color: #ff9d5c;
+    opacity: 0.22;
+}
+
+/* -- Right-side handwritten annotations -- */
+.ff-hw-builders {
+    font-size: 20px;
+    font-weight: 700;
+    color: rgba(255, 157, 92, 0.32) !important;
+    transform: rotate(5deg);
+}
+
+.ff-hw-cloud {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.1;
+    color: rgba(126, 200, 227, 0.28) !important;
+    transform: rotate(-4deg);
+}
+
+.ff-hw-serverless {
+    font-size: 15px;
+    font-weight: 600;
+    color: rgba(124, 140, 245, 0.28) !important;
+    transform: rotate(2deg);
+}
+
+.oh-freeform-notes-wrapper {
+    display: contents;
+}
+
+@media (max-width: 1024px) {
+    .oh-freeform-window {
+        height: auto !important;
+        margin-top: 24px;
+        display: flex;
+        flex-direction: column;
+        border-radius: 16px;
+    }
+
+    .oh-freeform-body {
+        height: auto !important;
+        flex: none;
+    }
+
+    .oh-freeform-canvas-container {
+        height: auto !important;
+        overflow: visible !important;
+        cursor: default;
+        padding-bottom: 20px;
+    }
+
+    .oh-freeform-canvas-board {
+        position: relative !important;
+        width: 100% !important;
+        transform: none !important;
+        background-image: radial-gradient(rgba(255, 255, 255, 0.14) 1.2px, transparent 1.2px) !important;
+        background-size: 24px 24px !important;
+        top: 0 !important;
+        left: 0 !important;
+    }
+
+    .oh-freeform-connections {
+        display: block !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    .oh-freeform-connections path {
+        stroke-width: 1.5px !important;
+        opacity: 0.22 !important;
+    }
+
+    .oh-freeform-connections circle {
+        r: 3.5px !important;
+        opacity: 0.6 !important;
+    }
+
+    .oh-freeform-board-title {
+        position: absolute !important;
+        width: calc(100% - 32px) !important;
+        max-width: 380px !important;
+        height: auto !important;
+        min-height: 80px !important;
+        padding: 14px 18px !important;
+        border-radius: 16px !important;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5) !important;
+        cursor: grab !important;
+        z-index: 2 !important;
+        transform: none !important;
+    }
+
+    .section2-card-title-text {
+        font-size: 14px !important;
+        letter-spacing: 0.4px !important;
+        margin-bottom: 4px !important;
+    }
+
+    .oh-freeform-board-title p {
+        font-size: 10.5px !important;
+    }
+
+    .oh-freeform-notes-wrapper {
+        display: contents !important;
+    }
+
+    .oh-freeform-note {
+        position: absolute !important;
+        min-height: 115px !important;
+        cursor: grab !important;
+        padding: 14px 10px 12px !important;
+        border-radius: 14px !important;
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35) !important;
+        gap: 6px !important;
+    }
+
+    .oh-freeform-note .note-content {
+        font-size: 12px !important;
+        line-height: 1.25 !important;
+    }
+
+    .member-avatar {
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 12.5px !important;
+    }
+
+    .note-pin {
+        width: 40px !important;
+        height: 12px !important;
+        top: -6px !important;
+    }
+
+    .oh-freeform-zoom-panel,
+    .oh-freeform-toolbar,
+    .oh-freeform-footer,
+    .ff-swatch-card,
+    .ff-badge-tag,
+    .ff-aws-badge-card,
+    .ff-service-chip,
+    .ff-doodle {
+        display: none !important;
+    }
+}
+
+
+

@@ -121,3 +121,20 @@
         }
     });
 })();
+
+/* ---------- Universal Finder Sidebar Folder Switcher (No Redirection) ---------- */
+document.addEventListener('click', function (e) {
+    const sidebarItem = e.target.closest('.dc-finder-sidebar-item, .ev-finder-sidebar-item, .of-finder-sidebar-item, .sbg-finder-sidebar-item, .oh-finder-sidebar-item, .jf-finder-sidebar-item');
+    if (sidebarItem) {
+        e.preventDefault();
+        const sidebar = sidebarItem.closest('aside, .dc-finder-sidebar, .ev-finder-sidebar, .of-finder-sidebar, .sbg-finder-sidebar, .oh-finder-sidebar, .jf-finder-sidebar');
+        if (sidebar) {
+            sidebar.querySelectorAll('.dc-finder-sidebar-item, .ev-finder-sidebar-item, .of-finder-sidebar-item, .sbg-finder-sidebar-item, .oh-finder-sidebar-item, .jf-finder-sidebar-item').forEach(function (item) {
+                item.classList.remove('active');
+                item.removeAttribute('aria-current');
+            });
+            sidebarItem.classList.add('active');
+            sidebarItem.setAttribute('aria-current', 'true');
+        }
+    }
+});

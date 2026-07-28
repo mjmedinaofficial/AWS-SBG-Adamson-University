@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="css/desktop-adaptive.css" />
     <link rel="stylesheet" href="css/mobile-layout.css" />
     <link rel="stylesheet" href="css/pages/org-history.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="custom-cursor-glow" id="custom-cursor-glow" aria-hidden="true"></div>
@@ -26,6 +29,7 @@
             <a class="nav-link" href="events.html">Events</a>
             <a class="nav-link" href="officers.html">Officers</a>
             <a class="nav-link" href="sbg.html">SBG</a>
+            <a class="nav-link" href="datacamp.html">DataCamp</a>
             <a class="nav-link nav-link--cta" href="join.html">Join Us</a>
         </nav>
     </header>
@@ -159,6 +163,220 @@
                     <div class="oh-finder-footer-items">
                         <span>50+ members</span>
                         <span data-finder-footer-events>11 events</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MAC FREEFORM WINDOW -->
+            <div class="oh-freeform-window">
+                <div class="oh-freeform-titlebar">
+                    <div class="oh-freeform-controls">
+                        <span class="oh-freeform-control red" aria-hidden="true"></span>
+                        <span class="oh-freeform-control yellow" aria-hidden="true"></span>
+                        <span class="oh-freeform-control green" aria-hidden="true"></span>
+                    </div>
+                    <div class="oh-freeform-title">
+                        <span class="oh-freeform-title-icon" aria-hidden="true"></span>
+                        Founding Members of the Organization
+                    </div>
+                    <div style="width: 52px;" aria-hidden="true"></div>
+                </div>
+
+                <div class="oh-freeform-body">
+                    <!-- Zoom & Pan Controls -->
+                    <div class="oh-freeform-zoom-panel">
+                        <button type="button" class="oh-zoom-btn zoom-out" id="ff-zoom-out" aria-label="Zoom out">−</button>
+                        <span class="oh-zoom-level" id="ff-zoom-level">100%</span>
+                        <button type="button" class="oh-zoom-btn zoom-in" id="ff-zoom-in" aria-label="Zoom in">+</button>
+                        <div class="oh-zoom-divider"></div>
+                        <button type="button" class="oh-zoom-btn reset-btn" id="ff-reset-view" title="Reset view">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15-6.7L21 8M21 3v5h-5M21 12a9 9 0 0 1-15 6.7L3 16M3 21v-5h5"/></svg>
+                        </button>
+                    </div>
+
+                    <!-- Floating Canvas Tools -->
+                    <div class="oh-freeform-toolbar">
+                        <button type="button" class="oh-tool-btn active" id="tool-select" title="Selection Tool" aria-label="Selection Tool">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/></svg>
+                        </button>
+                        <button type="button" class="oh-tool-btn" id="tool-text" title="Text Box" aria-label="Text Box">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg>
+                        </button>
+                        <button type="button" class="oh-tool-btn" id="tool-shape" title="Shapes" aria-label="Shapes">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/></svg>
+                        </button>
+                        <button type="button" class="oh-tool-btn" id="tool-line" title="Connector" aria-label="Connector">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M17 17V7H7"/></svg>
+                        </button>
+                    </div>
+
+                    <!-- Canvas Wrapper -->
+                    <div class="oh-freeform-canvas-container" id="ff-canvas-container">
+                        <div class="oh-freeform-canvas-board" id="ff-canvas-board">
+                            <!-- SVG overlay for connectors -->
+                            <svg class="oh-freeform-connections" id="ff-connections" aria-hidden="true"></svg>
+
+                            <!-- ====== FREEFORM CANVAS DECORATIONS & BADGES ====== -->
+
+                            <!-- Canvas Section Badge: "FOUNDING BOARD" -->
+                            <div class="ff-badge-tag" style="left: 45px; top: 15px;" aria-hidden="true">
+                                <span class="ff-badge-highlight">FOUNDING BOARD</span>
+                                <span class="ff-badge-sub">est. 2024 ✦ AdU Chapter</span>
+                            </div>
+
+                            <!-- AWS Cloud Infrastructure Badge (Top Right) -->
+                            <div class="ff-aws-badge-card" style="right: 50px; top: 20px;" aria-hidden="true">
+                                <div class="ff-aws-badge-header">
+                                    <svg class="ff-aws-badge-icon" viewBox="0 0 24 24" fill="none" stroke="#f29b3c" stroke-width="2"><path d="M17.5 19H9a7 7 0 116.71-9h1.79a4.5 4.5 0 110 9z"/></svg>
+                                    <span class="ff-aws-badge-title">AWS Cloud Stack</span>
+                                </div>
+                                <span class="ff-aws-badge-sub">us-east-1 · Multi-AZ ⚡</span>
+                            </div>
+
+                            <!-- AWS Service Badges & Doodles -->
+                            <!-- AWS Lambda Badge -->
+                            <div class="ff-service-chip chip-lambda" style="left: 45px; top: 120px;" aria-hidden="true">
+                                <span class="ff-chip-icon">λ</span>
+                                <span class="ff-chip-label">AWS Lambda</span>
+                            </div>
+
+                            <!-- Amazon EC2 Badge -->
+                            <div class="ff-service-chip chip-ec2" style="right: 55px; top: 110px;" aria-hidden="true">
+                                <svg class="ff-chip-svg" viewBox="0 0 24 24" fill="none" stroke="#4facfe" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9z"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M1 9h3M1 15h3M20 9h3M20 15h3"/></svg>
+                                <span class="ff-chip-label">Amazon EC2</span>
+                            </div>
+
+                            <!-- Amazon S3 Storage Badge -->
+                            <div class="ff-service-chip chip-s3" style="left: 45px; top: 290px;" aria-hidden="true">
+                                <svg class="ff-chip-svg" viewBox="0 0 24 24" fill="none" stroke="#ff758f" stroke-width="2"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.66 3.58 3 8 3s8-1.34 8-3V6"/><path d="M4 12v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6"/></svg>
+                                <span class="ff-chip-label">Amazon S3</span>
+                            </div>
+
+                            <!-- Amazon DynamoDB Badge -->
+                            <div class="ff-service-chip chip-dynamo" style="right: 55px; top: 290px;" aria-hidden="true">
+                                <svg class="ff-chip-svg" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                                <span class="ff-chip-label">DynamoDB</span>
+                            </div>
+
+                            <!-- Color Palette Swatch Block -->
+                            <div class="ff-swatch-card" style="left: 40px; top: 410px;" aria-hidden="true">
+                                <span class="ff-swatch-title">AWS SBG Palette</span>
+                                <div class="ff-swatch-colors">
+                                    <span class="ff-swatch-chip" style="background: #4a52c7;" title="Royal Blue"></span>
+                                    <span class="ff-swatch-chip" style="background: #9b51e0;" title="Yarn Purple"></span>
+                                    <span class="ff-swatch-chip" style="background: #f49c24;" title="Gold Accent"></span>
+                                    <span class="ff-swatch-chip" style="background: #bbaffd;" title="Website Lavender"></span>
+                                </div>
+                            </div>
+
+                            <!-- Handwritten CLI & Tech Annotations -->
+                            <div class="ff-doodle ff-handwritten ff-hw-cli" style="left: 170px; top: 25px;" aria-hidden="true">
+                                <span>$ aws configure set region us-east-1</span>
+                            </div>
+
+                            <div class="ff-doodle ff-handwritten ff-hw-s3uri" style="right: 220px; top: 30px;" aria-hidden="true">
+                                <span>s3://aws-sbg-adu/founding-board/</span>
+                            </div>
+
+                            <!-- Handwritten quote annotation -->
+                            <div class="ff-doodle ff-handwritten ff-hw-quote" style="right: 45px; bottom: 25px;" aria-hidden="true">
+                                <span>teamwork makes<br>the dreamwork !!</span>
+                            </div>
+
+                            <!-- Handwritten label: "the dream team ★" -->
+                            <div class="ff-doodle ff-handwritten ff-hw-accent" style="left: 440px; top: 440px;" aria-hidden="true">
+                                <span>the dream team ★ ⚡</span>
+                            </div>
+
+                            <!-- Board Title Header (Section 2 Glass Card Style) -->
+                            <div class="oh-freeform-board-title" id="ff-board-title">
+                                <h2 class="section2-card-title-text">founding members of the organization</h2>
+                                <p>Interactive Mind Map · Drag cards to customize your board</p>
+                            </div>
+
+                            <!-- Member Cards Wrapper -->
+                            <div class="oh-freeform-notes-wrapper">
+                                <!-- Member 1: Chelsea Kate Del Carmen -->
+                                <div class="oh-freeform-note note-pink" style="left: 80px; top: 70px;" data-id="chelsea">
+                                    <div class="note-pin"></div>
+                                    <div class="note-header">
+                                        <div class="member-avatar avatar-pink">CD</div>
+                                    </div>
+                                    <div class="note-content">Chelsea Kate Del Carmen</div>
+                                </div>
+
+                                <!-- Member 2: Kyzren Pamatmat -->
+                                <div class="oh-freeform-note note-cyan" style="left: 470px; top: 40px;" data-id="kyzren">
+                                    <div class="note-pin"></div>
+                                    <div class="note-header">
+                                        <div class="member-avatar avatar-cyan">KP</div>
+                                    </div>
+                                    <div class="note-content">Kyzren Pamatmat</div>
+                                </div>
+
+                                <!-- Member 3: Tanya Naveen Vargas -->
+                                <div class="oh-freeform-note note-yellow" style="left: 840px; top: 60px;" data-id="tanya">
+                                    <div class="note-pin"></div>
+                                    <div class="note-header">
+                                        <div class="member-avatar avatar-yellow">TV</div>
+                                    </div>
+                                    <div class="note-content">Tanya Naveen Vargas</div>
+                                </div>
+
+                                <!-- Member 4: Raefshaun Ethan Bayani -->
+                                <div class="oh-freeform-note note-green" style="left: 70px; top: 230px;" data-id="raefshaun">
+                                    <div class="note-pin"></div>
+                                    <div class="note-header">
+                                        <div class="member-avatar avatar-green">RB</div>
+                                    </div>
+                                    <div class="note-content">Raefshaun Ethan Bayani</div>
+                                </div>
+
+                                <!-- Member 5: Christine Angela Rodriguez -->
+                                <div class="oh-freeform-note note-purple" style="left: 860px; top: 220px;" data-id="christine">
+                                    <div class="note-pin"></div>
+                                    <div class="note-header">
+                                        <div class="member-avatar avatar-purple">CR</div>
+                                    </div>
+                                    <div class="note-content">Christine Angela Rodriguez</div>
+                                </div>
+
+                                <!-- Member 6: John Cedrick Acuña -->
+                                <div class="oh-freeform-note note-orange" style="left: 140px; top: 370px;" data-id="john">
+                                    <div class="note-pin"></div>
+                                    <div class="note-header">
+                                        <div class="member-avatar avatar-orange">JA</div>
+                                    </div>
+                                    <div class="note-content">John Cedrick Acuña</div>
+                                </div>
+
+                                <!-- Member 7: Rafael Espiña -->
+                                <div class="oh-freeform-note note-blue" style="left: 470px; top: 380px;" data-id="rafael">
+                                    <div class="note-pin"></div>
+                                    <div class="note-header">
+                                        <div class="member-avatar avatar-blue">RE</div>
+                                    </div>
+                                    <div class="note-content">Rafael Espiña</div>
+                                </div>
+
+                                <!-- Member 8: Jan Ryan Ancheta -->
+                                <div class="oh-freeform-note note-indigo" style="left: 800px; top: 360px;" data-id="jan">
+                                    <div class="note-pin"></div>
+                                    <div class="note-header">
+                                        <div class="member-avatar avatar-indigo">JA</div>
+                                    </div>
+                                    <div class="note-content">Jan Ryan Ancheta</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="oh-freeform-footer">
+                    <span><span class="oh-freeform-titlebar-icon-small" aria-hidden="true"></span>Canvas Grid: Active</span>
+                    <div class="oh-freeform-footer-items">
+                        <span>8 founding members</span>
+                        <span>8 connections</span>
                     </div>
                 </div>
             </div>

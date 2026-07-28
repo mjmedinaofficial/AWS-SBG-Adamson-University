@@ -1,0 +1,782 @@
+/* ============================================================
+   AWS SBG AdU — DataCamp Donates Partnership Page
+   Card Design styled strictly with Join Us CTA button color (var(--aws-orange))
+   ============================================================ */
+
+/* ---------- PAGE CONTENT ---------- */
+.dc-page {
+    position: relative;
+    z-index: 1;
+    padding: 160px var(--page-padding) 60px;
+}
+
+.page-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 8px 18px;
+    border-radius: 100px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+    margin-bottom: 28px;
+}
+
+.page-back:hover {
+    background: rgba(255, 255, 255, 0.14);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+.page-back .arrow {
+    transition: transform 0.25s ease;
+}
+
+.page-back:hover .arrow {
+    transform: translateX(-4px);
+}
+
+/* Page Hero Header */
+.dc-hero {
+    text-align: center;
+    margin-bottom: 40px;
+    animation: fadeInUp 0.8s ease-out both;
+}
+
+.page-hero-logo {
+    width: 20vw;
+    max-width: 280px;
+    min-width: 220px;
+    height: auto;
+    object-fit: contain;
+    border-radius: 0 !important;
+    margin: 0 auto 20px auto;
+    display: block;
+    filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.45));
+}
+
+.page-label {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 16px;
+    padding: 6px 16px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 100px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dc-hero h1 {
+    font-size: clamp(36px, 5.5vw, 60px);
+    font-weight: 800;
+    line-height: 1.04;
+    margin-bottom: 16px;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.dc-hero p {
+    font-size: clamp(15px, 1.4vw, 17px);
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.7;
+    max-width: 640px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.dc-hero-action {
+    margin-top: 22px;
+    display: flex;
+    justify-content: center;
+}
+
+/* ---------- FINDER WINDOW (MAC OS CARD) ---------- */
+.dc-finder-wrap {
+    max-width: 1160px;
+    margin: 0 auto;
+}
+
+@keyframes dcPulseGlow {
+    0%, 100% { box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05) inset, 0 0 20px rgba(242, 155, 60, 0.14); }
+    50% { box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05) inset, 0 0 40px rgba(242, 155, 60, 0.28); }
+}
+
+.dc-finder-window {
+    position: relative;
+    width: 100%;
+    border-radius: 12px;
+    background: rgba(28, 26, 42, 0.92);
+    backdrop-filter: blur(55px) saturate(180%);
+    -webkit-backdrop-filter: blur(55px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+    overflow: hidden;
+    animation: dcPulseGlow 4s ease-in-out infinite;
+    display: flex;
+    flex-direction: column;
+}
+
+.dc-finder-titlebar {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    background: rgba(40, 40, 45, 0.95);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    flex-shrink: 0;
+    gap: 12px;
+    min-height: 44px;
+}
+
+.dc-finder-controls {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.dc-finder-control {
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.dc-finder-control.red { background: #ff5f57; border-color: #e04e47; }
+.dc-finder-control.yellow { background: #ffbd2e; border-color: #e0a524; }
+.dc-finder-control.green { background: #28c840; border-color: #1fa833; }
+
+.dc-finder-title {
+    flex: 1;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.6);
+    letter-spacing: 0.2px;
+    font-family: var(--font-sans);
+}
+
+.dc-finder-title-icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: url("../../img/awscatlogo.png") center / contain no-repeat;
+    vertical-align: middle;
+    margin-right: 6px;
+    filter: brightness(0.85);
+}
+
+/* Finder Body & Sidebar */
+.dc-finder-body {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+    background: rgba(20, 20, 25, 0.88);
+}
+
+.dc-finder-sidebar {
+    width: 180px;
+    flex-shrink: 0;
+    background: rgba(30, 30, 35, 0.9);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 12px 0;
+}
+
+.dc-finder-sidebar-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: rgba(255, 255, 255, 0.4);
+    padding: 8px 16px 4px;
+}
+
+.dc-finder-sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 12px;
+    margin: 0 8px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.6);
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    pointer-events: auto;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.dc-finder-sidebar-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.dc-finder-sidebar-item.active {
+    background: rgba(187, 175, 253, 0.15);
+    color: #bbaffd;
+    font-weight: 500;
+}
+
+.dc-finder-sidebar-item .icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    background: url("../../img/folder.png") center / contain no-repeat;
+    opacity: 0.8;
+}
+
+.dc-finder-sidebar-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.06);
+    margin: 8px 0;
+}
+
+/* Responsive Overrides for Mobile & Minimized Screens */
+@media (max-width: 1024px) {
+    .dc-finder-sidebar {
+        display: none;
+    }
+
+    .dc-finder-main {
+        padding: 32px 22px;
+        gap: 44px;
+    }
+
+    .dc-deal-row {
+        grid-template-columns: 1fr !important;
+        gap: 16px;
+    }
+
+    .page-hero-logo {
+        width: 48vw;
+        max-width: 360px;
+        min-width: 240px;
+        margin: 0 auto 16px auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .dc-hero {
+        margin-bottom: 28px;
+        padding: 0 8px;
+    }
+
+    .page-hero-logo {
+        width: 72vw;
+        max-width: 340px;
+        min-width: 220px;
+        margin: 0 auto 14px auto;
+    }
+
+    .dc-hero p {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .dc-hero-action {
+        margin-top: 18px;
+    }
+
+    .dc-hero-action .dc-cta-btn {
+        width: 100%;
+        max-width: 320px;
+        justify-content: center;
+        text-align: center;
+        padding: 12px 18px;
+        font-size: 13.5px;
+    }
+
+    .dc-finder-titlebar {
+        padding: 10px 14px;
+    }
+
+    .dc-finder-title {
+        font-size: 12px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .dc-finder-main {
+        padding: 24px 16px;
+        gap: 40px;
+    }
+
+    .dc-deal-row {
+        grid-template-columns: 1fr !important;
+        gap: 16px;
+    }
+
+    .dc-content-block {
+        padding: 18px 16px;
+        gap: 16px;
+        border-radius: 14px;
+    }
+
+    .dc-section-head h2 {
+        font-size: 18px;
+        line-height: 1.35;
+        letter-spacing: 0.6px;
+        word-spacing: 2px;
+        margin-bottom: 6px;
+    }
+
+    .dc-section-head p {
+        font-size: 12.5px;
+    }
+
+    .dc-reminder-item {
+        padding: 12px 14px;
+        gap: 12px;
+    }
+
+    .dc-reminder-title {
+        font-size: 14px;
+    }
+
+    .dc-reminder-desc {
+        font-size: 12px;
+    }
+
+    .dc-finder-footer {
+        flex-direction: column;
+        gap: 6px;
+        text-align: center;
+        padding: 12px 14px;
+    }
+
+    .dc-finder-footer-items {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .dc-skill-square-card {
+        flex: 0 0 155px;
+        width: 155px;
+        height: 155px;
+        padding: 14px 10px;
+    }
+
+    .dc-skill-square-icon {
+        width: 56px;
+        height: 56px;
+    }
+
+    .dc-skill-square-icon svg {
+        width: 36px;
+        height: 36px;
+    }
+
+    .dc-skill-square-card h4 {
+        font-size: 12px;
+    }
+
+    .dc-skill-square-card p {
+        font-size: 10px;
+    }
+}
+
+.dc-finder-sidebar-item .icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    background: url("../../img/folder.png") center / contain no-repeat;
+    opacity: 0.8;
+}
+
+.dc-finder-sidebar-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.06);
+    margin: 8px 0;
+}
+
+/* Finder Main Panel */
+.dc-finder-main {
+    flex: 1;
+    padding: 24px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Section Blocks */
+.dc-content-block {
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 16px;
+    padding: 22px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-bottom: 0;
+}
+
+/* Section Header inside Block */
+.dc-section-head {
+    margin-bottom: 4px;
+}
+
+.dc-section-head h2 {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 4px;
+    letter-spacing: 0.5px;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: inline-block;
+}
+
+.dc-section-head p {
+    font-size: 13.5px;
+    color: rgba(255, 255, 255, 0.65);
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* macOS Reminders App Style List for "WHAT YOU'LL GET" */
+.dc-reminders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.dc-reminder-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 18px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.dc-reminder-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(242, 155, 60, 0.35);
+    transform: translateX(3px);
+}
+
+.dc-reminder-check {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+    transition: all 0.2s ease;
+    border: 2px solid var(--aws-orange);
+    background: rgba(242, 155, 60, 0.15);
+    color: var(--aws-orange);
+}
+
+.dc-reminder-check svg {
+    width: 12px;
+    height: 12px;
+}
+
+.dc-reminder-item:hover .dc-reminder-check {
+    transform: scale(1.1);
+    background: var(--aws-orange);
+    color: #ffffff;
+}
+
+.dc-reminder-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.dc-reminder-title {
+    font-size: 15.5px;
+    font-weight: 700;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.dc-reminder-tag {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    padding: 2.5px 10px;
+    border-radius: 100px;
+    flex-shrink: 0;
+    background: rgba(242, 155, 60, 0.15);
+    color: var(--aws-orange);
+    border: 1px solid rgba(242, 155, 60, 0.35);
+}
+
+.dc-reminder-sub {
+    font-size: 13.5px;
+    color: rgba(255, 255, 255, 0.68);
+    line-height: 1.45;
+    margin: 0;
+}
+
+/* Infinite Marquee Auto-Scrolling Container */
+.dc-skills-scroll-wrap {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding: 10px 0;
+    mask-image: linear-gradient(to right, transparent 0%, #000 6%, #000 94%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 6%, #000 94%, transparent 100%);
+}
+
+.dc-skills-scroll-track {
+    display: flex;
+    gap: 16px;
+    width: max-content;
+    animation: dcInfiniteMarquee 25s linear infinite;
+    will-change: transform;
+}
+
+.dc-skills-scroll-wrap:hover .dc-skills-scroll-track {
+    animation-play-state: paused;
+}
+
+@keyframes dcInfiniteMarquee {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(calc(-50% - 8px));
+    }
+}
+
+/* Square Skill Card */
+.dc-skill-square-card {
+    flex: 0 0 180px;
+    width: 180px;
+    height: 180px;
+    scroll-snap-align: start;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    padding: 18px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 8px;
+    transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    user-select: none;
+    box-sizing: border-box;
+}
+
+.dc-skill-square-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+}
+
+.dc-skill-square-icon {
+    width: 66px;
+    height: 66px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-bottom: 2px;
+    transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+}
+
+.dc-skill-square-icon svg {
+    width: 42px;
+    height: 42px;
+}
+
+.dc-skill-square-card:hover .dc-skill-square-icon {
+    transform: scale(1.08);
+    background: rgba(242, 155, 60, 0.14);
+    border-color: rgba(242, 155, 60, 0.35);
+}
+
+.dc-skill-square-card h4 {
+    font-size: 13px;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.dc-skill-square-card p {
+    font-size: 10.5px;
+    color: rgba(255, 255, 255, 0.58);
+    line-height: 1.3;
+    margin: 0;
+}
+
+/* Technology-Specific Hover Highlights for Square Cards */
+.item-py:hover { border-color: rgba(55, 118, 171, 0.45); background: rgba(55, 118, 171, 0.08); }
+.item-sql:hover { border-color: rgba(56, 189, 248, 0.45); background: rgba(56, 189, 248, 0.08); }
+.item-ml:hover { border-color: rgba(238, 76, 41, 0.45); background: rgba(238, 76, 41, 0.08); }
+.item-ai:hover { border-color: rgba(16, 163, 127, 0.45); background: rgba(16, 163, 127, 0.08); }
+.item-da:hover { border-color: rgba(0, 164, 239, 0.45); background: rgba(0, 164, 239, 0.08); }
+.item-bi:hover { border-color: rgba(242, 200, 17, 0.45); background: rgba(242, 200, 17, 0.08); }
+.item-ds:hover { border-color: rgba(97, 218, 251, 0.45); background: rgba(97, 218, 251, 0.08); }
+.item-de:hover { border-color: rgba(226, 90, 28, 0.45); background: rgba(226, 90, 28, 0.08); }
+
+/* Deal Cards Row (3-Column Grid) */
+.dc-deal-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.dc-deal-item {
+    padding: 22px 20px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.dc-deal-item:hover {
+    transform: translateY(-3px);
+    background: rgba(242, 155, 60, 0.06);
+    border-color: rgba(242, 155, 60, 0.35);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 20px rgba(242, 155, 60, 0.12);
+}
+
+.dc-deal-item-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dc-deal-badge {
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    color: var(--aws-orange);
+    background: rgba(242, 155, 60, 0.14);
+    border: 1px solid rgba(242, 155, 60, 0.3);
+    padding: 3px 10px;
+    border-radius: 100px;
+    text-transform: uppercase;
+}
+
+.dc-deal-item h3 {
+    font-size: 16.5px;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0;
+    letter-spacing: 0.3px;
+}
+
+.dc-deal-item p {
+    font-size: 13.5px;
+    color: rgba(255, 255, 255, 0.72);
+    line-height: 1.55;
+    margin: 0;
+}
+
+.dc-deal-metric {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: rgba(242, 155, 60, 0.1);
+    border: 1px solid rgba(242, 155, 60, 0.25);
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--aws-orange);
+    margin-top: auto;
+}
+
+/* Apply CTA Banner */
+.dc-cta-box {
+    padding: 24px 28px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(45, 16, 102, 0.5) 0%, rgba(26, 10, 74, 0.6) 100%);
+    border: 1px solid rgba(242, 155, 60, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.dc-cta-text h3 {
+    font-size: 18px;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 4px;
+}
+
+.dc-cta-text p {
+    font-size: 13.5px;
+    color: rgba(239, 220, 241, 0.8);
+    margin: 0;
+    line-height: 1.45;
+}
+
+.dc-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    background: var(--aws-orange);
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all 0.25s ease;
+    box-shadow: 0 6px 20px rgba(242, 155, 60, 0.3);
+    flex-shrink: 0;
+}
+
+.dc-cta-btn:hover {
+    background: var(--aws-orange-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(242, 155, 60, 0.4);
+}
+
+/* Finder Footer */
+.dc-finder-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    background: rgba(30, 30, 35, 0.95);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.dc-finder-footer-items {
+    display: flex;
+    gap: 16px;
+}

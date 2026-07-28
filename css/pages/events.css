@@ -221,7 +221,7 @@ body::after {
 }
 
 .ev-finder-sidebar--static .ev-finder-sidebar-item {
-    cursor: default;
+    cursor: pointer;
     width: auto;
     border: none;
     background: transparent;
