@@ -137,6 +137,7 @@
                 middleName:    form.middleName.value.trim(),
                 lastName:      form.lastName.value.trim(),
                 studentNumber: form.studentNumber.value.trim(),
+                email:         form.email ? form.email.value.trim() : '',
                 course:        form.course.value.trim(),
                 year:          form.year.value,
                 fileName:      selectedFile.name,

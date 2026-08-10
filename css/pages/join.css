@@ -154,6 +154,30 @@
     text-align: center;
 }
 
+.jf-payment-qr-price {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(242, 155, 60, 0.12);
+    border: 1px solid rgba(242, 155, 60, 0.35);
+    border-radius: 20px;
+    padding: 6px 16px;
+    margin-bottom: 12px;
+}
+
+.jf-price-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.jf-price-tag {
+    font-size: 16px;
+    font-weight: 800;
+    color: #f29b3c;
+    letter-spacing: 0.5px;
+}
+
 .jf-payment-qr-title {
     font-size: 12px;
     font-weight: 500;

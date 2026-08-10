@@ -98,6 +98,10 @@
                                     <label for="student-number">Student Number</label>
                                     <input type="text" id="student-number" name="studentNumber" placeholder="Required" required />
                                 </div>
+                                <div class="jf-form-row">
+                                    <label for="email">Email Address</label>
+                                    <input type="email" id="email" name="email" autocomplete="email" placeholder="name@adamson.edu.ph" required />
+                                </div>
                             </div>
 
                             <p class="jf-form-section-label">Academic Details</p>
@@ -123,7 +127,11 @@
 
                             <p class="jf-form-section-label">Payment & Proof of Payment</p>
                             <div class="jf-payment-qr-wrap">
-                                <p class="jf-payment-qr-title">Scan QR Code to Pay Membership Fee</p>
+                                <div class="jf-payment-qr-price">
+                                    <span class="jf-price-label">Membership Fee:</span>
+                                    <span class="jf-price-tag">₱100</span>
+                                </div>
+                                <p class="jf-payment-qr-title">Scan QR Code to Pay</p>
                                 <div class="jf-payment-qr-card">
                                     <img src="img/aws-funds.jpg" alt="AWS SBG AdU Payment QR Code" class="jf-payment-qr-img" />
                                 </div>

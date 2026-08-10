@@ -40,13 +40,14 @@ function doPost(e) {
     const sheet = SpreadsheetApp.openById(SHEET_ID).getActiveSheet();
     sheet.appendRow([
       new Date().toLocaleString('en-PH', { timeZone: 'Asia/Manila' }), // Timestamp
-      data.firstName   || '',
-      data.middleName  || '',
-      data.lastName     || '',
-      data.studentNumber || '',
-      data.course       || '',
-      data.year         || '',
-      driveLink                                                         // Receipt link
+      data.firstName     || '',
+      data.middleName    || '',
+      data.lastName       || '',
+      data.studentNumber  || '',
+      data.email          || '',
+      data.course         || '',
+      data.year           || '',
+      driveLink                                                           // Receipt link
     ]);
     
     return ContentService
