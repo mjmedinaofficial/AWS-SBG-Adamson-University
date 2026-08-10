@@ -148,6 +148,108 @@
     margin: -12px 0 22px 4px;
 }
 
+/* Payment QR Code */
+.jf-payment-qr-wrap {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.jf-payment-qr-title {
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 10px;
+}
+
+.jf-payment-qr-card {
+    display: inline-block;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.jf-payment-qr-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(187, 175, 253, 0.3);
+}
+
+.jf-payment-qr-img {
+    max-width: 360px;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    display: block;
+}
+
+/* Upload zone */
+.jf-form-row--upload {
+    align-items: stretch;
+    padding: 14px;
+    min-height: auto;
+}
+
+.jf-upload-zone {
+    flex: 1;
+    min-width: 0;
+}
+
+.jf-upload-zone {
+    position: relative;
+    border-radius: 10px;
+    padding: 16px;
+    background: rgba(187, 175, 253, 0.1);
+    border: 1.5px solid rgba(187, 175, 253, 0.3);
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.25s ease, background 0.25s ease;
+}
+
+.jf-upload-zone:hover {
+    background: rgba(187, 175, 253, 0.15);
+    border-color: rgba(187, 175, 253, 0.5);
+}
+
+.jf-upload-zone--dragover {
+    border-color: rgba(187, 175, 253, 0.6);
+    background: rgba(187, 175, 253, 0.08);
+}
+
+.jf-upload-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.jf-upload-text {
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(187, 175, 253, 0.9);
+}
+
+.jf-upload-hint {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.jf-upload-preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 0;
+}
+
+.jf-upload-filename {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.65);
+    word-break: break-all;
+    line-height: 1.4;
+    text-align: center;
+}
+
 .jf-form-actions {
     display: flex;
     justify-content: flex-end;
@@ -188,6 +290,123 @@
     background: #f7ad58;
     transform: translateY(-1px);
     box-shadow: 0 0 20px rgba(242, 155, 60, 0.45);
+}
+
+.jf-btn-primary:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Submit button spinner */
+@keyframes jfSpin {
+    to { transform: rotate(360deg); }
+}
+
+.jf-btn-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: jfSpin 0.6s linear infinite;
+    vertical-align: middle;
+}
+
+/* Loading state (full window) */
+.jf-form-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 380px;
+    padding: 48px 24px;
+    text-align: center;
+    animation: fadeInUp 0.4s ease-out both;
+}
+
+.jf-loading-spinner-large {
+    width: 60px;
+    height: 60px;
+    border: 4px solid rgba(242, 155, 60, 0.15);
+    border-top-color: #f29b3c;
+    border-right-color: #bbaffd;
+    border-radius: 50%;
+    animation: jfSpin 0.8s linear infinite;
+    box-shadow: 0 0 30px rgba(242, 155, 60, 0.3);
+    margin-bottom: 24px;
+}
+
+.jf-form-loading h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 10px;
+}
+
+.jf-form-loading p {
+    font-size: 13px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.6);
+    max-width: 380px;
+    margin: 0 auto;
+}
+
+/* Success state */
+.jf-form-success {
+    text-align: center;
+    padding: 48px 24px;
+    animation: fadeInUp 0.5s ease-out both;
+}
+
+.jf-success-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(40, 200, 64, 0.15);
+    border: 2px solid rgba(40, 200, 64, 0.4);
+    color: #28c840;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 18px;
+}
+
+.jf-form-success h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 10px;
+}
+
+.jf-form-success p {
+    font-size: 13px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.55);
+    max-width: 360px;
+    margin: 0 auto 22px;
+}
+
+/* Error state */
+.jf-form-error {
+    text-align: center;
+    padding: 48px 24px;
+    animation: fadeInUp 0.5s ease-out both;
+}
+
+.jf-form-error p {
+    font-size: 13px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.55);
+    max-width: 380px;
+    margin: 0 auto 18px;
+}
+
+.jf-form-error strong {
+    color: #ff6b6b;
 }
 
 .jf-finder-footer {
