@@ -131,3 +131,5 @@ QUICK CHECKLIST FOR A NEW EVENT
 [ ] Create img/event{N}/ folder
 [ ] Add event{N}-1.jpg through event{N}-4.jpg (or set imageCount / images)
 [ ] Refresh browser and test homepage + events.html
+
+Gianna was here
